@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS company_payments;
 DROP TABLE IF EXISTS planned_time;
 DROP TABLE IF EXISTS actual_time;
 DROP TABLE IF EXISTS tasks;
-DROP TABLE IF EXISTS objects;
+DROP TABLE IF EXISTS ordered_objects;
 DROP TABLE IF EXISTS employee_payments;
 DROP TABLE IF EXISTS companies;
 DROP TABLE IF EXISTS salaries;
@@ -98,11 +98,11 @@ CREATE TABLE groups
 (
     id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     title      VARCHAR(255) NOT NULL,
-    group_type VARCHAR(255) NOT NULL,
+    object_type VARCHAR(255) NOT NULL,
     comment    TEXT
 );
 
-CREATE TABLE objects
+CREATE TABLE ordered_objects
 (
     id                 INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     company_id         INTEGER      NOT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE objects
     planned_end_date   DATE         NOT NULL,
     actual_end_date    DATE         NOT NULL,
     sum                MONEY        NOT NULL,
-    type               VARCHAR(255) NOT NULL,
+    object_type               VARCHAR(255) NOT NULL,
     payment_order      VARCHAR(255) NOT NULL,
     quantity_string    SMALLINT     NOT NULL,
     group_id           INTEGER      NOT NULL,
@@ -132,7 +132,7 @@ CREATE TABLE planned_time
     object_id   INTEGER  NOT NULL,
     employee_id INTEGER  NOT NULL,
     time        SMALLINT NOT NULL,
-    FOREIGN KEY (object_id) REFERENCES objects (id) ON DELETE CASCADE,
+    FOREIGN KEY (object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
 
@@ -144,7 +144,7 @@ CREATE TABLE actual_time
     date            DATE     NOT NULL,
     actual_time     SMALLINT NOT NULL,
     accounting_time SMALLINT NOT NULL,
-    FOREIGN KEY (object_id) REFERENCES objects (id) ON DELETE CASCADE,
+    FOREIGN KEY (object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
 
@@ -159,6 +159,6 @@ CREATE TABLE tasks
     comment        TEXT,
     for_rg         TEXT, -- NEED EDIT
     for_manager    TEXT, -- NEED EDIT
-    FOREIGN KEY (object_id) REFERENCES objects (id) ON DELETE CASCADE,
+    FOREIGN KEY (object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
