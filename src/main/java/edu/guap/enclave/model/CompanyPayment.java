@@ -79,8 +79,6 @@ public class CompanyPayment extends AbstractPaymentEntity {
         return "CompanyPayment{" +
                 "id=" + id +
                 ", date=" + date +
-                ", company=" + company +
-                ", ourCompany=" + ourCompany +
                 ", transaction=" + transaction +
                 ", cashless=" + cashless +
                 ", comment='" + comment + '\'' +

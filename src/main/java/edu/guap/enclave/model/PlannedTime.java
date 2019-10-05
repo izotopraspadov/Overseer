@@ -17,7 +17,7 @@ public class PlannedTime extends AbstractBaseEntity {
     @NotNull
     private OrderedObject object;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -66,7 +66,6 @@ public class PlannedTime extends AbstractBaseEntity {
     public String toString() {
         return "PlannedTime{" +
                 "id=" + id +
-                ", object=" + object +
                 ", employee=" + employee +
                 ", time=" + time +
                 '}';

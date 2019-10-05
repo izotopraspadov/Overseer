@@ -1,11 +1,18 @@
 package edu.guap.enclave.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "groups")
-public class Group extends AbstractTitleEntity {
+@Table(name = "groups", uniqueConstraints = {@UniqueConstraint(columnNames = "title", name = "groups_unique_title_idx")})
+public class Group extends AbstractBaseEntity {
+
+    @Column(name = "title", nullable = false, unique = true)
+    @NotBlank
+    @Size(min = 2, max = 255)
+    private String title;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "object_type")
@@ -19,9 +26,18 @@ public class Group extends AbstractTitleEntity {
     }
 
     public Group(Integer id, String title, ObjectType objectType, String comment) {
-        super(id, title);
+        super(id);
+        this.title = title;
         this.objectType = objectType;
         this.comment = comment;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public ObjectType getObjectType() {

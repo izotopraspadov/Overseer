@@ -107,10 +107,7 @@ public class EmployeePayment extends AbstractPaymentEntity {
     public String toString() {
         return "EmployeePayment{" +
                 "id=" + id +
-                ", employee=" + employee +
                 ", typeCounterparty=" + typeCounterparty +
-                ", companyCounterparty=" + companyCounterparty +
-                ", employeeCounterparty=" + employeeCounterparty +
                 ", typePayment=" + typePayment +
                 ", comment='" + comment + '\'' +
                 '}';

@@ -19,18 +19,19 @@ public class Salary extends AbstractBaseEntity {
     @NotNull
     private Employee employee;
 
-    @Column(name = "date_start", nullable = false)
+    @Column(name = "start_date", nullable = false)
     @NotNull
     // pattern
     private LocalDate dateStart;
 
-    @Column(name = "date_end", nullable = false)
+    @Column(name = "end_date", nullable = false)
     @NotNull
     // pattern
     private LocalDate dateEnd;
 
     @Digits(integer = 5, fraction = 2)
     @Column(name = "amount")
+    @NotNull
     private BigDecimal amount;
 
     public Salary() {
@@ -80,7 +81,6 @@ public class Salary extends AbstractBaseEntity {
     public String toString() {
         return "Salary{" +
                 "id=" + id +
-                ", employee=" + employee +
                 ", dateStart=" + dateStart +
                 ", dateEnd=" + dateEnd +
                 ", amount=" + amount +

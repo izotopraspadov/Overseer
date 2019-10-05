@@ -17,6 +17,7 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
 
     @Digits(integer = 10, fraction = 2)
     @Column(name = "transaction")
+    @NotNull
     protected BigDecimal transaction;
 
     public AbstractPaymentEntity() {

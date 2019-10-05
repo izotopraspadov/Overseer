@@ -11,7 +11,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "companies")
-public class Company extends AbstractTitleEntity {
+public class Company extends AbstractBaseEntity {
+
+    @Column(name = "title", nullable = false)
+    @NotBlank
+    @Size(min = 2, max = 255)
+    private String title;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "region_id", nullable = false)
@@ -40,8 +45,8 @@ public class Company extends AbstractTitleEntity {
 
     @Column(name = "whatsapp_group_name", nullable = false)
     @NotBlank
-    @Size(min = 10, max = 255)
-    private String whatsapp_group_name;
+    @Size(min = 5, max = 255)
+    private String whatsAppGroupName;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type_company")
@@ -53,14 +58,23 @@ public class Company extends AbstractTitleEntity {
 
     public Company(Integer id, String title, Region region, String itn, String address, List<ContactPerson> contactPersons,
                    Reliability reliability, String whatsapp_group_name, TypeCompany typeCompany) {
-        super(id, title);
+        super(id);
+        this.title = title;
         this.region = region;
         this.itn = itn;
         this.address = address;
         this.contactPersons = contactPersons;
         this.reliability = reliability;
-        this.whatsapp_group_name = whatsapp_group_name;
+        this.whatsAppGroupName = whatsapp_group_name;
         this.typeCompany = typeCompany;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Region getRegion() {
@@ -103,12 +117,12 @@ public class Company extends AbstractTitleEntity {
         this.reliability = reliability;
     }
 
-    public String getWhatsapp_group_name() {
-        return whatsapp_group_name;
+    public String getWhatsAppGroupName() {
+        return whatsAppGroupName;
     }
 
-    public void setWhatsapp_group_name(String whatsapp_group_name) {
-        this.whatsapp_group_name = whatsapp_group_name;
+    public void setWhatsAppGroupName(String whatsAppGroupName) {
+        this.whatsAppGroupName = whatsAppGroupName;
     }
 
     public TypeCompany getTypeCompany() {
@@ -127,9 +141,8 @@ public class Company extends AbstractTitleEntity {
                 ", region=" + region +
                 ", itn='" + itn + '\'' +
                 ", address='" + address + '\'' +
-                ", contactPersons=" + contactPersons +
                 ", reliability=" + reliability +
-                ", whatsapp_group_name='" + whatsapp_group_name + '\'' +
+                ", whatsapp_group_name='" + whatsAppGroupName + '\'' +
                 ", typeCompany=" + typeCompany +
                 '}';
     }

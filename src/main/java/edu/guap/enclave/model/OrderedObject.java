@@ -8,18 +8,24 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "ordered_objects")
-public class OrderedObject extends AbstractTitleEntity {
+public class OrderedObject extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Company company;
+
+    @Column(name = "title", nullable = false)
+    @NotBlank
+    @Size(min = 2, max = 255)
+    private String title;
 
     @Column(name = "cashless", nullable = false)
     private boolean cashless;
@@ -52,6 +58,7 @@ public class OrderedObject extends AbstractTitleEntity {
 
     @Digits(integer = 10, fraction = 2)
     @Column(name = "sum")
+    @NotNull
     private BigDecimal sum;
 
     @Enumerated(EnumType.STRING)
@@ -64,18 +71,18 @@ public class OrderedObject extends AbstractTitleEntity {
     // regex
     private String paymentOrder;
 
-    @Column(name = "quantity_string", nullable = false)
+    @Column(name = "number_of_lines", nullable = false)
     @Range(max = 200)
     @NotNull
-    private Integer quantityString;
+    private Integer numberOfLines;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Group group;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manager_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -85,6 +92,14 @@ public class OrderedObject extends AbstractTitleEntity {
     private boolean underway;
 
     public OrderedObject() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Company getCompany() {
@@ -175,12 +190,12 @@ public class OrderedObject extends AbstractTitleEntity {
         this.paymentOrder = paymentOrder;
     }
 
-    public Integer getQuantityString() {
-        return quantityString;
+    public Integer getNumberOfLines() {
+        return numberOfLines;
     }
 
-    public void setQuantityString(Integer quantityString) {
-        this.quantityString = quantityString;
+    public void setNumberOfLines(Integer numberOfLines) {
+        this.numberOfLines = numberOfLines;
     }
 
     public Group getGroup() {
@@ -212,7 +227,6 @@ public class OrderedObject extends AbstractTitleEntity {
         return "OrderedObject{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", company=" + company +
                 ", cashless=" + cashless +
                 ", contractIsNeed=" + contractIsNeed +
                 ", contractExists=" + contractExists +
@@ -223,7 +237,7 @@ public class OrderedObject extends AbstractTitleEntity {
                 ", sum=" + sum +
                 ", objectType=" + objectType +
                 ", paymentOrder='" + paymentOrder + '\'' +
-                ", quantityString=" + quantityString +
+                ", numberOfLines=" + numberOfLines +
                 ", group=" + group +
                 ", manager=" + manager +
                 ", underway=" + underway +

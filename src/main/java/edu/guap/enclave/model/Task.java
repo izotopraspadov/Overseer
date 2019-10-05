@@ -18,11 +18,11 @@ public class Task extends AbstractBaseEntity {
     @NotNull
     private OrderedObject object;
 
-    @Column(name = "task", nullable = false)
+    @Column(name = "task_description", nullable = false)
     @NotBlank
-    private String task;
+    private String taskDescription;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -46,7 +46,76 @@ public class Task extends AbstractBaseEntity {
     //for manager
 
 
+    public Task() {
+    }
 
+    public Task(Integer id, OrderedObject object, String taskDescription, Employee employee, LocalDate dateCompleted, Result result, String comment) {
+        super(id);
+        this.object = object;
+        this.taskDescription = taskDescription;
+        this.employee = employee;
+        this.dateCompleted = dateCompleted;
+        this.result = result;
+        this.comment = comment;
+    }
 
+    public OrderedObject getObject() {
+        return object;
+    }
 
+    public void setObject(OrderedObject object) {
+        this.object = object;
+    }
+
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public LocalDate getDateCompleted() {
+        return dateCompleted;
+    }
+
+    public void setDateCompleted(LocalDate dateCompleted) {
+        this.dateCompleted = dateCompleted;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", taskDescription='" + taskDescription + '\'' +
+                ", employee=" + employee +
+                ", dateCompleted=" + dateCompleted +
+                ", result=" + result +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
 }

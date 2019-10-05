@@ -18,7 +18,7 @@ public class ActualTime extends AbstractBaseEntity {
     @NotNull
     private OrderedObject object;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -95,7 +95,6 @@ public class ActualTime extends AbstractBaseEntity {
     public String toString() {
         return "ActualTime{" +
                 "id=" + id +
-                ", object=" + object +
                 ", employee=" + employee +
                 ", date=" + date +
                 ", actualTime=" + actualTime +
