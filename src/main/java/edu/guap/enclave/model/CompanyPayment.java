@@ -8,9 +8,22 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@NamedQueries({
+        @NamedQuery(name = CompanyPayment.DELETE,
+                query = "DELETE FROM CompanyPayment cp WHERE cp.id=:id AND cp.company.id=:companyId AND cp.ourCompany.id=:ourCompanyId"),
+        @NamedQuery(name = CompanyPayment.ALL_FILTERED,
+                query = "SELECT cp FROM CompanyPayment cp WHERE cp.company.id=:companyId AND cp.date=:date"),
+        @NamedQuery(name = CompanyPayment.GET,
+                query = "SELECT cp FROM CompanyPayment cp WHERE cp.id=:id AND cp.company.id=:companyId")
+})
+
 @Entity
 @Table(name = "company_payments")
 public class CompanyPayment extends AbstractPaymentEntity {
+
+    public static final String DELETE = "CompanyPayment.delete";
+    public static final String ALL_FILTERED = "CompanyPayment.getAllFiltered";
+    public static final String GET = "CompanyPayment.get";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
