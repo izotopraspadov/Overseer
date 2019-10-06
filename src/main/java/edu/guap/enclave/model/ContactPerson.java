@@ -7,11 +7,24 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(name = ContactPerson.DELETE,
+                query = "DELETE FROM ContactPerson cp WHERE cp.id=:id AND cp.company.id=:companyId"),
+        @NamedQuery(name = ContactPerson.ALL_SORTED,
+                query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId ORDER BY cp.fullName"),
+        @NamedQuery(name = Company.GET,
+                query = "SELECT cp FROM ContactPerson cp WHERE cp.id=:id AND cp.company.id=:companyId")
+})
+
 @Entity
 @Table(name = "contact_persons",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "company_id"},
                 name = "contact_persons_unique_id_company_id_idx")})
 public class ContactPerson extends AbstractFullNameEntity {
+
+    public static final String DELETE = "ContactPerson.delete";
+    public static final String ALL_SORTED = "ContactPerson.getAllSorted";
+    public static final String GET = "ContactPerson.get";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)

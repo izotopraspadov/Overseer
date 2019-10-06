@@ -6,7 +6,8 @@ import javax.validation.constraints.Size;
 
 @NamedQueries({
         @NamedQuery(name = Region.DELETE, query = "DELETE FROM Region r WHERE r.id=:id"),
-        @NamedQuery(name = Region.ALL_SORTED, query = "SELECT r FROM Region r ORDER BY r.title")
+        @NamedQuery(name = Region.ALL_SORTED, query = "SELECT r FROM Region r ORDER BY r.title"),
+        @NamedQuery(name = Region.GET, query = "SELECT r FROM Region r WHERE r.id=:id")
 })
 
 @Entity
@@ -15,6 +16,7 @@ public class Region extends AbstractBaseEntity {
 
     public static final String DELETE = "Region.delete";
     public static final String ALL_SORTED = "Region.getAllSorted";
+    public static final String GET = "Region.get";
 
     @Column(name = "title", nullable = false, unique = true)
     @NotBlank

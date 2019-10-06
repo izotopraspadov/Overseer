@@ -11,7 +11,8 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = Company.DELETE, query = "DELETE FROM Company c WHERE c.id=:id"),
-        @NamedQuery(name = Company.ALL_SORTED, query = "SELECT c FROM Company c ORDER BY c.title")
+        @NamedQuery(name = Company.ALL_SORTED, query = "SELECT c FROM Company c ORDER BY c.title"),
+        @NamedQuery(name = Company.GET, query = "SELECT c FROM Company c WHERE c.id=:id")
 })
 
 @Entity
@@ -20,6 +21,7 @@ public class Company extends AbstractBaseEntity {
 
     public static final String DELETE = "Company.delete";
     public static final String ALL_SORTED = "Company.getAllSorted";
+    public static final String GET = "Company.get";
 
     @Column(name = "title", nullable = false)
     @NotBlank
