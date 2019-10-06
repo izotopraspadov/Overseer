@@ -24,6 +24,10 @@ public class Region extends AbstractBaseEntity {
     public Region() {
     }
 
+    public Region(String title) {
+        this.title = title;
+    }
+
     public Region(Integer id, String title) {
         super(id);
         this.title = title;

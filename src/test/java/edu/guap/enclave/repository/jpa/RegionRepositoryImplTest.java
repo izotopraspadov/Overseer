@@ -1,5 +1,7 @@
 package edu.guap.enclave.repository.jpa;
 
+import edu.guap.enclave.RegionTestData;
+import edu.guap.enclave.model.Region;
 import edu.guap.enclave.repository.RegionRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -8,9 +10,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 @SpringJUnitConfig(locations = {
         "classpath:spring/spring-db.xml"
@@ -24,14 +23,17 @@ class RegionRepositoryImplTest {
 
     @Test
     void save() {
+        regionRepository.save(RegionTestData.getCreated());
     }
 
     @Test
     void delete() {
+        regionRepository.delete(RegionTestData.REGION_1_ID);
     }
 
     @Test
     void get() {
+        regionRepository.get(RegionTestData.REGION_1_ID);
     }
 
     @Test
