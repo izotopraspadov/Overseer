@@ -1,8 +1,10 @@
 package edu.guap.enclave.model;
 
+import edu.guap.enclave.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -38,22 +40,22 @@ public class OrderedObject extends AbstractBaseEntity {
 
     @Column(name = "planned_start_date", nullable = false)
     @NotNull
-    // pattern
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate plannedStartDate;
 
     @Column(name = "actual_start_date", nullable = false)
     @NotNull
-    // pattern
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate actualStartDate;
 
     @Column(name = "planned_end_date", nullable = false)
     @NotNull
-    // pattern
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate plannedEndDate;
 
     @Column(name = "actual_end_date", nullable = false)
     @NotNull
-    // pattern
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate actualEndDate;
 
     @Digits(integer = 10, fraction = 2)

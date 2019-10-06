@@ -1,5 +1,8 @@
 package edu.guap.enclave.model;
 
+import edu.guap.enclave.util.DateTimeUtil;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Digits;
@@ -12,7 +15,7 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
 
     @Column(name = "date", nullable = false, columnDefinition = "date default now()")
     @NotNull
-    // pattern
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     protected LocalDate date;
 
     @Digits(integer = 10, fraction = 2)

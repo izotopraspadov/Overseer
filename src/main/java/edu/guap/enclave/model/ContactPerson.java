@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "contact_persons",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "company_id"},
-        name = "contact_persons_unique_id_company_id_idx")})
+                name = "contact_persons_unique_id_company_id_idx")})
 public class ContactPerson extends AbstractFullNameEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

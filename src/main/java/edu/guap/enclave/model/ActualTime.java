@@ -1,8 +1,10 @@
 package edu.guap.enclave.model;
 
+import edu.guap.enclave.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,7 +28,7 @@ public class ActualTime extends AbstractBaseEntity {
 
     @Column(name = "date", nullable = false)
     @NotNull
-    // pattern
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate date;
 
     @Column(name = "actual_time", nullable = false)

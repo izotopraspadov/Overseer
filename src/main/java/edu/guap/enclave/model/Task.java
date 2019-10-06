@@ -1,7 +1,9 @@
 package edu.guap.enclave.model;
 
+import edu.guap.enclave.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -30,7 +32,7 @@ public class Task extends AbstractBaseEntity {
 
     @Column(name = "date_completed", nullable = false)
     @NotNull
-    // pattern
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate dateCompleted;
 
     @Enumerated(EnumType.STRING)

@@ -1,7 +1,9 @@
 package edu.guap.enclave.model;
 
+import edu.guap.enclave.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -21,12 +23,12 @@ public class Salary extends AbstractBaseEntity {
 
     @Column(name = "start_date", nullable = false)
     @NotNull
-    // pattern
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate dateStart;
 
     @Column(name = "end_date", nullable = false)
     @NotNull
-    // pattern
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate dateEnd;
 
     @Digits(integer = 5, fraction = 2)
