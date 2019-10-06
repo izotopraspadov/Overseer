@@ -22,14 +22,14 @@
     <!--no pooling-->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-          p:driverClassName="org.hsqldb.jdbcDriver"
+          p:driverClassName="org.postgresql.Driver"
           p:url="${database.url}"
           p:username="${database.username}"
           p:password="${database.password}"/>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
-          p:packagesToScan="ru.internship.**.model">
+          p:packagesToScan="edu.guap.**.model">
 
         <property name="jpaPropertyMap">
             <map>
