@@ -1,5 +1,7 @@
 package edu.guap.enclave.model;
 
+import edu.guap.enclave.model.abstract_entities.AbstractBaseEntity;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

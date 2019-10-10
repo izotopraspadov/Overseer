@@ -1,5 +1,6 @@
 package edu.guap.enclave.model;
 
+import edu.guap.enclave.model.abstract_entities.AbstractBaseEntity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

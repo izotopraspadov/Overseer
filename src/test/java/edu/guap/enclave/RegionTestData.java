@@ -4,7 +4,7 @@ import edu.guap.enclave.model.Region;
 
 import java.util.List;
 
-import static edu.guap.enclave.model.AbstractBaseEntity.START_SEQ;
+import static edu.guap.enclave.model.abstract_entities.AbstractBaseEntity.START_SEQ;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RegionTestData {

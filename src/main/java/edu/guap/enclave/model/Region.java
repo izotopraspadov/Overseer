@@ -1,5 +1,7 @@
 package edu.guap.enclave.model;
 
+import edu.guap.enclave.model.abstract_entities.AbstractTitleEntity;
+
 import javax.persistence.*;
 
 @NamedQueries({

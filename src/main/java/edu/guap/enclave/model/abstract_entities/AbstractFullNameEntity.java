@@ -1,4 +1,4 @@
-package edu.guap.enclave.model;
+package edu.guap.enclave.model.abstract_entities;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

@@ -1,4 +1,4 @@
-package edu.guap.enclave.model;
+package edu.guap.enclave.model.abstract_entities;
 
 import edu.guap.enclave.util.DateTimeUtil;
 import org.springframework.format.annotation.DateTimeFormat;
