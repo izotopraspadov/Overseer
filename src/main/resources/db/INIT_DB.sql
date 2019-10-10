@@ -54,6 +54,7 @@ CREATE TABLE employees
     login     VARCHAR(255) NOT NULL,
     password  VARCHAR(255) NOT NULL,
     address   VARCHAR(255),
+    CONSTRAINT employees_unique_login_idx UNIQUE (login),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE
 );
 
