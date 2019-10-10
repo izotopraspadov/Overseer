@@ -92,6 +92,7 @@ CREATE TABLE salaries
     start_date  DATE    NOT NULL,
     end_date    DATE,
     amount      MONEY   NOT NULL,
+    CONSTRAINT salaries_unique_employee_startdate_idx UNIQUE (employee_id, start_date),
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
 
