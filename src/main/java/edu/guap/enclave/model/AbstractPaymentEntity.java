@@ -19,17 +19,21 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
     protected LocalDate date;
 
     @Digits(integer = 10, fraction = 2)
-    @Column(name = "transaction")
+    @Column(name = "transaction", nullable = false)
     @NotNull
     protected BigDecimal transaction;
+
+    @Column(name = "cashless", nullable = false)
+    private boolean cashless;
 
     public AbstractPaymentEntity() {
     }
 
-    public AbstractPaymentEntity(Integer id, LocalDate date, BigDecimal transaction) {
+    public AbstractPaymentEntity(Integer id, LocalDate date, BigDecimal transaction, boolean cashless) {
         super(id);
         this.date = date;
         this.transaction = transaction;
+        this.cashless = cashless;
     }
 
     public LocalDate getDate() {
@@ -48,8 +52,16 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
         this.transaction = transaction;
     }
 
+    public boolean isCashless() {
+        return cashless;
+    }
+
+    public void setCashless(boolean cashless) {
+        this.cashless = cashless;
+    }
+
     @Override
     public String toString() {
-        return String.format("Entity %s (%s, %s, %s)", getClass().getName(), id, date, transaction);
+        return String.format("Entity %s (%s, %s, %s, %s)", getClass().getName(), id, date, transaction, cashless);
     }
 }
