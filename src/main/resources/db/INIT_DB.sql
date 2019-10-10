@@ -62,7 +62,7 @@ CREATE TABLE employee_roles
 (
     employee_id INTEGER      NOT NULL,
     role        VARCHAR(255) NOT NULL,
-    CONSTRAINT employee_roles_unique__idx UNIQUE (employee_id, role),
+    CONSTRAINT employee_roles_unique_emp_role_idx UNIQUE (employee_id, role),
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
 
