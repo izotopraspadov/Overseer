@@ -12,7 +12,8 @@ CREATE TABLE regions
 CREATE TABLE order_type
 (
     id    INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    title VARCHAR(255) NOT NULL
+    title VARCHAR(255) NOT NULL,
+    CONSTRAINT order_type_unique_title_idx UNIQUE (title)
 );
 
 CREATE TABLE groups
