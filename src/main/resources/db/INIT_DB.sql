@@ -50,6 +50,8 @@ CREATE TABLE employees
     id        INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     full_name VARCHAR(255) NOT NULL,
     region_id INTEGER      NOT NULL,
+    login     VARCHAR(255) NOT NULL,
+    password  VARCHAR(255) NOT NULL,
     address   VARCHAR(255),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE
 );
