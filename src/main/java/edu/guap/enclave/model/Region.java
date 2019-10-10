@@ -1,8 +1,6 @@
 package edu.guap.enclave.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @NamedQueries({
         @NamedQuery(name = Region.DELETE, query = "DELETE FROM Region r WHERE r.id=:id"),
@@ -12,27 +10,17 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "regions", uniqueConstraints = {@UniqueConstraint(columnNames = "title", name = "regions_unique_title_idx")})
-public class Region extends AbstractBaseEntity {
+public class Region extends AbstractTitleEntity {
 
     public static final String DELETE = "Region.delete";
     public static final String ALL_SORTED = "Region.getAllSorted";
     public static final String GET = "Region.get";
 
-    @Column(name = "title", nullable = false, unique = true)
-    @NotBlank
-    @Size(min = 2, max = 255)
-    private String title;
-
     public Region() {
     }
 
-    public Region(String title) {
-        this.title = title;
-    }
-
     public Region(Integer id, String title) {
-        super(id);
-        this.title = title;
+        super(id, title);
     }
 
     @Override
