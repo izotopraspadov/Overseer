@@ -190,7 +190,7 @@ CREATE TABLE actual_time
     employee_id          INTEGER  NOT NULL,
     date                 DATE     NOT NULL,
     actual_man_hours     SMALLINT NOT NULL,
-    accounting_man_hours SMALLINT NOT NULL,
+    account_man_hours SMALLINT NOT NULL,
     FOREIGN KEY (ordered_object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );

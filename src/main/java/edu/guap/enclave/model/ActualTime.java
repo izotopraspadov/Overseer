@@ -16,10 +16,10 @@ import java.time.LocalDate;
 public class ActualTime extends AbstractBaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "object_id", nullable = false)
+    @JoinColumn(name = "ordered_object_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private OrderedObject object;
+    private OrderedObject orderedObject;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -32,34 +32,34 @@ public class ActualTime extends AbstractBaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate date;
 
-    @Column(name = "actual_time", nullable = false)
+    @Column(name = "actual_man_hours", nullable = false)
     @Range(max = 5000)
     @NotNull
-    private Integer actualTime;
+    private Integer actualManHours;
 
-    @Column(name = "accounting_time", nullable = false)
+    @Column(name = "account_man_hours", nullable = false)
     @Range(max = 5000)
     @NotNull
-    private Integer accountingTime;
+    private Integer accountManHours;
 
     public ActualTime() {
     }
 
-    public ActualTime(Integer id, OrderedObject object, Employee employee, LocalDate date, Integer actualTime, Integer accountingTime) {
+    public ActualTime(Integer id, OrderedObject orderedObject, Employee employee, LocalDate date, Integer actualManHours, Integer accountManHours) {
         super(id);
-        this.object = object;
+        this.orderedObject = orderedObject;
         this.employee = employee;
         this.date = date;
-        this.actualTime = actualTime;
-        this.accountingTime = accountingTime;
+        this.actualManHours = actualManHours;
+        this.accountManHours = accountManHours;
     }
 
-    public OrderedObject getObject() {
-        return object;
+    public OrderedObject getOrderedObject() {
+        return orderedObject;
     }
 
-    public void setObject(OrderedObject object) {
-        this.object = object;
+    public void setOrderedObject(OrderedObject orderedObject) {
+        this.orderedObject = orderedObject;
     }
 
     public Employee getEmployee() {
@@ -78,30 +78,29 @@ public class ActualTime extends AbstractBaseEntity {
         this.date = date;
     }
 
-    public Integer getActualTime() {
-        return actualTime;
+    public Integer getActualManHours() {
+        return actualManHours;
     }
 
-    public void setActualTime(Integer actualTime) {
-        this.actualTime = actualTime;
+    public void setActualManHours(Integer actualManHours) {
+        this.actualManHours = actualManHours;
     }
 
-    public Integer getAccountingTime() {
-        return accountingTime;
+    public Integer getAccountManHours() {
+        return accountManHours;
     }
 
-    public void setAccountingTime(Integer accountingTime) {
-        this.accountingTime = accountingTime;
+    public void setAccountManHours(Integer accountManHours) {
+        this.accountManHours = accountManHours;
     }
 
     @Override
     public String toString() {
         return "ActualTime{" +
                 "id=" + id +
-                ", employee=" + employee +
                 ", date=" + date +
-                ", actualTime=" + actualTime +
-                ", accountingTime=" + accountingTime +
+                ", actualManHours=" + actualManHours +
+                ", accountManHours=" + accountManHours +
                 '}';
     }
 }

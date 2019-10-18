@@ -13,10 +13,10 @@ import javax.validation.constraints.NotNull;
 public class PlannedTime extends AbstractBaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "object_id", nullable = false)
+    @JoinColumn(name = "ordered_object_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private OrderedObject object;
+    private OrderedObject orderedObject;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -24,27 +24,27 @@ public class PlannedTime extends AbstractBaseEntity {
     @NotNull
     private Employee employee;
 
-    @Column(name = "time", nullable = false)
+    @Column(name = "man_hours", nullable = false)
     @Range(max = 5000)
     @NotNull
-    private Integer time;
+    private Integer manHours;
 
     public PlannedTime() {
     }
 
-    public PlannedTime(Integer id, OrderedObject object, Employee employee, Integer time) {
+    public PlannedTime(Integer id, OrderedObject orderedObject, Employee employee, Integer manHours) {
         super(id);
-        this.object = object;
+        this.orderedObject = orderedObject;
         this.employee = employee;
-        this.time = time;
+        this.manHours = manHours;
     }
 
-    public OrderedObject getObject() {
-        return object;
+    public OrderedObject getOrderedObject() {
+        return orderedObject;
     }
 
-    public void setObject(OrderedObject object) {
-        this.object = object;
+    public void setOrderedObject(OrderedObject orderedObject) {
+        this.orderedObject = orderedObject;
     }
 
     public Employee getEmployee() {
@@ -55,20 +55,19 @@ public class PlannedTime extends AbstractBaseEntity {
         this.employee = employee;
     }
 
-    public Integer getTime() {
-        return time;
+    public Integer getManHours() {
+        return manHours;
     }
 
-    public void setTime(Integer time) {
-        this.time = time;
+    public void setManHours(Integer manHours) {
+        this.manHours = manHours;
     }
 
     @Override
     public String toString() {
         return "PlannedTime{" +
                 "id=" + id +
-                ", employee=" + employee +
-                ", time=" + time +
+                ", manHours=" + manHours +
                 '}';
     }
 }

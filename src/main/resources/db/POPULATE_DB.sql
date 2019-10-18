@@ -223,7 +223,7 @@ VALUES (100103, 100029, 30), -- id 100115
        (100105, 100025, 40), -- id 100117
        (100106, 100024, 15); -- id 100118
 
-INSERT INTO actual_time (ordered_object_id, employee_id, date, actual_man_hours, accounting_man_hours)
+INSERT INTO actual_time (ordered_object_id, employee_id, date, actual_man_hours, account_man_hours)
 VALUES (100103, 100029, '2019-09-20', 15, 30), -- id 100119
        (100104, 100028, '2019-09-25', 7, 10),  -- id 100120
        (100105, 100025, '2019-09-23', 35, 40), -- id 100121
