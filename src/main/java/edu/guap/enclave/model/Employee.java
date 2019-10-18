@@ -1,6 +1,7 @@
 package edu.guap.enclave.model;
 
 import edu.guap.enclave.model.abstract_entities.AbstractFullNameEntity;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees", uniqueConstraints = {@UniqueConstraint(columnNames = "login", name = "employees_unique_login_idx")})
@@ -34,6 +36,13 @@ public class Employee extends AbstractFullNameEntity {
     @Size(max = 255)
     private String address;
 
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "employee_roles", joinColumns = @JoinColumn(name = "employee_id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
+    private Set<Role> roles;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     @OrderBy("number DESC")
     private List<EmployeePhone> phones;
@@ -46,12 +55,13 @@ public class Employee extends AbstractFullNameEntity {
     }
 
     public Employee(Integer id, String fullName, Region region, String address, String login,
-                    String password, List<EmployeePhone> phones, List<EmployeeEmail> emails) {
+                    String password, Set<Role> roles, List<EmployeePhone> phones, List<EmployeeEmail> emails) {
         super(id, fullName);
         this.region = region;
         this.address = address;
         this.login = login;
         this.password = password;
+        this.roles = roles;
         this.phones = phones;
         this.emails = emails;
     }
@@ -88,6 +98,14 @@ public class Employee extends AbstractFullNameEntity {
         this.address = address;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public List<EmployeePhone> getPhones() {
         return phones;
     }
@@ -108,13 +126,11 @@ public class Employee extends AbstractFullNameEntity {
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", region=" + region +
+                ", fullName='" + fullName + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
-                ", phones=" + phones +
-                ", emails=" + emails +
-                ", fullName='" + fullName + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }
