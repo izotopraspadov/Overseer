@@ -44,7 +44,7 @@ public class OrderedObject extends AbstractBaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate plannedStartDate;
 
-    @Column(name = "actual_start_date", nullable = false)
+    @Column(name = "actual_start_date")
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate actualStartDate;
@@ -54,7 +54,7 @@ public class OrderedObject extends AbstractBaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate plannedEndDate;
 
-    @Column(name = "actual_end_date", nullable = false)
+    @Column(name = "actual_end_date")
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate actualEndDate;
@@ -63,11 +63,6 @@ public class OrderedObject extends AbstractBaseEntity {
     @Column(name = "sum")
     @NotNull
     private BigDecimal sum;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "object_type")
-    @NotNull
-    private ObjectType objectType;
 
     @Column(name = "payment_order", nullable = false)
     @NotBlank
@@ -79,13 +74,13 @@ public class OrderedObject extends AbstractBaseEntity {
     @NotNull
     private Integer numberOfLines;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Group group;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -93,6 +88,12 @@ public class OrderedObject extends AbstractBaseEntity {
 
     @Column(name = "underway", nullable = false)
     private boolean underway;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_type_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private OrderType orderType;
 
     public OrderedObject() {
     }
@@ -177,12 +178,12 @@ public class OrderedObject extends AbstractBaseEntity {
         this.sum = sum;
     }
 
-    public ObjectType getObjectType() {
-        return objectType;
+    public OrderType getOrderType() {
+        return orderType;
     }
 
-    public void setObjectType(ObjectType objectType) {
-        this.objectType = objectType;
+    public void setOrderType(OrderType objectType) {
+        this.orderType = objectType;
     }
 
     public String getPaymentOrder() {
@@ -238,11 +239,9 @@ public class OrderedObject extends AbstractBaseEntity {
                 ", plannedEndDate=" + plannedEndDate +
                 ", actualEndDate=" + actualEndDate +
                 ", sum=" + sum +
-                ", objectType=" + objectType +
+                ", orderType=" + orderType +
                 ", paymentOrder='" + paymentOrder + '\'' +
                 ", numberOfLines=" + numberOfLines +
-                ", group=" + group +
-                ", manager=" + manager +
                 ", underway=" + underway +
                 '}';
     }
