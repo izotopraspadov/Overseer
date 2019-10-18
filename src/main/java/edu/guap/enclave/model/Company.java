@@ -15,7 +15,6 @@ import java.util.List;
         @NamedQuery(name = Company.ALL_SORTED, query = "SELECT c FROM Company c ORDER BY c.title"),
         @NamedQuery(name = Company.GET, query = "SELECT c FROM Company c WHERE c.id=:id")
 })
-
 @Entity
 @Table(name = "companies")
 public class Company extends AbstractBaseEntity {
@@ -26,10 +25,10 @@ public class Company extends AbstractBaseEntity {
 
     @Column(name = "title", nullable = false)
     @NotBlank
-    @Size(min = 2, max = 255)
+    @Size(max = 255)
     private String title;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -42,7 +41,7 @@ public class Company extends AbstractBaseEntity {
 
     @Column(name = "address", nullable = false)
     @NotBlank
-    @Size(min = 10, max = 255)
+    @Size(max = 255)
     private String address;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
@@ -54,9 +53,9 @@ public class Company extends AbstractBaseEntity {
     @NotNull
     private Reliability reliability;
 
-    @Column(name = "whatsapp_group_name", nullable = false)
+    @Column(name = "whats_app_group_name", nullable = false)
     @NotBlank
-    @Size(min = 5, max = 255)
+    @Size(max = 255)
     private String whatsAppGroupName;
 
     @Enumerated(EnumType.STRING)
