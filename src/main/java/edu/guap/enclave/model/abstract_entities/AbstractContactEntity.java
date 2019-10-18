@@ -2,7 +2,7 @@ package edu.guap.enclave.model.abstract_entities;
 
 import edu.guap.enclave.model.ContactPerson;
 import edu.guap.enclave.model.Employee;
-import edu.guap.enclave.model.TypeEmailOwner;
+import edu.guap.enclave.model.TypeOwner;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -27,12 +27,12 @@ public abstract class AbstractContactEntity extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "type_owner")
     @NotNull
-    private TypeEmailOwner typeOwner;
+    private TypeOwner typeOwner;
 
     public AbstractContactEntity() {
     }
 
-    public AbstractContactEntity(Integer id, ContactPerson contactPerson, Employee employee, TypeEmailOwner typeOwner) {
+    public AbstractContactEntity(Integer id, ContactPerson contactPerson, Employee employee, TypeOwner typeOwner) {
         super(id);
         this.contactPerson = contactPerson;
         this.employee = employee;
@@ -55,11 +55,11 @@ public abstract class AbstractContactEntity extends AbstractBaseEntity {
         this.employee = employee;
     }
 
-    public TypeEmailOwner getTypeOwner() {
+    public TypeOwner getTypeOwner() {
         return typeOwner;
     }
 
-    public void setTypeOwner(TypeEmailOwner typeOwner) {
+    public void setTypeOwner(TypeOwner typeOwner) {
         this.typeOwner = typeOwner;
     }
 

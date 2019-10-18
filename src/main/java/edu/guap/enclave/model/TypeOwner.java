@@ -1,6 +1,6 @@
 package edu.guap.enclave.model;
 
-public enum TypeEmailOwner {
+public enum TypeOwner {
     CONTACT_PERSON,
     EMPLOYEE
 }

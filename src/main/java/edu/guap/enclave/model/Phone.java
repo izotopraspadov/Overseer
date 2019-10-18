@@ -22,7 +22,7 @@ public class Phone extends AbstractContactEntity {
     public Phone() {
     }
 
-    public Phone(Integer id, ContactPerson contactPerson, Employee employee, TypeEmailOwner typeOwner, String number) {
+    public Phone(Integer id, ContactPerson contactPerson, Employee employee, TypeOwner typeOwner, String number) {
         super(id, contactPerson, employee, typeOwner);
         this.number = number;
     }
