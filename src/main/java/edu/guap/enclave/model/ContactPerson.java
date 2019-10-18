@@ -16,7 +16,6 @@ import java.util.List;
         @NamedQuery(name = Company.GET,
                 query = "SELECT cp FROM ContactPerson cp WHERE cp.id=:id AND cp.company.id=:companyId")
 })
-
 @Entity
 @Table(name = "contact_persons",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "company_id"},
@@ -79,7 +78,6 @@ public class ContactPerson extends AbstractFullNameEntity {
     public String toString() {
         return "ContactPerson{" +
                 "id=" + id +
-                ", company=" + company +
                 ", fullName='" + fullName + '\'' +
                 '}';
     }
