@@ -10,13 +10,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "tasks")
 public class Task extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "object_id", nullable = false)
+    @JoinColumn(name = "ordered_object_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private OrderedObject object;
@@ -44,15 +45,14 @@ public class Task extends AbstractBaseEntity {
     @Column(name = "comment")
     private String comment;
 
-    //for rg
-
-    //for manager
-
+    @OneToMany(mappedBy = "task")
+    private Set<TaskEmail> taskEmails;
 
     public Task() {
     }
 
-    public Task(Integer id, OrderedObject object, String taskDescription, Employee employee, LocalDate dateCompleted, Result result, String comment) {
+    public Task(Integer id, OrderedObject object, String taskDescription, Employee employee,
+                LocalDate dateCompleted, Result result, String comment, Set<TaskEmail> taskEmails) {
         super(id);
         this.object = object;
         this.taskDescription = taskDescription;
@@ -60,6 +60,7 @@ public class Task extends AbstractBaseEntity {
         this.dateCompleted = dateCompleted;
         this.result = result;
         this.comment = comment;
+        this.taskEmails = taskEmails;
     }
 
     public OrderedObject getObject() {
@@ -108,6 +109,14 @@ public class Task extends AbstractBaseEntity {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Set<TaskEmail> getTaskEmails() {
+        return taskEmails;
+    }
+
+    public void setTaskEmails(Set<TaskEmail> taskEmails) {
+        this.taskEmails = taskEmails;
     }
 
     @Override
