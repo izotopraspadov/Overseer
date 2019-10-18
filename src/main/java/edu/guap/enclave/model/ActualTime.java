@@ -15,8 +15,8 @@ import java.time.LocalDate;
 @Table(name = "actual_time")
 public class ActualTime extends AbstractBaseEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ordered_object_id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ordered_object_id", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private OrderedObject orderedObject;

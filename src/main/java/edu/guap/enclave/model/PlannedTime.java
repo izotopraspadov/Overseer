@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "planned_time")
 public class PlannedTime extends AbstractBaseEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ordered_object_id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ordered_object_id", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private OrderedObject orderedObject;
