@@ -4,8 +4,8 @@ import edu.guap.enclave.model.abstract_entities.AbstractBaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(name = "groups", uniqueConstraints = {@UniqueConstraint(columnNames = "title", name = "groups_unique_title_idx")})
@@ -16,10 +16,13 @@ public class Group extends AbstractBaseEntity {
     @Size(min = 2, max = 255)
     private String title;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "object_type")
-    @NotNull
-    private ObjectType objectType;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "order_type_by_group",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_type_id")
+    )
+    private Set<OrderType> types;
 
     @Column(name = "comment")
     private String comment;
@@ -27,10 +30,10 @@ public class Group extends AbstractBaseEntity {
     public Group() {
     }
 
-    public Group(Integer id, String title, ObjectType objectType, String comment) {
+    public Group(Integer id, String title, Set<OrderType> types, String comment) {
         super(id);
         this.title = title;
-        this.objectType = objectType;
+        this.types = types;
         this.comment = comment;
     }
 
@@ -42,12 +45,12 @@ public class Group extends AbstractBaseEntity {
         this.title = title;
     }
 
-    public ObjectType getObjectType() {
-        return objectType;
+    public Set<OrderType> getTypes() {
+        return types;
     }
 
-    public void setObjectType(ObjectType objectType) {
-        this.objectType = objectType;
+    public void setTypes(Set<OrderType> types) {
+        this.types = types;
     }
 
     public String getComment() {
@@ -62,7 +65,7 @@ public class Group extends AbstractBaseEntity {
     public String toString() {
         return "Group{" +
                 "id=" + id +
-                ", objectType=" + objectType +
+                ", types=" + types +
                 ", comment='" + comment + '\'' +
                 ", title='" + title + '\'' +
                 '}';
