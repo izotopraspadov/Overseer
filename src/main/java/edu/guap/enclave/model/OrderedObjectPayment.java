@@ -10,21 +10,20 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @NamedQueries({
-        @NamedQuery(name = CompanyPayment.DELETE,
-                query = "DELETE FROM CompanyPayment cp WHERE cp.id=:id AND cp.company.id=:companyId AND cp.ourCompany.id=:ourCompanyId"),
-        @NamedQuery(name = CompanyPayment.ALL_FILTERED,
-                query = "SELECT cp FROM CompanyPayment cp WHERE cp.company.id=:companyId AND cp.date=:date"),
-        @NamedQuery(name = CompanyPayment.GET,
-                query = "SELECT cp FROM CompanyPayment cp WHERE cp.id=:id AND cp.company.id=:companyId")
+        @NamedQuery(name = OrderedObjectPayment.DELETE,
+                query = "DELETE FROM OrderedObjectPayment cp WHERE cp.id=:id AND cp.company.id=:companyId AND cp.ourCompany.id=:ourCompanyId"),
+        @NamedQuery(name = OrderedObjectPayment.ALL_FILTERED,
+                query = "SELECT cp FROM OrderedObjectPayment cp WHERE cp.company.id=:companyId AND cp.date=:date"),
+        @NamedQuery(name = OrderedObjectPayment.GET,
+                query = "SELECT cp FROM OrderedObjectPayment cp WHERE cp.id=:id AND cp.company.id=:companyId")
 })
-
 @Entity
-@Table(name = "company_payments")
-public class CompanyPayment extends AbstractPaymentEntity {
+@Table(name = "ordered_object_payments")
+public class OrderedObjectPayment extends AbstractPaymentEntity {
 
-    public static final String DELETE = "CompanyPayment.delete";
-    public static final String ALL_FILTERED = "CompanyPayment.getAllFiltered";
-    public static final String GET = "CompanyPayment.get";
+    public static final String DELETE = "OrderedObjectPayment.delete";
+    public static final String ALL_FILTERED = "OrderedObjectPayment.getAllFiltered";
+    public static final String GET = "OrderedObjectPayment.get";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -33,26 +32,29 @@ public class CompanyPayment extends AbstractPaymentEntity {
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ordered_object_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private OrderedObject orderedObject;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "our_company_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Company ourCompany;
 
-    @Column(name = "cashless", nullable = false)
-    private boolean cashless;
-
     @Column(name = "comment")
     private String comment;
 
-    public CompanyPayment() {
+    public OrderedObjectPayment() {
     }
 
-    public CompanyPayment(Integer id, LocalDate date, Company company, Company ourCompany,
-                          BigDecimal transaction, boolean cashless, String comment) {
-        super(id, date, transaction);
+    public OrderedObjectPayment(Integer id, LocalDate date, Company company, OrderedObject orderedObject, Company ourCompany,
+                                BigDecimal transaction, boolean cashless, String comment) {
+        super(id, date, transaction, cashless);
         this.company = company;
+        this.orderedObject = orderedObject;
         this.ourCompany = ourCompany;
-        this.cashless = cashless;
         this.comment = comment;
     }
 
@@ -72,12 +74,12 @@ public class CompanyPayment extends AbstractPaymentEntity {
         this.ourCompany = ourCompany;
     }
 
-    public boolean isCashless() {
-        return cashless;
+    public OrderedObject getOrderedObject() {
+        return orderedObject;
     }
 
-    public void setCashless(boolean cashless) {
-        this.cashless = cashless;
+    public void setOrderedObject(OrderedObject orderedObject) {
+        this.orderedObject = orderedObject;
     }
 
     public String getComment() {
@@ -90,7 +92,7 @@ public class CompanyPayment extends AbstractPaymentEntity {
 
     @Override
     public String toString() {
-        return "CompanyPayment{" +
+        return "OrderedObjectPayment{" +
                 "id=" + id +
                 ", date=" + date +
                 ", transaction=" + transaction +
