@@ -34,16 +34,16 @@ public class ContactPerson extends AbstractFullNameEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contactPerson")
     @OrderBy("number DESC")
-    private List<ContactPersonPhone> phones;
+    private List<Phone> phones;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contactPerson")
     @OrderBy("email DESC")
-    private List<ContactPersonEmail> emails;
+    private List<Email> emails;
 
     public ContactPerson() {
     }
 
-    public ContactPerson(Integer id, String fullName, Company company, List<ContactPersonPhone> phones, List<ContactPersonEmail> emails) {
+    public ContactPerson(Integer id, String fullName, Company company, List<Phone> phones, List<Email> emails) {
         super(id, fullName);
         this.company = company;
         this.phones = phones;
@@ -58,19 +58,19 @@ public class ContactPerson extends AbstractFullNameEntity {
         this.company = company;
     }
 
-    public List<ContactPersonPhone> getPhones() {
+    public List<Phone> getPhones() {
         return phones;
     }
 
-    public void setPhones(List<ContactPersonPhone> phones) {
+    public void setPhones(List<Phone> phones) {
         this.phones = phones;
     }
 
-    public List<ContactPersonEmail> getEmails() {
+    public List<Email> getEmails() {
         return emails;
     }
 
-    public void setEmails(List<ContactPersonEmail> emails) {
+    public void setEmails(List<Email> emails) {
         this.emails = emails;
     }
 
