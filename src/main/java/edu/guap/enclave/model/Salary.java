@@ -13,24 +13,26 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "salaries")
+@Table(name = "salaries",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "start_date"},
+                name = "salaries_unique_employee_startdate_idx")})
 public class Salary extends AbstractBaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id", nullable = false, unique = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Employee employee;
 
-    @Column(name = "start_date", nullable = false)
+    @Column(name = "start_date", nullable = false, unique = true)
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
-    private LocalDate dateStart;
+    private LocalDate startDate;
 
     @Column(name = "end_date", nullable = false)
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
-    private LocalDate dateEnd;
+    private LocalDate endDate;
 
     @Digits(integer = 5, fraction = 2)
     @Column(name = "amount")
@@ -40,11 +42,11 @@ public class Salary extends AbstractBaseEntity {
     public Salary() {
     }
 
-    public Salary(Integer id, Employee employee, LocalDate dateStart, LocalDate dateEnd, BigDecimal amount) {
+    public Salary(Integer id, Employee employee, LocalDate startDate, LocalDate endDate, BigDecimal amount) {
         super(id);
         this.employee = employee;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.amount = amount;
     }
 
@@ -56,20 +58,20 @@ public class Salary extends AbstractBaseEntity {
         this.employee = employee;
     }
 
-    public LocalDate getDateStart() {
-        return dateStart;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setDateStart(LocalDate dateStart) {
-        this.dateStart = dateStart;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getDateEnd() {
-        return dateEnd;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setDateEnd(LocalDate dateEnd) {
-        this.dateEnd = dateEnd;
+    public void setEndDate(LocalDate dateEnd) {
+        this.endDate = dateEnd;
     }
 
     public BigDecimal getAmount() {
@@ -84,8 +86,8 @@ public class Salary extends AbstractBaseEntity {
     public String toString() {
         return "Salary{" +
                 "id=" + id +
-                ", dateStart=" + dateStart +
-                ", dateEnd=" + dateEnd +
+                ", dateStart=" + startDate +
+                ", dateEnd=" + endDate +
                 ", amount=" + amount +
                 '}';
     }
