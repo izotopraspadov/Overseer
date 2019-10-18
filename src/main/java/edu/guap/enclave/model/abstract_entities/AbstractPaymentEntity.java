@@ -24,7 +24,7 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
     protected BigDecimal transaction;
 
     @Column(name = "cashless", nullable = false)
-    private boolean cashless;
+    protected boolean cashless;
 
     public AbstractPaymentEntity() {
     }

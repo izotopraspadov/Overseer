@@ -34,10 +34,8 @@ public class EmployeePayment extends AbstractPaymentEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Employee employeeCounterparty;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type_payment")
-    @NotNull
-    private TypePayment typePayment;
+    @Column(name = "charge", nullable = false)
+    private boolean charge;
 
     @Column(name = "comment")
     private String comment;
@@ -46,13 +44,14 @@ public class EmployeePayment extends AbstractPaymentEntity {
     }
 
     public EmployeePayment(Integer id, LocalDate date, BigDecimal transaction, Employee employee, TypeCounterparty typeCounterparty,
-                           Company companyCounterparty, Employee employeeCounterparty, TypePayment typePayment, String comment) {
-        super(id, date, transaction);
+                           Company companyCounterparty, Employee employeeCounterparty,
+                           boolean cashless, boolean charge, String comment) {
+        super(id, date, transaction, cashless);
         this.employee = employee;
         this.typeCounterparty = typeCounterparty;
         this.companyCounterparty = companyCounterparty;
         this.employeeCounterparty = employeeCounterparty;
-        this.typePayment = typePayment;
+        this.charge = charge;
         this.comment = comment;
     }
 
@@ -88,12 +87,12 @@ public class EmployeePayment extends AbstractPaymentEntity {
         this.employeeCounterparty = employeeCounterparty;
     }
 
-    public TypePayment getTypePayment() {
-        return typePayment;
+    public boolean isCharge() {
+        return charge;
     }
 
-    public void setTypePayment(TypePayment typePayment) {
-        this.typePayment = typePayment;
+    public void setCharge(boolean charge) {
+        this.charge = charge;
     }
 
     public String getComment() {
@@ -109,7 +108,7 @@ public class EmployeePayment extends AbstractPaymentEntity {
         return "EmployeePayment{" +
                 "id=" + id +
                 ", typeCounterparty=" + typeCounterparty +
-                ", typePayment=" + typePayment +
+                ", charge=" + charge +
                 ", comment='" + comment + '\'' +
                 '}';
     }
