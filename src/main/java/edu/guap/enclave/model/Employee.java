@@ -45,17 +45,17 @@ public class Employee extends AbstractFullNameEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     @OrderBy("number DESC")
-    private List<EmployeePhone> phones;
+    private List<Phone> phones;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     @OrderBy("email DESC")
-    private List<EmployeeEmail> emails;
+    private List<Email> emails;
 
     public Employee() {
     }
 
     public Employee(Integer id, String fullName, Region region, String address, String login,
-                    String password, Set<Role> roles, List<EmployeePhone> phones, List<EmployeeEmail> emails) {
+                    String password, Set<Role> roles, List<Phone> phones, List<Email> emails) {
         super(id, fullName);
         this.region = region;
         this.address = address;
@@ -106,19 +106,19 @@ public class Employee extends AbstractFullNameEntity {
         this.roles = roles;
     }
 
-    public List<EmployeePhone> getPhones() {
+    public List<Phone> getPhones() {
         return phones;
     }
 
-    public void setPhones(List<EmployeePhone> phones) {
+    public void setPhones(List<Phone> phones) {
         this.phones = phones;
     }
 
-    public List<EmployeeEmail> getEmails() {
+    public List<Email> getEmails() {
         return emails;
     }
 
-    public void setEmails(List<EmployeeEmail> emails) {
+    public void setEmails(List<Email> emails) {
         this.emails = emails;
     }
 

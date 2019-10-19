@@ -13,7 +13,7 @@ import java.util.List;
                 query = "DELETE FROM ContactPerson cp WHERE cp.id=:id AND cp.company.id=:companyId"),
         @NamedQuery(name = ContactPerson.ALL_SORTED,
                 query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId ORDER BY cp.fullName"),
-        @NamedQuery(name = Company.GET,
+        @NamedQuery(name = ContactPerson.GET,
                 query = "SELECT cp FROM ContactPerson cp WHERE cp.id=:id AND cp.company.id=:companyId")
 })
 @Entity
