@@ -23,21 +23,17 @@ class RegionRepositoryImplTest {
 
     @Test
     void save() {
-        regionRepository.save(RegionTestData.getCreated());
     }
 
     @Test
     void delete() {
-        regionRepository.delete(RegionTestData.REGION_1_ID);
     }
 
     @Test
     void get() {
-        regionRepository.get(RegionTestData.REGION_1_ID);
     }
 
     @Test
     void getAll() {
-        regionRepository.getAll().forEach(System.out::println);
     }
 }

@@ -18,7 +18,7 @@ public class RegionTestData {
     //public static final Region NEW_REGION = new Region(NEW_ID, "Амурская область");
 
     public static Region getCreated() {
-        return new Region("Next region");
+        return null;
     }
 
     public static void assertMatch(Region actual, Region expected) {
