@@ -28,7 +28,7 @@ CREATE TABLE order_type_by_group
 (
     group_id      INTEGER NOT NULL,
     order_type_id INTEGER NOT NULL,
-    CONSTRAINT group_order_type_idx UNIQUE (group_id, order_type_id),
+    CONSTRAINT group_order_unique_type_idx UNIQUE (group_id, order_type_id),
     FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE CASCADE,
     FOREIGN KEY (order_type_id) REFERENCES order_type (id) ON DELETE CASCADE
 );
@@ -43,6 +43,9 @@ CREATE TABLE companies
     reliability          VARCHAR(255) NOT NULL,
     whats_app_group_name VARCHAR(255) NOT NULL,
     type_company         VARCHAR(255) NOT NULL,
+    CONSTRAINT companies_unique_title_idx UNIQUE (title),
+    CONSTRAINT companies_unique_itn_idx UNIQUE (itn),
+    CONSTRAINT companies_unique_address_idx UNIQUE (address),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE
 );
 
