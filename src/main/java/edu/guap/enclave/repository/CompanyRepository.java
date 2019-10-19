@@ -1,6 +1,8 @@
 package edu.guap.enclave.repository;
 
 import edu.guap.enclave.model.Company;
+import edu.guap.enclave.model.Reliability;
+import edu.guap.enclave.model.TypeCompany;
 
 import java.util.List;
 
@@ -15,5 +17,17 @@ public interface CompanyRepository {
     Company get(int id);
 
     List<Company> getAll();
+
+    List<Company> getAllByRegion(int regionId);
+
+    List<Company> getAllByReliability(Reliability reliability);
+
+    List<Company> getAllByType(TypeCompany type);
+
+    Company findByItb(String itn);
+
+    Company findByAddress(String address);
+
+    Company findByTitle(String title);
 
 }

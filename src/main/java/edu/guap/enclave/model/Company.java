@@ -10,20 +10,47 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(name = Company.DELETE, query = "DELETE FROM Company c WHERE c.id=:id"),
-        @NamedQuery(name = Company.ALL_SORTED, query = "SELECT c FROM Company c ORDER BY c.title"),
-        @NamedQuery(name = Company.GET, query = "SELECT c FROM Company c WHERE c.id=:id")
-})
 @Entity
-@Table(name = "companies")
+@Table(name = "companies",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "title", name = "companies_unique_title_idx"),
+                @UniqueConstraint(columnNames = "itn", name = "companies_unique_itn_idx"),
+                @UniqueConstraint(columnNames = "address", name = "companies_unique_address_idx")
+        }
+)
+@NamedQueries({
+        @NamedQuery(name = Company.DELETE,
+                query = "DELETE FROM Company c WHERE c.id=:id"),
+        @NamedQuery(name = Company.ALL,
+                query = "SELECT c FROM Company c ORDER BY c.title"),
+        @NamedQuery(name = Company.GET,
+                query = "SELECT c FROM Company c WHERE c.id=:id"),
+        @NamedQuery(name = Company.ALL_BY_REGION,
+                query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
+        @NamedQuery(name = Company.ALL_BY_RELIABILITY,
+                query = "SELECT c FROM Company c WHERE c.reliability=:reliability ORDER BY c.title"),
+        @NamedQuery(name = Company.ALL_BY_TYPE,
+                query = "SELECT c FROM Company c WHERE c.typeCompany=:typeCompany ORDER BY c.title"),
+        @NamedQuery(name = Company.FIND_BY_ITN,
+                query = "SELECT c FROM Company c WHERE c.itn=:itn"),
+        @NamedQuery(name = Company.FIND_BY_ADDRESS,
+                query = "SELECT c FROM Company c WHERE c.address=:address"),
+        @NamedQuery(name = Company.FIND_BY_TITLE,
+                query = "SELECT c FROM Company c WHERE c.title=:title")
+})
 public class Company extends AbstractBaseEntity {
 
     public static final String DELETE = "Company.delete";
-    public static final String ALL_SORTED = "Company.getAllSorted";
+    public static final String ALL = "Company.getAll";
     public static final String GET = "Company.get";
+    public static final String ALL_BY_REGION = "Company.getAllByRegion";
+    public static final String ALL_BY_RELIABILITY = "Company.getAllByReliability";
+    public static final String ALL_BY_TYPE = "Company.getAllByType";
+    public static final String FIND_BY_ITN = "Company.findByItn";
+    public static final String FIND_BY_ADDRESS = "Company.findByAddress";
+    public static final String FIND_BY_TITLE = "Company.findByTitle";
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = false, unique = true)
     @NotBlank
     @Size(max = 255)
     private String title;
@@ -34,12 +61,12 @@ public class Company extends AbstractBaseEntity {
     @NotNull
     private Region region;
 
-    @Column(name = "itn", nullable = false)
+    @Column(name = "itn", nullable = false, unique = true)
     @NotBlank
     @Size(min = 10, max = 12)
     private String itn;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = false, unique = true)
     @NotBlank
     @Size(max = 255)
     private String address;
@@ -148,7 +175,6 @@ public class Company extends AbstractBaseEntity {
         return "Company{" +
                 "title='" + title + '\'' +
                 ", id=" + id +
-                ", region=" + region +
                 ", itn='" + itn + '\'' +
                 ", address='" + address + '\'' +
                 ", reliability=" + reliability +
