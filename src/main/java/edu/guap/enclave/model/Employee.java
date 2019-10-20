@@ -13,8 +13,47 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "employees", uniqueConstraints = {@UniqueConstraint(columnNames = "login", name = "employees_unique_login_idx")})
+@Table(name = "employees",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "login", name = "employees_unique_login_idx"),
+                @UniqueConstraint(columnNames = "address", name = "employees_unique_address_idx")
+        }
+)
+@NamedQueries({
+        @NamedQuery(name = Employee.DELETE,
+                query = "DELETE FROM Employee e WHERE e.id=:id"),
+        @NamedQuery(name = Employee.ALL,
+                query = "SELECT e FROM Employee e ORDER BY e.fullName"),
+        @NamedQuery(name = Employee.GET,
+                query = "SELECT e FROM Employee e WHERE e.id=:id"),
+        @NamedQuery(name = Employee.GET_WITH_PAYMENTS,
+                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.payments WHERE e.id=:id"),
+        @NamedQuery(name = Employee.GET_WITH_SALARY,
+                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.salary s WHERE e.id=:id AND s.endDate IS NULL"),
+        @NamedQuery(name = Employee.GET_WITH_EMAILS,
+                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.emails WHERE e.id=:id"),
+        @NamedQuery(name = Employee.GET_WITH_PHONES,
+                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.phones WHERE e.id=:id"),
+        @NamedQuery(name = Employee.ALL_BY_REGION,
+                query = "SELECT e FROM Employee e WHERE e.region.id=:regionId ORDER BY e.fullName"),
+        @NamedQuery(name = Employee.FIND_BY_LOGIN,
+                query = "SELECT e FROM Employee e WHERE e.login=:login"),
+        @NamedQuery(name = Employee.FIND_BY_ADDRESS,
+                query = "SELECT e FROM Employee e WHERE e.address=:address")
+
+})
 public class Employee extends AbstractFullNameEntity {
+
+    public static final String DELETE = "Employee.delete";
+    public static final String ALL = "Employee.getAll";
+    public static final String GET = "Employee.get";
+    public static final String GET_WITH_PAYMENTS = "Employee.getWithPayments";
+    public static final String GET_WITH_SALARY = "Employee.getWithSalary";
+    public static final String GET_WITH_EMAILS = "Employee.getWithEmails";
+    public static final String GET_WITH_PHONES = "Employee.getWithPhones";
+    public static final String ALL_BY_REGION = "Employee.getAllByRegion";
+    public static final String FIND_BY_LOGIN = "Employee.findByLogin";
+    public static final String FIND_BY_ADDRESS = "Employee.findByAddress";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id", nullable = false)
@@ -32,7 +71,7 @@ public class Employee extends AbstractFullNameEntity {
     @Size(max = 255)
     private String password;
 
-    @Column(name = "address")
+    @Column(name = "address", unique = true)
     @Size(max = 255)
     private String address;
 
@@ -42,6 +81,14 @@ public class Employee extends AbstractFullNameEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @BatchSize(size = 200)
     private Set<Role> roles;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+    @OrderBy("date DESC")
+    private List<EmployeePayment> payments;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+    @OrderBy("startDate DESC")
+    private List<Salary> salary;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     @OrderBy("number DESC")
@@ -55,13 +102,16 @@ public class Employee extends AbstractFullNameEntity {
     }
 
     public Employee(Integer id, String fullName, Region region, String address, String login,
-                    String password, Set<Role> roles, List<Phone> phones, List<Email> emails) {
+                    String password, Set<Role> roles, List<EmployeePayment> payments,
+                    List<Salary> salary, List<Phone> phones, List<Email> emails) {
         super(id, fullName);
         this.region = region;
         this.address = address;
         this.login = login;
         this.password = password;
         this.roles = roles;
+        this.payments = payments;
+        this.salary = salary;
         this.phones = phones;
         this.emails = emails;
     }
@@ -104,6 +154,22 @@ public class Employee extends AbstractFullNameEntity {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<EmployeePayment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<EmployeePayment> payments) {
+        this.payments = payments;
+    }
+
+    public List<Salary> getSalary() {
+        return salary;
+    }
+
+    public void setSalary(List<Salary> salary) {
+        this.salary = salary;
     }
 
     public List<Phone> getPhones() {

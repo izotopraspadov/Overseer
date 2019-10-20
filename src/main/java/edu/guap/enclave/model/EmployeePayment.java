@@ -108,6 +108,7 @@ public class EmployeePayment extends AbstractPaymentEntity {
         return "EmployeePayment{" +
                 "id=" + id +
                 ", typeCounterparty=" + typeCounterparty +
+                ", cashless=" + cashless +
                 ", charge=" + charge +
                 ", comment='" + comment + '\'' +
                 '}';
