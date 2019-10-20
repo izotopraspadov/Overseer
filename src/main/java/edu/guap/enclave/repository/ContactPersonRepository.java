@@ -9,11 +9,16 @@ public interface ContactPersonRepository {
     ContactPerson save(ContactPerson person, int companyId);
 
     // false if not found
-    boolean delete(int id, int companyId);
+    boolean delete(int id);
 
     // null if not found
-    ContactPerson get(int id, int companyId);
+    ContactPerson get(int id);
 
-    List<ContactPerson> getAll(int companyId);
+    // null if not found
+    ContactPerson getWithCompany(int id);
+
+    List<ContactPerson> getAll();
+
+    List<ContactPerson> getAllByCompany(int companyId);
 
 }

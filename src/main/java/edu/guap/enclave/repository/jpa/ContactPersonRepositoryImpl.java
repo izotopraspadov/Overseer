@@ -18,9 +18,8 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
     private EntityManager em;
 
     @Override
+    @Transactional
     public ContactPerson save(ContactPerson person, int companyId) {
-
-        if (!person.isNew() && get(person.getId(), companyId) == null) return null;
 
         person.setCompany(em.getReference(Company.class, companyId));
 
@@ -33,24 +32,36 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
     }
 
     @Override
-    public boolean delete(int id, int companyId) {
+    @Transactional
+    public boolean delete(int id) {
         return em.createNamedQuery(ContactPerson.DELETE)
                 .setParameter("id", id)
-                .setParameter("companyId", companyId)
                 .executeUpdate() != 0;
     }
 
     @Override
-    public ContactPerson get(int id, int companyId) {
+    public ContactPerson get(int id) {
         return em.createNamedQuery(ContactPerson.GET, ContactPerson.class)
                 .setParameter("id", id)
-                .setParameter("companyId", companyId)
                 .getSingleResult();
     }
 
     @Override
-    public List<ContactPerson> getAll(int companyId) {
-        return em.createNamedQuery(ContactPerson.ALL_SORTED, ContactPerson.class)
+    public ContactPerson getWithCompany(int id) {
+        return em.createNamedQuery(ContactPerson.GET_WITH_COMPANY, ContactPerson.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
+    public List<ContactPerson> getAll() {
+        return em.createNamedQuery(ContactPerson.ALL, ContactPerson.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<ContactPerson> getAllByCompany(int companyId) {
+        return em.createNamedQuery(ContactPerson.ALL_BY_COMPANY, ContactPerson.class)
                 .setParameter("companyId", companyId)
                 .getResultList();
     }
