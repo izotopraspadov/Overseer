@@ -58,6 +58,7 @@ CREATE TABLE employees
     password  VARCHAR(255) NOT NULL,
     address   VARCHAR(255),
     CONSTRAINT employees_unique_login_idx UNIQUE (login),
+    CONSTRAINT employees_unique_address_idx UNIQUE (address),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE
 );
 
@@ -77,7 +78,7 @@ CREATE TABLE employee_payments
     type_counterparty        VARCHAR(255)                      NOT NULL,
     company_counterparty_id  INTEGER,
     employee_counterparty_id INTEGER,
-    transaction              MONEY                             NOT NULL,
+    transaction              NUMERIC(13, 2)                    NOT NULL,
     cashless                 BOOL                              NOT NULL,
     charge                   BOOL                              NOT NULL,
     comment                  TEXT,
@@ -91,11 +92,11 @@ CREATE TABLE employee_payments
 CREATE TABLE salaries
 (
     id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    employee_id INTEGER NOT NULL,
-    start_date  DATE    NOT NULL,
+    employee_id INTEGER        NOT NULL,
+    start_date  DATE           NOT NULL,
     end_date    DATE,
-    amount      MONEY   NOT NULL,
-    CONSTRAINT salaries_unique_employee_startdate_idx UNIQUE (employee_id, start_date),
+    amount      NUMERIC(13, 2) NOT NULL,
+    CONSTRAINT salaries_unique_employee_start_date_idx UNIQUE (employee_id, start_date),
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
 
@@ -139,22 +140,22 @@ CREATE TABLE phones
 CREATE TABLE ordered_objects
 (
     id                 INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    company_id         INTEGER      NOT NULL,
-    title              VARCHAR(255) NOT NULL,
-    cashless           BOOL         NOT NULL,
-    contract_is_need   BOOL         NOT NULL,
-    contract_exists    BOOL         NOT NULL,
-    planned_start_date DATE         NOT NULL,
+    company_id         INTEGER        NOT NULL,
+    title              VARCHAR(255)   NOT NULL,
+    cashless           BOOL           NOT NULL,
+    contract_is_need   BOOL           NOT NULL,
+    contract_exists    BOOL           NOT NULL,
+    planned_start_date DATE           NOT NULL,
     actual_start_date  DATE,
-    planned_end_date   DATE         NOT NULL,
+    planned_end_date   DATE           NOT NULL,
     actual_end_date    DATE,
-    sum                MONEY        NOT NULL,
-    payment_order      VARCHAR(255) NOT NULL,
+    sum                NUMERIC(13, 2) NOT NULL,
+    payment_order      VARCHAR(255)   NOT NULL,
     number_of_lines    SMALLINT,
-    group_id           INTEGER      NOT NULL,
-    manager_id         INTEGER      NOT NULL,
-    underway           BOOL         NOT NULL,
-    order_type_id      INTEGER      NOT NULL,
+    group_id           INTEGER        NOT NULL,
+    manager_id         INTEGER        NOT NULL,
+    underway           BOOL           NOT NULL,
+    order_type_id      INTEGER        NOT NULL,
     FOREIGN KEY (company_id) REFERENCES companies (id) ON DELETE CASCADE,
     FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE CASCADE,
     FOREIGN KEY (manager_id) REFERENCES employees (id) ON DELETE CASCADE,
@@ -168,7 +169,7 @@ CREATE TABLE ordered_object_payments
     company_id        INTEGER                           NOT NULL,
     ordered_object_id INTEGER                           NOT NULL,
     our_company_id    INTEGER                           NOT NULL,
-    transaction       MONEY                             NOT NULL,
+    transaction       NUMERIC(13, 2)                    NOT NULL,
     cashless          BOOL                              NOT NULL,
     comment           TEXT,
     FOREIGN KEY (company_id) REFERENCES companies (id) ON DELETE CASCADE,

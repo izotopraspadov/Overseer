@@ -15,10 +15,10 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "salaries",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "start_date"},
-                name = "salaries_unique_employee_startdate_idx")})
+                name = "salaries_unique_employee_start_date_idx")})
 public class Salary extends AbstractBaseEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false, unique = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull

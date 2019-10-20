@@ -18,7 +18,7 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     protected LocalDate date;
 
-    @Digits(integer = 10, fraction = 2)
+    @Digits(integer = 11, fraction = 2)
     @Column(name = "transaction", nullable = false)
     @NotNull
     protected BigDecimal transaction;
