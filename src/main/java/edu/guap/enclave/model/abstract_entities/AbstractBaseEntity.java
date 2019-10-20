@@ -1,6 +1,5 @@
 package edu.guap.enclave.model.abstract_entities;
 
-import edu.guap.enclave.model.HasId;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
