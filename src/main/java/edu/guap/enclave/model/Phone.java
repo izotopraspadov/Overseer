@@ -12,8 +12,8 @@ import javax.validation.constraints.Size;
                 @UniqueConstraint(columnNames = "number", name = "phone_unique_idx")
         })
 @NamedQueries({
-        @NamedQuery(name = Phone.ALL_BY_EMPLOYEE, query = "SELECT p FROM Phone p WHERE p.employee.id=:id ORDER BY p.number"),
-        @NamedQuery(name = Phone.ALL_BY_CONTACT_PERSON, query = "SELECT p FROM Phone p WHERE p.contactPerson.id=:id ORDER BY p.number")
+        @NamedQuery(name = Phone.ALL_BY_EMPLOYEE, query = "SELECT p FROM Phone p WHERE p.employee.id=:ownerId ORDER BY p.number"),
+        @NamedQuery(name = Phone.ALL_BY_CONTACT_PERSON, query = "SELECT p FROM Phone p WHERE p.contactPerson.id=:ownerId ORDER BY p.number")
 })
 public class Phone extends AbstractContactEntity {
 

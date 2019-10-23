@@ -12,8 +12,8 @@ import javax.validation.constraints.Size;
                 @UniqueConstraint(columnNames = "email", name = "email_unique_idx")
         })
 @NamedQueries({
-        @NamedQuery(name = Email.ALL_BY_EMPLOYEE, query = "SELECT e FROM Email e WHERE e.employee.id=:id ORDER BY e.email"),
-        @NamedQuery(name = Email.ALL_BY_CONTACT_PERSON, query = "SELECT e FROM Email e WHERE e.contactPerson.id=:id ORDER BY e.email")
+        @NamedQuery(name = Email.ALL_BY_EMPLOYEE, query = "SELECT e FROM Email e WHERE e.employee.id=:ownerId ORDER BY e.email"),
+        @NamedQuery(name = Email.ALL_BY_CONTACT_PERSON, query = "SELECT e FROM Email e WHERE e.contactPerson.id=:ownerId ORDER BY e.email")
 })
 public class Email extends AbstractContactEntity {
 
