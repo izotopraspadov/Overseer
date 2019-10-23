@@ -2,17 +2,23 @@ package edu.guap.enclave.model;
 
 import edu.guap.enclave.model.abstract_entities.AbstractContactEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "phones",
-        uniqueConstraints = {@UniqueConstraint(columnNames = "number", name = "phone_unique_idx")})
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "number", name = "phone_unique_idx")
+        })
+@NamedQueries({
+        @NamedQuery(name = Phone.ALL_BY_EMPLOYEE, query = "SELECT p FROM Phone p WHERE p.employee.id=:id ORDER BY p.number"),
+        @NamedQuery(name = Phone.ALL_BY_CONTACT_PERSON, query = "SELECT p FROM Phone p WHERE p.contactPerson.id=:id ORDER BY p.number")
+})
 public class Phone extends AbstractContactEntity {
+
+    public static final String ALL_BY_EMPLOYEE = "Phone.GetAllByEmployee";
+    public static final String ALL_BY_CONTACT_PERSON = "Phone.GetAllBContactPerson";
 
     @Column(name = "number", nullable = false, unique = true)
     @NotBlank

@@ -8,8 +8,17 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "emails",
-        uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "email_unique_idx")})
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "email", name = "email_unique_idx")
+        })
+@NamedQueries({
+        @NamedQuery(name = Email.ALL_BY_EMPLOYEE, query = "SELECT e FROM Email e WHERE e.employee.id=:id ORDER BY e.email"),
+        @NamedQuery(name = Email.ALL_BY_CONTACT_PERSON, query = "SELECT e FROM Email e WHERE e.contactPerson.id=:id ORDER BY e.email")
+})
 public class Email extends AbstractContactEntity {
+
+    public static final String ALL_BY_EMPLOYEE = "Email.GetAllByEmployee";
+    public static final String ALL_BY_CONTACT_PERSON = "Email.GetAllBContactPerson";
 
     @Column(name = "email", nullable = false, unique = true)
     @javax.validation.constraints.Email
