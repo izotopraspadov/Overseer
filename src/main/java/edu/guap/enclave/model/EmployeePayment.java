@@ -114,6 +114,7 @@ public class EmployeePayment extends AbstractPaymentEntity {
     public String toString() {
         return "EmployeePayment{" +
                 "id=" + id +
+                ", employee=" + employee.getFullName() +
                 ", typeCounterparty=" + typeCounterparty +
                 ", cashless=" + cashless +
                 ", charge=" + charge +

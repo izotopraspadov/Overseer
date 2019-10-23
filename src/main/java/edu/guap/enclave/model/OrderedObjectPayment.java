@@ -20,13 +20,13 @@ public class OrderedObjectPayment extends AbstractPaymentEntity {
 
     public static final String ALL_BY_DATE = "OrderedObjectPaymentRepository.getAllByDate";
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Company company;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ordered_object_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -89,6 +89,7 @@ public class OrderedObjectPayment extends AbstractPaymentEntity {
     public String toString() {
         return "OrderedObjectPaymentRepository{" +
                 "id=" + id +
+                ", company=" + company.getTitle() +
                 ", date=" + date +
                 ", transaction=" + transaction +
                 ", cashless=" + cashless +
