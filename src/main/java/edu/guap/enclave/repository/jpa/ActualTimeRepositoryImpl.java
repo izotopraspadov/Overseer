@@ -17,6 +17,7 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
     private EntityManager em;
 
     @Override
+    @Transactional
     public ActualTime save(ActualTime actualTime, int orderedObjectId) {
 
         actualTime.setOrderedObject(em.getReference(OrderedObject.class, orderedObjectId));
@@ -31,6 +32,7 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return em.createNamedQuery(ActualTime.DELETE)
                 .setParameter("id", id)
