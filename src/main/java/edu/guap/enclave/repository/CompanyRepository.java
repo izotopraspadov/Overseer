@@ -24,10 +24,10 @@ public interface CompanyRepository {
 
     List<Company> getAllByType(TypeCompany type);
 
+    Company getAllByTitle(String title);
+
     Company findByItb(String itn);
 
     Company findByAddress(String address);
-
-    Company findByTitle(String title);
 
 }

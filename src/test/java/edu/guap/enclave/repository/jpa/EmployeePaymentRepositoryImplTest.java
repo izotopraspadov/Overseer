@@ -26,8 +26,5 @@ class EmployeePaymentRepositoryImplTest {
 
     @Test
     void getAllByDate() {
-        employeePaymentRepository
-                .getAllByDate(LocalDate.of(2019, Month.OCTOBER, 3))
-                .forEach(System.out::println);
     }
 }

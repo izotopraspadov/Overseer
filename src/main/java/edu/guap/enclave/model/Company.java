@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 @Table(name = "companies",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "title", name = "companies_unique_title_idx"),
                 @UniqueConstraint(columnNames = "itn", name = "companies_unique_itn_idx"),
                 @UniqueConstraint(columnNames = "address", name = "companies_unique_address_idx")
         }
@@ -31,12 +30,12 @@ import java.util.List;
                 query = "SELECT c FROM Company c WHERE c.reliability=:reliability ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_TYPE,
                 query = "SELECT c FROM Company c WHERE c.typeCompany=:typeCompany ORDER BY c.title"),
+        @NamedQuery(name = Company.ALL_BY_TITLE,
+                query = "SELECT c FROM Company c WHERE c.title=:title"),
         @NamedQuery(name = Company.FIND_BY_ITN,
                 query = "SELECT c FROM Company c WHERE c.itn=:itn"),
         @NamedQuery(name = Company.FIND_BY_ADDRESS,
-                query = "SELECT c FROM Company c WHERE c.address=:address"),
-        @NamedQuery(name = Company.FIND_BY_TITLE,
-                query = "SELECT c FROM Company c WHERE c.title=:title")
+                query = "SELECT c FROM Company c WHERE c.address=:address")
 })
 public class Company extends AbstractBaseEntity {
 
@@ -46,9 +45,9 @@ public class Company extends AbstractBaseEntity {
     public static final String ALL_BY_REGION = "Company.getAllByRegion";
     public static final String ALL_BY_RELIABILITY = "Company.getAllByReliability";
     public static final String ALL_BY_TYPE = "Company.getAllByType";
+    public static final String ALL_BY_TITLE = "Company.getAllByTitle";
     public static final String FIND_BY_ITN = "Company.findByItn";
     public static final String FIND_BY_ADDRESS = "Company.findByAddress";
-    public static final String FIND_BY_TITLE = "Company.findByTitle";
 
     @Column(name = "title", nullable = false, unique = true)
     @NotBlank

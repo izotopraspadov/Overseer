@@ -43,7 +43,6 @@ CREATE TABLE companies
     reliability          VARCHAR(255) NOT NULL,
     whats_app_group_name VARCHAR(255) NOT NULL,
     type_company         VARCHAR(255) NOT NULL,
-    CONSTRAINT companies_unique_title_idx UNIQUE (title),
     CONSTRAINT companies_unique_itn_idx UNIQUE (itn),
     CONSTRAINT companies_unique_address_idx UNIQUE (address),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE
