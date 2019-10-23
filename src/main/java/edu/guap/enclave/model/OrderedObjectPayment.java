@@ -9,21 +9,16 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@NamedQueries({
-        @NamedQuery(name = OrderedObjectPayment.DELETE,
-                query = "DELETE FROM OrderedObjectPayment cp WHERE cp.id=:id AND cp.company.id=:companyId AND cp.ourCompany.id=:ourCompanyId"),
-        @NamedQuery(name = OrderedObjectPayment.ALL_FILTERED,
-                query = "SELECT cp FROM OrderedObjectPayment cp WHERE cp.company.id=:companyId AND cp.date=:date"),
-        @NamedQuery(name = OrderedObjectPayment.GET,
-                query = "SELECT cp FROM OrderedObjectPayment cp WHERE cp.id=:id AND cp.company.id=:companyId")
-})
 @Entity
 @Table(name = "ordered_object_payments")
+@NamedQueries({
+        @NamedQuery(name = OrderedObjectPayment.ALL_BY_DATE,
+                query = "SELECT oop FROM OrderedObjectPayment oop WHERE oop.date=:date ORDER BY oop.company.title"),
+
+})
 public class OrderedObjectPayment extends AbstractPaymentEntity {
 
-    public static final String DELETE = "OrderedObjectPayment.delete";
-    public static final String ALL_FILTERED = "OrderedObjectPayment.getAllFiltered";
-    public static final String GET = "OrderedObjectPayment.get";
+    public static final String ALL_BY_DATE = "OrderedObjectPaymentRepository.getAllByDate";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -31,7 +26,7 @@ public class OrderedObjectPayment extends AbstractPaymentEntity {
     @NotNull
     private Company company;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ordered_object_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -92,7 +87,7 @@ public class OrderedObjectPayment extends AbstractPaymentEntity {
 
     @Override
     public String toString() {
-        return "OrderedObjectPayment{" +
+        return "OrderedObjectPaymentRepository{" +
                 "id=" + id +
                 ", date=" + date +
                 ", transaction=" + transaction +

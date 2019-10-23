@@ -11,9 +11,16 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "employee_payments")
+@NamedQueries({
+        @NamedQuery(name = EmployeePayment.ALL_BY_DATE,
+                query = "SELECT ep FROM EmployeePayment ep WHERE ep.date=:date ORDER BY ep.employee.fullName"),
+
+})
 public class EmployeePayment extends AbstractPaymentEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    public static final String ALL_BY_DATE = "EmployeePayment.GetAllByDate";
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
