@@ -13,7 +13,18 @@ import javax.validation.constraints.NotNull;
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "ordered_object_id", name = "planned_time_unique_object_idx")
         })
+
+@NamedQueries({
+        @NamedQuery(name = PlannedTime.DELETE,
+                query = "DELETE FROM PlannedTime pt WHERE pt.id=:id"),
+        @NamedQuery(name = PlannedTime.GET_BY_ORDERED_OBJECT,
+                query = "SELECT DISTINCT pt FROM PlannedTime pt WHERE pt.orderedObject.id=:id")
+
+})
 public class PlannedTime extends AbstractBaseEntity {
+
+    public static final String DELETE = "PlannedTimed.delete";
+    public static final String GET_BY_ORDERED_OBJECT = "PlannedTime.getByOrderedObject";
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ordered_object_id", nullable = false, unique = true)

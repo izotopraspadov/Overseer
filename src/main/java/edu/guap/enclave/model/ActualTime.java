@@ -16,7 +16,17 @@ import java.time.LocalDate;
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "ordered_object_id", name = "actual_time_unique_object_idx")
         })
+@NamedQueries({
+        @NamedQuery(name = ActualTime.DELETE,
+                query = "DELETE FROM ActualTime at WHERE at.id=:id"),
+        @NamedQuery(name = ActualTime.GET_BY_ORDERED_OBJECT,
+                query = "SELECT DISTINCT at FROM ActualTime at WHERE at.orderedObject.id=:id")
+
+})
 public class ActualTime extends AbstractBaseEntity {
+
+    public static final String DELETE = "ActualTime.delete";
+    public static final String GET_BY_ORDERED_OBJECT = "ActualTime.getByOrderedObject";
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ordered_object_id", nullable = false, unique = true)
