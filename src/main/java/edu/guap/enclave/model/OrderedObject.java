@@ -14,10 +14,56 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "ordered_objects")
+@NamedQueries({
+        @NamedQuery(name = OrderedObject.DELETE,
+                query = "DELETE FROM OrderedObject o WHERE o.id=:id"),
+        @NamedQuery(name = OrderedObject.ALL,
+                query = "SELECT o FROM OrderedObject o ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.GET,
+                query = "SELECT o FROM OrderedObject o WHERE o.id=:id"),
+        @NamedQuery(name = OrderedObject.GET_WITH_PAYMENTS,
+                query = "SELECT DISTINCT o FROM OrderedObject o LEFT JOIN FETCH o.payments WHERE o.id=:id"),
+        @NamedQuery(name = OrderedObject.GET_WITH_TASKS,
+                query = "SELECT DISTINCT o FROM OrderedObject o LEFT JOIN FETCH o.tasks WHERE o.id=:id"),
+        @NamedQuery(name = OrderedObject.ALL_BY_TITLE,
+                query = "SELECT o FROM OrderedObject o WHERE o.title=:title ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_COMPANY,
+                query = "SELECT o FROM OrderedObject o WHERE o.company.id=:companyId ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_CASHLESS,
+                query = "SELECT o FROM OrderedObject o WHERE o.cashless=:cashless ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_ORDER_TYPE,
+                query = "SELECT o FROM OrderedObject o WHERE o.orderType.title=:orderType ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_GROUP,
+                query = "SELECT o FROM OrderedObject o WHERE o.group.id=:groupId ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_CONTRACT_EXISTS,
+                query = "SELECT o FROM OrderedObject o WHERE o.contractExists=:contractExists ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_SUM,
+                query = "SELECT o FROM OrderedObject o WHERE o.sum=:currentSum ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_MANAGER,
+                query = "SELECT o FROM OrderedObject o WHERE o.manager.id=:managerId ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_UNDERWAY,
+                query = "SELECT o FROM OrderedObject o WHERE o.underway=:underway ORDER BY o.title")
+})
 public class OrderedObject extends AbstractBaseEntity {
+
+    public static final String DELETE = "OrderedObject.delete";
+    public static final String ALL = "OrderedObject.getAll";
+    public static final String GET = "OrderedObject.get";
+    public static final String GET_WITH_PAYMENTS = "OrderedObject.getWithPayments";
+    public static final String GET_WITH_TASKS = "OrderedObject.getWithTasks";
+    public static final String ALL_BY_TITLE = "OrderedObject.getAllByTitle";
+    public static final String ALL_BY_COMPANY = "OrderedObject.getAllByCompany";
+    public static final String ALL_BY_CASHLESS = "OrderedObject.getAllByCashless";
+    public static final String ALL_BY_ORDER_TYPE = "OrderedObject.getAllByOrderType";
+    public static final String ALL_BY_GROUP = "OrderedObject.getAllByGroup";
+    public static final String ALL_BY_CONTRACT_EXISTS = "OrderedObject.getAllByContractExists";
+    public static final String ALL_BY_SUM = "OrderedObject.getAllBySum";
+    public static final String ALL_BY_MANAGER = "OrderedObject.getAllByManager";
+    public static final String ALL_BY_UNDERWAY = "OrderedObject.getAllByUnderway";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -59,7 +105,7 @@ public class OrderedObject extends AbstractBaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate actualEndDate;
 
-    @Digits(integer = 10, fraction = 2)
+    @Digits(integer = 11, fraction = 2)
     @Column(name = "sum")
     @NotNull
     private BigDecimal sum;
@@ -95,7 +141,38 @@ public class OrderedObject extends AbstractBaseEntity {
     @NotNull
     private OrderType orderType;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderedObject")
+    @OrderBy("date DESC")
+    private List<OrderedObjectPayment> payments;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderedObject")
+    private List<Task> tasks;
+
     public OrderedObject() {
+    }
+
+    public OrderedObject(Integer id, Company company, String title, boolean cashless, boolean contractIsNeed,
+                         boolean contractExists, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate,
+                         LocalDate actualEndDate, BigDecimal sum, String paymentOrder, Integer numberOfLines,
+                         Group group, Employee manager, boolean underway, OrderType orderType, List<OrderedObjectPayment> payments) {
+        super(id);
+        this.company = company;
+        this.title = title;
+        this.cashless = cashless;
+        this.contractIsNeed = contractIsNeed;
+        this.contractExists = contractExists;
+        this.plannedStartDate = plannedStartDate;
+        this.actualStartDate = actualStartDate;
+        this.plannedEndDate = plannedEndDate;
+        this.actualEndDate = actualEndDate;
+        this.sum = sum;
+        this.paymentOrder = paymentOrder;
+        this.numberOfLines = numberOfLines;
+        this.group = group;
+        this.manager = manager;
+        this.underway = underway;
+        this.orderType = orderType;
+        this.payments = payments;
     }
 
     public String getTitle() {
@@ -224,6 +301,22 @@ public class OrderedObject extends AbstractBaseEntity {
 
     public void setUnderway(boolean underway) {
         this.underway = underway;
+    }
+
+    public List<OrderedObjectPayment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<OrderedObjectPayment> payments) {
+        this.payments = payments;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override

@@ -12,16 +12,19 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "actual_time")
+@Table(name = "actual_time",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "ordered_object_id", name = "actual_time_unique_object_idx")
+        })
 public class ActualTime extends AbstractBaseEntity {
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ordered_object_id", referencedColumnName = "id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ordered_object_id", nullable = false, unique = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private OrderedObject orderedObject;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull

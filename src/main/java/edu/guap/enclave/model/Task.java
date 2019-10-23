@@ -20,13 +20,13 @@ public class Task extends AbstractBaseEntity {
     @JoinColumn(name = "ordered_object_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private OrderedObject object;
+    private OrderedObject orderedObject;
 
     @Column(name = "task_description", nullable = false)
     @NotBlank
     private String taskDescription;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -51,10 +51,10 @@ public class Task extends AbstractBaseEntity {
     public Task() {
     }
 
-    public Task(Integer id, OrderedObject object, String taskDescription, Employee employee,
+    public Task(Integer id, OrderedObject orderedObject, String taskDescription, Employee employee,
                 LocalDate dateCompleted, Result result, String comment, Set<TaskEmail> taskEmails) {
         super(id);
-        this.object = object;
+        this.orderedObject = orderedObject;
         this.taskDescription = taskDescription;
         this.employee = employee;
         this.dateCompleted = dateCompleted;
@@ -63,12 +63,12 @@ public class Task extends AbstractBaseEntity {
         this.taskEmails = taskEmails;
     }
 
-    public OrderedObject getObject() {
-        return object;
+    public OrderedObject getOrderedObject() {
+        return orderedObject;
     }
 
-    public void setObject(OrderedObject object) {
-        this.object = object;
+    public void setOrderedObject(OrderedObject object) {
+        this.orderedObject = object;
     }
 
     public String getTaskDescription() {
@@ -124,7 +124,6 @@ public class Task extends AbstractBaseEntity {
         return "Task{" +
                 "id=" + id +
                 ", taskDescription='" + taskDescription + '\'' +
-                ", employee=" + employee +
                 ", dateCompleted=" + dateCompleted +
                 ", result=" + result +
                 ", comment='" + comment + '\'' +

@@ -183,6 +183,7 @@ CREATE TABLE planned_time
     ordered_object_id INTEGER  NOT NULL,
     employee_id       INTEGER  NOT NULL,
     man_hours         SMALLINT NOT NULL,
+    CONSTRAINT planned_time_unique_object_idx UNIQUE (ordered_object_id),
     FOREIGN KEY (ordered_object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
@@ -195,6 +196,7 @@ CREATE TABLE actual_time
     date              DATE     NOT NULL,
     actual_man_hours  SMALLINT NOT NULL,
     account_man_hours SMALLINT NOT NULL,
+    CONSTRAINT actual_time_unique_object_idx UNIQUE (ordered_object_id),
     FOREIGN KEY (ordered_object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );

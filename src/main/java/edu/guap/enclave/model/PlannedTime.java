@@ -9,16 +9,19 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "planned_time")
+@Table(name = "planned_time",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "ordered_object_id", name = "planned_time_unique_object_idx")
+        })
 public class PlannedTime extends AbstractBaseEntity {
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ordered_object_id", referencedColumnName = "id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ordered_object_id", nullable = false, unique = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private OrderedObject orderedObject;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
