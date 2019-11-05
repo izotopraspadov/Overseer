@@ -110,6 +110,11 @@ public class OrderedObject extends AbstractBaseEntity {
     @NotNull
     private BigDecimal sum;
 
+    @Digits(integer = 11, fraction = 2)
+    @Column(name = "expected_payment", nullable = false)
+    @NotNull
+    private BigDecimal expectedPayment;
+
     @Column(name = "payment_order", nullable = false)
     @NotBlank
     // regex
@@ -153,7 +158,7 @@ public class OrderedObject extends AbstractBaseEntity {
 
     public OrderedObject(Integer id, Company company, String title, boolean cashless, boolean contractIsNeed,
                          boolean contractExists, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate,
-                         LocalDate actualEndDate, BigDecimal sum, String paymentOrder, Integer numberOfLines,
+                         LocalDate actualEndDate, BigDecimal sum, BigDecimal expectedPayment, String paymentOrder, Integer numberOfLines,
                          Group group, Employee manager, boolean underway, OrderType orderType, List<OrderedObjectPayment> payments) {
         super(id);
         this.company = company;
@@ -166,6 +171,7 @@ public class OrderedObject extends AbstractBaseEntity {
         this.plannedEndDate = plannedEndDate;
         this.actualEndDate = actualEndDate;
         this.sum = sum;
+        this.expectedPayment = expectedPayment;
         this.paymentOrder = paymentOrder;
         this.numberOfLines = numberOfLines;
         this.group = group;
@@ -255,6 +261,14 @@ public class OrderedObject extends AbstractBaseEntity {
         this.sum = sum;
     }
 
+    public BigDecimal getExpectedPayment() {
+        return expectedPayment;
+    }
+
+    public void setExpectedPayment(BigDecimal expectedPayment) {
+        this.expectedPayment = expectedPayment;
+    }
+
     public OrderType getOrderType() {
         return orderType;
     }
@@ -332,6 +346,7 @@ public class OrderedObject extends AbstractBaseEntity {
                 ", plannedEndDate=" + plannedEndDate +
                 ", actualEndDate=" + actualEndDate +
                 ", sum=" + sum +
+                ", expectedPayment=" + expectedPayment +
                 ", orderType=" + orderType +
                 ", paymentOrder='" + paymentOrder + '\'' +
                 ", numberOfLines=" + numberOfLines +

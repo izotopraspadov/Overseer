@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "actual_time",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "ordered_object_id", name = "actual_time_unique_object_idx")
+                @UniqueConstraint(columnNames = {"id", "ordered_object_id"}, name = "actual_time_unique_at_object_idx")
         })
 @NamedQueries({
         @NamedQuery(name = ActualTime.DELETE,

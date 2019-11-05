@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "planned_time",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "ordered_object_id", name = "planned_time_unique_object_idx")
+                @UniqueConstraint(columnNames = {"id", "ordered_object_id"}, name = "planned_time_unique_pt_object_idx")
         })
 
 @NamedQueries({

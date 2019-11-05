@@ -13,8 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "companies",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "itn", name = "companies_unique_itn_idx"),
-                @UniqueConstraint(columnNames = "address", name = "companies_unique_address_idx")
+                @UniqueConstraint(columnNames = "itn", name = "companies_unique_itn_idx")
         }
 )
 @NamedQueries({
@@ -65,7 +64,7 @@ public class Company extends AbstractBaseEntity {
     @Size(min = 10, max = 12)
     private String itn;
 
-    @Column(name = "address", nullable = false, unique = true)
+    @Column(name = "address", nullable = false)
     @NotBlank
     @Size(max = 255)
     private String address;

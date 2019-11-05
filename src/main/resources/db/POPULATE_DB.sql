@@ -195,16 +195,16 @@ VALUES (100098, 100094),
 
 INSERT INTO ordered_objects (company_id, title, cashless, contract_is_need, contract_exists, planned_start_date,
                              actual_start_date,
-                             planned_end_date, actual_end_date, sum, payment_order, number_of_lines,
+                             planned_end_date, actual_end_date, sum, expected_payment, payment_order, number_of_lines,
                              group_id, manager_id, underway, order_type_id)
 VALUES (100013, 'First Project', false, false, true, '2019-09-01', '2019-09-10', '2019-10-01',
-        null, 100000.00, '100', null, 100098, 100024, true, 100094),            -- id 100103
+        null, 100000.00, 17000.00, '100', null, 100098, 100024, true, 100094),        -- id 100103
        (100013, 'First  Estimate', true, true, false, '2019-09-03', '2019-09-03', '2019-10-05',
-        null, 10000.00, '30-70', 50, 100100, 100025, true, 100096),             -- id 100104
+        null, 10000.00, 15000.00, '30-70', 50, 100100, 100025, true, 100096),         -- id 100104
        (100014, 'Second Project', false, false, true, '2019-09-01', '2019-09-10', '2019-10-01',
-        '2019-10-01', 200000.00, '50-50', null, 100102, 100026, false, 100094), -- id 100105
+        '2019-10-01', 200000.00, 0.00, '50-50', null, 100102, 100026, false, 100094), -- id 100105
        (100015, 'First Legal Service', true, true, false, '2019-09-07', '2019-09-07', '2019-10-07',
-        null, 50000.00, '20-20-60', null, 100102, 100027, true, 100097); -- id 100106
+        null, 50000.00, 10000.00, '20-20-60', null, 100102, 100027, true, 100097); -- id 100106
 
 INSERT INTO ordered_object_payments (date, company_id, ordered_object_id, our_company_id, transaction, cashless,
                                      comment)

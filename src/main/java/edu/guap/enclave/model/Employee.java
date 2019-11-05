@@ -15,8 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "employees",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "login", name = "employees_unique_login_idx"),
-                @UniqueConstraint(columnNames = "address", name = "employees_unique_address_idx")
+                @UniqueConstraint(columnNames = "login", name = "employees_unique_login_idx")
         }
 )
 @NamedQueries({
@@ -71,7 +70,7 @@ public class Employee extends AbstractFullNameEntity {
     @Size(max = 255)
     private String password;
 
-    @Column(name = "address", unique = true)
+    @Column(name = "address")
     @Size(max = 255)
     private String address;
 

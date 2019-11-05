@@ -44,7 +44,6 @@ CREATE TABLE companies
     whats_app_group_name VARCHAR(255) NOT NULL,
     type_company         VARCHAR(255) NOT NULL,
     CONSTRAINT companies_unique_itn_idx UNIQUE (itn),
-    CONSTRAINT companies_unique_address_idx UNIQUE (address),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE
 );
 
@@ -57,7 +56,6 @@ CREATE TABLE employees
     password  VARCHAR(255) NOT NULL,
     address   VARCHAR(255),
     CONSTRAINT employees_unique_login_idx UNIQUE (login),
-    CONSTRAINT employees_unique_address_idx UNIQUE (address),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE
 );
 
@@ -149,6 +147,7 @@ CREATE TABLE ordered_objects
     planned_end_date   DATE           NOT NULL,
     actual_end_date    DATE,
     sum                NUMERIC(13, 2) NOT NULL,
+    expected_payment   NUMERIC(13, 2) NOT NULL,
     payment_order      VARCHAR(255)   NOT NULL,
     number_of_lines    SMALLINT,
     group_id           INTEGER        NOT NULL,
@@ -182,7 +181,7 @@ CREATE TABLE planned_time
     ordered_object_id INTEGER  NOT NULL,
     employee_id       INTEGER  NOT NULL,
     man_hours         SMALLINT NOT NULL,
-    CONSTRAINT planned_time_unique_object_idx UNIQUE (ordered_object_id),
+    CONSTRAINT planned_time_unique_pt_object_idx UNIQUE (id, ordered_object_id),
     FOREIGN KEY (ordered_object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
@@ -195,7 +194,7 @@ CREATE TABLE actual_time
     date              DATE     NOT NULL,
     actual_man_hours  SMALLINT NOT NULL,
     account_man_hours SMALLINT NOT NULL,
-    CONSTRAINT actual_time_unique_object_idx UNIQUE (ordered_object_id),
+    CONSTRAINT actual_time_unique_at_object_idx UNIQUE (id, ordered_object_id),
     FOREIGN KEY (ordered_object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
