@@ -115,6 +115,7 @@ public class EmployeePayment extends AbstractPaymentEntity {
         return "EmployeePayment{" +
                 "id=" + id +
                 ", employee=" + employee.getFullName() +
+                ", transaction=" + transaction +
                 ", typeCounterparty=" + typeCounterparty +
                 ", cashless=" + cashless +
                 ", charge=" + charge +

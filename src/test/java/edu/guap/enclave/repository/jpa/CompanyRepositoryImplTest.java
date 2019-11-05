@@ -35,10 +35,12 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getAll() {
+        companyRepository.getAll().forEach(System.out::println);
     }
 
     @Test
     void getAllByRegion() {
+        companyRepository.getAllByRegion(100001).forEach(System.out::println);
     }
 
     @Test
@@ -51,6 +53,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void findByItb() {
+        System.out.println(companyRepository.findByItb("000000000000"));
     }
 
     @Test

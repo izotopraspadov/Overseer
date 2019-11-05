@@ -40,6 +40,7 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void getAll() {
+        contactPersonRepository.getAll().forEach(System.out::println);
     }
 
     @Test

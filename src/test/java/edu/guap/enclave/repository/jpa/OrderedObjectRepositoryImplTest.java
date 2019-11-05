@@ -42,6 +42,7 @@ class OrderedObjectRepositoryImplTest {
 
     @Test
     void getWithTasks() {
+        orderedObjectRepository.getWithTasks(100103).getTasks().forEach(System.out::println);
     }
 
     @Test

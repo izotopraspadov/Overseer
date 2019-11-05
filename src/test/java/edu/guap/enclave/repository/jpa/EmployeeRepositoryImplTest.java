@@ -36,6 +36,7 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getWithPayments() {
+        employeeRepository.getWithPayments(100026).getPayments().forEach(System.out::println);
     }
 
     @Test
@@ -44,6 +45,7 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getWithEmails() {
+        employeeRepository.getWithEmails(100026).getEmails().forEach(System.out::println);
     }
 
     @Test
