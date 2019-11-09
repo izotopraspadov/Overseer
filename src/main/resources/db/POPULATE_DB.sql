@@ -174,10 +174,10 @@ VALUES (100024, '2019-09-01', '2019-10-01', 35000.00), -- id 100087
        (100024, '2019-10-01', null, 45000.00); -- id 100093
 
 INSERT INTO order_type (title)
-VALUES ('PROJECT'),                 -- id 100094
-       ('EXECUTIVE_DOCUMENTATION'), -- id 100095
-       ('ESTIMATE'),                -- id 100096
-       ('LEGAL_SERVICES'); -- id 100097
+VALUES ('Проект'),            -- id 100094
+       ('Исп. документация'), -- id 100095
+       ('Смета'),             -- id 100096
+       ('Юр. Услуги'); -- id 100097
 
 INSERT INTO groups (title, comment)
 VALUES ('001', 'Need to get the result! Now!'), -- id 100098

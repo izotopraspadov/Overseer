@@ -32,7 +32,7 @@ public class OrderedObjectPayment extends AbstractPaymentEntity {
     @NotNull
     private OrderedObject orderedObject;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "our_company_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull

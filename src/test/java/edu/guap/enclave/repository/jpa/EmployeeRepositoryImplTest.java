@@ -24,6 +24,7 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void save() {
+
     }
 
     @Test
@@ -36,7 +37,7 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getWithPayments() {
-        employeeRepository.getWithPayments(100026).getPayments().forEach(System.out::println);
+       // employeeRepository.getWithPayments(100026).getPayments().forEach(System.out::println);
     }
 
     @Test
@@ -44,8 +45,16 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
+    void getWithSalaryAndPhonesAndEmails() {
+     /*   Employee employee = employeeRepository.getWithSalaryAndPhonesAndEmails(100026);
+        employee.getSalary().forEach(System.out::println);
+        employee.getPhones().forEach(System.out::println);
+        employee.getEmails().forEach(System.out::println);*/
+    }
+
+    @Test
     void getWithEmails() {
-        employeeRepository.getWithEmails(100026).getEmails().forEach(System.out::println);
+       // employeeRepository.getWithEmails(100026).getEmails().forEach(System.out::println);
     }
 
     @Test

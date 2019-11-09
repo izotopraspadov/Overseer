@@ -14,7 +14,7 @@ import java.util.Set;
         })
 @NamedQueries({
         @NamedQuery(name = Group.DELETE, query = "DELETE FROM Group  g WHERE g.id=:id"),
-        @NamedQuery(name = Group.ALL, query = "SELECT g FROM Group  g ORDER BY g.title"),
+        @NamedQuery(name = Group.ALL, query = "SELECT DISTINCT g FROM Group g LEFT JOIN FETCH g.types t ORDER BY g.title"),
         @NamedQuery(name = Group.GET, query = "SELECT g FROM Group  g WHERE g.id=:id")
 })
 public class Group extends AbstractBaseEntity {

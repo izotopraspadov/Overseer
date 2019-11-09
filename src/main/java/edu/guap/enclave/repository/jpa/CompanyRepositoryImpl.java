@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
@@ -38,10 +39,12 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public Company get(int id) {
+    public Optional<Company> get(int id) {
         return em.createNamedQuery(Company.GET, Company.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     @Override
@@ -60,36 +63,46 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     @Override
     public List<Company> getAllByReliability(Reliability reliability) {
         return em.createNamedQuery(Company.ALL_BY_RELIABILITY, Company.class)
-                .setParameter("reliability", reliability.toString())
+                .setParameter("reliability", reliability)
                 .getResultList();
     }
 
     @Override
     public List<Company> getAllByType(TypeCompany type) {
         return em.createNamedQuery(Company.ALL_BY_TYPE, Company.class)
-                .setParameter("typeCompany", type.toString())
+                .setParameter("typeCompany", type)
                 .getResultList();
     }
 
     @Override
-    public Company getAllByTitle(String title) {
+    public List<Company> getAllByTitle(String title) {
         return em.createNamedQuery(Company.ALL_BY_TITLE, Company.class)
                 .setParameter("title", title)
-                .getSingleResult();
+                .getResultList();
     }
 
     @Override
-    public Company findByItb(String itn) {
+    public Optional<Company> findByItb(String itn) {
         return em.createNamedQuery(Company.FIND_BY_ITN, Company.class)
                 .setParameter("itn", itn)
-                .getSingleResult();
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     @Override
-    public Company findByAddress(String address) {
-        return em.createNamedQuery(Company.FIND_BY_ADDRESS, Company.class)
+    public List<Company> getAllByAddress(String address) {
+        return em.createNamedQuery(Company.ALL_BY_ADDRESS, Company.class)
                 .setParameter("address", address)
-                .getSingleResult();
+                .getResultList();
     }
 
+    @Override
+    public Optional<Company> findByContactPerson(int contactPersonId) {
+        return em.createNamedQuery(Company.ALL_BY_CONTACT_PERSON, Company.class)
+                .setParameter("contactPersonId", contactPersonId)
+                .getResultList()
+                .stream()
+                .findFirst();
+    }
 }

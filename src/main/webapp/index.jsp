@@ -1,0 +1,1 @@
+<jsp:include page="WEB-INF/pages/menu.jsp"/>

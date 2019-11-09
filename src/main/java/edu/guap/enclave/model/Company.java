@@ -20,7 +20,7 @@ import java.util.List;
         @NamedQuery(name = Company.DELETE,
                 query = "DELETE FROM Company c WHERE c.id=:id"),
         @NamedQuery(name = Company.ALL,
-                query = "SELECT c FROM Company c ORDER BY c.title"),
+                query = "SELECT DISTINCT c FROM Company c ORDER BY c.title"),
         @NamedQuery(name = Company.GET,
                 query = "SELECT c FROM Company c WHERE c.id=:id"),
         @NamedQuery(name = Company.ALL_BY_REGION,
@@ -31,10 +31,12 @@ import java.util.List;
                 query = "SELECT c FROM Company c WHERE c.typeCompany=:typeCompany ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_TITLE,
                 query = "SELECT c FROM Company c WHERE c.title=:title"),
+        @NamedQuery(name = Company.ALL_BY_ADDRESS,
+                query = "SELECT c FROM Company c WHERE c.address=:address"),
+        @NamedQuery(name = Company.ALL_BY_CONTACT_PERSON,
+                query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId"),
         @NamedQuery(name = Company.FIND_BY_ITN,
                 query = "SELECT c FROM Company c WHERE c.itn=:itn"),
-        @NamedQuery(name = Company.FIND_BY_ADDRESS,
-                query = "SELECT c FROM Company c WHERE c.address=:address")
 })
 public class Company extends AbstractBaseEntity {
 
@@ -45,15 +47,16 @@ public class Company extends AbstractBaseEntity {
     public static final String ALL_BY_RELIABILITY = "Company.getAllByReliability";
     public static final String ALL_BY_TYPE = "Company.getAllByType";
     public static final String ALL_BY_TITLE = "Company.getAllByTitle";
+    public static final String ALL_BY_ADDRESS = "Company.getAllByAddress";
+    public static final String ALL_BY_CONTACT_PERSON = "Company.findByContactPerson";
     public static final String FIND_BY_ITN = "Company.findByItn";
-    public static final String FIND_BY_ADDRESS = "Company.findByAddress";
 
-    @Column(name = "title", nullable = false, unique = true)
+    @Column(name = "title", nullable = false)
     @NotBlank
     @Size(max = 255)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "region_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -176,6 +179,7 @@ public class Company extends AbstractBaseEntity {
                 ", itn='" + itn + '\'' +
                 ", address='" + address + '\'' +
                 ", reliability=" + reliability +
+                ", region='" + region.getTitle() + '\'' +
                 ", whatsapp_group_name='" + whatsAppGroupName + '\'' +
                 ", typeCompany=" + typeCompany +
                 '}';

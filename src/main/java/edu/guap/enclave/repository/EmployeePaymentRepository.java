@@ -9,4 +9,6 @@ public interface EmployeePaymentRepository {
 
     List<EmployeePayment> getAllByDate(LocalDate date);
 
+    List<EmployeePayment> getAllByEmployee(int employeeId);
+
 }

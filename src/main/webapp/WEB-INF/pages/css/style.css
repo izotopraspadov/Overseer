@@ -1,0 +1,68 @@
+.tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: #ccc;
+    left: 50%;
+    margin: auto;
+    /*display: inline-block;*/
+}
+.tg td {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px 5px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+    word-break: normal;
+    border-color: #ccc;
+    color: #333;
+    background-color: #fff;
+}
+.tg th {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 10px 5px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+    word-break: normal;
+    border-color: #ccc;
+    color: #333;
+    background-color: #f0f0f0;
+}
+
+.find {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: #ccc;
+    left: 50%;
+    margin: auto;
+}
+
+.tg .tg-4eph {
+    background-color: #f9f9f9
+}
+.h1 {
+    font-family: Source Sans Pro, sans-serif;
+    font-size: 150%;
+}
+.p {
+    font-style: italic;
+    text-decoration: underline;
+    color: aqua;
+}
+.center {
+    left: 50%;
+    margin: auto;
+}
+
+.tg table {
+    display: inline-block;
+}
+
+.center{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}

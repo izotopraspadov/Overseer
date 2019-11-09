@@ -3,6 +3,7 @@ package edu.guap.enclave.repository;
 import edu.guap.enclave.model.Employee;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeRepository {
 
@@ -11,23 +12,26 @@ public interface EmployeeRepository {
     // false if not found
     boolean delete(int id);
 
-    // null if not found
-    Employee get(int id);
+    Optional<Employee> get(int id);
 
-    Employee getWithPayments(int id);
+    Optional<Employee> getWithPayments(int id);
 
-    Employee getWithSalary(int id);
+    Optional<Employee> getWithSalary(int id);
 
-    Employee getWithEmails(int id);
+    Optional<Employee> getWithSalaryAndPhonesAndEmails(int id);
 
-    Employee getWithPhones(int id);
+    Optional<Employee> getWithEmails(int id);
+
+    Optional<Employee> getWithPhones(int id);
 
     List<Employee> getAll();
 
     List<Employee> getAllByRegion(int regionId);
 
-    Employee findByLogin(String login);
+    List<Employee> getAllByAddress(String address);
 
-    Employee findByAddress(String address);
+    List<Employee> getAllByFullName(String fullName);
+
+    Optional<Employee> findByLogin(String login);
 
 }

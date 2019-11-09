@@ -14,11 +14,14 @@ import java.time.LocalDate;
 @NamedQueries({
         @NamedQuery(name = EmployeePayment.ALL_BY_DATE,
                 query = "SELECT ep FROM EmployeePayment ep WHERE ep.date=:date ORDER BY ep.employee.fullName"),
+        @NamedQuery(name = EmployeePayment.ALL_BY_EMPLOYEE,
+                query = "SELECT ep FROM EmployeePayment ep WHERE ep.employee.id=:employeeId ORDER BY ep.date"),
 
 })
 public class EmployeePayment extends AbstractPaymentEntity {
 
-    public static final String ALL_BY_DATE = "EmployeePayment.GetAllByDate";
+    public static final String ALL_BY_DATE = "EmployeePayment.getAllByDate";
+    public static final String ALL_BY_EMPLOYEE = "EmployeePayment.getAllByEmployee";
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -31,12 +34,12 @@ public class EmployeePayment extends AbstractPaymentEntity {
     @NotNull
     private TypeCounterparty typeCounterparty;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_counterparty_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Company companyCounterparty;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_counterparty_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Employee employeeCounterparty;

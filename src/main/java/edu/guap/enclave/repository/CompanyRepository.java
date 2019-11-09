@@ -5,6 +5,7 @@ import edu.guap.enclave.model.Reliability;
 import edu.guap.enclave.model.TypeCompany;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CompanyRepository {
 
@@ -13,8 +14,7 @@ public interface CompanyRepository {
     // false if not found
     boolean delete(int id);
 
-    // null if not found
-    Company get(int id);
+    Optional<Company> get(int id);
 
     List<Company> getAll();
 
@@ -24,10 +24,12 @@ public interface CompanyRepository {
 
     List<Company> getAllByType(TypeCompany type);
 
-    Company getAllByTitle(String title);
+    List<Company> getAllByTitle(String title);
 
-    Company findByItb(String itn);
+    List<Company> getAllByAddress(String address);
 
-    Company findByAddress(String address);
+    Optional<Company> findByContactPerson( int contactPersonId);
+
+    Optional<Company> findByItb(String itn);
 
 }

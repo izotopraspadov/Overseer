@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "contact_persons",
@@ -40,18 +41,18 @@ public class ContactPerson extends AbstractFullNameEntity {
     @NotNull
     private Company company;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contactPerson")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson")
     @OrderBy("number DESC")
-    private List<Phone> phones;
+    private Set<Phone> phones;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contactPerson")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson")
     @OrderBy("email DESC")
-    private List<Email> emails;
+    private Set<Email> emails;
 
     public ContactPerson() {
     }
 
-    public ContactPerson(Integer id, String fullName, Company company, List<Phone> phones, List<Email> emails) {
+    public ContactPerson(Integer id, String fullName, Company company, Set<Phone> phones, Set<Email> emails) {
         super(id, fullName);
         this.company = company;
         this.phones = phones;
@@ -66,19 +67,19 @@ public class ContactPerson extends AbstractFullNameEntity {
         this.company = company;
     }
 
-    public List<Phone> getPhones() {
+    public Set<Phone> getPhones() {
         return phones;
     }
 
-    public void setPhones(List<Phone> phones) {
+    public void setPhones(Set<Phone> phones) {
         this.phones = phones;
     }
 
-    public List<Email> getEmails() {
+    public Set<Email> getEmails() {
         return emails;
     }
 
-    public void setEmails(List<Email> emails) {
+    public void setEmails(Set<Email> emails) {
         this.emails = emails;
     }
 

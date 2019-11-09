@@ -1,5 +1,6 @@
 package edu.guap.enclave.repository.jpa;
 
+import edu.guap.enclave.model.Reliability;
 import edu.guap.enclave.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +46,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getAllByReliability() {
+        companyRepository.getAllByReliability(Reliability.MIDDLE).forEach(System.out::println);
     }
 
     @Test
@@ -61,6 +63,8 @@ class CompanyRepositoryImplTest {
     }
 
     @Test
-    void findByTitle() {
+    void findByContactPerson() {
+        //companyRepository.getAllByContactPerson(100016).forEach(System.out::println);
     }
+
 }

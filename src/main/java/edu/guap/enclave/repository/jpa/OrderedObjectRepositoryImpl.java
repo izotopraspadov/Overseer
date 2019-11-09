@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
@@ -42,24 +44,30 @@ public class OrderedObjectRepositoryImpl implements OrderedObjectRepository {
     }
 
     @Override
-    public OrderedObject get(int id) {
+    public Optional<OrderedObject> get(int id) {
         return em.createNamedQuery(OrderedObject.GET, OrderedObject.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     @Override
-    public OrderedObject getWithPayments(int id) {
+    public Optional<OrderedObject> getWithPayments(int id) {
         return em.createNamedQuery(OrderedObject.GET_WITH_PAYMENTS, OrderedObject.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     @Override
-    public OrderedObject getWithTasks(int id) {
+    public Optional<OrderedObject> getWithTasks(int id) {
         return em.createNamedQuery(OrderedObject.GET_WITH_TASKS, OrderedObject.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     @Override
@@ -104,9 +112,44 @@ public class OrderedObjectRepositoryImpl implements OrderedObjectRepository {
     }
 
     @Override
+    public List<OrderedObject> getAllByContractIsNeed(boolean contractIsNeed) {
+        return em.createNamedQuery(OrderedObject.ALL_BY_CONTRACT_IS_NEED, OrderedObject.class)
+                .setParameter("contractIsNeed", contractIsNeed)
+                .getResultList();
+    }
+
+    @Override
     public List<OrderedObject> getAllByContractExists(boolean contractExists) {
         return em.createNamedQuery(OrderedObject.ALL_BY_CONTRACT_EXISTS, OrderedObject.class)
                 .setParameter("contractExists", contractExists)
+                .getResultList();
+    }
+
+    @Override
+    public List<OrderedObject> getAllByPlannedStartDate(LocalDate date) {
+        return em.createNamedQuery(OrderedObject.ALL_BY_PLANNED_START_DATE, OrderedObject.class)
+                .setParameter("date", date)
+                .getResultList();
+    }
+
+    @Override
+    public List<OrderedObject> getAllByActualStartDate(LocalDate date) {
+        return em.createNamedQuery(OrderedObject.ALL_BY_ACTUAL_START_DATE, OrderedObject.class)
+                .setParameter("date", date)
+                .getResultList();
+    }
+
+    @Override
+    public List<OrderedObject> getAllByPlannedEndDate(LocalDate date) {
+        return em.createNamedQuery(OrderedObject.ALL_BY_PLANNED_END_DATE, OrderedObject.class)
+                .setParameter("date", date)
+                .getResultList();
+    }
+
+    @Override
+    public List<OrderedObject> getAllByActualEndDate(LocalDate date) {
+        return em.createNamedQuery(OrderedObject.ALL_BY_ACTUAL_END_DATE, OrderedObject.class)
+                .setParameter("date", date)
                 .getResultList();
     }
 
@@ -128,6 +171,27 @@ public class OrderedObjectRepositoryImpl implements OrderedObjectRepository {
     public List<OrderedObject> getAllByUnderway(boolean underway) {
         return em.createNamedQuery(OrderedObject.ALL_BY_UNDERWAY, OrderedObject.class)
                 .setParameter("underway", underway)
+                .getResultList();
+    }
+
+    @Override
+    public List<OrderedObject> getAllByExpectedPayment(BigDecimal expectedPayment) {
+        return em.createNamedQuery(OrderedObject.ALL_BY_EXPECTED_PAYMENT, OrderedObject.class)
+                .setParameter("expectedPayment", expectedPayment)
+                .getResultList();
+    }
+
+    @Override
+    public List<OrderedObject> getAllByPaymentOrder(String paymentOrder) {
+        return em.createNamedQuery(OrderedObject.ALL_BY_PAYMENT_ORDER, OrderedObject.class)
+                .setParameter("paymentOrder", paymentOrder)
+                .getResultList();
+    }
+
+    @Override
+    public List<OrderedObject> getAllByNumberOfLines(int numberOfLines) {
+        return em.createNamedQuery(OrderedObject.ALL_BY_NUMBER_OF_LINES, OrderedObject.class)
+                .setParameter("numberOfLines", numberOfLines)
                 .getResultList();
     }
 }

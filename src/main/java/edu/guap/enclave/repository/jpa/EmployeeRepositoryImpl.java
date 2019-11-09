@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
@@ -40,38 +41,56 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Employee get(int id) {
+    public Optional<Employee> get(int id) {
         return em.createNamedQuery(Employee.GET, Employee.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList()
+                .stream()
+                .findFirst();
     }
-
     @Override
-    public Employee getWithPayments(int id) {
+    public Optional<Employee> getWithPayments(int id) {
         return em.createNamedQuery(Employee.GET_WITH_PAYMENTS, Employee.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     @Override
-    public Employee getWithSalary(int id) {
+    public Optional<Employee> getWithSalary(int id) {
         return em.createNamedQuery(Employee.GET_WITH_SALARY, Employee.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     @Override
-    public Employee getWithEmails(int id) {
+    public Optional<Employee> getWithSalaryAndPhonesAndEmails(int id) {
+        return em.createNamedQuery(Employee.GET_WITH_SALARY_AND_PHONES_AND_EMAILS, Employee.class)
+                .setParameter("id", id)
+                .getResultList()
+                .stream()
+                .findFirst();
+    }
+
+    @Override
+    public Optional<Employee> getWithEmails(int id) {
         return em.createNamedQuery(Employee.GET_WITH_EMAILS, Employee.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     @Override
-    public Employee getWithPhones(int id) {
+    public Optional<Employee> getWithPhones(int id) {
         return em.createNamedQuery(Employee.GET_WITH_PHONES, Employee.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     @Override
@@ -88,16 +107,26 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Employee findByLogin(String login) {
-        return em.createNamedQuery(Employee.FIND_BY_LOGIN, Employee.class)
-                .setParameter("login", login)
-                .getSingleResult();
+    public List<Employee> getAllByAddress(String address) {
+        return em.createNamedQuery(Employee.ALL_BY_ADDRESS, Employee.class)
+                .setParameter("address", address)
+                .getResultList();
     }
 
     @Override
-    public Employee findByAddress(String address) {
-        return em.createNamedQuery(Employee.FIND_BY_ADDRESS, Employee.class)
-                .setParameter("address", address)
-                .getSingleResult();
+    public List<Employee> getAllByFullName(String fullName) {
+        return em.createNamedQuery(Employee.ALL_BY_FULL_NAME, Employee.class)
+                .setParameter("fullName", fullName)
+                .getResultList();
     }
+
+    @Override
+    public Optional<Employee> findByLogin(String login) {
+        return em.createNamedQuery(Employee.FIND_BY_LOGIN, Employee.class)
+                .setParameter("login", login)
+                .getResultList()
+                .stream()
+                .findFirst();
+    }
+
 }

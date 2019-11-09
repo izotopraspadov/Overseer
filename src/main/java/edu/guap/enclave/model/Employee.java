@@ -1,11 +1,14 @@
 package edu.guap.enclave.model;
 
 import edu.guap.enclave.model.abstract_entities.AbstractFullNameEntity;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,9 +27,15 @@ import java.util.Set;
         @NamedQuery(name = Employee.ALL,
                 query = "SELECT e FROM Employee e ORDER BY e.fullName"),
         @NamedQuery(name = Employee.GET,
-                query = "SELECT e FROM Employee e WHERE e.id=:id"),
+                query = "SELECT e FROM Employee e " +
+                        "LEFT JOIN FETCH e.phones ph LEFT JOIN FETCH e.emails em " +
+                        "WHERE e.id=:id"),
         @NamedQuery(name = Employee.GET_WITH_PAYMENTS,
                 query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.payments WHERE e.id=:id"),
+        @NamedQuery(name = Employee.GET_WITH_SALARY_AND_PHONES_AND_EMAILS,
+                query = "SELECT DISTINCT e FROM Employee e " +
+                        "LEFT JOIN FETCH e.salary s LEFT JOIN FETCH e.phones ph LEFT JOIN FETCH e.emails em " +
+                        "WHERE e.id=:id AND s.endDate IS NULL"),
         @NamedQuery(name = Employee.GET_WITH_SALARY,
                 query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.salary s WHERE e.id=:id AND s.endDate IS NULL"),
         @NamedQuery(name = Employee.GET_WITH_EMAILS,
@@ -35,10 +44,12 @@ import java.util.Set;
                 query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.phones WHERE e.id=:id"),
         @NamedQuery(name = Employee.ALL_BY_REGION,
                 query = "SELECT e FROM Employee e WHERE e.region.id=:regionId ORDER BY e.fullName"),
+        @NamedQuery(name = Employee.ALL_BY_ADDRESS,
+                query = "SELECT e FROM Employee e WHERE e.address=:address"),
+        @NamedQuery(name = Employee.ALL_BY_FULL_NAME,
+                query = "SELECT e FROM Employee e WHERE e.fullName=:fullName"),
         @NamedQuery(name = Employee.FIND_BY_LOGIN,
                 query = "SELECT e FROM Employee e WHERE e.login=:login"),
-        @NamedQuery(name = Employee.FIND_BY_ADDRESS,
-                query = "SELECT e FROM Employee e WHERE e.address=:address")
 
 })
 public class Employee extends AbstractFullNameEntity {
@@ -48,13 +59,15 @@ public class Employee extends AbstractFullNameEntity {
     public static final String GET = "Employee.get";
     public static final String GET_WITH_PAYMENTS = "Employee.getWithPayments";
     public static final String GET_WITH_SALARY = "Employee.getWithSalary";
+    public static final String GET_WITH_SALARY_AND_PHONES_AND_EMAILS = "Employee.getWithSalaryAndPhonesAndEmails";
     public static final String GET_WITH_EMAILS = "Employee.getWithEmails";
     public static final String GET_WITH_PHONES = "Employee.getWithPhones";
     public static final String ALL_BY_REGION = "Employee.getAllByRegion";
+    public static final String ALL_BY_ADDRESS = "Employee.getAllByAddress";
+    public static final String ALL_BY_FULL_NAME = "Employee.getAllByFullName";
     public static final String FIND_BY_LOGIN = "Employee.findByLogin";
-    public static final String FIND_BY_ADDRESS = "Employee.findByAddress";
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "region_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -87,22 +100,25 @@ public class Employee extends AbstractFullNameEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     @OrderBy("startDate DESC")
+   // @Fetch(value = FetchMode.SUBSELECT)
     private List<Salary> salary;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     @OrderBy("number DESC")
-    private List<Phone> phones;
+   // @Fetch(value = FetchMode.SUBSELECT)
+    private Set<Phone> phones;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     @OrderBy("email DESC")
-    private List<Email> emails;
+   // @Fetch(value = FetchMode.SUBSELECT)
+    private Set<Email> emails;
 
     public Employee() {
     }
 
     public Employee(Integer id, String fullName, Region region, String address, String login,
                     String password, Set<Role> roles, List<EmployeePayment> payments,
-                    List<Salary> salary, List<Phone> phones, List<Email> emails) {
+                    List<Salary> salary, Set<Phone> phones, Set<Email> emails) {
         super(id, fullName);
         this.region = region;
         this.address = address;
@@ -171,19 +187,19 @@ public class Employee extends AbstractFullNameEntity {
         this.salary = salary;
     }
 
-    public List<Phone> getPhones() {
+    public Set<Phone> getPhones() {
         return phones;
     }
 
-    public void setPhones(List<Phone> phones) {
+    public void setPhones(Set<Phone> phones) {
         this.phones = phones;
     }
 
-    public List<Email> getEmails() {
+    public Set<Email> getEmails() {
         return emails;
     }
 
-    public void setEmails(List<Email> emails) {
+    public void setEmails(Set<Email> emails) {
         this.emails = emails;
     }
 

@@ -36,17 +36,35 @@ import java.util.List;
         @NamedQuery(name = OrderedObject.ALL_BY_CASHLESS,
                 query = "SELECT o FROM OrderedObject o WHERE o.cashless=:cashless ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_ORDER_TYPE,
-                query = "SELECT o FROM OrderedObject o WHERE o.orderType.title=:orderType ORDER BY o.title"),
+                query = "SELECT o FROM OrderedObject o " +
+                        "LEFT JOIN FETCH o.orderType ot " +
+                        "WHERE ot.title=:orderType ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_GROUP,
                 query = "SELECT o FROM OrderedObject o WHERE o.group.id=:groupId ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_CONTRACT_IS_NEED,
+                query = "SELECT o FROM OrderedObject o WHERE o.contractIsNeed=:contractIsNeed ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_CONTRACT_EXISTS,
                 query = "SELECT o FROM OrderedObject o WHERE o.contractExists=:contractExists ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_PLANNED_START_DATE,
+                query = "SELECT o FROM OrderedObject o WHERE o.plannedStartDate=:date ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_ACTUAL_START_DATE,
+                query = "SELECT o FROM OrderedObject o WHERE o.actualStartDate=:date ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_PLANNED_END_DATE,
+                query = "SELECT o FROM OrderedObject o WHERE o.plannedEndDate=:date ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_ACTUAL_END_DATE,
+                query = "SELECT o FROM OrderedObject o WHERE o.actualEndDate=:date ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_SUM,
                 query = "SELECT o FROM OrderedObject o WHERE o.sum=:currentSum ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_MANAGER,
                 query = "SELECT o FROM OrderedObject o WHERE o.manager.id=:managerId ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_UNDERWAY,
-                query = "SELECT o FROM OrderedObject o WHERE o.underway=:underway ORDER BY o.title")
+                query = "SELECT o FROM OrderedObject o WHERE o.underway=:underway ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_EXPECTED_PAYMENT,
+                query = "SELECT o FROM OrderedObject o WHERE o.expectedPayment=:expectedPayment ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_PAYMENT_ORDER,
+                query = "SELECT o FROM OrderedObject o WHERE o.paymentOrder=:paymentOrder ORDER BY o.title"),
+        @NamedQuery(name = OrderedObject.ALL_BY_NUMBER_OF_LINES,
+                query = "SELECT o FROM OrderedObject o WHERE o.numberOfLines=:numberOfLines ORDER BY o.title"),
 })
 public class OrderedObject extends AbstractBaseEntity {
 
@@ -60,12 +78,20 @@ public class OrderedObject extends AbstractBaseEntity {
     public static final String ALL_BY_CASHLESS = "OrderedObject.getAllByCashless";
     public static final String ALL_BY_ORDER_TYPE = "OrderedObject.getAllByOrderType";
     public static final String ALL_BY_GROUP = "OrderedObject.getAllByGroup";
+    public static final String ALL_BY_CONTRACT_IS_NEED = "OrderedObject.getAllByContractIsNeed";
     public static final String ALL_BY_CONTRACT_EXISTS = "OrderedObject.getAllByContractExists";
+    public static final String ALL_BY_PLANNED_START_DATE = "OrderedObject.getAllByPlannedStartDate";
+    public static final String ALL_BY_ACTUAL_START_DATE = "OrderedObject.getAllByActualStartDat";
+    public static final String ALL_BY_PLANNED_END_DATE = "OrderedObject.getAllByPlannedEndDate";
+    public static final String ALL_BY_ACTUAL_END_DATE = "OrderedObject.getAllByActualEndDate";
     public static final String ALL_BY_SUM = "OrderedObject.getAllBySum";
     public static final String ALL_BY_MANAGER = "OrderedObject.getAllByManager";
     public static final String ALL_BY_UNDERWAY = "OrderedObject.getAllByUnderway";
+    public static final String ALL_BY_EXPECTED_PAYMENT = "OrderedObject.getAllByExpectedPayment";
+    public static final String ALL_BY_PAYMENT_ORDER = "OrderedObject.getAllByPaymentOrder";
+    public static final String ALL_BY_NUMBER_OF_LINES = "OrderedObject.getAllByNumberOfLines";
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -125,13 +151,13 @@ public class OrderedObject extends AbstractBaseEntity {
     @NotNull
     private Integer numberOfLines;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Group group;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manager_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
