@@ -17,14 +17,14 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
         @NamedQuery(name = PlannedTime.DELETE,
                 query = "DELETE FROM PlannedTime pt WHERE pt.id=:id"),
-        @NamedQuery(name = PlannedTime.GET_BY_ORDERED_OBJECT,
-                query = "SELECT DISTINCT pt FROM PlannedTime pt WHERE pt.orderedObject.id=:id")
+        @NamedQuery(name = PlannedTime.ALL_BY_ORDERED_OBJECT,
+                query = "SELECT pt FROM PlannedTime pt WHERE pt.orderedObject.id=:orderedObjectId")
 
 })
 public class PlannedTime extends AbstractBaseEntity {
 
     public static final String DELETE = "PlannedTimed.delete";
-    public static final String GET_BY_ORDERED_OBJECT = "PlannedTime.getByOrderedObject";
+    public static final String ALL_BY_ORDERED_OBJECT = "PlannedTime.getAllByOrderedObject";
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ordered_object_id", nullable = false, unique = true)
@@ -32,7 +32,7 @@ public class PlannedTime extends AbstractBaseEntity {
     @NotNull
     private OrderedObject orderedObject;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull

@@ -19,14 +19,14 @@ import java.time.LocalDate;
 @NamedQueries({
         @NamedQuery(name = ActualTime.DELETE,
                 query = "DELETE FROM ActualTime at WHERE at.id=:id"),
-        @NamedQuery(name = ActualTime.GET_BY_ORDERED_OBJECT,
-                query = "SELECT DISTINCT at FROM ActualTime at WHERE at.orderedObject.id=:id")
+        @NamedQuery(name = ActualTime.ALL_BY_ORDERED_OBJECT,
+                query = "SELECT at FROM ActualTime at WHERE at.orderedObject.id=:orderedObjectId")
 
 })
 public class ActualTime extends AbstractBaseEntity {
 
     public static final String DELETE = "ActualTime.delete";
-    public static final String GET_BY_ORDERED_OBJECT = "ActualTime.getByOrderedObject";
+    public static final String ALL_BY_ORDERED_OBJECT = "ActualTime.getAllByOrderedObject";
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ordered_object_id", nullable = false, unique = true)
@@ -34,7 +34,7 @@ public class ActualTime extends AbstractBaseEntity {
     @NotNull
     private OrderedObject orderedObject;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
