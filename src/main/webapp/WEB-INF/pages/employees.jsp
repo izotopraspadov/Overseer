@@ -62,7 +62,6 @@
                 <th width="120">Логин</th>
                 <th width="120">Адрес</th>
                 <th width="120">Платежи</th>
-                <th width="120">Профайл</th>
             </tr>
             <c:forEach items="${employees}" var="employee">
                 <jsp:useBean id="employee" class="edu.guap.enclave.model.Employee"/>
@@ -72,7 +71,9 @@
                     <td>${employee.login}</td>
                     <td>${employee.address}</td>
                     <td><a href="/enclave/finance/employee/${employee.id}">[Перейти]</a></td>
-                    <td>[Перейти]</td>
+<%--                    <c:if test="${swtch ne 'obj'}">--%>
+<%--                    <td><a href="/enclave/admin/employees/${employee.id}">[Изменить]</a></td>--%>
+<%--                    </c:if>--%>
                     <c:if test="${swtch eq 'obj'}">
                         <td><a href="/enclave/objects/manager/${employee.id}">[Выбрать]</a></td>
                     </c:if>

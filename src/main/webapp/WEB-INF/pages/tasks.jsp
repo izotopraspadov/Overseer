@@ -31,7 +31,7 @@
                 <td>${task.employee.fullName}</td>
                 <td>${task.taskDescription}</td>
                 <td>${task.dateCompleted}</td>
-                <td>${task.result.name()}</td>
+                <td>${task.result.description}</td>
                 <td>
                     <c:forEach items="${task.taskEmails}" var="email">
                         <c:if test="${email.typeSend eq 'TEAM_LEADER'}">

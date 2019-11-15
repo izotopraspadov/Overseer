@@ -4,6 +4,7 @@ import edu.guap.enclave.model.abstract_entities.AbstractFullNameEntity;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -67,7 +68,7 @@ public class Employee extends AbstractFullNameEntity {
     public static final String ALL_BY_FULL_NAME = "Employee.getAllByFullName";
     public static final String FIND_BY_LOGIN = "Employee.findByLogin";
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "region_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -98,17 +99,17 @@ public class Employee extends AbstractFullNameEntity {
     @OrderBy("date DESC")
     private List<EmployeePayment> payments;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "employee")
     @OrderBy("startDate DESC")
    // @Fetch(value = FetchMode.SUBSELECT)
-    private List<Salary> salary;
+    private Set<Salary> salary;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.PERSIST)
     @OrderBy("number DESC")
    // @Fetch(value = FetchMode.SUBSELECT)
     private Set<Phone> phones;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.PERSIST)
     @OrderBy("email DESC")
    // @Fetch(value = FetchMode.SUBSELECT)
     private Set<Email> emails;
@@ -118,7 +119,7 @@ public class Employee extends AbstractFullNameEntity {
 
     public Employee(Integer id, String fullName, Region region, String address, String login,
                     String password, Set<Role> roles, List<EmployeePayment> payments,
-                    List<Salary> salary, Set<Phone> phones, Set<Email> emails) {
+                    Set<Salary> salary, Set<Phone> phones, Set<Email> emails) {
         super(id, fullName);
         this.region = region;
         this.address = address;
@@ -179,11 +180,11 @@ public class Employee extends AbstractFullNameEntity {
         this.payments = payments;
     }
 
-    public List<Salary> getSalary() {
+    public Set<Salary> getSalary() {
         return salary;
     }
 
-    public void setSalary(List<Salary> salary) {
+    public void setSalary(Set<Salary> salary) {
         this.salary = salary;
     }
 

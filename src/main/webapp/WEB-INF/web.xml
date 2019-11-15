@@ -7,13 +7,14 @@
     <display-name>Enclave</display-name>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>profile.jsp</welcome-file>
     </welcome-file-list>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:spring/spring-db.xml
+            classpath:spring/spring-mvc.xml
         </param-value>
     </context-param>
 

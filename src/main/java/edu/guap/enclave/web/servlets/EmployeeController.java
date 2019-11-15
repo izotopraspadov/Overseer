@@ -1,6 +1,7 @@
 package edu.guap.enclave.web.servlets;
 
 import edu.guap.enclave.model.Employee;
+import edu.guap.enclave.util.SecurityUtil;
 import edu.guap.enclave.web.AbstractEmployeeController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,6 +24,13 @@ public class EmployeeController extends AbstractEmployeeController {
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String get(ModelMap model, @PathVariable("id") int id) {
         Employee employee = super.get(id).orElse(null);
+        model.addAttribute("employee", employee);
+        return "profile";
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String getByAuthorizedUser(ModelMap model) {
+        Employee employee = super.get(SecurityUtil.authUserId()).orElse(null);
         model.addAttribute("employee", employee);
         return "profile";
     }

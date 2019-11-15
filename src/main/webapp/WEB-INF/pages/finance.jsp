@@ -60,7 +60,7 @@
             </c:forEach>
         </table>
     </c:if>
-    <p>Платежи по сотружникам:</p>
+    <p>Платежи по сотрудникам:</p>
     <c:if test="${empty employeePayments}">
         <h1 class="h1" align="center">{Пусто}</h1>
     </c:if>
@@ -75,10 +75,11 @@
                 <th width="120">Начисление</th>
                 <th width="120">Комментарий</th>
             </tr>
+
             <c:forEach items="${employeePayments}" var="payment">
                 <tr>
                     <td>${payment.date}</td>
-                    <td>${payment.typeCounterparty}</td>
+                    <td>${payment.typeCounterparty.description}</td>
                     <c:choose><c:when test="${payment.companyCounterparty != null}">
                         <td>${payment.companyCounterparty.title}</td>
                     </c:when><c:otherwise>

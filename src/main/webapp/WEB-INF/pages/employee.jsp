@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="employee" class="edu.guap.enclave.model.Employee"/>
+<%--<jsp:useBean id="employee" class="edu.guap.enclave.model.Employee"/>--%>
 <html>
 <head>
     <title>Личная информация</title>
@@ -14,44 +15,75 @@
 <br>
 <br>
 <br>
-<table class="tg">
-    <tr>
-        <td>ФИО:</td>
-        <td>${employee.fullName}</td>
-    </tr>
-    <tr>
-        <td>Логин:</td>
-        <td>${employee.login}</td>
-    </tr>
-    <tr>
-        <td>Адрес:</td>
-        <td>${employee.address}</td>
-    </tr>
-    <tr>
-        <td>Регион:</td>
-        <td>${employee.region.title}</td>
-    </tr>
-    <tr>
-        <td>Телефоны:</td>
-        <td>
+<form action="/enclave/admin/employees/update" method="POST">
+    <table class="center">
+
+        <tr>
+
+            <td>ID:</td>
+            <td><input type="text" name="id" value="${employee.id}" readonly/>
+            </td>
+
+
+        </tr>
+
+        <tr>
+            <td>ФИО:</td>
+            <td><input type="text" name="fullName" value="${employee.fullName}"/></td>
+        </tr>
+        <tr>
+            <td>Логин:</td>
+            <td>
+                <input type="text" name="login" value="${employee.login}"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td>Пароль:</td>
+            <td>
+                <input type="text" name="password" value="${employee.password}"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td>Адрес:</td>
+            <td><input type="text" name="address" value="${employee.address}"/></td>
+        </tr>
+        <tr>
+            <td>Регион:</td>
+            <td><input type="text" name="region" value="${employee.region.title}"/></td>
+        </tr>
+        <tr>
+            <td>Телефоны:</td>
+            <c:set var="count" value="${1}" scope="page"/>
             <c:forEach items="${employee.phones}" var="phone">
-                ${phone.number};
-            </c:forEach></td>
-    </tr>
-    <tr>
-        <td>Почтовые адреса:</td>
-        <td>
+                <td><input type="text" name="phone${count}" value="${phone.number}"/></td>
+                <c:set var="count" value="${count + 1}" scope="page"/>
+            </c:forEach>
+        </tr>
+        <tr>
+            <td>Почтовые адреса:</td>
+            <c:set var="count" value="${1}" scope="page"/>
             <c:forEach items="${employee.emails}" var="email">
-                ${email.email};
-            </c:forEach></td>
-    </tr>
+                <td><input type="text" name="email${count}" value="${email.email}"/></td>
+                <c:set var="count" value="${count + 1}" scope="page"/>
+            </c:forEach>
+        </tr>
+        <tr>
+            <td>Зарплата:</td>
+            <c:forEach items="${employee.salary}" var="salary">
+                <td><input type="text" name="salary" value="${salary.amount}"/></td>
+            </c:forEach>
 
-    <tr>
-        <td>Зарплата:</td>
-        <td>
-        <td>${employee.salary}</td>
-    </tr>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Изменить"/>
+            </td>
+        </tr>
+    </table>
 
-</table>
+</form>
+
 </body>
 </html>

@@ -3,6 +3,7 @@ package edu.guap.enclave.repository;
 import edu.guap.enclave.model.Region;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RegionRepository {
 
@@ -13,6 +14,8 @@ public interface RegionRepository {
 
     // null if not found
     Region get(int id);
+
+    Optional<Region> getByTitle(String title);
 
     List<Region> getAll();
 
