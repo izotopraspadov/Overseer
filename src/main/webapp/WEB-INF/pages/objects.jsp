@@ -103,13 +103,11 @@
     </tr>
 </table>
 <%--style="position:absolute; left:+870px;"--%>
+<br>
+<br>
+<br>
+<br>
 <div class="center">
-
-    <br>
-    <br>
-    <br>
-    <br>
-
     <c:if test="${empty objects}">
         <h1 class="h1" align="center">{Пусто}</h1>
     </c:if>
@@ -175,10 +173,10 @@
                     </c:when><c:otherwise>
                         <td>нет</td>
                     </c:otherwise></c:choose>
-                    <td>[Перейти]</td>
-                    <td>[Перейти]</td>
-                    <td>[Перейти]</td>
-                    <td>[Перейти]</td>
+                    <td><a href="/enclave/finance/object/${object.id}">[Перейти]</a></td>
+                    <td><a href="/enclave/time/planned/object/${object.id}">[Перейти]</a></td>
+                    <td><a href="/enclave/time/actual/object/${object.id}">[Перейти]</a></td>
+                    <td><a href="/enclave/tasks/object/${object.id}">[Перейти]</a></td>
                 </tr>
             </c:forEach>
         </table>
