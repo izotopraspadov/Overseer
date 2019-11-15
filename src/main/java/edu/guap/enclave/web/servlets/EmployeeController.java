@@ -1,20 +1,12 @@
 package edu.guap.enclave.web.servlets;
 
-import edu.guap.enclave.model.Company;
 import edu.guap.enclave.model.Employee;
-import edu.guap.enclave.model.Reliability;
-import edu.guap.enclave.model.TypeCompany;
 import edu.guap.enclave.web.AbstractEmployeeController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping(value = EmployeeController.URL)
@@ -31,9 +23,21 @@ public class EmployeeController extends AbstractEmployeeController {
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String get(ModelMap model, @PathVariable("id") int id) {
         Employee employee = super.get(id).orElse(null);
-        System.out.println(employee);
         model.addAttribute("employee", employee);
         return "profile";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String createOrUpdate(@ModelAttribute("employee") Employee employee) {
+//        if (employee.isNew()) super.create()
+        return "employees";
+    }
+
+    @RequestMapping(value = "/wsalary{id}", method = RequestMethod.GET)
+    public String getWithSalaryEmailsPhones(ModelMap model, @PathVariable("id") int id) {
+        Employee employee = super.getWithSalaryAndPhonesAndEmails(id).orElse(null);
+        model.addAttribute("employee", employee);
+        return "employee";
     }
 
     @RequestMapping(value = "/region/{regionId}", method = RequestMethod.GET)
