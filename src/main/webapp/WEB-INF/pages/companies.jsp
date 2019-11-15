@@ -15,6 +15,7 @@
 </head>
 <body>
 <jsp:include page="menu.jsp"/>
+
 <script>
     $(function () {
         $('#category').change(function () {
@@ -31,37 +32,37 @@
     });
 </script>
 
-    <table class="find">
-        <tr>
-            <form action="/enclave/companies/token" method="POST">
-                <th><p>Поиск: </p></th>
-                <th>
-                    <div id="data">
-                        <input type="text" name="data"/>
-                    </div>
-                </th>
-                <th>
-                    <select name="category" id="category">
-                        <option value="title" type="text" name="select">По названию</option>
-                        <option value="type" type="text" name="select">По типу</option>
-                        <option value="address" type="text" name="select">По адресу</option>
-                        <option value="itn" type="text" name="select">По ИНН</option>
-                        <option value="reliability" type="text" name="select">По степени надёжности</option>
-                        <option value="region" type="text" name="select">По региону</option>
-                        <option value="person" type="text" name="select">По контактному лицу</option>
-                    </select>
-                </th>
-                <th>
-                    <input type="submit" value="Найти"/>
-                </th>
-            </form>
-        </tr>
-    </table>
-
-
+<table class="find">
+    <tr>
+        <form action="/enclave/companies/token" method="POST">
+            <th><p>Поиск: </p></th>
+            <th>
+                <div id="data">
+                    <input type="text" name="data"/>
+                </div>
+            </th>
+            <th>
+                <select name="category" id="category">
+                    <option value="title" type="text" name="select">По названию</option>
+                    <option value="type" type="text" name="select">По типу</option>
+                    <option value="address" type="text" name="select">По адресу</option>
+                    <option value="itn" type="text" name="select">По ИНН</option>
+                    <option value="reliability" type="text" name="select">По степени надёжности</option>
+                    <option value="region" type="text" name="select">По региону</option>
+                    <option value="person" type="text" name="select">По контактному лицу</option>
+                </select>
+            </th>
+            <th>
+                <input type="submit" value="Найти"/>
+            </th>
+        </form>
+    </tr>
+</table>
+<br>
+<br>
+<br>
+<br>
 <div class="center">
-
-    <br>
 
     <c:if test="${empty companies}">
         <h1 class="h1" align="center">{Пусто}</h1>
