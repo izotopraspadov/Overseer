@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
@@ -39,9 +40,9 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
     }
 
     @Override
-    public PlannedTime getByOrderedObject(int orderedObjectId) {
-        return em.createNamedQuery(PlannedTime.GET_BY_ORDERED_OBJECT, PlannedTime.class)
+    public List<PlannedTime> getAllByOrderedObject(int orderedObjectId) {
+        return em.createNamedQuery(PlannedTime.ALL_BY_ORDERED_OBJECT, PlannedTime.class)
                 .setParameter("orderedObjectId", orderedObjectId)
-                .getSingleResult();
+                .getResultList();
     }
 }

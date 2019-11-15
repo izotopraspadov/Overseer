@@ -2,6 +2,9 @@ package edu.guap.enclave.repository;
 
 import edu.guap.enclave.model.PlannedTime;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface PlannedTimeRepository {
 
     PlannedTime save(PlannedTime plannedTime, int orderedObjectId);
@@ -9,7 +12,6 @@ public interface PlannedTimeRepository {
     // false if not found
     boolean delete(int id);
 
-    // null if not found
-    PlannedTime getByOrderedObject(int orderedObjectId);
+    List<PlannedTime> getAllByOrderedObject(int orderedObjectId);
 
 }

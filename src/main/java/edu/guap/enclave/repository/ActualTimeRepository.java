@@ -2,6 +2,8 @@ package edu.guap.enclave.repository;
 
 import edu.guap.enclave.model.ActualTime;
 
+import java.util.List;
+
 public interface ActualTimeRepository {
 
     ActualTime save(ActualTime actualTime, int orderedObjectId);
@@ -9,7 +11,6 @@ public interface ActualTimeRepository {
     // false if not found
     boolean delete(int id);
 
-    // null if not found
-    ActualTime getByOrderedObject(int orderedObjectId);
+    List<ActualTime> getAllByOrderedObject(int orderedObjectId);
 
 }

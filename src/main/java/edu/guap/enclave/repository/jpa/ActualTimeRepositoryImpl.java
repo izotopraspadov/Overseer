@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
@@ -40,9 +41,9 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
     }
 
     @Override
-    public ActualTime getByOrderedObject(int orderedObjectId) {
-        return em.createNamedQuery(ActualTime.GET_BY_ORDERED_OBJECT, ActualTime.class)
+    public List<ActualTime> getAllByOrderedObject(int orderedObjectId) {
+        return em.createNamedQuery(ActualTime.ALL_BY_ORDERED_OBJECT, ActualTime.class)
                 .setParameter("orderedObjectId", orderedObjectId)
-                .getSingleResult();
+                .getResultList();
     }
 }
