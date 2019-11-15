@@ -52,6 +52,7 @@
 <br>
 <br>
 <br>
+<br>
 <div class="center">
     <c:if test="${!empty employees}">
         <table class="tg">
@@ -70,7 +71,7 @@
                     <td>${employee.region.title}</td>
                     <td>${employee.login}</td>
                     <td>${employee.address}</td>
-                    <td><a href="finance/employee/${employee.id}">[Перейти]</a></td>
+                    <td><a href="/enclave/finance/employee/${employee.id}">[Перейти]</a></td>
                     <td>[Перейти]</td>
                     <c:if test="${swtch eq 'obj'}">
                         <td><a href="/enclave/objects/manager/${employee.id}">[Выбрать]</a></td>
