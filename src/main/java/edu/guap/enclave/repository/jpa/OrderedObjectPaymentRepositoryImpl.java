@@ -23,4 +23,17 @@ public class OrderedObjectPaymentRepositoryImpl implements OrderedObjectPaymentR
                 .setParameter("date", date)
                 .getResultList();
     }
+
+    @Override
+    public List<OrderedObjectPayment> getAllByOrderedObject(int orderedObjectId) {
+        return em.createNamedQuery(OrderedObjectPayment.ALL_BY_ORDERED_OBJECT, OrderedObjectPayment.class)
+                .setParameter("orderedObjectId", orderedObjectId)
+                .getResultList();
+    }
+
+    @Override
+    public List<OrderedObjectPayment> getAll() {
+        return em.createNamedQuery(OrderedObjectPayment.ALL, OrderedObjectPayment.class)
+                .getResultList();
+    }
 }
