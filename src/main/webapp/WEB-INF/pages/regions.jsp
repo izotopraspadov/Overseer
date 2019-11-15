@@ -9,6 +9,11 @@
     </style>
 </head>
 <body>
+<jsp:include page="menu.jsp"/>
+<br>
+<br>
+<br>
+<br>
 <c:if test="${!empty regions}">
     <table class="tg">
         <tr>
