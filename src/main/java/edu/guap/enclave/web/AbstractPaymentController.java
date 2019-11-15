@@ -18,12 +18,16 @@ public abstract class AbstractPaymentController {
     @Autowired
     private OrderedObjectPaymentRepository orderedObjectPaymentRepository;
 
+    @Autowired
+    private EmployeePaymentRepository employeePaymentRepository;
+
     public List<EmployeePayment> getAllByEmployee(int employeeId) {
         return employeePaymentRepository.getAllByEmployee(employeeId);
     }
 
-    @Autowired
-    private EmployeePaymentRepository employeePaymentRepository;
+    public List<OrderedObjectPayment> getAllByOrderedObject(int orderedObjectId) {
+        return orderedObjectPaymentRepository.getAllByOrderedObject(orderedObjectId);
+    }
 
     public List<OrderedObjectPayment> getAllOrderedObjectPaymentsByDate(LocalDate date) {
         log.info("get all object payments by date {}", date);
@@ -35,4 +39,11 @@ public abstract class AbstractPaymentController {
         return employeePaymentRepository.getAllByDate(date);
     }
 
+    public List<EmployeePayment> getAllEmployeePayments() {
+        return employeePaymentRepository.getAll();
+    }
+
+    public List<OrderedObjectPayment> getAllOrderedObjectPayments() {
+        return orderedObjectPaymentRepository.getAll();
+    }
 }
