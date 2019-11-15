@@ -30,4 +30,10 @@ public class EmployeePaymentRepositoryImpl implements EmployeePaymentRepository 
                 .setParameter("employeeId", employeeId)
                 .getResultList();
     }
+
+    @Override
+    public List<EmployeePayment> getAll() {
+        return em.createNamedQuery(EmployeePayment.ALL, EmployeePayment.class)
+                .getResultList();
+    }
 }

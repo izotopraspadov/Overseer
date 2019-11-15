@@ -11,4 +11,6 @@ public interface EmployeePaymentRepository {
 
     List<EmployeePayment> getAllByEmployee(int employeeId);
 
+    List<EmployeePayment> getAll();
+
 }
