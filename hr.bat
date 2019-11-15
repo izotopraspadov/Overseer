@@ -1,0 +1,3 @@
+call mvn -B -s settings.xml -DskipTests=true clean package
+rem call java -Dspring.profiles.active="heroku" -DDATABASE_URL="postgres://user:password@localhost:5432/enclave" -jar target/dependency/webapp-runner.jar target/*.war
+call java -Dspring.profiles.active="heroku" -DDATABASE_URL="postgres://user:password@localhost:5432/enclave" -classpath target/dependency webapp.runner.launch.Main target/*.war
