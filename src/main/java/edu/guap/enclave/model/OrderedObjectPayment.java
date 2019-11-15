@@ -12,13 +12,18 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "ordered_object_payments")
 @NamedQueries({
+        @NamedQuery(name = OrderedObjectPayment.ALL,
+                query = "SELECT oop FROM OrderedObjectPayment oop ORDER BY oop.company.title"),
         @NamedQuery(name = OrderedObjectPayment.ALL_BY_DATE,
                 query = "SELECT oop FROM OrderedObjectPayment oop WHERE oop.date=:date ORDER BY oop.company.title"),
-
+        @NamedQuery(name = OrderedObjectPayment.ALL_BY_ORDERED_OBJECT,
+                query = "SELECT oop FROM OrderedObjectPayment oop WHERE oop.orderedObject.id=:orderedObjectId ORDER BY oop.company.title"),
 })
 public class OrderedObjectPayment extends AbstractPaymentEntity {
 
+    public static final String ALL = "OrderedObjectPaymentRepository.getAll";
     public static final String ALL_BY_DATE = "OrderedObjectPaymentRepository.getAllByDate";
+    public static final String ALL_BY_ORDERED_OBJECT = "OrderedObjectPaymentRepository.getAllByOrderedObject";
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)
