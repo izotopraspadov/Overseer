@@ -14,7 +14,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tasks")
+@NamedQueries({
+        @NamedQuery(name = Task.ALL_BY_ORDERED_OBJECT, query = "SELECT t FROM Task t WHERE t.orderedObject.id=: orderedObjectId ORDER BY t.taskDescription"),
+})
 public class Task extends AbstractBaseEntity {
+
+    public static final String ALL_BY_ORDERED_OBJECT = "Task.getAllByOrderedObject";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ordered_object_id", nullable = false)
@@ -26,7 +31,7 @@ public class Task extends AbstractBaseEntity {
     @NotBlank
     private String taskDescription;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -45,7 +50,7 @@ public class Task extends AbstractBaseEntity {
     @Column(name = "comment")
     private String comment;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
     private Set<TaskEmail> taskEmails;
 
     public Task() {
