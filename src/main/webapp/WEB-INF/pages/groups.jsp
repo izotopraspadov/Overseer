@@ -9,6 +9,11 @@
     </style>
 </head>
 <body>
+<jsp:include page="menu.jsp"/>
+<br>
+<br>
+<br>
+<br>
 <c:if test="${!empty groups}">
     <table class="tg">
         <tr>
