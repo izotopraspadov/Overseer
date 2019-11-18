@@ -15,7 +15,7 @@
 <br>
 <br>
 <br>
-<form action="/enclave/admin/employees/update" method="POST">
+<form action="/admin/employees/update" method="POST">
     <table class="center">
 
         <tr>

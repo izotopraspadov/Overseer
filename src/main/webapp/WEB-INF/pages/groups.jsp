@@ -31,7 +31,7 @@
                 </c:forEach>
                 </td>
                 <td>${group.comment}</td>
-                <td><a href="/enclave/objects/group/${group.id}">[Выбрать]</a></td>
+                <td><a href="/objects/group/${group.id}">[Выбрать]</a></td>
             </tr>
         </c:forEach>
     </table>

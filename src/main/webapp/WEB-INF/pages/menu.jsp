@@ -5,15 +5,15 @@
 <%@ page session="false" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <div style="float: left;">
-    <a href="/enclave/employees">Личная информация</a>
+    <a href="/employees">Личная информация</a>
     <br>
-    <a href="/enclave/companies/switch/${'cmp'}">Компании</a>
+    <a href="/companies/switch/${'cmp'}">Компании</a>
     <br>
-    <a href="/enclave/employees/switch/${'cmp'}">Сотрудники</a>
+    <a href="/employees/switch/${'cmp'}">Сотрудники</a>
     <br>
-    <a href="/enclave/objects">Объекты</a>
+    <a href="/objects">Объекты</a>
     <br>
-    <a href="/enclave/finance">Финансы</a>
+    <a href="/finance">Финансы</a>
     <br>
-    <a href="/enclave/perform_logout">Выход</a>
+    <a href="/perform_logout">Выход</a>
 </div>

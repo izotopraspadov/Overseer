@@ -26,9 +26,9 @@
         <jdbc:script encoding="utf-8" location="classpath:db/POPULATE_DB.sql"/>
     </jdbc:initialize-database>
 
-    <bean class="java.net.URI" id="dbUrl">
-        <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
-    </bean>
+<!--    <bean class="java.net.URI" id="dbUrl">-->
+<!--        <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>-->
+<!--    </bean>-->
 
     <!--    <bean id="dataSource"-->
     <!--          class="org.apache.tomcat.jdbc.pool.DataSource"-->

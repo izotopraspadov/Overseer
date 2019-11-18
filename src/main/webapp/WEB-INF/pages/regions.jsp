@@ -24,10 +24,10 @@
             <tr>
                 <td>${region.title}</td>
                 <c:if test="${swtch eq 'cmp'}">
-                    <td><a href="/enclave/companies/region/${region.id}">[Выбрать]</a></td>
+                    <td><a href="/companies/region/${region.id}">[Выбрать]</a></td>
                 </c:if>
                 <c:if test="${swtch eq 'emp'}">
-                    <td><a href="/enclave/employees/region/${region.id}">[Выбрать]</a></td>
+                    <td><a href="/employees/region/${region.id}">[Выбрать]</a></td>
                 </c:if>
             </tr>
         </c:forEach>

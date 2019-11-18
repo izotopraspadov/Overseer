@@ -14,7 +14,7 @@
 
 <table class="find">
     <tr>
-        <form action="/enclave/finance//date" method="POST">
+        <form action="/finance/date" method="POST">
             <th><p>Поиск: </p></th>
             <th>
                 <div id="date">

@@ -34,7 +34,7 @@
 
 <table class="find">
     <tr>
-        <form action="/enclave/companies/token" method="POST">
+        <form action="/companies/token" method="POST">
             <th><p>Поиск: </p></th>
             <th>
                 <div id="data">
@@ -89,10 +89,10 @@
                     <td>${company.whatsAppGroupName}</td>
                     <td>${company.region.title}</td>
                     <c:if test="${swtch eq 'obj'}">
-                        <td><a href="/enclave/objects/company/${company.id}">[Выбрать]</a></td>
+                        <td><a href="/objects/company/${company.id}">[Выбрать]</a></td>
                     </c:if>
                     <c:if test="${swtch eq 'emp'}">
-                        <td><a href="/enclave/employees/company/${company.id}">[Выбрать]</a></td>
+                        <td><a href="/employees/company/${company.id}">[Выбрать]</a></td>
                     </c:if>
                 </tr>
             </c:forEach>

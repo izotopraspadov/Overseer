@@ -53,7 +53,7 @@
     });
 </script>
 <table class="find">
-    <form action="/enclave/objects/token" method="POST">
+    <form action="/objects/token" method="POST">
         <tr>
             <th>
                 <p>Поиск: </p>
@@ -175,10 +175,10 @@
                     </c:when><c:otherwise>
                         <td>нет</td>
                     </c:otherwise></c:choose>
-                    <td><a href="/enclave/finance/object/${object.id}">[Перейти]</a></td>
-                    <td><a href="/enclave/time/planned/object/${object.id}">[Перейти]</a></td>
-                    <td><a href="/enclave/time/actual/object/${object.id}">[Перейти]</a></td>
-                    <td><a href="/enclave/tasks/object/${object.id}">[Перейти]</a></td>
+                    <td><a href="/finance/object/${object.id}">[Перейти]</a></td>
+                    <td><a href="/time/planned/object/${object.id}">[Перейти]</a></td>
+                    <td><a href="/time/actual/object/${object.id}">[Перейти]</a></td>
+                    <td><a href="/tasks/object/${object.id}">[Перейти]</a></td>
                 </tr>
             </c:forEach>
         </table>

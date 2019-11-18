@@ -28,7 +28,7 @@
 
 <table class="find">
     <tr>
-        <form action="/enclave/employees/token" method="POST">
+        <form action="/employees/token" method="POST">
             <th><p>Поиск: </p></th>
             <th>
                 <div id="data">
@@ -70,12 +70,12 @@
                     <td>${employee.region.title}</td>
                     <td>${employee.login}</td>
                     <td>${employee.address}</td>
-                    <td><a href="/enclave/finance/employee/${employee.id}">[Перейти]</a></td>
+                    <td><a href="/finance/employee/${employee.id}">[Перейти]</a></td>
 <%--                    <c:if test="${swtch ne 'obj'}">--%>
 <%--                    <td><a href="/enclave/admin/employees/${employee.id}">[Изменить]</a></td>--%>
 <%--                    </c:if>--%>
                     <c:if test="${swtch eq 'obj'}">
-                        <td><a href="/enclave/objects/manager/${employee.id}">[Выбрать]</a></td>
+                        <td><a href="/objects/manager/${employee.id}">[Выбрать]</a></td>
                     </c:if>
                 </tr>
             </c:forEach>

@@ -35,7 +35,7 @@
                         ${email.email};
                     </c:forEach>
                 </td>
-                <td><a href="/enclave/companies/contactperson/${person.id}">[Выбрать]</a></td>
+                <td><a href="/companies/contactperson/${person.id}">[Выбрать]</a></td>
             </tr>
         </c:forEach>
     </table>
