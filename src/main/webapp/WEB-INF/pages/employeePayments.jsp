@@ -35,7 +35,7 @@
                 <jsp:useBean id="payment" class="edu.guap.enclave.model.EmployeePayment"/>
                 <tr>
                     <td>${payment.date}</td>
-                    <td>${payment.typeCounterparty}</td>
+                    <td>${payment.typeCounterparty.description}</td>
                     <c:choose><c:when test="${payment.companyCounterparty != null}">
                         <td>${payment.companyCounterparty.title}</td>
                     </c:when><c:otherwise>
