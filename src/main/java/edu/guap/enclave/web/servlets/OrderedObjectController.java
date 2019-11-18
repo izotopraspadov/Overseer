@@ -63,7 +63,7 @@ public class OrderedObjectController extends AbstractOrderedObjectController {
                 objects = super.getAllByTitle(data);
                 break;
             case "expected_payment":
-                if (ValidationUtil.isNumeric(data))
+                if (ValidationUtil.isBigDecimal(data))
                 objects = super.getAllByExpectedPayment(new BigDecimal(data));
                 break;
             case "order_type":
@@ -88,7 +88,7 @@ public class OrderedObjectController extends AbstractOrderedObjectController {
                 objects = super.getAllByActualEndDate(LocalDate.parse(date));
                 break;
             case "sum":
-                if (ValidationUtil.isNumeric(data))
+                if (ValidationUtil.isBigDecimal(data))
                 objects = super.getAllBySum(new BigDecimal(data));
                 break;
             case "payment_order":
