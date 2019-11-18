@@ -29,8 +29,7 @@ public class Salary extends AbstractBaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate startDate;
 
-    @Column(name = "end_date", nullable = false)
-    @NotNull
+    @Column(name = "end_date")
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate endDate;
 
