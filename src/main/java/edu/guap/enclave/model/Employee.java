@@ -99,17 +99,17 @@ public class Employee extends AbstractFullNameEntity {
     @OrderBy("date DESC")
     private List<EmployeePayment> payments;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "employee")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
     @OrderBy("startDate DESC")
    // @Fetch(value = FetchMode.SUBSELECT)
     private Set<Salary> salary;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
     @OrderBy("number DESC")
    // @Fetch(value = FetchMode.SUBSELECT)
     private Set<Phone> phones;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
     @OrderBy("email DESC")
    // @Fetch(value = FetchMode.SUBSELECT)
     private Set<Email> emails;
