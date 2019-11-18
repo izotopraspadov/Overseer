@@ -22,7 +22,7 @@ public class Phone extends AbstractContactEntity {
 
     @Column(name = "number", nullable = false, unique = true)
     @NotBlank
-    @Size(min = 15, max = 15)
+    @Size(min = 11, max = 11)
     private String number;
 
     public Phone() {
