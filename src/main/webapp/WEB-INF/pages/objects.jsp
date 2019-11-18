@@ -102,12 +102,14 @@
     </form>
     </tr>
 </table>
-<%--style="position:absolute; left:+870px;"--%>
 <br>
 <br>
 <br>
 <br>
-<div class="center">
+<br>
+<br>
+<br>
+<div>
     <c:if test="${empty objects}">
         <h1 class="h1" align="center">{Пусто}</h1>
     </c:if>
