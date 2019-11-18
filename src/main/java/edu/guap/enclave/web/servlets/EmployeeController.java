@@ -41,11 +41,11 @@ public class EmployeeController extends AbstractEmployeeController {
         return "employees";
     }
 
-    @RequestMapping(value = "/wsalary{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/wsalary/{id}", method = RequestMethod.GET)
     public String getWithSalaryEmailsPhones(ModelMap model, @PathVariable("id") int id) {
         Employee employee = super.getWithSalaryAndPhonesAndEmails(id).orElse(null);
         model.addAttribute("employee", employee);
-        return "employee";
+        return "employeeProfile";
     }
 
     @RequestMapping(value = "/region/{regionId}", method = RequestMethod.GET)

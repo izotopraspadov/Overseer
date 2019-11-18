@@ -54,10 +54,16 @@
             <td><input type="text" name="region" value="${employee.region.title}"/></td>
         </tr>
         <tr>
-            <td>Телефоны:</td>
+            <td>Телефоны (11 цифр):</td>
             <c:set var="count" value="${1}" scope="page"/>
             <c:forEach items="${employee.phones}" var="phone">
-                <td><input type="text" name="phone${count}" value="${phone.number}"/></td>
+                <td><input type="tel"
+                           name="phone${count}"
+                           value="${phone.number}"
+                           placeholder="Телефонный номер - 11 цифр без пробелов"
+                           pattern="[0-9]{11}"
+                           required
+                /></td>
                 <c:set var="count" value="${count + 1}" scope="page"/>
             </c:forEach>
         </tr>
@@ -65,7 +71,13 @@
             <td>Почтовые адреса:</td>
             <c:set var="count" value="${1}" scope="page"/>
             <c:forEach items="${employee.emails}" var="email">
-                <td><input type="text" name="email${count}" value="${email.email}"/></td>
+                <td><input type="email"
+                           name="email${count}"
+                           value="${email.email}"
+                           placeholder="Enter your email"
+                           pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                           required
+                /></td>
                 <c:set var="count" value="${count + 1}" scope="page"/>
             </c:forEach>
         </tr>
