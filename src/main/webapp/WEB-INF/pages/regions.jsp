@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="regions" scope="request" type="java.util.List"/>
+<%--<jsp:useBean id="regions" scope="request" type="java.util.List"/>--%>
 <html>
 <head>
     <title>Регионы</title>

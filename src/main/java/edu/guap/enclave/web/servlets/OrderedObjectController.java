@@ -1,6 +1,7 @@
 package edu.guap.enclave.web.servlets;
 
 import edu.guap.enclave.model.OrderedObject;
+import edu.guap.enclave.util.ValidationUtil;
 import edu.guap.enclave.web.AbstractOrderedObjectController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -62,6 +63,7 @@ public class OrderedObjectController extends AbstractOrderedObjectController {
                 objects = super.getAllByTitle(data);
                 break;
             case "expected_payment":
+                if (ValidationUtil.isNumeric(data))
                 objects = super.getAllByExpectedPayment(new BigDecimal(data));
                 break;
             case "order_type":
@@ -86,12 +88,14 @@ public class OrderedObjectController extends AbstractOrderedObjectController {
                 objects = super.getAllByActualEndDate(LocalDate.parse(date));
                 break;
             case "sum":
+                if (ValidationUtil.isNumeric(data))
                 objects = super.getAllBySum(new BigDecimal(data));
                 break;
             case "payment_order":
                 objects = super.getAllByPaymentOrder(data);
                 break;
             case "number_of_lines":
+                if (ValidationUtil.isNumeric(data))
                 objects = super.getAllByNumberOfLines(Integer.valueOf(data));
                 break;
             case "underway":
