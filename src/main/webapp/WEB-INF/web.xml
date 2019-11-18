@@ -7,7 +7,7 @@
     <display-name>Enclave</display-name>
 
     <welcome-file-list>
-        <welcome-file>profile.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
     <context-param>
