@@ -11,6 +11,7 @@
     <http pattern="**" use-expressions="true">
         <http-basic/>
         <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
+        <intercept-url pattern="/favicon.ico" access="isAnonymous()" />
 <!--        <intercept-url pattern="/index" access="hasRole('ADMIN')"/>-->
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <form-login/>
