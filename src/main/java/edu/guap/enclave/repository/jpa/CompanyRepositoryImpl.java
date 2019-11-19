@@ -77,14 +77,14 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     @Override
     public List<Company> getAllByTitle(String title) {
         return em.createNamedQuery(Company.ALL_BY_TITLE, Company.class)
-                .setParameter("title", title)
+                .setParameter("title", "%" + title + "%")
                 .getResultList();
     }
 
     @Override
     public Optional<Company> findByItb(String itn) {
         return em.createNamedQuery(Company.FIND_BY_ITN, Company.class)
-                .setParameter("itn", itn)
+                .setParameter("itn", "%" + itn + "%")
                 .getResultList()
                 .stream()
                 .findFirst();
@@ -93,7 +93,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     @Override
     public List<Company> getAllByAddress(String address) {
         return em.createNamedQuery(Company.ALL_BY_ADDRESS, Company.class)
-                .setParameter("address", address)
+                .setParameter("address", "%" + address + "%")
                 .getResultList();
     }
 

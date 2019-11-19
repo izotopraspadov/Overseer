@@ -30,13 +30,13 @@ import java.util.List;
         @NamedQuery(name = Company.ALL_BY_TYPE,
                 query = "SELECT c FROM Company c WHERE c.typeCompany=:typeCompany ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_TITLE,
-                query = "SELECT c FROM Company c WHERE c.title=:title"),
+                query = "SELECT c FROM Company c WHERE lower(c.title) like lower(:title)"),
         @NamedQuery(name = Company.ALL_BY_ADDRESS,
-                query = "SELECT c FROM Company c WHERE c.address=:address"),
+                query = "SELECT c FROM Company c WHERE lower(c.address) like lower(:address)"),
         @NamedQuery(name = Company.ALL_BY_CONTACT_PERSON,
                 query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId"),
         @NamedQuery(name = Company.FIND_BY_ITN,
-                query = "SELECT c FROM Company c WHERE c.itn=:itn"),
+                query = "SELECT c FROM Company c WHERE lower(c.itn) like lower(:itn)"),
 })
 public class Company extends AbstractBaseEntity {
 

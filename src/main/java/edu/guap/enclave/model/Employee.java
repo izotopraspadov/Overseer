@@ -46,11 +46,11 @@ import java.util.Set;
         @NamedQuery(name = Employee.ALL_BY_REGION,
                 query = "SELECT e FROM Employee e WHERE e.region.id=:regionId ORDER BY e.fullName"),
         @NamedQuery(name = Employee.ALL_BY_ADDRESS,
-                query = "SELECT e FROM Employee e WHERE e.address=:address"),
+                query = "SELECT e FROM Employee e WHERE lower(e.address) like lower(:address)"),
         @NamedQuery(name = Employee.ALL_BY_FULL_NAME,
-                query = "SELECT e FROM Employee e WHERE e.fullName=:fullName"),
+                query = "SELECT e FROM Employee e WHERE lower(e.fullName) like lower(:fullName)"),
         @NamedQuery(name = Employee.FIND_BY_LOGIN,
-                query = "SELECT e FROM Employee e WHERE e.login=:login"),
+                query = "SELECT e FROM Employee e WHERE lower(e.login) like lower(:login)"),
 
 })
 public class Employee extends AbstractFullNameEntity {

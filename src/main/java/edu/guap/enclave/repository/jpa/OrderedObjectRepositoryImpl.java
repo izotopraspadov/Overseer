@@ -79,7 +79,7 @@ public class OrderedObjectRepositoryImpl implements OrderedObjectRepository {
     @Override
     public List<OrderedObject> getAllByTitle(String title) {
         return em.createNamedQuery(OrderedObject.ALL_BY_TITLE, OrderedObject.class)
-                .setParameter("title", title)
+                .setParameter("title", "%" + title + "%")
                 .getResultList();
     }
 
@@ -100,7 +100,7 @@ public class OrderedObjectRepositoryImpl implements OrderedObjectRepository {
     @Override
     public List<OrderedObject> getAllByOrderType(String orderType) {
         return em.createNamedQuery(OrderedObject.ALL_BY_ORDER_TYPE, OrderedObject.class)
-                .setParameter("orderType", orderType)
+                .setParameter("orderType", "%" + orderType + "%")
                 .getResultList();
     }
 
@@ -184,7 +184,7 @@ public class OrderedObjectRepositoryImpl implements OrderedObjectRepository {
     @Override
     public List<OrderedObject> getAllByPaymentOrder(String paymentOrder) {
         return em.createNamedQuery(OrderedObject.ALL_BY_PAYMENT_ORDER, OrderedObject.class)
-                .setParameter("paymentOrder", paymentOrder)
+                .setParameter("paymentOrder", "%" + paymentOrder + "%")
                 .getResultList();
     }
 

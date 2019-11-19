@@ -30,7 +30,7 @@ import java.util.List;
         @NamedQuery(name = OrderedObject.GET_WITH_TASKS,
                 query = "SELECT DISTINCT o FROM OrderedObject o LEFT JOIN FETCH o.tasks WHERE o.id=:id"),
         @NamedQuery(name = OrderedObject.ALL_BY_TITLE,
-                query = "SELECT o FROM OrderedObject o WHERE o.title=:title ORDER BY o.title"),
+                query = "SELECT o FROM OrderedObject o WHERE lower(o.title) like lower(:title) ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_COMPANY,
                 query = "SELECT o FROM OrderedObject o WHERE o.company.id=:companyId ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_CASHLESS,
@@ -38,7 +38,7 @@ import java.util.List;
         @NamedQuery(name = OrderedObject.ALL_BY_ORDER_TYPE,
                 query = "SELECT o FROM OrderedObject o " +
                         "LEFT JOIN FETCH o.orderType ot " +
-                        "WHERE ot.title=:orderType ORDER BY o.title"),
+                        "WHERE lower(ot.title) like lower(:orderType) ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_GROUP,
                 query = "SELECT o FROM OrderedObject o WHERE o.group.id=:groupId ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_CONTRACT_IS_NEED,
@@ -62,7 +62,7 @@ import java.util.List;
         @NamedQuery(name = OrderedObject.ALL_BY_EXPECTED_PAYMENT,
                 query = "SELECT o FROM OrderedObject o WHERE o.expectedPayment=:expectedPayment ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_PAYMENT_ORDER,
-                query = "SELECT o FROM OrderedObject o WHERE o.paymentOrder=:paymentOrder ORDER BY o.title"),
+                query = "SELECT o FROM OrderedObject o WHERE lower(o.paymentOrder) like lower(:paymentOrder) ORDER BY o.title"),
         @NamedQuery(name = OrderedObject.ALL_BY_NUMBER_OF_LINES,
                 query = "SELECT o FROM OrderedObject o WHERE o.numberOfLines=:numberOfLines ORDER BY o.title"),
 })

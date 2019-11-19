@@ -36,7 +36,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getAll() {
-        companyRepository.getAll().forEach(System.out::println);
+        companyRepository.getAllByTitle("%торая компания%").forEach(System.out::println);
     }
 
     @Test

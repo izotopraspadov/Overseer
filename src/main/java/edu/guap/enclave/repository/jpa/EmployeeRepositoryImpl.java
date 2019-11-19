@@ -109,21 +109,21 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     public List<Employee> getAllByAddress(String address) {
         return em.createNamedQuery(Employee.ALL_BY_ADDRESS, Employee.class)
-                .setParameter("address", address)
+                .setParameter("address", "%" + address + "%")
                 .getResultList();
     }
 
     @Override
     public List<Employee> getAllByFullName(String fullName) {
         return em.createNamedQuery(Employee.ALL_BY_FULL_NAME, Employee.class)
-                .setParameter("fullName", fullName)
+                .setParameter("fullName", "%" + fullName + "%")
                 .getResultList();
     }
 
     @Override
     public Optional<Employee> findByLogin(String login) {
         return em.createNamedQuery(Employee.FIND_BY_LOGIN, Employee.class)
-                .setParameter("login", login)
+                .setParameter("login", "%" + login + "%")
                 .getResultList()
                 .stream()
                 .findFirst();
