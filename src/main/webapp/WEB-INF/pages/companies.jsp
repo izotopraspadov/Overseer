@@ -4,7 +4,6 @@
 <%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
 <%@ page session="false" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<%--<jsp:useBean id="company" class="edu.guap.enclave.model.Company"/>--%>
 <html>
 <head>
     <title>Компании</title>
