@@ -45,7 +45,7 @@
         <!-- Spring -->
         <spring.version>5.2.0.RELEASE</spring.version>
         <!-- Spring Security-->
-        <spring.securiry>3.2.0.RELEASE</spring.securiry>
+        <spring.securiry>5.3.0.RELEASE</spring.securiry>
         <!-- DB -->
         <postgresql.version>42.2.5</postgresql.version>
         <!-- Hibernate -->
