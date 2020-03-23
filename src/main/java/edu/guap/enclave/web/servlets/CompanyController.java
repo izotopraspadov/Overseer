@@ -3,9 +3,7 @@ package edu.guap.enclave.web.servlets;
 import edu.guap.enclave.model.Company;
 import edu.guap.enclave.model.Reliability;
 import edu.guap.enclave.model.TypeCompany;
-import edu.guap.enclave.repository.CompanyRepository;
 import edu.guap.enclave.web.AbstractCompanyController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 
 @Controller
 @RequestMapping(value = CompanyController.URL)

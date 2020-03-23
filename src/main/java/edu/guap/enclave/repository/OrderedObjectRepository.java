@@ -1,6 +1,5 @@
 package edu.guap.enclave.repository;
 
-import edu.guap.enclave.model.Company;
 import edu.guap.enclave.model.OrderedObject;
 
 import java.math.BigDecimal;

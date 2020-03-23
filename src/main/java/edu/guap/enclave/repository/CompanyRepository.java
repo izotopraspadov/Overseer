@@ -28,7 +28,7 @@ public interface CompanyRepository {
 
     List<Company> getAllByAddress(String address);
 
-    Optional<Company> findByContactPerson( int contactPersonId);
+    Optional<Company> findByContactPerson(int contactPersonId);
 
     Optional<Company> findByItb(String itn);
 

@@ -10,8 +10,6 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringJUnitConfig(locations = {
         "classpath:spring/spring-db.xml"
 })
