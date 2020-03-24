@@ -2,7 +2,7 @@
 
 ![Logo](resources/icon.png)
 
-##### *Development based on this specification*:
+### *Development based on this specification*:
 
 Приложение должно представлять собой `web – сервис` для управления всеми необходимыми данными, представляющими ресурсы конкретной организации: 
 
