@@ -140,7 +140,7 @@
                 <th>Задачи</th>
             </tr>
             <c:forEach items="${objects}" var="object">
-                <jsp:useBean id="object" class="edu.guap.enclave.model.OrderedObject"/>
+                <jsp:useBean id="object" class="edu.born.overseer.model.OrderedObject"/>
                 <tr>
                     <td>${object.title}</td>
                     <td>${object.company.title}</td>

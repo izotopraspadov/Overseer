@@ -32,7 +32,7 @@
                 <th width="120">Комментарий</th>
             </tr>
             <c:forEach items="${payments}" var="payment">
-                <jsp:useBean id="payment" class="edu.guap.enclave.model.EmployeePayment"/>
+                <jsp:useBean id="payment" class="edu.born.overseer.model.EmployeePayment"/>
                 <tr>
                     <td>${payment.date}</td>
                     <td>${payment.typeCounterparty.description}</td>

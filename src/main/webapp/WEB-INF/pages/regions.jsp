@@ -20,7 +20,7 @@
             <th width="80">Название</th>
         </tr>
         <c:forEach items="${regions}" var="region">
-            <jsp:useBean id="region" class="edu.guap.enclave.model.Region"/>
+            <jsp:useBean id="region" class="edu.born.overseer.model.Region"/>
             <tr>
                 <td>${region.title}</td>
                 <c:if test="${swtch eq 'cmp'}">

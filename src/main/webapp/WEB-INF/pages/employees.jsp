@@ -64,7 +64,7 @@
                 <th width="120">Платежи</th>
             </tr>
             <c:forEach items="${employees}" var="employee">
-                <jsp:useBean id="employee" class="edu.guap.enclave.model.Employee"/>
+                <jsp:useBean id="employee" class="edu.born.overseer.model.Employee"/>
                 <tr>
                     <td>${employee.fullName}</td>
                     <td>${employee.region.title}</td>

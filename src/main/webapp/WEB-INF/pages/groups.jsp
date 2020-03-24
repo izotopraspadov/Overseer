@@ -22,7 +22,7 @@
             <th width="120">Комментарий</th>
         </tr>
         <c:forEach items="${groups}" var="group">
-            <jsp:useBean id="group" class="edu.guap.enclave.model.Group"/>
+            <jsp:useBean id="group" class="edu.born.overseer.model.Group"/>
             <tr>
                 <td>${group.title}</td>
                 <td>

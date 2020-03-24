@@ -21,7 +21,7 @@
             <th>Планируемое время</th>
         </tr>
         <c:forEach items="${plannedTimeList}" var="time">
-            <jsp:useBean id="time" class="edu.guap.enclave.model.PlannedTime"/>
+            <jsp:useBean id="time" class="edu.born.overseer.model.PlannedTime"/>
             <tr>
                 <td>${time.employee.fullName}</td>
                 <td>${time.manHours}</td>

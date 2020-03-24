@@ -22,7 +22,7 @@
             <th width="120">Почтовые адреса</th>
         </tr>
         <c:forEach items="${persons}" var="person">
-            <jsp:useBean id="person" class="edu.guap.enclave.model.ContactPerson"/>
+            <jsp:useBean id="person" class="edu.born.overseer.model.ContactPerson"/>
             <tr>
                 <td>${person.fullName}</td>
                 <td>

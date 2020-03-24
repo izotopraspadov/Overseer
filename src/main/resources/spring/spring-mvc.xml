@@ -11,7 +11,7 @@
                http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
-    <bean class="edu.guap.enclave.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
+    <bean class="edu.born.overseer.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
     <import resource="spring-security.xml"/>
 

@@ -26,7 +26,7 @@
             <th>Комментарий</th>
         </tr>
         <c:forEach items="${tasks}" var="task">
-            <jsp:useBean id="task" class="edu.guap.enclave.model.Task"/>
+            <jsp:useBean id="task" class="edu.born.overseer.model.Task"/>
             <tr>
                 <td>${task.employee.fullName}</td>
                 <td>${task.taskDescription}</td>

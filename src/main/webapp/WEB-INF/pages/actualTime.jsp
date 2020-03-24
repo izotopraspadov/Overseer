@@ -28,7 +28,7 @@
                 <th>Учётное время</th>
             </tr>
             <c:forEach items="${actualTimeList}" var="time">
-                <jsp:useBean id="time" class="edu.guap.enclave.model.ActualTime"/>
+                <jsp:useBean id="time" class="edu.born.overseer.model.ActualTime"/>
                 <tr>
                     <td>${time.employee.fullName}</td>
                     <td>${time.date}</td>
