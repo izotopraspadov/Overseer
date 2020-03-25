@@ -2,10 +2,7 @@ package edu.born.overseer;
 
 import edu.born.overseer.model.Region;
 
-import java.util.List;
-
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQ;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class RegionTestData {
 
@@ -21,16 +18,6 @@ public class RegionTestData {
         return null;
     }
 
-    public static void assertMatch(Region actual, Region expected) {
-        assertThat(actual).isEqualTo(expected);
-    }
 
-    public static void assertMatch(Iterable<Region> actual, Region... expected) {
-        assertMatch(actual, List.of(expected));
-    }
-
-    public static void assertMatch(Iterable<Region> actual, Iterable<Region> expected) {
-        assertThat(actual).isEqualTo(expected);
-    }
 
 }
