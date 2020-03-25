@@ -22,7 +22,7 @@
         </encoder>
     </appender>
 
-    <logger name="edu.guap.enclave" level="error"/>
+    <logger name="edu.born.overseer" level="error"/>
     <!--<logger name="org.springframework.web.servlet" level="debug"/>-->
     <logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="error"/>
     <logger name="org.springframework.security" level="error"/>

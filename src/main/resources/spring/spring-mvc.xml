@@ -25,8 +25,8 @@
     </mvc:annotation-driven>
 
 
-    <context:component-scan base-package="edu.guap.**.web"/>
-    <context:component-scan base-package="edu.guap.**.service"/>
+    <context:component-scan base-package="edu.born.**.web"/>
+    <context:component-scan base-package="edu.born.**.service"/>
 
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>

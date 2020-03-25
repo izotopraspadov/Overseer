@@ -19,7 +19,7 @@
 
 <!--    <context:property-placeholder location="classpath:/db/heroku.properties" system-properties-mode="OVERRIDE"/>-->
 
-    <context:component-scan base-package="edu.guap.**.repository"/>
+    <context:component-scan base-package="edu.born.**.repository"/>
 
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
         <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
@@ -60,7 +60,7 @@
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
-          p:packagesToScan="edu.guap.**.model">
+          p:packagesToScan="edu.born.**.model">
 
         <property name="jpaPropertyMap">
             <map>
