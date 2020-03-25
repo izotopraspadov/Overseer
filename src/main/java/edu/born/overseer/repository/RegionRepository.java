@@ -13,7 +13,7 @@ public interface RegionRepository {
     boolean delete(int id);
 
     // null if not found
-    Region get(int id);
+    Region getById(int id);
 
     Optional<Region> getByTitle(String title);
 

@@ -37,7 +37,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     }
 
     @Override
-    public Region get(int id) {
+    public Region getById(int id) {
         return em.createNamedQuery(Region.GET, Region.class)
                 .setParameter("id", id)
                 .getSingleResult();
