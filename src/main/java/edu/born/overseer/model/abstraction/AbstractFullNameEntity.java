@@ -1,4 +1,4 @@
-package edu.born.overseer.model.abstract_entities;
+package edu.born.overseer.model.abstraction;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

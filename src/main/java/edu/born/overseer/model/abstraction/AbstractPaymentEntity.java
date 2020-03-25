@@ -1,4 +1,4 @@
-package edu.born.overseer.model.abstract_entities;
+package edu.born.overseer.model.abstraction;
 
 import edu.born.overseer.util.DateTimeUtil;
 import org.springframework.format.annotation.DateTimeFormat;

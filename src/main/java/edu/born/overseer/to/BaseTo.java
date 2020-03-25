@@ -1,6 +1,6 @@
 package edu.born.overseer.to;
 
-import edu.born.overseer.model.abstract_entities.HasId;
+import edu.born.overseer.model.abstraction.HasId;
 
 public abstract class BaseTo implements HasId {
     protected Integer id;

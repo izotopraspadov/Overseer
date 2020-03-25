@@ -1,6 +1,6 @@
 package edu.born.overseer.model;
 
-import edu.born.overseer.model.abstract_entities.AbstractBaseEntity;
+import edu.born.overseer.model.abstraction.AbstractBaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

@@ -1,6 +1,6 @@
 package edu.born.overseer.model;
 
-import edu.born.overseer.model.abstract_entities.AbstractContactEntity;
+import edu.born.overseer.model.abstraction.AbstractContactEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

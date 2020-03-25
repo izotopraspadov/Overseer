@@ -1,6 +1,6 @@
 package edu.born.overseer.model;
 
-import edu.born.overseer.model.abstract_entities.AbstractPaymentEntity;
+import edu.born.overseer.model.abstraction.AbstractPaymentEntity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

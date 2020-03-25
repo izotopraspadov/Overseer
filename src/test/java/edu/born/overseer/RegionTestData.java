@@ -4,7 +4,7 @@ import edu.born.overseer.model.Region;
 
 import java.util.List;
 
-import static edu.born.overseer.model.abstract_entities.AbstractBaseEntity.START_SEQ;
+import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQ;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RegionTestData {

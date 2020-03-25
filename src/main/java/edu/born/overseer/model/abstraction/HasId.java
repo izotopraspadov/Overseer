@@ -1,4 +1,4 @@
-package edu.born.overseer.model.abstract_entities;
+package edu.born.overseer.model.abstraction;
 
 public interface HasId {
     Integer getId();

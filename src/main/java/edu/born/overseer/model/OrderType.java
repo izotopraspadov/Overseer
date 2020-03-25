@@ -1,6 +1,6 @@
 package edu.born.overseer.model;
 
-import edu.born.overseer.model.abstract_entities.AbstractTitleEntity;
+import edu.born.overseer.model.abstraction.AbstractTitleEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
