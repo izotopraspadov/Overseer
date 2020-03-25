@@ -4,7 +4,6 @@ import edu.born.overseer.model.Company;
 import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.Group;
 import edu.born.overseer.model.OrderedObject;
-import edu.guap.enclave.model.*;
 import edu.born.overseer.repository.OrderedObjectRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
