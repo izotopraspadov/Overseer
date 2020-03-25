@@ -21,7 +21,7 @@
 
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
         <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
-        <jdbc:script encoding="utf-8" location="classpath:db/POPULATE_DB.sql"/>
+        <jdbc:script encoding="utf-8" location="classpath:db/population.sql"/>
     </jdbc:initialize-database>
 
     <bean id="dataSource"
