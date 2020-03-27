@@ -13,7 +13,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.NoResultException;
 
-import static edu.born.overseer.RegionTestData.*;
+import static edu.born.overseer.RegionTestData.REGION_1;
+import static edu.born.overseer.RegionTestData.REGION_1_ID;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static org.hamcrest.core.IsNot.not;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,6 +33,8 @@ class RegionRepositoryImplTest {
 
     @Test
     void delete() {
+        Assert.assertEquals(regionRepository.delete(REGION_1_ID), Boolean.TRUE);
+        assertThat(regionRepository.getAll(), not(hasItem(REGION_1)));
     }
 
     @Test
@@ -43,5 +49,6 @@ class RegionRepositoryImplTest {
 
     @Test
     void getAll() {
+
     }
 }
