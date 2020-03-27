@@ -16,7 +16,9 @@ import javax.persistence.NoResultException;
 import static edu.born.overseer.RegionTestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.hamcrest.core.IsNot.not;
+
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -48,11 +50,25 @@ class RegionRepositoryImplTest {
 
     @Test()
     void getByIdNotFound() {
-        Assertions.assertThrows(NoResultException.class, () -> regionRepository.getById(1));
+        Assertions.assertThrows(NoResultException.class, () -> regionRepository.getById(INVALID_REGION_ID));
     }
 
     @Test
     void getAll() {
-
+        assertThat(regionRepository.getAll(), hasItems(REGION_1,
+                REGION_2,
+                REGION_3,
+                REGION_3,
+                REGION_4,
+                REGION_5,
+                REGION_6,
+                REGION_7,
+                REGION_8,
+                REGION_9,
+                REGION_10,
+                REGION_11,
+                REGION_12,
+                REGION_13)
+        );
     }
 }
