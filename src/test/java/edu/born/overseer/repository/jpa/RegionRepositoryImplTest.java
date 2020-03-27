@@ -13,8 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.NoResultException;
 
-import static edu.born.overseer.RegionTestData.REGION_1;
-import static edu.born.overseer.RegionTestData.REGION_1_ID;
+import static edu.born.overseer.RegionTestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsNot.not;
@@ -35,6 +34,11 @@ class RegionRepositoryImplTest {
     void delete() {
         Assert.assertEquals(regionRepository.delete(REGION_1_ID), Boolean.TRUE);
         assertThat(regionRepository.getAll(), not(hasItem(REGION_1)));
+    }
+
+    @Test
+    void deleteNotExecute() {
+        Assert.assertEquals(regionRepository.delete(INVALID_REGION_ID), Boolean.FALSE);
     }
 
     @Test
