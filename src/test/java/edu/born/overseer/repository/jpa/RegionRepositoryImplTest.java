@@ -9,6 +9,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import javax.persistence.NoResultException;
 
 import static edu.born.overseer.RegionTestData.*;
@@ -16,7 +17,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
@@ -40,18 +40,18 @@ class RegionRepositoryImplTest {
 
     @Test
     void delete() {
-        assertEquals(regionRepository.delete(REGION_1_ID), Boolean.TRUE);
+        assertThat(regionRepository.delete(REGION_1_ID), is(equalTo(Boolean.TRUE)));
         assertThat(regionRepository.getAll(), not(contains(REGION_1)));
     }
 
     @Test
     void deleteNotExecute() {
-        assertEquals(regionRepository.delete(INVALID_REGION_ID), Boolean.FALSE);
+        assertThat(regionRepository.delete(INVALID_REGION_ID), is(equalTo(Boolean.FALSE)));
     }
 
     @Test
     void getById() {
-        assertEquals(regionRepository.getById(REGION_1_ID), REGION_1);
+        assertThat(regionRepository.getById(REGION_1_ID), is(equalTo(REGION_1)));
     }
 
     @Test()
