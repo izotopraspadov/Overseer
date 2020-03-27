@@ -1,6 +1,6 @@
 # `~ Overseer`
 
-![Logo](resources/icon.png)
+![Logo](materials/icon.png)
 
 ### *Development based on this specification*:
 
