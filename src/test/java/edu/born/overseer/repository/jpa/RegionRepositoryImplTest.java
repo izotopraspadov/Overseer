@@ -15,9 +15,7 @@ import javax.persistence.NoResultException;
 
 import static edu.born.overseer.RegionTestData.*;
 
-@SpringJUnitConfig(locations = {
-        "classpath:spring/spring-db.xml"
-})
+@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
 class RegionRepositoryImplTest {
