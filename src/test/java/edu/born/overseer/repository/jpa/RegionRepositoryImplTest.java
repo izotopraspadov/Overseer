@@ -64,7 +64,6 @@ class RegionRepositoryImplTest {
         assertThat(regionRepository.getAll(), contains(REGION_1,
                 REGION_2,
                 REGION_3,
-                REGION_3,
                 REGION_4,
                 REGION_5,
                 REGION_6,
