@@ -1,24 +1,23 @@
 package edu.born.overseer.repository.jpa;
 
 import edu.born.overseer.repository.RegionRepository;
-import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import javax.persistence.NoResultException;
 
 import static edu.born.overseer.RegionTestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsCollectionContaining.hasItem;
-import static org.hamcrest.core.IsCollectionContaining.hasItems;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,33 +28,40 @@ class RegionRepositoryImplTest {
     private RegionRepository regionRepository;
 
     @Test
-    void save() {
+    void create() {
+        assertThat(regionRepository.save(getCreated()), hasProperty("id", is((equalTo(NEW_REGION_ID)))));
+        assertThat(regionRepository.getById(NEW_REGION_ID), is(equalTo(getCreated())));
+    }
+
+    @Test
+    void createDuplicate() {
+        assertThrows(DataIntegrityViolationException.class, () -> regionRepository.save(getDuplicate()));
     }
 
     @Test
     void delete() {
-        Assert.assertEquals(regionRepository.delete(REGION_1_ID), Boolean.TRUE);
-        assertThat(regionRepository.getAll(), not(hasItem(REGION_1)));
+        assertEquals(regionRepository.delete(REGION_1_ID), Boolean.TRUE);
+        assertThat(regionRepository.getAll(), not(contains(REGION_1)));
     }
 
     @Test
     void deleteNotExecute() {
-        Assert.assertEquals(regionRepository.delete(INVALID_REGION_ID), Boolean.FALSE);
+        assertEquals(regionRepository.delete(INVALID_REGION_ID), Boolean.FALSE);
     }
 
     @Test
     void getById() {
-        Assert.assertEquals(regionRepository.getById(REGION_1_ID), REGION_1);
+        assertEquals(regionRepository.getById(REGION_1_ID), REGION_1);
     }
 
     @Test()
     void getByIdNotFound() {
-        Assertions.assertThrows(NoResultException.class, () -> regionRepository.getById(INVALID_REGION_ID));
+        assertThrows(NoResultException.class, () -> regionRepository.getById(INVALID_REGION_ID));
     }
 
     @Test
     void getAll() {
-        assertThat(regionRepository.getAll(), hasItems(REGION_1,
+        assertThat(regionRepository.getAll(), contains(REGION_1,
                 REGION_2,
                 REGION_3,
                 REGION_3,
