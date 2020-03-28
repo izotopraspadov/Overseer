@@ -10,6 +10,8 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.persistence.NoResultException;
+
 import static edu.born.overseer.CompanyTestData.*;
 import static edu.born.overseer.ContactPersonTestData.CONTACT_PERSON_1_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -60,6 +62,11 @@ class CompanyRepositoryImplTest {
     }
 
     @Test
+    void getByIdNotFound() {
+        assertThrows(NoResultException.class, () -> companyRepository.getById(INVALID_COMPANY_ID));
+    }
+
+    @Test
     void getByItb() {
         assertThat(companyRepository.getByItb(COMPANY_1.getItn()), is(equalTo(COMPANY_1)));
     }
@@ -67,10 +74,6 @@ class CompanyRepositoryImplTest {
     @Test
     void getByContactPersonId() {
         assertThat(companyRepository.getByContactPersonId(CONTACT_PERSON_1_ID), is(equalTo(COMPANY_1)));
-    }
-
-    @Test()
-    void getByIdNotFound() {
     }
 
     @Test
