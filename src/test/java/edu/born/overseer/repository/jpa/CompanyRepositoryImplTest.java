@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static edu.born.overseer.CompanyTestData.*;
+import static edu.born.overseer.ContactPersonTestData.CONTACT_PERSON_1_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -64,7 +65,8 @@ class CompanyRepositoryImplTest {
     }
 
     @Test
-    void getByContactPerson() {
+    void getByContactPersonId() {
+        assertThat(companyRepository.getByContactPersonId(CONTACT_PERSON_1_ID), is(equalTo(COMPANY_1)));
     }
 
     @Test()
