@@ -39,6 +39,12 @@ class RegionRepositoryImplTest {
     }
 
     @Test
+    void update() {
+        assertThat(regionRepository.save(getUpdate()), hasProperty("title", is((equalTo(getUpdate().getTitle())))));
+        assertThat(regionRepository.save(getUpdate()), hasProperty("id", is((equalTo(getUpdate().getId())))));
+    }
+
+    @Test
     void delete() {
         assertThat(regionRepository.delete(REGION_1_ID), is(equalTo(Boolean.TRUE)));
         assertThat(regionRepository.getAll(), not(contains(REGION_1)));

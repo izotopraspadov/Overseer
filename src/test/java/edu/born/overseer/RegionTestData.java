@@ -45,5 +45,8 @@ public class RegionTestData {
         return new Region(NEW_REGION_ID, REGION_1.getTitle());
     }
 
+    public static Region getUpdate() {
+        return new Region(REGION_1_ID, "Updated region");
+    }
 
 }
