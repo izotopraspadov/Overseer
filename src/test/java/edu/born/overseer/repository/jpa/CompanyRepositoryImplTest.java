@@ -1,5 +1,6 @@
 package edu.born.overseer.repository.jpa;
 
+import edu.born.overseer.RegionTestData;
 import edu.born.overseer.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -87,6 +88,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getAllByRegion() {
+        assertThat(companyRepository.getAllByRegion(RegionTestData.REGION_1_ID), contains(COMPANY_1));
     }
 
     @Test
