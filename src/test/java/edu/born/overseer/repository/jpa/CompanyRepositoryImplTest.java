@@ -1,6 +1,5 @@
 package edu.born.overseer.repository.jpa;
 
-import edu.born.overseer.model.Reliability;
 import edu.born.overseer.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,15 @@ class CompanyRepositoryImplTest {
     private CompanyRepository companyRepository;
 
     @Test
-    void save() {
+    void create() {
+    }
+
+    @Test
+    void createDuplicate() {
+    }
+
+    @Test
+    void update() {
     }
 
     @Test
@@ -27,22 +34,35 @@ class CompanyRepositoryImplTest {
     }
 
     @Test
-    void get() {
+    void deleteNotExecute() {
+    }
+
+    @Test
+    void getById() {
+    }
+
+    @Test
+    void getByItb() {
+    }
+
+    @Test
+    void getByContactPerson() {
+    }
+
+    @Test()
+    void getByIdNotFound() {
     }
 
     @Test
     void getAll() {
-        companyRepository.getAllByTitle("%торая компания%").forEach(System.out::println);
     }
 
     @Test
     void getAllByRegion() {
-        companyRepository.getAllByRegion(100001).forEach(System.out::println);
     }
 
     @Test
     void getAllByReliability() {
-        companyRepository.getAllByReliability(Reliability.MIDDLE).forEach(System.out::println);
     }
 
     @Test
@@ -50,17 +70,7 @@ class CompanyRepositoryImplTest {
     }
 
     @Test
-    void findByItb() {
-        System.out.println(companyRepository.findByItb("000000000000"));
-    }
-
-    @Test
-    void findByAddress() {
-    }
-
-    @Test
-    void findByContactPerson() {
-        //companyRepository.getAllByContactPerson(100016).forEach(System.out::println);
+    void getAllByAddress() {
     }
 
 }
