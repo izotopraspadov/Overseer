@@ -105,6 +105,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getAllByAddress() {
+        assertThat(companyRepository.getAllByAddress(COMPANY_1.getAddress()), contains(COMPANY_1));
     }
 
 }
