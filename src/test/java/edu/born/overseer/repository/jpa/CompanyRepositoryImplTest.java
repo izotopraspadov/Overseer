@@ -50,6 +50,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void deleteNotExecute() {
+        assertThat(companyRepository.delete(INVALID_COMPANY_ID), is(equalTo(Boolean.FALSE)));
     }
 
     @Test
