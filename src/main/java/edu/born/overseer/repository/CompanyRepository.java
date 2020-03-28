@@ -14,7 +14,7 @@ public interface CompanyRepository {
     // false if not found
     boolean delete(int id);
 
-    Optional<Company> get(int id);
+    Optional<Company> getById(int id);
 
     List<Company> getAll();
 

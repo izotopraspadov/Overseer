@@ -39,7 +39,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public Optional<Company> get(int id) {
+    public Optional<Company> getById(int id) {
         return em.createNamedQuery(Company.GET, Company.class)
                 .setParameter("id", id)
                 .getResultList()
