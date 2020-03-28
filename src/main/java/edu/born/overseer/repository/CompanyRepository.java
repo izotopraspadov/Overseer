@@ -15,7 +15,7 @@ public interface CompanyRepository {
 
     Company getById(int id);
 
-    Company getByContactPerson(int contactPersonId);
+    Company getByContactPersonId(int contactPersonId);
 
     Company getByItb(String itn);
 

@@ -53,7 +53,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public Company getByContactPerson(int contactPersonId) {
+    public Company getByContactPersonId(int contactPersonId) {
         return em.createNamedQuery(Company.ALL_BY_CONTACT_PERSON, Company.class)
                 .setParameter("contactPersonId", contactPersonId)
                 .getResultList()
