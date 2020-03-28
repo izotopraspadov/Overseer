@@ -1,6 +1,5 @@
 package edu.born.overseer.repository.jpa;
 
-import edu.born.overseer.RegionTestData;
 import edu.born.overseer.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +14,7 @@ import javax.persistence.NoResultException;
 
 import static edu.born.overseer.CompanyTestData.*;
 import static edu.born.overseer.ContactPersonTestData.CONTACT_PERSON_1_ID;
+import static edu.born.overseer.RegionTestData.REGION_1_ID;
 import static edu.born.overseer.model.Reliability.LOW;
 import static edu.born.overseer.model.TypeCompany.OUR;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -90,7 +90,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getAllByRegion() {
-        assertThat(companyRepository.getAllByRegion(RegionTestData.REGION_1_ID), contains(COMPANY_1));
+        assertThat(companyRepository.getAllByRegion(REGION_1_ID), contains(COMPANY_1));
     }
 
     @Test
