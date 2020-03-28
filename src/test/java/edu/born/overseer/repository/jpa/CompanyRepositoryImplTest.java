@@ -12,9 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static edu.born.overseer.CompanyTestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
@@ -44,6 +44,8 @@ class CompanyRepositoryImplTest {
 
     @Test
     void delete() {
+        assertThat(companyRepository.delete(COMPANY_1_ID), is(equalTo(Boolean.TRUE)));
+        assertThat(companyRepository.getAll(), not(contains(COMPANY_1)));
     }
 
     @Test
