@@ -15,6 +15,7 @@ import javax.persistence.NoResultException;
 
 import static edu.born.overseer.CompanyTestData.*;
 import static edu.born.overseer.ContactPersonTestData.CONTACT_PERSON_1_ID;
+import static edu.born.overseer.model.Reliability.LOW;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -93,6 +94,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getAllByReliability() {
+        assertThat(companyRepository.getAllByReliability(LOW), contains(COMPANY_1));
     }
 
     @Test
