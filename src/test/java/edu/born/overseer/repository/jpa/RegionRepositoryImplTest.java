@@ -40,8 +40,8 @@ class RegionRepositoryImplTest {
 
     @Test
     void update() {
-        assertThat(regionRepository.save(getUpdate()), hasProperty("title", is((equalTo(getUpdate().getTitle())))));
-        assertThat(regionRepository.save(getUpdate()), hasProperty("id", is((equalTo(getUpdate().getId())))));
+        assertThat(regionRepository.save(getUpdated()), hasProperty("title", is((equalTo(getUpdated().getTitle())))));
+        assertThat(regionRepository.save(getUpdated()), hasProperty("id", is((equalTo(getUpdated().getId())))));
     }
 
     @Test
