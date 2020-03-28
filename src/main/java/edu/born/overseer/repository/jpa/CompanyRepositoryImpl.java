@@ -4,13 +4,13 @@ import edu.born.overseer.model.Company;
 import edu.born.overseer.model.Reliability;
 import edu.born.overseer.model.TypeCompany;
 import edu.born.overseer.repository.CompanyRepository;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
@@ -39,30 +39,27 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public Optional<Company> getById(int id) {
+    public Company getById(int id) {
         return em.createNamedQuery(Company.GET, Company.class)
                 .setParameter("id", id)
-                .getResultList()
-                .stream()
-                .findFirst();
+                .getSingleResult();
     }
 
     @Override
-    public Optional<Company> getByItb(String itn) {
+    public Company getByItb(String itn) {
         return em.createNamedQuery(Company.FIND_BY_ITN, Company.class)
                 .setParameter("itn", "%" + itn + "%")
-                .getResultList()
-                .stream()
-                .findFirst();
+                .getSingleResult();
     }
 
     @Override
-    public Optional<Company> getByContactPerson(int contactPersonId) {
+    public Company getByContactPerson(int contactPersonId) {
         return em.createNamedQuery(Company.ALL_BY_CONTACT_PERSON, Company.class)
                 .setParameter("contactPersonId", contactPersonId)
                 .getResultList()
                 .stream()
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("Not found entity with contactPersonId: " + contactPersonId));
     }
 
     @Override
