@@ -60,6 +60,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getByItb() {
+        assertThat(companyRepository.getByItb(COMPANY_1.getItn()), is(equalTo(COMPANY_1)));
     }
 
     @Test
