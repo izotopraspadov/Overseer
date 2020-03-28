@@ -9,6 +9,12 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static edu.born.overseer.CompanyTestData.COMPANY_1;
+import static edu.born.overseer.CompanyTestData.COMPANY_1_ID;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
@@ -39,6 +45,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getById() {
+        assertThat(companyRepository.getById(COMPANY_1_ID), is(equalTo(COMPANY_1)));
     }
 
     @Test
