@@ -38,6 +38,8 @@ class CompanyRepositoryImplTest {
 
     @Test
     void update() {
+        assertThat(companyRepository.save(getUpdated()), hasProperty("title", is((equalTo(getUpdated().getTitle())))));
+        assertThat(companyRepository.save(getUpdated()), hasProperty("id", is((equalTo(getUpdated().getId())))));
     }
 
     @Test
