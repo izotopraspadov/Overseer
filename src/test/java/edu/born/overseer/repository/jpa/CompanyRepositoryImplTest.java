@@ -78,6 +78,11 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getAll() {
+        assertThat(companyRepository.getAll(), contains(
+                COMPANY_2,
+                COMPANY_1,
+                COMPANY_3)
+        );
     }
 
     @Test
