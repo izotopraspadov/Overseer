@@ -94,6 +94,18 @@ public class Company extends AbstractBaseEntity {
     public Company() {
     }
 
+    public Company(Integer id, String title, Region region, String itn, String address,
+                   Reliability reliability, String whatsapp_group_name, TypeCompany typeCompany) {
+        super(id);
+        this.title = title;
+        this.region = region;
+        this.itn = itn;
+        this.address = address;
+        this.reliability = reliability;
+        this.whatsAppGroupName = whatsapp_group_name;
+        this.typeCompany = typeCompany;
+    }
+
     public Company(Integer id, String title, Region region, String itn, String address, List<ContactPerson> contactPersons,
                    Reliability reliability, String whatsapp_group_name, TypeCompany typeCompany) {
         super(id);
