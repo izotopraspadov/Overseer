@@ -48,6 +48,24 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
+    public Optional<Company> getByItb(String itn) {
+        return em.createNamedQuery(Company.FIND_BY_ITN, Company.class)
+                .setParameter("itn", "%" + itn + "%")
+                .getResultList()
+                .stream()
+                .findFirst();
+    }
+
+    @Override
+    public Optional<Company> getByContactPerson(int contactPersonId) {
+        return em.createNamedQuery(Company.ALL_BY_CONTACT_PERSON, Company.class)
+                .setParameter("contactPersonId", contactPersonId)
+                .getResultList()
+                .stream()
+                .findFirst();
+    }
+
+    @Override
     public List<Company> getAll() {
         return em.createNamedQuery(Company.ALL, Company.class)
                 .getResultList();
@@ -82,27 +100,10 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public Optional<Company> findByItb(String itn) {
-        return em.createNamedQuery(Company.FIND_BY_ITN, Company.class)
-                .setParameter("itn", "%" + itn + "%")
-                .getResultList()
-                .stream()
-                .findFirst();
-    }
-
-    @Override
     public List<Company> getAllByAddress(String address) {
         return em.createNamedQuery(Company.ALL_BY_ADDRESS, Company.class)
                 .setParameter("address", "%" + address + "%")
                 .getResultList();
     }
 
-    @Override
-    public Optional<Company> findByContactPerson(int contactPersonId) {
-        return em.createNamedQuery(Company.ALL_BY_CONTACT_PERSON, Company.class)
-                .setParameter("contactPersonId", contactPersonId)
-                .getResultList()
-                .stream()
-                .findFirst();
-    }
 }

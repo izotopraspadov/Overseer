@@ -16,6 +16,10 @@ public interface CompanyRepository {
 
     Optional<Company> getById(int id);
 
+    Optional<Company> getByContactPerson(int contactPersonId);
+
+    Optional<Company> getByItb(String itn);
+
     List<Company> getAll();
 
     List<Company> getAllByRegion(int regionId);
@@ -27,9 +31,5 @@ public interface CompanyRepository {
     List<Company> getAllByTitle(String title);
 
     List<Company> getAllByAddress(String address);
-
-    Optional<Company> findByContactPerson(int contactPersonId);
-
-    Optional<Company> findByItb(String itn);
 
 }

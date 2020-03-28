@@ -70,12 +70,12 @@ public abstract class AbstractCompanyController {
 
     public Optional<Company> findByContactPerson(int contactPersonId) {
         log.info("get all companies by contact person {}", contactPersonId);
-        return companyRepository.findByContactPerson(contactPersonId);
+        return companyRepository.getByContactPerson(contactPersonId);
     }
 
     public Optional<Company> findByItb(String itn) {
         log.info("find company by itn {}", itn);
-        return companyRepository.findByItb(itn);
+        return companyRepository.getByItb(itn);
     }
 
 }
