@@ -1,15 +1,9 @@
 package edu.born.overseer.web;
 
-import edu.born.overseer.model.Company;
-import edu.born.overseer.model.Reliability;
-import edu.born.overseer.model.TypeCompany;
 import edu.born.overseer.repository.CompanyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.Optional;
 
 public abstract class AbstractCompanyController {
 
@@ -17,7 +11,7 @@ public abstract class AbstractCompanyController {
 
     @Autowired
     private CompanyRepository companyRepository;
-
+/*
     public Company create(Company company) {
         log.info("create company {}", company.getId());
         return companyRepository.save(company);
@@ -76,6 +70,6 @@ public abstract class AbstractCompanyController {
     public Optional<Company> findByItb(String itn) {
         log.info("find company by itn {}", itn);
         return companyRepository.getByItb(itn);
-    }
+    }*/
 
 }

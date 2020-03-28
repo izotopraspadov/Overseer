@@ -5,7 +5,6 @@ import edu.born.overseer.model.Reliability;
 import edu.born.overseer.model.TypeCompany;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CompanyRepository {
 
@@ -14,11 +13,11 @@ public interface CompanyRepository {
     // false if not found
     boolean delete(int id);
 
-    Optional<Company> getById(int id);
+    Company getById(int id);
 
-    Optional<Company> getByContactPerson(int contactPersonId);
+    Company getByContactPerson(int contactPersonId);
 
-    Optional<Company> getByItb(String itn);
+    Company getByItb(String itn);
 
     List<Company> getAll();
 
