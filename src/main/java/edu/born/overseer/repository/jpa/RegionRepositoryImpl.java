@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
@@ -37,11 +36,17 @@ public class RegionRepositoryImpl implements RegionRepository {
     }
 
     @Override
-    public Optional<Region> getById(int id) {
+    public Region getById(int id) {
         return em.createNamedQuery(Region.GET, Region.class)
                 .setParameter("id", id)
-                .getResultStream()
-                .findFirst();
+                .getSingleResult();
+    }
+
+    @Override
+    public Region getByTitle(String title) {
+        return em.createNamedQuery(Region.GET_BY_TITLE, Region.class)
+                .setParameter("title", title)
+                .getSingleResult();
     }
 
     @Override
@@ -50,12 +55,4 @@ public class RegionRepositoryImpl implements RegionRepository {
                 .getResultList();
     }
 
-    @Override
-    public Optional<Region> getByTitle(String title) {
-        return em.createNamedQuery(Region.GET_BY_TITLE, Region.class)
-                .setParameter("title", title)
-                .getResultList()
-                .stream()
-                .findFirst();
-    }
 }
