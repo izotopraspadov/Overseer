@@ -9,9 +9,9 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static edu.born.overseer.CompanyTestData.COMPANY_1;
-import static edu.born.overseer.CompanyTestData.COMPANY_1_ID;
+import static edu.born.overseer.CompanyTestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 
@@ -25,6 +25,8 @@ class CompanyRepositoryImplTest {
 
     @Test
     void create() {
+        assertThat(companyRepository.save(getCreated()), hasProperty("id", is((equalTo(NEW_COMPANY_ID)))));
+        assertThat(companyRepository.getById(NEW_COMPANY_ID), is(equalTo(getCreated())));
     }
 
     @Test
