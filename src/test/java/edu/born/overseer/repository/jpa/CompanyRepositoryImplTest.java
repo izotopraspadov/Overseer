@@ -71,7 +71,16 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getByItb() {
-        assertThat(companyRepository.getByItb(COMPANY_1.getItn()), is(equalTo(COMPANY_1)));
+        assertThat(companyRepository.getAllByItb(COMPANY_1.getItn()), is(equalTo(COMPANY_1)));
+    }
+
+    @Test
+    void getPartialMatchByItb() {
+        assertThat(companyRepository.getAllByItb("00000000"), contains(
+                COMPANY_2,
+                COMPANY_1,
+                COMPANY_3)
+        );
     }
 
     @Test
