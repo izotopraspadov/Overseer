@@ -130,4 +130,9 @@ class CompanyRepositoryImplTest {
         assertThat(companyRepository.getAllByTitle(COMPANY_1.getTitle()), contains(COMPANY_1));
     }
 
+    @Test
+    void getAllByTitlePartialMatch() {
+        assertThat(companyRepository.getAllByTitle("Пер"), contains(COMPANY_1));
+    }
+
 }
