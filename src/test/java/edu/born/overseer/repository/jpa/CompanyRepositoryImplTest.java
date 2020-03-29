@@ -125,6 +125,9 @@ class CompanyRepositoryImplTest {
         );
     }
 
-
+    @Test
+    void getAllByTitle() {
+        assertThat(companyRepository.getAllByTitle(COMPANY_1.getTitle()), contains(COMPANY_1));
+    }
 
 }
