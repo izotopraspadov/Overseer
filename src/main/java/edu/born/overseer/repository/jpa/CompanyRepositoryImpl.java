@@ -47,7 +47,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @Override
     public List<Company> getAllByItb(String itn) {
-        return em.createNamedQuery(Company.FIND_BY_ITN, Company.class)
+        return em.createNamedQuery(Company.ALL_BY_ITN, Company.class)
                 .setParameter("itn", itn)
                 .getResultList();
     }
