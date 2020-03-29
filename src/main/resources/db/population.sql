@@ -74,43 +74,43 @@ VALUES (100024, 'USER'),
 INSERT INTO emails (email, type_owner, contact_person_id, employee_id)
 VALUES ('1@mail.com', 'CONTACT_PERSON', 100016, null),  -- id 100030
 
-       ('4@mail.com', 'CONTACT_PERSON', 100017, null),  -- id 100031
-       ('6@mail.com', 'CONTACT_PERSON', 100017, null),  -- id 100032
+       ('2@mail.com', 'CONTACT_PERSON', 100017, null),  -- id 100031
+       ('3@mail.com', 'CONTACT_PERSON', 100017, null),  -- id 100032
 
-       ('7@mail.com', 'CONTACT_PERSON', 100018, null),  -- id 100033
+       ('4@mail.com', 'CONTACT_PERSON', 100018, null),  -- id 100033
 
-       ('10@mail.com', 'CONTACT_PERSON', 100019, null), -- id 100034
-       ('11@mail.com', 'CONTACT_PERSON', 100019, null), -- id 100035
-       ('12@mail.com', 'CONTACT_PERSON', 100019, null), -- id 100036
+       ('5@mail.com', 'CONTACT_PERSON', 100019, null), -- id 100034
+       ('6@mail.com', 'CONTACT_PERSON', 100019, null), -- id 100035
+       ('7@mail.com', 'CONTACT_PERSON', 100019, null), -- id 100036
 
-       ('13@mail.com', 'CONTACT_PERSON', 100020, null), -- id 100037
-       ('15@mail.com', 'CONTACT_PERSON', 100020, null), -- id 100038
+       ('8@mail.com', 'CONTACT_PERSON', 100020, null), -- id 100037
+       ('9@mail.com', 'CONTACT_PERSON', 100020, null), -- id 100038
 
-       ('16@mail.com', 'CONTACT_PERSON', 100021, null), -- id 100039
-       ('17@mail.com', 'CONTACT_PERSON', 100021, null), -- id 100040
-       ('18@mail.com', 'CONTACT_PERSON', 100021, null), -- id 100041
+       ('10@mail.com', 'CONTACT_PERSON', 100021, null), -- id 100039
+       ('11@mail.com', 'CONTACT_PERSON', 100021, null), -- id 100040
+       ('12@mail.com', 'CONTACT_PERSON', 100021, null), -- id 100041
 
-       ('19@mail.com', 'CONTACT_PERSON', 100022, null), -- id 100042
+       ('13@mail.com', 'CONTACT_PERSON', 100022, null), -- id 100042
 
-       ('22@mail.com', 'CONTACT_PERSON', 100023, null), -- id 100043
-       ('24@mail.com', 'CONTACT_PERSON', 100023, null), -- id 100044
+       ('14@mail.com', 'CONTACT_PERSON', 100023, null), -- id 100043
+       ('15@mail.com', 'CONTACT_PERSON', 100023, null), -- id 100044
 
-       ('25@mail.com', 'EMPLOYEE', null, 100024),       -- id 100045
-       ('26@mail.com', 'EMPLOYEE', null, 100024),       -- id 100046
+       ('16@mail.com', 'EMPLOYEE', null, 100024),       -- id 100045
+       ('17@mail.com', 'EMPLOYEE', null, 100024),       -- id 100046
 
-       ('27@mail.com', 'EMPLOYEE', null, 100025),       -- id 100047
+       ('18@mail.com', 'EMPLOYEE', null, 100025),       -- id 100047
 
-       ('29@mail.com', 'EMPLOYEE', null, 100026),       -- id 100048
-       ('30@mail.com', 'EMPLOYEE', null, 100026),       -- id 100049
-       ('31@mail.com', 'EMPLOYEE', null, 100026),       -- id 100050
+       ('19@mail.com', 'EMPLOYEE', null, 100026),       -- id 100048
+       ('20@mail.com', 'EMPLOYEE', null, 100026),       -- id 100049
+       ('21@mail.com', 'EMPLOYEE', null, 100026),       -- id 100050
 
-       ('32@mail.com', 'EMPLOYEE', null, 100027),       -- id 100051
-       ('34@mail.com', 'EMPLOYEE', null, 100027),       -- id 100052
+       ('22@mail.com', 'EMPLOYEE', null, 100027),       -- id 100051
+       ('23@mail.com', 'EMPLOYEE', null, 100027),       -- id 100052
 
-       ('35@mail.com', 'EMPLOYEE', null, 100028),       -- id 100053
+       ('24@mail.com', 'EMPLOYEE', null, 100028),       -- id 100053
 
-       ('36@mail.com', 'EMPLOYEE', null, 100029),       -- id 100054
-       ('37@mail.com', 'EMPLOYEE', null, 100029);
+       ('25@mail.com', 'EMPLOYEE', null, 100029),       -- id 100054
+       ('26@mail.com', 'EMPLOYEE', null, 100029);
 -- id 100055
 
 INSERT INTO phones (number, type_owner, contact_person_id, employee_id)
