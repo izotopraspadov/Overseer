@@ -75,7 +75,7 @@ class CompanyRepositoryImplTest {
     }
 
     @Test
-    void getPartialMatchByItb() {
+    void getByItbPartialMatch() {
         assertThat(companyRepository.getAllByItb("00000000"), contains(
                 COMPANY_2,
                 COMPANY_1,
@@ -116,5 +116,15 @@ class CompanyRepositoryImplTest {
     void getAllByAddress() {
         assertThat(companyRepository.getAllByAddress(COMPANY_1.getAddress()), contains(COMPANY_1));
     }
+
+    @Test
+    void getAllByAddressPartialMatch() {
+        assertThat(companyRepository.getAllByAddress("Н"), contains(
+                COMPANY_2,
+                COMPANY_1)
+        );
+    }
+
+
 
 }
