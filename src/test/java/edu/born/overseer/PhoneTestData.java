@@ -2,6 +2,8 @@ package edu.born.overseer;
 
 import edu.born.overseer.model.Phone;
 
+import java.util.Set;
+
 import static edu.born.overseer.ContactPersonTestData.*;
 import static edu.born.overseer.model.TypeOwner.CONTACT_PERSON;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQ;
@@ -50,6 +52,15 @@ public class PhoneTestData {
             new Phone(CONTACT_PERSON_PHONE_12_ID, CONTACT_PERSON_7, CONTACT_PERSON, "00000000012");
     public static final Phone CONTACT_PERSON_PHONE_13 =
             new Phone(CONTACT_PERSON_PHONE_13_ID, CONTACT_PERSON_8, CONTACT_PERSON, "00000000013");
+
+    public static final Set<Phone> CONTACT_PERSON_1_PHONES = Set.of(CONTACT_PERSON_PHONE_1, CONTACT_PERSON_PHONE_2);
+    public static final Set<Phone> CONTACT_PERSON_2_PHONES = Set.of(CONTACT_PERSON_PHONE_3);
+    public static final Set<Phone> CONTACT_PERSON_3_PHONES = Set.of(CONTACT_PERSON_PHONE_4, CONTACT_PERSON_PHONE_5, CONTACT_PERSON_PHONE_6);
+    public static final Set<Phone> CONTACT_PERSON_4_PHONES = Set.of(CONTACT_PERSON_PHONE_7, CONTACT_PERSON_PHONE_8);
+    public static final Set<Phone> CONTACT_PERSON_5_PHONES = Set.of(CONTACT_PERSON_PHONE_9);
+    public static final Set<Phone> CONTACT_PERSON_6_PHONES = Set.of(CONTACT_PERSON_PHONE_10);
+    public static final Set<Phone> CONTACT_PERSON_7_PHONES = Set.of(CONTACT_PERSON_PHONE_11, CONTACT_PERSON_PHONE_12);
+    public static final Set<Phone> CONTACT_PERSON_8_PHONES = Set.of(CONTACT_PERSON_PHONE_13);
 
 
 }
