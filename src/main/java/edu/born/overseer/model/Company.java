@@ -19,10 +19,10 @@ import java.util.List;
         @NamedQuery(name = Company.ALL_BY_REGION, query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_RELIABILITY, query = "SELECT c FROM Company c WHERE c.reliability=:reliability ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_TYPE, query = "SELECT c FROM Company c WHERE c.typeCompany=:typeCompany ORDER BY c.title"),
-        @NamedQuery(name = Company.ALL_BY_TITLE, query = "SELECT c FROM Company c WHERE lower(c.title) like lower(concat(:title, '%')) ORDER BY c.title"),
-        @NamedQuery(name = Company.ALL_BY_ADDRESS, query = "SELECT c FROM Company c WHERE lower(c.address) like lower(concat(:address, '%')) ORDER BY c.title"),
+        @NamedQuery(name = Company.ALL_BY_TITLE, query = "SELECT c FROM Company c WHERE lower(c.title) LIKE lower(concat(:title, '%')) ORDER BY c.title"),
+        @NamedQuery(name = Company.ALL_BY_ADDRESS, query = "SELECT c FROM Company c WHERE lower(c.address) LIKE lower(concat(:address, '%')) ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_CONTACT_PERSON, query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId"),
-        @NamedQuery(name = Company.FIND_BY_ITN, query = "SELECT c FROM Company c WHERE lower(c.itn) like lower(concat(:itn, '%')) ORDER BY c.title"),
+        @NamedQuery(name = Company.FIND_BY_ITN, query = "SELECT c FROM Company c WHERE lower(c.itn) LIKE lower(concat(:itn, '%')) ORDER BY c.title"),
 })
 public class Company extends AbstractBaseEntity {
 
