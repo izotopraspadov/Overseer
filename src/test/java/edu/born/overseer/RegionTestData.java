@@ -6,7 +6,7 @@ import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQ;
 
 public class RegionTestData {
 
-    public static final int INVALID_REGION_ID = 1;
+    public static final int INVALID_REGION_ID = START_SEQ - 1;
 
     public static final int REGION_1_ID = START_SEQ;
     public static final int REGION_2_ID = START_SEQ + 1;

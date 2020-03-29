@@ -9,7 +9,7 @@ import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQ;
 
 public class CompanyTestData {
 
-    public static final int INVALID_COMPANY_ID = 1;
+    public static final int INVALID_COMPANY_ID = START_SEQ - 1;
 
     public static final int COMPANY_1_ID = START_SEQ + 13;
     public static final int COMPANY_2_ID = START_SEQ + 14;
