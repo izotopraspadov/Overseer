@@ -2,6 +2,8 @@ package edu.born.overseer;
 
 import edu.born.overseer.model.Email;
 
+import java.util.Set;
+
 import static edu.born.overseer.ContactPersonTestData.*;
 import static edu.born.overseer.model.TypeOwner.CONTACT_PERSON;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQ;
@@ -56,6 +58,15 @@ public class EmailTestData {
             new Email(CONTACT_PERSON_EMAIL_14_ID, CONTACT_PERSON_8, CONTACT_PERSON, "14@mail.com");
     public static final Email CONTACT_PERSON_EMAIL_15 =
             new Email(CONTACT_PERSON_EMAIL_15_ID, CONTACT_PERSON_8, CONTACT_PERSON, "15@mail.com");
+
+    public static final Set<Email> CONTACT_PERSON_1_EMAILS = Set.of(CONTACT_PERSON_EMAIL_1);
+    public static final Set<Email> CONTACT_PERSON_2_EMAILS = Set.of(CONTACT_PERSON_EMAIL_2, CONTACT_PERSON_EMAIL_3);
+    public static final Set<Email> CONTACT_PERSON_3_EMAILS = Set.of(CONTACT_PERSON_EMAIL_4);
+    public static final Set<Email> CONTACT_PERSON_4_EMAILS = Set.of(CONTACT_PERSON_EMAIL_5, CONTACT_PERSON_EMAIL_6, CONTACT_PERSON_EMAIL_7);
+    public static final Set<Email> CONTACT_PERSON_5_EMAILS = Set.of(CONTACT_PERSON_EMAIL_8, CONTACT_PERSON_EMAIL_9);
+    public static final Set<Email> CONTACT_PERSON_6_EMAILS = Set.of(CONTACT_PERSON_EMAIL_10, CONTACT_PERSON_EMAIL_11, CONTACT_PERSON_EMAIL_12);
+    public static final Set<Email> CONTACT_PERSON_7_EMAILS = Set.of(CONTACT_PERSON_EMAIL_13);
+    public static final Set<Email> CONTACT_PERSON_8_EMAILS = Set.of(CONTACT_PERSON_EMAIL_14, CONTACT_PERSON_EMAIL_15);
 
 
 }
