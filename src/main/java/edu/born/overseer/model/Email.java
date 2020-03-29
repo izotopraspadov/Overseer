@@ -29,8 +29,13 @@ public class Email extends AbstractContactEntity {
     public Email() {
     }
 
-    public Email(Integer id, ContactPerson contactPerson, Employee employee, TypeOwner typeOwner, String email) {
-        super(id, contactPerson, employee, typeOwner);
+    public Email(Integer id, ContactPerson contactPerson, TypeOwner typeOwner, String email) {
+        super(id, contactPerson, null, typeOwner);
+        this.email = email;
+    }
+
+    public Email(Integer id, Employee employee, TypeOwner typeOwner, String email) {
+        super(id, null, employee, typeOwner);
         this.email = email;
     }
 
