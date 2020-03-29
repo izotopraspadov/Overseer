@@ -6,25 +6,25 @@ import java.util.Set;
 
 import static edu.born.overseer.ContactPersonTestData.*;
 import static edu.born.overseer.model.TypeOwner.CONTACT_PERSON;
-import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQ;
+import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class PhoneTestData {
 
-    public static final int INVALID_PHONE_ID = START_SEQ - 1;
+    public static final int INVALID_PHONE_ID = START_SEQUENCE - 1;
 
-    public static final int CONTACT_PERSON_PHONE_1_ID = START_SEQ + 56;
-    public static final int CONTACT_PERSON_PHONE_2_ID = START_SEQ + 57;
-    public static final int CONTACT_PERSON_PHONE_3_ID = START_SEQ + 58;
-    public static final int CONTACT_PERSON_PHONE_4_ID = START_SEQ + 59;
-    public static final int CONTACT_PERSON_PHONE_5_ID = START_SEQ + 60;
-    public static final int CONTACT_PERSON_PHONE_6_ID = START_SEQ + 61;
-    public static final int CONTACT_PERSON_PHONE_7_ID = START_SEQ + 62;
-    public static final int CONTACT_PERSON_PHONE_8_ID = START_SEQ + 63;
-    public static final int CONTACT_PERSON_PHONE_9_ID = START_SEQ + 64;
-    public static final int CONTACT_PERSON_PHONE_10_ID = START_SEQ + 65;
-    public static final int CONTACT_PERSON_PHONE_11_ID = START_SEQ + 66;
-    public static final int CONTACT_PERSON_PHONE_12_ID = START_SEQ + 67;
-    public static final int CONTACT_PERSON_PHONE_13_ID = START_SEQ + 68;
+    public static final int CONTACT_PERSON_PHONE_1_ID = START_SEQUENCE + 56;
+    public static final int CONTACT_PERSON_PHONE_2_ID = START_SEQUENCE + 57;
+    public static final int CONTACT_PERSON_PHONE_3_ID = START_SEQUENCE + 58;
+    public static final int CONTACT_PERSON_PHONE_4_ID = START_SEQUENCE + 59;
+    public static final int CONTACT_PERSON_PHONE_5_ID = START_SEQUENCE + 60;
+    public static final int CONTACT_PERSON_PHONE_6_ID = START_SEQUENCE + 61;
+    public static final int CONTACT_PERSON_PHONE_7_ID = START_SEQUENCE + 62;
+    public static final int CONTACT_PERSON_PHONE_8_ID = START_SEQUENCE + 63;
+    public static final int CONTACT_PERSON_PHONE_9_ID = START_SEQUENCE + 64;
+    public static final int CONTACT_PERSON_PHONE_10_ID = START_SEQUENCE + 65;
+    public static final int CONTACT_PERSON_PHONE_11_ID = START_SEQUENCE + 66;
+    public static final int CONTACT_PERSON_PHONE_12_ID = START_SEQUENCE + 67;
+    public static final int CONTACT_PERSON_PHONE_13_ID = START_SEQUENCE + 68;
 
     public static final Phone CONTACT_PERSON_PHONE_1 =
             new Phone(CONTACT_PERSON_PHONE_1_ID, CONTACT_PERSON_1, CONTACT_PERSON, "00000000001");

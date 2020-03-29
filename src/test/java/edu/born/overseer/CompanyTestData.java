@@ -5,17 +5,17 @@ import edu.born.overseer.model.Company;
 import static edu.born.overseer.RegionTestData.*;
 import static edu.born.overseer.model.Reliability.*;
 import static edu.born.overseer.model.TypeCompany.*;
-import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQ;
+import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class CompanyTestData {
 
-    public static final int INVALID_COMPANY_ID = START_SEQ - 1;
+    public static final int INVALID_COMPANY_ID = START_SEQUENCE - 1;
 
-    public static final int COMPANY_1_ID = START_SEQ + 13;
-    public static final int COMPANY_2_ID = START_SEQ + 14;
-    public static final int COMPANY_3_ID = START_SEQ + 15;
+    public static final int COMPANY_1_ID = START_SEQUENCE + 13;
+    public static final int COMPANY_2_ID = START_SEQUENCE + 14;
+    public static final int COMPANY_3_ID = START_SEQUENCE + 15;
 
-    public static final int NEW_COMPANY_ID = START_SEQ + 131;
+    public static final int NEW_COMPANY_ID = START_SEQUENCE + 131;
 
     public static final Company COMPANY_1 = new Company(COMPANY_1_ID, "Первая Компания", REGION_1, "000000000000",
             "Никакая ул. 1", LOW, "Первая", OUR);

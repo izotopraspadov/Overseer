@@ -6,27 +6,27 @@ import java.util.Set;
 
 import static edu.born.overseer.ContactPersonTestData.*;
 import static edu.born.overseer.model.TypeOwner.CONTACT_PERSON;
-import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQ;
+import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class EmailTestData {
 
-    public static final int INVALID_EMAIL_ID = START_SEQ - 1;
+    public static final int INVALID_EMAIL_ID = START_SEQUENCE - 1;
 
-    public static final int CONTACT_PERSON_EMAIL_1_ID = START_SEQ + 30;
-    public static final int CONTACT_PERSON_EMAIL_2_ID = START_SEQ + 31;
-    public static final int CONTACT_PERSON_EMAIL_3_ID = START_SEQ + 32;
-    public static final int CONTACT_PERSON_EMAIL_4_ID = START_SEQ + 33;
-    public static final int CONTACT_PERSON_EMAIL_5_ID = START_SEQ + 34;
-    public static final int CONTACT_PERSON_EMAIL_6_ID = START_SEQ + 35;
-    public static final int CONTACT_PERSON_EMAIL_7_ID = START_SEQ + 36;
-    public static final int CONTACT_PERSON_EMAIL_8_ID = START_SEQ + 37;
-    public static final int CONTACT_PERSON_EMAIL_9_ID = START_SEQ + 38;
-    public static final int CONTACT_PERSON_EMAIL_10_ID = START_SEQ + 39;
-    public static final int CONTACT_PERSON_EMAIL_11_ID = START_SEQ + 40;
-    public static final int CONTACT_PERSON_EMAIL_12_ID = START_SEQ + 41;
-    public static final int CONTACT_PERSON_EMAIL_13_ID = START_SEQ + 42;
-    public static final int CONTACT_PERSON_EMAIL_14_ID = START_SEQ + 43;
-    public static final int CONTACT_PERSON_EMAIL_15_ID = START_SEQ + 44;
+    public static final int CONTACT_PERSON_EMAIL_1_ID = START_SEQUENCE + 30;
+    public static final int CONTACT_PERSON_EMAIL_2_ID = START_SEQUENCE + 31;
+    public static final int CONTACT_PERSON_EMAIL_3_ID = START_SEQUENCE + 32;
+    public static final int CONTACT_PERSON_EMAIL_4_ID = START_SEQUENCE + 33;
+    public static final int CONTACT_PERSON_EMAIL_5_ID = START_SEQUENCE + 34;
+    public static final int CONTACT_PERSON_EMAIL_6_ID = START_SEQUENCE + 35;
+    public static final int CONTACT_PERSON_EMAIL_7_ID = START_SEQUENCE + 36;
+    public static final int CONTACT_PERSON_EMAIL_8_ID = START_SEQUENCE + 37;
+    public static final int CONTACT_PERSON_EMAIL_9_ID = START_SEQUENCE + 38;
+    public static final int CONTACT_PERSON_EMAIL_10_ID = START_SEQUENCE + 39;
+    public static final int CONTACT_PERSON_EMAIL_11_ID = START_SEQUENCE + 40;
+    public static final int CONTACT_PERSON_EMAIL_12_ID = START_SEQUENCE + 41;
+    public static final int CONTACT_PERSON_EMAIL_13_ID = START_SEQUENCE + 42;
+    public static final int CONTACT_PERSON_EMAIL_14_ID = START_SEQUENCE + 43;
+    public static final int CONTACT_PERSON_EMAIL_15_ID = START_SEQUENCE + 44;
 
     public static final Email CONTACT_PERSON_EMAIL_1 =
             new Email(CONTACT_PERSON_EMAIL_1_ID, CONTACT_PERSON_1, CONTACT_PERSON, "1@mail.com");
