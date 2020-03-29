@@ -51,6 +51,11 @@ public class ContactPerson extends AbstractFullNameEntity {
     public ContactPerson() {
     }
 
+    public ContactPerson(Integer id, String fullName, Company company) {
+        super(id, fullName);
+        this.company = company;
+    }
+
     public ContactPerson(Integer id, String fullName, Company company, Set<Phone> phones, Set<Email> emails) {
         super(id, fullName);
         this.company = company;
