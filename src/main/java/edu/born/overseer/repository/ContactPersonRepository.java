@@ -12,7 +12,7 @@ public interface ContactPersonRepository {
     boolean delete(int id);
 
     // null if not found
-    ContactPerson get(int id);
+    ContactPerson getById(int id);
 
     // null if not found
     ContactPerson getWithCompany(int id);
