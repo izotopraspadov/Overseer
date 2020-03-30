@@ -21,7 +21,6 @@ public class RegionTestData {
     public static final int REGION_11_ID = START_SEQUENCE + 10;
     public static final int REGION_12_ID = START_SEQUENCE + 11;
     public static final int REGION_13_ID = START_SEQUENCE + 12;
-    public static final int NEW_REGION_ID = START_SEQUENCE + 131;
 
     public static final Region REGION_1 = new Region(REGION_1_ID, "Алтайский край");
     public static final Region REGION_2 = new Region(REGION_2_ID, "Амурская область");
@@ -37,15 +36,15 @@ public class RegionTestData {
     public static final Region REGION_12 = new Region(REGION_12_ID, "Санкт-Петербург");
     public static final Region REGION_13 = new Region(REGION_13_ID, "Ярославская область");
 
-    public static Region getCreated() {
-        return new Region(NEW_REGION_ID, "New region");
+    public static Region getPreparedCreate() {
+        return new Region(null, "New region");
     }
 
-    public static Region getDuplicate() {
-        return new Region(NEW_REGION_ID, REGION_1.getTitle());
+    public static Region getPreparedDuplicate() {
+        return new Region(null, REGION_1.getTitle());
     }
 
-    public static Region getUpdated() {
+    public static Region getPreparedUpdate() {
         return new Region(REGION_1_ID, "Updated region");
     }
 

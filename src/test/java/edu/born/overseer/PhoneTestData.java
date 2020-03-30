@@ -26,6 +26,8 @@ public class PhoneTestData {
     public static final int CONTACT_PERSON_PHONE_12_ID = START_SEQUENCE + 67;
     public static final int CONTACT_PERSON_PHONE_13_ID = START_SEQUENCE + 68;
 
+    public static final int NEW_CONTACT_PERSON_PHONE_13_ID = START_SEQUENCE + 131;
+
     public static final Phone CONTACT_PERSON_PHONE_1 =
             new Phone(CONTACT_PERSON_PHONE_1_ID, CONTACT_PERSON_1, CONTACT_PERSON, "00000000001");
     public static final Phone CONTACT_PERSON_PHONE_2 =
@@ -62,5 +64,8 @@ public class PhoneTestData {
     public static final Set<Phone> CONTACT_PERSON_7_PHONES = Set.of(CONTACT_PERSON_PHONE_11, CONTACT_PERSON_PHONE_12);
     public static final Set<Phone> CONTACT_PERSON_8_PHONES = Set.of(CONTACT_PERSON_PHONE_13);
 
+    public static Phone getCreated() {
+        return new Phone(null, CONTACT_PERSON_1, CONTACT_PERSON, "00000000014");
+    }
 
 }
