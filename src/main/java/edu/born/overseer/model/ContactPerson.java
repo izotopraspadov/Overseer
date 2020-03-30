@@ -9,22 +9,13 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
-@Table(name = "contact_persons",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"id", "company_id"}, name = "contact_persons_unique_id_company_id_idx")
-        }
-)
+@Table(name = "contact_persons", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "company_id"}, name = "contact_persons_unique_id_company_id_idx")})
 @NamedQueries({
-        @NamedQuery(name = ContactPerson.DELETE,
-                query = "DELETE FROM ContactPerson cp WHERE cp.id=:id"),
-        @NamedQuery(name = ContactPerson.ALL,
-                query = "SELECT cp FROM ContactPerson cp ORDER BY cp.fullName"),
-        @NamedQuery(name = ContactPerson.GET,
-                query = "SELECT cp FROM ContactPerson cp WHERE cp.id=:id"),
-        @NamedQuery(name = ContactPerson.GET_WITH_COMPANY,
-                query = "SELECT cp FROM ContactPerson cp LEFT JOIN FETCH cp.company WHERE cp.id=:id"),
-        @NamedQuery(name = ContactPerson.ALL_BY_COMPANY,
-                query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId ORDER BY cp.fullName"),
+        @NamedQuery(name = ContactPerson.DELETE, query = "DELETE FROM ContactPerson cp WHERE cp.id=:id"),
+        @NamedQuery(name = ContactPerson.ALL, query = "SELECT cp FROM ContactPerson cp ORDER BY cp.fullName"),
+        @NamedQuery(name = ContactPerson.GET, query = "SELECT cp FROM ContactPerson cp WHERE cp.id=:id"),
+        @NamedQuery(name = ContactPerson.GET_WITH_COMPANY, query = "SELECT cp FROM ContactPerson cp LEFT JOIN FETCH cp.company WHERE cp.id=:id"),
+        @NamedQuery(name = ContactPerson.ALL_BY_COMPANY, query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId ORDER BY cp.fullName"),
 })
 public class ContactPerson extends AbstractFullNameEntity {
 
@@ -91,7 +82,8 @@ public class ContactPerson extends AbstractFullNameEntity {
     public String toString() {
         return "ContactPerson{" +
                 "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                '}';
+                ", fullName='" + fullName + "'" +
+                "}\\n";
     }
+
 }
