@@ -9,9 +9,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@SpringJUnitConfig(locations = {
-        "classpath:spring/spring-db.xml"
-})
+@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
 class ContactPersonRepositoryImplTest {
@@ -20,7 +18,11 @@ class ContactPersonRepositoryImplTest {
     private ContactPersonRepository contactPersonRepository;
 
     @Test
-    void save() {
+    void create() {
+    }
+
+    @Test
+    void update() {
     }
 
     @Test
@@ -28,7 +30,15 @@ class ContactPersonRepositoryImplTest {
     }
 
     @Test
-    void get() {
+    void deleteNotExecute() {
+    }
+
+    @Test
+    void getById() {
+    }
+
+    @Test
+    void getByIdNotFound() {
     }
 
     @Test
@@ -37,7 +47,6 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void getAll() {
-        contactPersonRepository.getAll().forEach(System.out::println);
     }
 
     @Test
