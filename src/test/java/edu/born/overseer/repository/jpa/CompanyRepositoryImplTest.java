@@ -33,19 +33,22 @@ class CompanyRepositoryImplTest {
 
     @Test
     void create() {
-        assertThat(companyRepository.save(getCreated()), hasProperty("id", is((equalTo(NEW_COMPANY_ID)))));
-        assertThat(companyRepository.getById(NEW_COMPANY_ID), is(equalTo(getCreated())));
+        var prepared = getPreparedCreate();
+        var savedId = companyRepository.save(prepared).getId();
+        prepared.setId(savedId);
+        assertThat(companyRepository.getById(savedId), is(equalTo(prepared)));
     }
 
     @Test
     void createDuplicate() {
-        assertThrows(DataIntegrityViolationException.class, () -> companyRepository.save(getDuplicate()));
+        assertThrows(DataIntegrityViolationException.class, () -> companyRepository.save(getPreparedDuplicate()));
     }
 
     @Test
     void update() {
-        assertThat(companyRepository.save(getUpdated()), hasProperty("title", is((equalTo(getUpdated().getTitle())))));
-        assertThat(companyRepository.save(getUpdated()), hasProperty("id", is((equalTo(getUpdated().getId())))));
+        var updated = companyRepository.save(getPreparedUpdate());
+        assertThat(updated, hasProperty("title", is((equalTo(getPreparedUpdate().getTitle())))));
+        assertThat(updated, hasProperty("id", is((equalTo(getPreparedUpdate().getId())))));
     }
 
     @Test
