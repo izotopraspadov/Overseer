@@ -29,19 +29,22 @@ class RegionRepositoryImplTest {
 
     @Test
     void create() {
-        assertThat(regionRepository.save(getCreated()), hasProperty("id", is((equalTo(NEW_REGION_ID)))));
-        assertThat(regionRepository.getById(NEW_REGION_ID), is(equalTo(getCreated())));
+        var prepared = getPreparedCreate();
+        var savedId = regionRepository.save(prepared).getId();
+        prepared.setId(savedId);
+        assertThat(regionRepository.getById(savedId), is(equalTo(prepared)));
     }
 
     @Test
     void createDuplicate() {
-        assertThrows(DataIntegrityViolationException.class, () -> regionRepository.save(getDuplicate()));
+        assertThrows(DataIntegrityViolationException.class, () -> regionRepository.save(getPreparedDuplicate()));
     }
 
     @Test
     void update() {
-        assertThat(regionRepository.save(getUpdated()), hasProperty("title", is((equalTo(getUpdated().getTitle())))));
-        assertThat(regionRepository.save(getUpdated()), hasProperty("id", is((equalTo(getUpdated().getId())))));
+        var updated = regionRepository.save(getPreparedUpdate());
+        assertThat(updated, hasProperty("title", is((equalTo(getPreparedUpdate().getTitle())))));
+        assertThat(updated, hasProperty("id", is((equalTo(getPreparedUpdate().getId())))));
     }
 
     @Test
