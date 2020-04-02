@@ -1,5 +1,6 @@
 package edu.born.overseer;
 
+import edu.born.overseer.model.ContactPerson;
 import edu.born.overseer.model.Phone;
 
 import java.util.Set;
@@ -64,8 +65,8 @@ public class PhoneTestData {
     public static final Set<Phone> CONTACT_PERSON_7_PHONES = Set.of(CONTACT_PERSON_PHONE_11, CONTACT_PERSON_PHONE_12);
     public static final Set<Phone> CONTACT_PERSON_8_PHONES = Set.of(CONTACT_PERSON_PHONE_13);
 
-    public static Phone getCreated() {
-        return new Phone(null, CONTACT_PERSON_1, CONTACT_PERSON, "00000000014");
+    public static Set<Phone> getPreparedCreatedSet(ContactPerson owner) {
+        return Set.of(new Phone(null, owner, CONTACT_PERSON, "00000000200"));
     }
 
 }
