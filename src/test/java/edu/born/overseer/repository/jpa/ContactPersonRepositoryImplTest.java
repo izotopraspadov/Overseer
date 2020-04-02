@@ -44,10 +44,15 @@ class ContactPersonRepositoryImplTest {
     @Test
     void update() {
         var prepared = getPreparedUpdate();
-        var updated = contactPersonRepository
-                .save(prepared, prepared.getCompany().getId());
+        var updatedId = contactPersonRepository
+                .save(prepared, prepared.getCompany().getId())
+                .getId();
 
-        assertThat(updated, is(equalTo(prepared)));
+        var received = contactPersonRepository.getById(updatedId);
+
+        assertThat(received, is(equalTo(prepared)));
+        assertThat(List.copyOf(received.getEmails()), is(equalTo(List.copyOf(prepared.getEmails()))));
+        assertThat(List.copyOf(received.getPhones()), is(equalTo(List.copyOf(prepared.getPhones()))));
     }
 
     @Test
