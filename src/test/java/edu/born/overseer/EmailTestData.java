@@ -1,5 +1,6 @@
 package edu.born.overseer;
 
+import edu.born.overseer.model.ContactPerson;
 import edu.born.overseer.model.Email;
 
 import java.util.Set;
@@ -68,8 +69,8 @@ public class EmailTestData {
     public static final Set<Email> CONTACT_PERSON_7_EMAILS = Set.of(CONTACT_PERSON_EMAIL_13);
     public static final Set<Email> CONTACT_PERSON_8_EMAILS = Set.of(CONTACT_PERSON_EMAIL_14, CONTACT_PERSON_EMAIL_15);
 
-    public static Email getCreated() {
-        return new Email(null, CONTACT_PERSON_1, CONTACT_PERSON, "15_1@mail.com");
+    public static Set<Email> getPreparedCreatedSet(ContactPerson owner) {
+        return Set.of(new Email(null, owner, CONTACT_PERSON, "15_1@mail.com"));
     }
 
 }
