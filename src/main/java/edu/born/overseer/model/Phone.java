@@ -28,6 +28,11 @@ public class Phone extends AbstractContactEntity {
     public Phone() {
     }
 
+    public Phone(Integer id, TypeOwner typeOwner, String number) {
+        super(id, null, null, typeOwner);
+        this.number = number;
+    }
+
     public Phone(Integer id, ContactPerson contactPerson, TypeOwner typeOwner, String number) {
         super(id, contactPerson, null, typeOwner);
         this.number = number;
