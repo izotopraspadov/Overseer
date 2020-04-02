@@ -5,12 +5,10 @@ import edu.born.overseer.model.abstraction.AbstractContactEntity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
-@Table(name = "phones",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "number", name = "phone_unique_idx")
-        })
+@Table(name = "phones", uniqueConstraints = {@UniqueConstraint(columnNames = "number", name = "phone_unique_idx")})
 @NamedQueries({
         @NamedQuery(name = Phone.ALL_BY_EMPLOYEE, query = "SELECT p FROM Phone p WHERE p.employee.id=:ownerId ORDER BY p.number"),
         @NamedQuery(name = Phone.ALL_BY_CONTACT_PERSON, query = "SELECT p FROM Phone p WHERE p.contactPerson.id=:ownerId ORDER BY p.number")
@@ -49,6 +47,20 @@ public class Phone extends AbstractContactEntity {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Phone phone = (Phone) o;
+        return number.equals(phone.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), number);
     }
 
     @Override
