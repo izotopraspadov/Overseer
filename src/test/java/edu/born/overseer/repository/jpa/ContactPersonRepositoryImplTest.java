@@ -73,6 +73,7 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void deleteNotExecute() {
+        assertThat(contactPersonRepository.delete(INVALID_CONTACT_PERSON_ID), is(equalTo(Boolean.FALSE)));
     }
 
     @Test
