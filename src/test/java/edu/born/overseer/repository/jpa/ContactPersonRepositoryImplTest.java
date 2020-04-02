@@ -100,6 +100,15 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void getAll() {
+        assertThat(contactPersonRepository.getAll(), contains(CONTACT_PERSON_8,
+                CONTACT_PERSON_6,
+                CONTACT_PERSON_4,
+                CONTACT_PERSON_1,
+                CONTACT_PERSON_5,
+                CONTACT_PERSON_3,
+                CONTACT_PERSON_2,
+                CONTACT_PERSON_7)
+        );
     }
 
     @Test
