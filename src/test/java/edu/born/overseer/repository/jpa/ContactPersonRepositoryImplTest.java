@@ -78,6 +78,7 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void getById() {
+        assertThat(contactPersonRepository.getById(CONTACT_PERSON_1_ID), is(equalTo(CONTACT_PERSON_1)));
     }
 
     @Test
