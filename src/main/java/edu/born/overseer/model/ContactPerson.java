@@ -6,7 +6,10 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "contact_persons", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "company_id"}, name = "contact_persons_unique_id_company_id_idx")})
@@ -31,13 +34,13 @@ public class ContactPerson extends AbstractFullNameEntity {
     @NotNull
     private Company company;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson", cascade = {PERSIST, MERGE, REMOVE})
     @OrderBy("number DESC")
-    private Set<Phone> phones;
+    private Set<Phone> phones = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson", cascade = {PERSIST, MERGE, REMOVE})
     @OrderBy("email DESC")
-    private Set<Email> emails;
+    private Set<Email> emails = new HashSet<>();
 
     public ContactPerson() {
     }
