@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class AbstractTitleEntity extends AbstractBaseEntity {
@@ -27,6 +28,20 @@ public abstract class AbstractTitleEntity extends AbstractBaseEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        AbstractTitleEntity that = (AbstractTitleEntity) o;
+        return title.equals(that.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), title);
     }
 
     @Override
