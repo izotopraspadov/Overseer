@@ -11,11 +11,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static edu.born.overseer.ContactPersonTestData.getPreparedCreate;
-import static edu.born.overseer.ContactPersonTestData.getPreparedUpdate;
+import static edu.born.overseer.ContactPersonTestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNot.not;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -51,6 +52,8 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void delete() {
+        assertThat(contactPersonRepository.delete(CONTACT_PERSON_1_ID), is(equalTo(Boolean.TRUE)));
+        assertThat(contactPersonRepository.getAll(), not(contains(CONTACT_PERSON_1)));
     }
 
     @Test
