@@ -21,9 +21,8 @@ import static edu.born.overseer.ContactPersonTestData.*;
 import static edu.born.overseer.model.TypeOwner.CONTACT_PERSON;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
@@ -48,9 +47,9 @@ class ContactPersonRepositoryImplTest {
 
         var received = contactPersonRepository.getById(savedId);
 
-        assertThat(received, is(equalTo(prepared)));
-        assertThat(List.copyOf(received.getEmails()), is(equalTo(List.copyOf(prepared.getEmails()))));
-        assertThat(List.copyOf(received.getPhones()), is(equalTo(List.copyOf(prepared.getPhones()))));
+        assertEquals(received, prepared);
+        assertEquals(List.copyOf(received.getEmails()), List.copyOf(prepared.getEmails()));
+        assertEquals(List.copyOf(received.getPhones()), List.copyOf(prepared.getPhones()));
     }
 
     @Test
@@ -62,27 +61,27 @@ class ContactPersonRepositoryImplTest {
 
         var received = contactPersonRepository.getById(updatedId);
 
-        assertThat(received, is(equalTo(prepared)));
-        assertThat(List.copyOf(received.getEmails()), is(equalTo(List.copyOf(prepared.getEmails()))));
-        assertThat(List.copyOf(received.getPhones()), is(equalTo(List.copyOf(prepared.getPhones()))));
+        assertEquals(received, prepared);
+        assertEquals(List.copyOf(received.getEmails()), List.copyOf(prepared.getEmails()));
+        assertEquals(List.copyOf(received.getPhones()), List.copyOf(prepared.getPhones()));
     }
 
     @Test
     void delete() {
-        assertThat(contactPersonRepository.delete(CONTACT_PERSON_1_ID), is(equalTo(Boolean.TRUE)));
+        assertEquals(contactPersonRepository.delete(CONTACT_PERSON_1_ID), Boolean.TRUE);
         assertThat(contactPersonRepository.getAll(), not(contains(CONTACT_PERSON_1)));
-        assertThat(emailRepository.getAllBySpecificOwner(CONTACT_PERSON_1_ID, CONTACT_PERSON), is(equalTo(Collections.EMPTY_LIST)));
-        assertThat(phoneRepository.getAllBySpecificOwner(CONTACT_PERSON_1_ID, CONTACT_PERSON), is(equalTo(Collections.EMPTY_LIST)));
+        assertEquals(emailRepository.getAllBySpecificOwner(CONTACT_PERSON_1_ID, CONTACT_PERSON), Collections.EMPTY_LIST);
+        assertEquals(phoneRepository.getAllBySpecificOwner(CONTACT_PERSON_1_ID, CONTACT_PERSON), Collections.EMPTY_LIST);
     }
 
     @Test
     void deleteNotExecute() {
-        assertThat(contactPersonRepository.delete(INVALID_CONTACT_PERSON_ID), is(equalTo(Boolean.FALSE)));
+        assertEquals(contactPersonRepository.delete(INVALID_CONTACT_PERSON_ID), Boolean.FALSE);
     }
 
     @Test
     void getById() {
-        assertThat(contactPersonRepository.getById(CONTACT_PERSON_1_ID), is(equalTo(CONTACT_PERSON_1)));
+        assertEquals(contactPersonRepository.getById(CONTACT_PERSON_1_ID), CONTACT_PERSON_1);
     }
 
     @Test
@@ -95,8 +94,8 @@ class ContactPersonRepositoryImplTest {
         var received = contactPersonRepository.getWithCompany(CONTACT_PERSON_1_ID);
         var company = received.getCompany();
 
-        assertThat(received, is(equalTo(CONTACT_PERSON_1)));
-        assertThat(company, is(equalTo(COMPANY_1)));
+        assertEquals(received, CONTACT_PERSON_1);
+        assertEquals(company, COMPANY_1);
     }
 
     @Test
