@@ -31,11 +31,11 @@ public class ContactPerson extends AbstractFullNameEntity {
     @NotNull
     private Company company;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson", cascade = {CascadeType.PERSIST})
     @OrderBy("number DESC")
     private Set<Phone> phones;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson", cascade = {CascadeType.PERSIST})
     @OrderBy("email DESC")
     private Set<Email> emails;
 
@@ -83,7 +83,7 @@ public class ContactPerson extends AbstractFullNameEntity {
         return "ContactPerson{" +
                 "id=" + id +
                 ", fullName='" + fullName + "'" +
-                "}\\n";
+                "}\n";
     }
 
 }
