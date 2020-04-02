@@ -14,9 +14,9 @@ import javax.persistence.NoResultException;
 
 import static edu.born.overseer.RegionTestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
@@ -32,7 +32,8 @@ class RegionRepositoryImplTest {
         var prepared = getPreparedCreate();
         var savedId = regionRepository.save(prepared).getId();
         prepared.setId(savedId);
-        assertThat(regionRepository.getById(savedId), is(equalTo(prepared)));
+
+        assertEquals(regionRepository.getById(savedId), prepared);
     }
 
     @Test
@@ -42,25 +43,26 @@ class RegionRepositoryImplTest {
 
     @Test
     void update() {
-        var updated = regionRepository.save(getPreparedUpdate());
-        assertThat(updated, hasProperty("title", is((equalTo(getPreparedUpdate().getTitle())))));
-        assertThat(updated, hasProperty("id", is((equalTo(getPreparedUpdate().getId())))));
+        var prepared = getPreparedUpdate();
+        var updated = regionRepository.save(prepared);
+
+        assertEquals(updated, prepared);
     }
 
     @Test
     void delete() {
-        assertThat(regionRepository.delete(REGION_1_ID), is(equalTo(Boolean.TRUE)));
+        assertEquals(regionRepository.delete(REGION_1_ID), Boolean.TRUE);
         assertThat(regionRepository.getAll(), not(contains(REGION_1)));
     }
 
     @Test
     void deleteNotExecute() {
-        assertThat(regionRepository.delete(INVALID_REGION_ID), is(equalTo(Boolean.FALSE)));
+        assertEquals(regionRepository.delete(INVALID_REGION_ID), Boolean.FALSE);
     }
 
     @Test
     void getById() {
-        assertThat(regionRepository.getById(REGION_1_ID), is(equalTo(REGION_1)));
+        assertEquals(regionRepository.getById(REGION_1_ID), REGION_1);
     }
 
     @Test()
