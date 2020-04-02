@@ -11,6 +11,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.persistence.NoResultException;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -83,6 +85,7 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void getByIdNotFound() {
+        assertThrows(NoResultException.class, () -> contactPersonRepository.getById(INVALID_CONTACT_PERSON_ID));
     }
 
     @Test
