@@ -1,8 +1,6 @@
 package edu.born.overseer.model;
 
 import edu.born.overseer.model.abstraction.AbstractFullNameEntity;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,7 +28,6 @@ public class ContactPerson extends AbstractFullNameEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Company company;
 
