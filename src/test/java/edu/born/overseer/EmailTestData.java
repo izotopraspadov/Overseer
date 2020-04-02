@@ -69,8 +69,12 @@ public class EmailTestData {
     public static final Set<Email> CONTACT_PERSON_7_EMAILS = Set.of(CONTACT_PERSON_EMAIL_13);
     public static final Set<Email> CONTACT_PERSON_8_EMAILS = Set.of(CONTACT_PERSON_EMAIL_14, CONTACT_PERSON_EMAIL_15);
 
-    public static Set<Email> getPreparedCreatedSet(ContactPerson owner) {
+    public static Set<Email> getPreparedCreateSet(ContactPerson owner) {
         return Set.of(new Email(null, owner, CONTACT_PERSON, "15_1@mail.com"));
+    }
+
+    public static Set<Email> getPreparedUpdateSet(ContactPerson owner) {
+        return Set.of(new Email(CONTACT_PERSON_EMAIL_1_ID, owner, CONTACT_PERSON, "updated@mail.com"));
     }
 
 }

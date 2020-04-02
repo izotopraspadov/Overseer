@@ -69,4 +69,9 @@ public class PhoneTestData {
         return Set.of(new Phone(null, owner, CONTACT_PERSON, "00000000200"));
     }
 
+    public static Set<Phone> getPreparedUpdateSet(ContactPerson owner) {
+        return Set.of(new Phone(CONTACT_PERSON_PHONE_1_ID, owner, CONTACT_PERSON, "00000000999"),
+                new Phone(CONTACT_PERSON_PHONE_2_ID, owner, CONTACT_PERSON, "00000000998"));
+    }
+
 }
