@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "companies", uniqueConstraints = {@UniqueConstraint(columnNames = "itn", name = "companies_unique_itn_idx")})
@@ -167,6 +168,25 @@ public class Company extends AbstractBaseEntity {
 
     public void setTypeCompany(TypeCompany typeCompany) {
         this.typeCompany = typeCompany;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Company company = (Company) o;
+        return title.equals(company.title) &&
+                itn.equals(company.itn) &&
+                address.equals(company.address) &&
+                reliability == company.reliability &&
+                whatsAppGroupName.equals(company.whatsAppGroupName) &&
+                typeCompany == company.typeCompany;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), title, itn, address, reliability, whatsAppGroupName, typeCompany);
     }
 
     @Override
