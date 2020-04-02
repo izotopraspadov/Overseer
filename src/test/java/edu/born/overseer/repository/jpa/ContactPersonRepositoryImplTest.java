@@ -15,6 +15,7 @@ import javax.persistence.NoResultException;
 import java.util.Collections;
 import java.util.List;
 
+import static edu.born.overseer.CompanyTestData.COMPANY_1;
 import static edu.born.overseer.ContactPersonTestData.*;
 import static edu.born.overseer.model.TypeOwner.CONTACT_PERSON;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -90,6 +91,11 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void getWithCompany() {
+        var received = contactPersonRepository.getWithCompany(CONTACT_PERSON_1_ID);
+        var company = received.getCompany();
+
+        assertThat(received, is(equalTo(CONTACT_PERSON_1)));
+        assertThat(company, is(equalTo(COMPANY_1)));
     }
 
     @Test
