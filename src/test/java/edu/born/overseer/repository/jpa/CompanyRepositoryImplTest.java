@@ -18,9 +18,9 @@ import static edu.born.overseer.RegionTestData.REGION_1_ID;
 import static edu.born.overseer.model.Reliability.LOW;
 import static edu.born.overseer.model.TypeCompany.OUR;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
@@ -36,7 +36,8 @@ class CompanyRepositoryImplTest {
         var prepared = getPreparedCreate();
         var savedId = companyRepository.save(prepared).getId();
         prepared.setId(savedId);
-        assertThat(companyRepository.getById(savedId), is(equalTo(prepared)));
+
+        assertEquals(companyRepository.getById(savedId), prepared);
     }
 
     @Test
@@ -46,25 +47,26 @@ class CompanyRepositoryImplTest {
 
     @Test
     void update() {
-        var updated = companyRepository.save(getPreparedUpdate());
-        assertThat(updated, hasProperty("title", is((equalTo(getPreparedUpdate().getTitle())))));
-        assertThat(updated, hasProperty("id", is((equalTo(getPreparedUpdate().getId())))));
+        var prepared = getPreparedUpdate();
+        var updated = companyRepository.save(prepared);
+
+        assertEquals(updated, prepared);
     }
 
     @Test
     void delete() {
-        assertThat(companyRepository.delete(COMPANY_1_ID), is(equalTo(Boolean.TRUE)));
+        assertEquals(companyRepository.delete(COMPANY_1_ID), Boolean.TRUE);
         assertThat(companyRepository.getAll(), not(contains(COMPANY_1)));
     }
 
     @Test
     void deleteNotExecute() {
-        assertThat(companyRepository.delete(INVALID_COMPANY_ID), is(equalTo(Boolean.FALSE)));
+        assertEquals(companyRepository.delete(INVALID_COMPANY_ID), Boolean.FALSE);
     }
 
     @Test
     void getById() {
-        assertThat(companyRepository.getById(COMPANY_1_ID), is(equalTo(COMPANY_1)));
+        assertEquals(companyRepository.getById(COMPANY_1_ID), COMPANY_1);
     }
 
     @Test
@@ -88,7 +90,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getByContactPersonId() {
-        assertThat(companyRepository.getByContactPersonId(CONTACT_PERSON_1_ID), is(equalTo(COMPANY_1)));
+        assertEquals(companyRepository.getByContactPersonId(CONTACT_PERSON_1_ID), COMPANY_1);
     }
 
     @Test
