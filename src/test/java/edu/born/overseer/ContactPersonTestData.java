@@ -40,14 +40,16 @@ public class ContactPersonTestData {
 
     public static ContactPerson getPreparedCreate() {
         var person = new ContactPerson(null, "New Person", COMPANY_1);
-        person.setEmails(EmailTestData.getPreparedCreatedSet(person));
+        person.setEmails(EmailTestData.getPreparedCreateSet(person));
         person.setPhones(PhoneTestData.getPreparedCreatedSet(person));
         return person;
     }
 
     public static ContactPerson getPreparedUpdate() {
-        return new ContactPerson(CONTACT_PERSON_1_ID, "Updated person", CONTACT_PERSON_1.getCompany(),
-                CONTACT_PERSON_1.getPhones(), CONTACT_PERSON_1.getEmails());
+        var person = new ContactPerson(CONTACT_PERSON_1_ID, "Updated person", CONTACT_PERSON_1.getCompany());
+        person.setEmails(EmailTestData.getPreparedUpdateSet(person));
+        person.setPhones(PhoneTestData.getPreparedUpdateSet(person));
+        return person;
     }
 
 }
