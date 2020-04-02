@@ -1,16 +1,10 @@
 package edu.born.overseer;
 
-import edu.born.overseer.model.Company;
 import edu.born.overseer.model.ContactPerson;
-
-import java.util.Set;
 
 import static edu.born.overseer.CompanyTestData.*;
 import static edu.born.overseer.EmailTestData.*;
 import static edu.born.overseer.PhoneTestData.*;
-import static edu.born.overseer.RegionTestData.REGION_2;
-import static edu.born.overseer.model.Reliability.LOW;
-import static edu.born.overseer.model.TypeCompany.OUR;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class ContactPersonTestData {
@@ -45,16 +39,15 @@ public class ContactPersonTestData {
 
 
     public static ContactPerson getPreparedCreate() {
-        return new ContactPerson(null, "New Person", COMPANY_1, Set.of(PhoneTestData.getCreated()), Set.of(EmailTestData.getCreated()));
+        var person = new ContactPerson(null, "New Person", COMPANY_1);
+        person.setEmails(EmailTestData.getPreparedCreatedSet(person));
+        person.setPhones(PhoneTestData.getPreparedCreatedSet(person));
+        return person;
     }
 
-    public static Company getPreparedDuplicate() {
-        return new Company(null, "New Company", REGION_2, COMPANY_1.getItn(), "New Street", LOW, "New Group", OUR);
-    }
-
-    public static Company getPreparedUpdate() {
-        return new Company(COMPANY_1.getId(), "Updated Company", COMPANY_1.getRegion(), COMPANY_1.getItn(),
-                COMPANY_1.getAddress(), COMPANY_1.getReliability(), COMPANY_1.getWhatsAppGroupName(), COMPANY_1.getTypeCompany());
+    public static ContactPerson getPreparedUpdate() {
+        return new ContactPerson(CONTACT_PERSON_1_ID, "Updated person", CONTACT_PERSON_1.getCompany(),
+                CONTACT_PERSON_1.getPhones(), CONTACT_PERSON_1.getEmails());
     }
 
 }
