@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 import static edu.born.overseer.ContactPersonTestData.getPreparedCreate;
+import static edu.born.overseer.ContactPersonTestData.getPreparedUpdate;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -41,6 +42,11 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void update() {
+        var prepared = getPreparedUpdate();
+        var updated = contactPersonRepository
+                .save(prepared, prepared.getCompany().getId());
+
+        assertThat(updated, is(equalTo(prepared)));
     }
 
     @Test
