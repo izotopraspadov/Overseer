@@ -9,6 +9,8 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static edu.born.overseer.ContactPersonTestData.getPreparedCreate;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -25,11 +27,16 @@ class ContactPersonRepositoryImplTest {
     @Test
     void create() {
         var prepared = getPreparedCreate();
+
         var savedId = contactPersonRepository
                 .save(prepared, prepared.getCompany().getId())
                 .getId();
-        prepared.setId(savedId);
-        assertThat(contactPersonRepository.getById(savedId), is(equalTo(prepared)));
+
+        var received = contactPersonRepository.getById(savedId);
+
+        assertThat(received, is(equalTo(prepared)));
+        assertThat(List.copyOf(received.getEmails()), is(equalTo(List.copyOf(prepared.getEmails()))));
+        assertThat(List.copyOf(received.getPhones()), is(equalTo(List.copyOf(prepared.getPhones()))));
     }
 
     @Test
