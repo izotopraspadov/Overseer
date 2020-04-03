@@ -90,7 +90,7 @@ class ContactPersonRepositoryImplTest {
     }
 
     @Test
-    void getWithCompany() {
+    void getByIdWithCompany() {
         var received = contactPersonRepository.getByIdWithCompany(CONTACT_PERSON_1_ID);
         var company = received.getCompany();
 
