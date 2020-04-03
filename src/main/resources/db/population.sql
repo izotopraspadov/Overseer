@@ -10,8 +10,8 @@ TRUNCATE regions,
     order_type,
     groups,
     order_type_by_group,
-    ordered_objects,
-    ordered_object_payments,
+    orders,
+    order_payments,
     planned_time,
     actual_time,
     tasks,
@@ -193,7 +193,7 @@ VALUES (100098, 100094),
        (100101, 100096),
        (100102, 100097);
 
-INSERT INTO ordered_objects (company_id, title, cashless, contract_is_need, contract_exists, planned_start_date,
+INSERT INTO orders (company_id, title, cashless, contract_is_need, contract_exists, planned_start_date,
                              actual_start_date,
                              planned_end_date, actual_end_date, sum, expected_payment, payment_order, number_of_lines,
                              group_id, manager_id, underway, order_type_id)
@@ -206,7 +206,7 @@ VALUES (100013, 'First Project', false, false, true, '2019-09-01', '2019-09-10',
        (100015, 'First Legal Service', true, true, false, '2019-09-07', '2019-09-07', '2019-10-07',
         null, 50000.00, 10000.00, '20-20-60', null, 100102, 100027, true, 100097); -- id 100106
 
-INSERT INTO ordered_object_payments (date, company_id, ordered_object_id, our_company_id, transaction, cashless,
+INSERT INTO order_payments (date, company_id, order_id, our_company_id, transaction, cashless,
                                      comment)
 VALUES ('2019-09-11', 100013, 100103, 100013, 100000.00, true, '$$$'), -- id 100107
        ('2019-09-13', 100013, 100104, 100013, 3000.00, false, null),   -- id 100108
@@ -217,19 +217,19 @@ VALUES ('2019-09-11', 100013, 100103, 100013, 100000.00, true, '$$$'), -- id 100
        ('2019-09-29', 100015, 100106, 100013, 10000.00, true, '777'),  -- id 100113
        ('2019-09-29', 100015, 100106, 100013, 30000.00, false, 'Done!'); -- id 100114
 
-INSERT INTO planned_time (ordered_object_id, employee_id, man_hours)
+INSERT INTO planned_time (order_id, employee_id, man_hours)
 VALUES (100103, 100029, 30), -- id 100115
        (100104, 100028, 10), -- id 100116
        (100105, 100025, 40), -- id 100117
        (100106, 100024, 15); -- id 100118
 
-INSERT INTO actual_time (ordered_object_id, employee_id, date, actual_man_hours, account_man_hours)
+INSERT INTO actual_time (order_id, employee_id, date, actual_man_hours, account_man_hours)
 VALUES (100103, 100029, '2019-09-20', 15, 30), -- id 100119
        (100104, 100028, '2019-09-25', 7, 10),  -- id 100120
        (100105, 100025, '2019-09-23', 35, 40), -- id 100121
        (100106, 100024, '2019-10-01', 13, 15); -- id 100122
 
-INSERT INTO tasks (ordered_object_id, task_description, employee_id, date_completed, result, comment)
+INSERT INTO tasks (order_id, task_description, employee_id, date_completed, result, comment)
 VALUES (100103, 'Step 1st', 100026, '2019-09-20', 'PARTIALLY_COMPLETED', 'Step 1st done!'),          -- id 100123
        (100103, 'Step 2st', 100027, '2019-09-24', 'PARTIALLY_COMPLETED', 'Step 2st done!'),          -- id 100124
        (100104, 'Estimate 001', 100026, '2019-09-25', 'COMPLETED', null),                            -- id 100125

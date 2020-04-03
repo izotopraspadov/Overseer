@@ -134,7 +134,7 @@ CREATE TABLE phones
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
 
-CREATE TABLE ordered_objects
+CREATE TABLE orders
 (
     id                 INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     company_id         INTEGER        NOT NULL,
@@ -160,55 +160,55 @@ CREATE TABLE ordered_objects
     FOREIGN KEY (order_type_id) REFERENCES order_type (id) ON DELETE CASCADE
 );
 
-CREATE TABLE ordered_object_payments
+CREATE TABLE order_payments
 (
-    id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    date              DATE                DEFAULT now() NOT NULL,
-    company_id        INTEGER                           NOT NULL,
-    ordered_object_id INTEGER                           NOT NULL,
-    our_company_id    INTEGER                           NOT NULL,
-    transaction       NUMERIC(13, 2)                    NOT NULL,
-    cashless          BOOL                              NOT NULL,
-    comment           TEXT,
+    id             INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    date           DATE                DEFAULT now() NOT NULL,
+    company_id     INTEGER                           NOT NULL,
+    order_id       INTEGER                           NOT NULL,
+    our_company_id INTEGER                           NOT NULL,
+    transaction    NUMERIC(13, 2)                    NOT NULL,
+    cashless       BOOL                              NOT NULL,
+    comment        TEXT,
     FOREIGN KEY (company_id) REFERENCES companies (id) ON DELETE CASCADE,
-    FOREIGN KEY (ordered_object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
+    FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
     FOREIGN KEY (our_company_id) REFERENCES companies (id) ON DELETE CASCADE
 );
 
 CREATE TABLE planned_time
 (
-    id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    ordered_object_id INTEGER  NOT NULL,
-    employee_id       INTEGER  NOT NULL,
-    man_hours         SMALLINT NOT NULL,
-    CONSTRAINT planned_time_unique_pt_object_idx UNIQUE (id, ordered_object_id),
-    FOREIGN KEY (ordered_object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
+    id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    order_id    INTEGER  NOT NULL,
+    employee_id INTEGER  NOT NULL,
+    man_hours   SMALLINT NOT NULL,
+    CONSTRAINT planned_time_unique_pt_object_idx UNIQUE (id, order_id),
+    FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
 
 CREATE TABLE actual_time
 (
     id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    ordered_object_id INTEGER  NOT NULL,
+    order_id          INTEGER  NOT NULL,
     employee_id       INTEGER  NOT NULL,
     date              DATE     NOT NULL,
     actual_man_hours  SMALLINT NOT NULL,
     account_man_hours SMALLINT NOT NULL,
-    CONSTRAINT actual_time_unique_at_object_idx UNIQUE (id, ordered_object_id),
-    FOREIGN KEY (ordered_object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
+    CONSTRAINT actual_time_unique_at_object_idx UNIQUE (id, order_id),
+    FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
 
 CREATE TABLE tasks
 (
-    id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    ordered_object_id INTEGER      NOT NULL,
-    task_description  TEXT         NOT NULL,
-    employee_id       INTEGER      NOT NULL,
-    date_completed    DATE         NOT NULL,
-    result            VARCHAR(255) NOT NULL,
-    comment           TEXT,
-    FOREIGN KEY (ordered_object_id) REFERENCES ordered_objects (id) ON DELETE CASCADE,
+    id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    order_id         INTEGER      NOT NULL,
+    task_description TEXT         NOT NULL,
+    employee_id      INTEGER      NOT NULL,
+    date_completed   DATE         NOT NULL,
+    result           VARCHAR(255) NOT NULL,
+    comment          TEXT,
+    FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 );
 
