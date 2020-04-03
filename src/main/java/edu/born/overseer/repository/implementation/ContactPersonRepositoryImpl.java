@@ -47,7 +47,7 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
     }
 
     @Override
-    public ContactPerson getWithCompany(int id) {
+    public ContactPerson getByIdWithCompany(int id) {
         return em.createNamedQuery(ContactPerson.BY_ID_WITH_COMPANY, ContactPerson.class)
                 .setParameter("id", id)
                 .getSingleResult();

@@ -91,7 +91,7 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void getWithCompany() {
-        var received = contactPersonRepository.getWithCompany(CONTACT_PERSON_1_ID);
+        var received = contactPersonRepository.getByIdWithCompany(CONTACT_PERSON_1_ID);
         var company = received.getCompany();
 
         assertEquals(received, CONTACT_PERSON_1);

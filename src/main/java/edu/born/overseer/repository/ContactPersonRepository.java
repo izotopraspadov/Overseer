@@ -15,7 +15,7 @@ public interface ContactPersonRepository {
     ContactPerson getById(int id);
 
     // null if not found
-    ContactPerson getWithCompany(int id);
+    ContactPerson getByIdWithCompany(int id);
 
     List<ContactPerson> getAll();
 
