@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -14,6 +15,7 @@ import javax.persistence.NoResultException;
 
 import static edu.born.overseer.CompanyTestData.*;
 import static edu.born.overseer.ContactPersonTestData.CONTACT_PERSON_1_ID;
+import static edu.born.overseer.ContactPersonTestData.INVALID_CONTACT_PERSON_ID;
 import static edu.born.overseer.RegionTestData.REGION_1_ID;
 import static edu.born.overseer.model.Reliability.LOW;
 import static edu.born.overseer.model.TypeCompany.OUR;
@@ -91,6 +93,11 @@ class CompanyRepositoryImplTest {
     @Test
     void getByContactPersonId() {
         assertEquals(companyRepository.getByContactPersonId(CONTACT_PERSON_1_ID), COMPANY_1);
+    }
+
+    @Test
+    void getByContactPersonIdNotFound() {
+        assertThrows(NotFoundException.class, () -> companyRepository.getByContactPersonId(INVALID_CONTACT_PERSON_ID));
     }
 
     @Test
