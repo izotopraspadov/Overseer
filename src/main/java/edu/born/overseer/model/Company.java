@@ -171,17 +171,17 @@ public class Company extends AbstractBaseEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Company company = (Company) o;
-        return title.equals(company.title) &&
-                itn.equals(company.itn) &&
-                address.equals(company.address) &&
-                reliability == company.reliability &&
-                chatGroupName.equals(company.chatGroupName) &&
-                typeCompany == company.typeCompany;
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        Company otherCompany = (Company) other;
+        return title.equals(otherCompany.title) &&
+                itn.equals(otherCompany.itn) &&
+                address.equals(otherCompany.address) &&
+                reliability == otherCompany.reliability &&
+                chatGroupName.equals(otherCompany.chatGroupName) &&
+                typeCompany == otherCompany.typeCompany;
     }
 
     @Override

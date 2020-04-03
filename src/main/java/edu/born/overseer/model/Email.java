@@ -46,12 +46,12 @@ public class Email extends AbstractContactEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Email email1 = (Email) o;
-        return Objects.equals(address, email1.address);
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        Email otherEmail = (Email) other;
+        return Objects.equals(address, otherEmail.address);
     }
 
     @Override

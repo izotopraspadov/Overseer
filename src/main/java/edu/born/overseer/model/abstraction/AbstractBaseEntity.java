@@ -1,7 +1,5 @@
 package edu.born.overseer.model.abstraction;
 
-import org.hibernate.Hibernate;
-
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -39,15 +37,11 @@ public abstract class AbstractBaseEntity implements HasId {
 
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
-            return false;
-        }
-        AbstractBaseEntity that = (AbstractBaseEntity) o;
-        return id != null && id.equals(that.id);
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null ||  getClass() != other.getClass()) return false;
+        AbstractBaseEntity otherEntity = (AbstractBaseEntity) other;
+        return id != null && id.equals(otherEntity.id);
     }
 
     @Override

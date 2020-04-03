@@ -31,12 +31,12 @@ public abstract class AbstractTitleEntity extends AbstractBaseEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        AbstractTitleEntity that = (AbstractTitleEntity) o;
-        return title.equals(that.title);
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        AbstractTitleEntity otherEntity = (AbstractTitleEntity) other;
+        return title.equals(otherEntity.title);
     }
 
     @Override
