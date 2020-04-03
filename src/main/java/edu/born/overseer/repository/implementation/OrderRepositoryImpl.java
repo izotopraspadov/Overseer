@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
@@ -47,30 +46,24 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Optional<Order> get(int id) {
+    public Order getById(int id) {
         return em.createNamedQuery(Order.BY_ID, Order.class)
                 .setParameter("id", id)
-                .getResultList()
-                .stream()
-                .findFirst();
+                .getSingleResult();
     }
 
     @Override
-    public Optional<Order> getWithPayments(int id) {
+    public Order getByIdWithPayments(int id) {
         return em.createNamedQuery(Order.BY_ID_WITH_PAYMENTS, Order.class)
                 .setParameter("id", id)
-                .getResultList()
-                .stream()
-                .findFirst();
+                .getSingleResult();
     }
 
     @Override
-    public Optional<Order> getWithTasks(int id) {
+    public Order getByIdWithTasks(int id) {
         return em.createNamedQuery(Order.BY_ID_WITH_TASKS, Order.class)
                 .setParameter("id", id)
-                .getResultList()
-                .stream()
-                .findFirst();
+                .getSingleResult();
     }
 
     @Override

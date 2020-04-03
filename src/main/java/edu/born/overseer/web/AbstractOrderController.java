@@ -35,17 +35,17 @@ public abstract class AbstractOrderController {
 
     public Optional<Order> get(int id) {
         log.info("get object {}", id);
-        return orderRepository.get(id);
+        return orderRepository.getById(id);
     }
 
     public Optional<Order> getWithPayments(int id) {
         log.info("get object {} with payments", id);
-        return orderRepository.getWithPayments(id);
+        return orderRepository.getByIdWithPayments(id);
     }
 
     public Optional<Order> getWithTasks(int id) {
         log.info("get object {} with tasks", id);
-        return orderRepository.getWithTasks(id);
+        return orderRepository.getByIdWithTasks(id);
     }
 
     public List<Order> getAll() {

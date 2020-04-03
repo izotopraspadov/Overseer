@@ -5,7 +5,6 @@ import edu.born.overseer.model.Order;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public interface OrderRepository {
 
@@ -14,11 +13,11 @@ public interface OrderRepository {
     // false if not found
     boolean delete(int id);
 
-    Optional<Order> get(int id);
+    Order getById(int id);
 
-    Optional<Order> getWithPayments(int id);
+    Order getByIdWithPayments(int id);
 
-    Optional<Order> getWithTasks(int id);
+    Order getByIdWithTasks(int id);
 
     List<Order> getAll();
 
