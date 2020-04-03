@@ -125,7 +125,7 @@ public abstract class AbstractOrderController {
     }
 
     public List<Order> getAllByPaymentOrder(String paymentOrder) {
-        return orderRepository.getAllByPaymentOrder(paymentOrder);
+        return orderRepository.getAllByPaymentFormat(paymentOrder);
     }
 
     public List<Order> getAllByNumberOfLines(int numberOfLines) {

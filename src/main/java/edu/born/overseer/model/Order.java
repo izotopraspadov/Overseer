@@ -40,7 +40,7 @@ import java.util.List;
         @NamedQuery(name = Order.ALL_BY_MANAGER, query = "SELECT o FROM Order o WHERE o.manager.id=:managerId ORDER BY o.title"),
         @NamedQuery(name = Order.ALL_BY_UNDERWAY, query = "SELECT o FROM Order o WHERE o.underway=:underway ORDER BY o.title"),
         @NamedQuery(name = Order.ALL_BY_EXPECTED_PAYMENT, query = "SELECT o FROM Order o WHERE o.expectedPayment=:expectedPayment ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_PAYMENT_ORDER, query = "SELECT o FROM Order o WHERE lower(o.paymentOrder) like lower(:paymentOrder) ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_PAYMENT_FORMAT, query = "SELECT o FROM Order o WHERE lower(o.paymentFormat) like lower(:paymentOrder) ORDER BY o.title"),
         @NamedQuery(name = Order.ALL_BY_NUMBER_OF_LINES, query = "SELECT o FROM Order o WHERE o.numberOfLines=:numberOfLines ORDER BY o.title"),
 })
 public class Order extends AbstractBaseEntity {
@@ -65,7 +65,7 @@ public class Order extends AbstractBaseEntity {
     public static final String ALL_BY_MANAGER = "Order:allByManager";
     public static final String ALL_BY_UNDERWAY = "Order:allByUnderway";
     public static final String ALL_BY_EXPECTED_PAYMENT = "Order:allByExpectedPayment";
-    public static final String ALL_BY_PAYMENT_ORDER = "Order:allByPaymentOrder";
+    public static final String ALL_BY_PAYMENT_FORMAT = "Order:allByOrderFormat";
     public static final String ALL_BY_NUMBER_OF_LINES = "Order:allByNumberOfLines";
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -118,10 +118,10 @@ public class Order extends AbstractBaseEntity {
     @NotNull
     private BigDecimal expectedPayment;
 
-    @Column(name = "payment_order", nullable = false)
+    @Column(name = "payment_format", nullable = false)
     @NotBlank
     // regex
-    private String paymentOrder;
+    private String paymentFormat;
 
     @Column(name = "number_of_lines", nullable = false)
     @Range(max = 200)
@@ -161,7 +161,7 @@ public class Order extends AbstractBaseEntity {
 
     public Order(Integer id, Company company, String title, boolean cashless, boolean contractIsNeed,
                  boolean contractExists, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate,
-                 LocalDate actualEndDate, BigDecimal sum, BigDecimal expectedPayment, String paymentOrder, Integer numberOfLines,
+                 LocalDate actualEndDate, BigDecimal sum, BigDecimal expectedPayment, String paymentFormat, Integer numberOfLines,
                  Group group, Employee manager, boolean underway, OrderType orderType, List<OrderPayment> payments) {
         super(id);
         this.company = company;
@@ -175,7 +175,7 @@ public class Order extends AbstractBaseEntity {
         this.actualEndDate = actualEndDate;
         this.sum = sum;
         this.expectedPayment = expectedPayment;
-        this.paymentOrder = paymentOrder;
+        this.paymentFormat = paymentFormat;
         this.numberOfLines = numberOfLines;
         this.group = group;
         this.manager = manager;
@@ -280,12 +280,12 @@ public class Order extends AbstractBaseEntity {
         this.orderType = objectType;
     }
 
-    public String getPaymentOrder() {
-        return paymentOrder;
+    public String getPaymentFormat() {
+        return paymentFormat;
     }
 
-    public void setPaymentOrder(String paymentOrder) {
-        this.paymentOrder = paymentOrder;
+    public void setPaymentFormat(String paymentOrder) {
+        this.paymentFormat = paymentOrder;
     }
 
     public Integer getNumberOfLines() {
@@ -351,7 +351,7 @@ public class Order extends AbstractBaseEntity {
                 ", sum=" + sum +
                 ", expectedPayment=" + expectedPayment +
                 ", orderType=" + orderType +
-                ", paymentOrder='" + paymentOrder + '\'' +
+                ", paymentOrder='" + paymentFormat + '\'' +
                 ", numberOfLines=" + numberOfLines +
                 ", underway=" + underway +
                 '}';

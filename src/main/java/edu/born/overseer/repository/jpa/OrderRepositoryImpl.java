@@ -185,9 +185,9 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<Order> getAllByPaymentOrder(String paymentOrder) {
-        return em.createNamedQuery(Order.ALL_BY_PAYMENT_ORDER, Order.class)
-                .setParameter("paymentOrder", "%" + paymentOrder + "%")
+    public List<Order> getAllByPaymentFormat(String format) {
+        return em.createNamedQuery(Order.ALL_BY_PAYMENT_FORMAT, Order.class)
+                .setParameter("paymentFormat", "%" + format + "%")
                 .getResultList();
     }
 

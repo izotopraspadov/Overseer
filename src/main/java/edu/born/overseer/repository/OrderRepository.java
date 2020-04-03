@@ -52,7 +52,7 @@ public interface OrderRepository {
 
     List<Order> getAllByExpectedPayment(BigDecimal expectedPayment);
 
-    List<Order> getAllByPaymentOrder(String paymentOrder);
+    List<Order> getAllByPaymentFormat(String format);
 
     List<Order> getAllByNumberOfLines(int numberOfLines);
 
