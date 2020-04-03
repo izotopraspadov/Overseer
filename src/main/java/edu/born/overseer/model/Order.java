@@ -351,7 +351,7 @@ public class Order extends AbstractBaseEntity {
                 ", sum=" + sum +
                 ", expectedPayment=" + expectedPayment +
                 ", orderType=" + orderType +
-                ", paymentOrder='" + paymentFormat + '\'' +
+                ", paymentFormat='" + paymentFormat + '\'' +
                 ", numberOfLines=" + numberOfLines +
                 ", underway=" + underway +
                 '}';
