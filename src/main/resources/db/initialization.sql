@@ -35,14 +35,14 @@ CREATE TABLE order_type_by_group
 
 CREATE TABLE companies
 (
-    id                   INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    title                VARCHAR(255) NOT NULL,
-    region_id            INTEGER      NOT NULL,
-    itn                  VARCHAR(12)  NOT NULL,
-    address              VARCHAR(255) NOT NULL,
-    reliability          VARCHAR(255) NOT NULL,
+    id              INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    title           VARCHAR(255) NOT NULL,
+    region_id       INTEGER      NOT NULL,
+    itn             VARCHAR(12)  NOT NULL,
+    address         VARCHAR(255) NOT NULL,
+    reliability     VARCHAR(255) NOT NULL,
     chat_group_name VARCHAR(255) NOT NULL,
-    type_company         VARCHAR(255) NOT NULL,
+    type_company    VARCHAR(255) NOT NULL,
     CONSTRAINT companies_unique_itn_idx UNIQUE (itn),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE
 );
@@ -148,7 +148,7 @@ CREATE TABLE orders
     actual_end_date    DATE,
     sum                NUMERIC(13, 2) NOT NULL,
     expected_payment   NUMERIC(13, 2) NOT NULL,
-    payment_order      VARCHAR(255)   NOT NULL,
+    payment_format     VARCHAR(255)   NOT NULL,
     number_of_lines    SMALLINT,
     group_id           INTEGER        NOT NULL,
     manager_id         INTEGER        NOT NULL,

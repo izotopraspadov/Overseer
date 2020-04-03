@@ -53,11 +53,11 @@ VALUES ('Иванов Иван Иванович', 100013),           -- id 10001
        ('Андреев Андрей Андреевич', 100015); -- id 100023
 
 INSERT INTO employees (full_name, region_id, login, password, address)
-VALUES ('Романов Роман Романович', 100000, 'user', 'user', 'Заставская ул. 6'),     -- id 100024
+VALUES ('Романов Роман Романович', 100000, 'user', 'user', 'Заставская ул. 6'),         -- id 100024
        ('Степанов Степан Степанович', 100000, 'stepanov', 'user2', 'Четвёртый пр. 10'), -- id 100025
        ('Романова Дарья Петровна', 100002, 'romanova', 'user3', 'Пр. Отчаянных, 90'),   -- id 100026
        ('Дмитриев Дмитрий Дмитриевич', 100003, 'dmitriev', 'user4', 'Непростая ул. 7'), -- id 100027
-       ('Максимов Максим Максимович', 100007, 'admin', 'admin', 'Пр. Дно. 11'),     -- id 100028
+       ('Максимов Максим Максимович', 100007, 'admin', 'admin', 'Пр. Дно. 11'),         -- id 100028
        ('Зайцева Мария Иосифовна', 100007, 'zaiceva', 'admin2', 'Малая Опечаленная ул. 14'); -- id 100029
 
 INSERT INTO employee_roles (employee_id, role)
@@ -79,12 +79,12 @@ VALUES ('1@mail.com', 'CONTACT_PERSON', 100016, null),  -- id 100030
 
        ('4@mail.com', 'CONTACT_PERSON', 100018, null),  -- id 100033
 
-       ('5@mail.com', 'CONTACT_PERSON', 100019, null), -- id 100034
-       ('6@mail.com', 'CONTACT_PERSON', 100019, null), -- id 100035
-       ('7@mail.com', 'CONTACT_PERSON', 100019, null), -- id 100036
+       ('5@mail.com', 'CONTACT_PERSON', 100019, null),  -- id 100034
+       ('6@mail.com', 'CONTACT_PERSON', 100019, null),  -- id 100035
+       ('7@mail.com', 'CONTACT_PERSON', 100019, null),  -- id 100036
 
-       ('8@mail.com', 'CONTACT_PERSON', 100020, null), -- id 100037
-       ('9@mail.com', 'CONTACT_PERSON', 100020, null), -- id 100038
+       ('8@mail.com', 'CONTACT_PERSON', 100020, null),  -- id 100037
+       ('9@mail.com', 'CONTACT_PERSON', 100020, null),  -- id 100038
 
        ('10@mail.com', 'CONTACT_PERSON', 100021, null), -- id 100039
        ('11@mail.com', 'CONTACT_PERSON', 100021, null), -- id 100040
@@ -194,9 +194,8 @@ VALUES (100098, 100094),
        (100102, 100097);
 
 INSERT INTO orders (company_id, title, cashless, contract_is_need, contract_exists, planned_start_date,
-                             actual_start_date,
-                             planned_end_date, actual_end_date, sum, expected_payment, payment_order, number_of_lines,
-                             group_id, manager_id, underway, order_type_id)
+                    actual_start_date, planned_end_date, actual_end_date, sum, expected_payment, payment_format,
+                    number_of_lines, group_id, manager_id, underway, order_type_id)
 VALUES (100013, 'First Project', false, false, true, '2019-09-01', '2019-09-10', '2019-10-01',
         null, 100000.00, 17000.00, '100', null, 100098, 100024, true, 100094),        -- id 100103
        (100013, 'First  Estimate', true, true, false, '2019-09-03', '2019-09-03', '2019-10-05',
@@ -207,7 +206,7 @@ VALUES (100013, 'First Project', false, false, true, '2019-09-01', '2019-09-10',
         null, 50000.00, 10000.00, '20-20-60', null, 100102, 100027, true, 100097); -- id 100106
 
 INSERT INTO order_payments (date, company_id, order_id, our_company_id, transaction, cashless,
-                                     comment)
+                            comment)
 VALUES ('2019-09-11', 100013, 100103, 100013, 100000.00, true, '$$$'), -- id 100107
        ('2019-09-13', 100013, 100104, 100013, 3000.00, false, null),   -- id 100108
        ('2019-09-15', 100013, 100104, 100013, 7000.00, false, '%%%'),  -- id 100109
