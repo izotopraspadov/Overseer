@@ -32,7 +32,7 @@ public class CompanyTestData {
 
     public static Company getPreparedUpdate() {
         return new Company(COMPANY_1.getId(), "Updated Company", COMPANY_1.getRegion(), COMPANY_1.getItn(),
-                COMPANY_1.getAddress(), COMPANY_1.getReliability(), COMPANY_1.getWhatsAppGroupName(), COMPANY_1.getTypeCompany());
+                COMPANY_1.getAddress(), COMPANY_1.getReliability(), COMPANY_1.getChatGroupName(), COMPANY_1.getTypeCompany());
     }
 
 }

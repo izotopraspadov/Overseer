@@ -71,7 +71,7 @@ public class Company extends AbstractBaseEntity {
     @Column(name = "chat_group_name", nullable = false)
     @NotBlank
     @Size(max = 255)
-    private String whatsAppGroupName;
+    private String chatGroupName;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type_company")
@@ -82,19 +82,19 @@ public class Company extends AbstractBaseEntity {
     }
 
     public Company(Integer id, String title, Region region, String itn, String address,
-                   Reliability reliability, String whatsapp_group_name, TypeCompany typeCompany) {
+                   Reliability reliability, String chatGroupName, TypeCompany typeCompany) {
         super(id);
         this.title = title;
         this.region = region;
         this.itn = itn;
         this.address = address;
         this.reliability = reliability;
-        this.whatsAppGroupName = whatsapp_group_name;
+        this.chatGroupName = chatGroupName;
         this.typeCompany = typeCompany;
     }
 
     public Company(Integer id, String title, Region region, String itn, String address, List<ContactPerson> contactPersons,
-                   Reliability reliability, String whatsapp_group_name, TypeCompany typeCompany) {
+                   Reliability reliability, String chatGroupName, TypeCompany typeCompany) {
         super(id);
         this.title = title;
         this.region = region;
@@ -102,7 +102,7 @@ public class Company extends AbstractBaseEntity {
         this.address = address;
         this.contactPersons = contactPersons;
         this.reliability = reliability;
-        this.whatsAppGroupName = whatsapp_group_name;
+        this.chatGroupName = chatGroupName;
         this.typeCompany = typeCompany;
     }
 
@@ -154,12 +154,12 @@ public class Company extends AbstractBaseEntity {
         this.reliability = reliability;
     }
 
-    public String getWhatsAppGroupName() {
-        return whatsAppGroupName;
+    public String getChatGroupName() {
+        return chatGroupName;
     }
 
-    public void setWhatsAppGroupName(String whatsAppGroupName) {
-        this.whatsAppGroupName = whatsAppGroupName;
+    public void setChatGroupName(String whatsAppGroupName) {
+        this.chatGroupName = whatsAppGroupName;
     }
 
     public TypeCompany getTypeCompany() {
@@ -180,13 +180,13 @@ public class Company extends AbstractBaseEntity {
                 itn.equals(company.itn) &&
                 address.equals(company.address) &&
                 reliability == company.reliability &&
-                whatsAppGroupName.equals(company.whatsAppGroupName) &&
+                chatGroupName.equals(company.chatGroupName) &&
                 typeCompany == company.typeCompany;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), title, itn, address, reliability, whatsAppGroupName, typeCompany);
+        return Objects.hash(super.hashCode(), title, itn, address, reliability, chatGroupName, typeCompany);
     }
 
     @Override
@@ -198,7 +198,7 @@ public class Company extends AbstractBaseEntity {
                 ", address='" + address + '\'' +
                 ", reliability=" + reliability +
                 ", region='" + region.getTitle() + '\'' +
-                ", whatsapp_group_name='" + whatsAppGroupName + '\'' +
+                ", chatGroupName='" + chatGroupName + '\'' +
                 ", typeCompany=" + typeCompany +
                 '}';
     }
