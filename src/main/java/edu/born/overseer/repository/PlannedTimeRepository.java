@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface PlannedTimeRepository {
 
-    PlannedTime save(PlannedTime plannedTime, int orderedObjectId);
+    PlannedTime save(PlannedTime plannedTime, int orderId);
 
     // false if not found
     boolean delete(int id);
 
-    List<PlannedTime> getAllByOrderedObject(int orderedObjectId);
+    List<PlannedTime> getAllByOrder(int orderId);
 
 }

@@ -11,26 +11,26 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "planned_time",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"id", "ordered_object_id"}, name = "planned_time_unique_pt_object_idx")
+                @UniqueConstraint(columnNames = {"id", "order_id"}, name = "planned_time_unique_pt_object_idx")
         })
 
 @NamedQueries({
         @NamedQuery(name = PlannedTime.DELETE,
                 query = "DELETE FROM PlannedTime pt WHERE pt.id=:id"),
-        @NamedQuery(name = PlannedTime.ALL_BY_ORDERED_OBJECT,
-                query = "SELECT pt FROM PlannedTime pt WHERE pt.orderedObject.id=:orderedObjectId")
+        @NamedQuery(name = PlannedTime.ALL_BY_ORDER,
+                query = "SELECT pt FROM PlannedTime pt WHERE pt.order.id=:orderId")
 
 })
 public class PlannedTime extends AbstractBaseEntity {
 
     public static final String DELETE = "PlannedTimed.delete";
-    public static final String ALL_BY_ORDERED_OBJECT = "PlannedTime.getAllByOrderedObject";
+    public static final String ALL_BY_ORDER = "PlannedTime.getAllByOrder";
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ordered_object_id", nullable = false, unique = true)
+    @JoinColumn(name = "order_id", nullable = false, unique = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private OrderedObject orderedObject;
+    private Order order;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -46,19 +46,19 @@ public class PlannedTime extends AbstractBaseEntity {
     public PlannedTime() {
     }
 
-    public PlannedTime(Integer id, OrderedObject orderedObject, Employee employee, Integer manHours) {
+    public PlannedTime(Integer id, Order order, Employee employee, Integer manHours) {
         super(id);
-        this.orderedObject = orderedObject;
+        this.order = order;
         this.employee = employee;
         this.manHours = manHours;
     }
 
-    public OrderedObject getOrderedObject() {
-        return orderedObject;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderedObject(OrderedObject orderedObject) {
-        this.orderedObject = orderedObject;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Employee getEmployee() {

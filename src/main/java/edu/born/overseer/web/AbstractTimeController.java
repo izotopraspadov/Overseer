@@ -20,11 +20,11 @@ public abstract class AbstractTimeController {
     private PlannedTimeRepository plannedTimeRepository;
 
     public List<ActualTime> getAllActualTimeByOrderedObject(int orderedObjectId) {
-        return actualTimeRepository.getAllByOrderedObject(orderedObjectId);
+        return actualTimeRepository.getAllByOrder(orderedObjectId);
     }
 
     public List<PlannedTime> getAllPlannedTimeByOrderedObject(int orderedObjectId) {
-        return plannedTimeRepository.getAllByOrderedObject(orderedObjectId);
+        return plannedTimeRepository.getAllByOrder(orderedObjectId);
     }
 
 }

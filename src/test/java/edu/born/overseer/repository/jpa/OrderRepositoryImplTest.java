@@ -1,6 +1,6 @@
 package edu.born.overseer.repository.jpa;
 
-import edu.born.overseer.repository.OrderedObjectRepository;
+import edu.born.overseer.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
-class OrderedObjectRepositoryImplTest {
+class OrderRepositoryImplTest {
 
     @Autowired
-    private OrderedObjectRepository orderedObjectRepository;
+    private OrderRepository orderRepository;
 
     @Test
     void save() {

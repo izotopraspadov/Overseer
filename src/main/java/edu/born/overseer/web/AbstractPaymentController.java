@@ -1,9 +1,9 @@
 package edu.born.overseer.web;
 
 import edu.born.overseer.model.EmployeePayment;
-import edu.born.overseer.model.OrderedObjectPayment;
+import edu.born.overseer.model.OrderPayment;
 import edu.born.overseer.repository.EmployeePaymentRepository;
-import edu.born.overseer.repository.OrderedObjectPaymentRepository;
+import edu.born.overseer.repository.OrderPaymentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public abstract class AbstractPaymentController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private OrderedObjectPaymentRepository orderedObjectPaymentRepository;
+    private OrderPaymentRepository orderPaymentRepository;
 
     @Autowired
     private EmployeePaymentRepository employeePaymentRepository;
@@ -25,13 +25,13 @@ public abstract class AbstractPaymentController {
         return employeePaymentRepository.getAllByEmployee(employeeId);
     }
 
-    public List<OrderedObjectPayment> getAllByOrderedObject(int orderedObjectId) {
-        return orderedObjectPaymentRepository.getAllByOrderedObject(orderedObjectId);
+    public List<OrderPayment> getAllByOrderedObject(int orderedObjectId) {
+        return orderPaymentRepository.getAllByOrder(orderedObjectId);
     }
 
-    public List<OrderedObjectPayment> getAllOrderedObjectPaymentsByDate(LocalDate date) {
+    public List<OrderPayment> getAllOrderedObjectPaymentsByDate(LocalDate date) {
         log.info("get all object payments by date {}", date);
-        return orderedObjectPaymentRepository.getAllByDate(date);
+        return orderPaymentRepository.getAllByDate(date);
     }
 
     public List<EmployeePayment> getAllEmployeePaymentsByDate(LocalDate date) {
@@ -43,7 +43,7 @@ public abstract class AbstractPaymentController {
         return employeePaymentRepository.getAll();
     }
 
-    public List<OrderedObjectPayment> getAllOrderedObjectPayments() {
-        return orderedObjectPaymentRepository.getAll();
+    public List<OrderPayment> getAllOrderedObjectPayments() {
+        return orderPaymentRepository.getAll();
     }
 }

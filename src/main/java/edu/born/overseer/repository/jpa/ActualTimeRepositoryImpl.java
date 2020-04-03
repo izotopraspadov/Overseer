@@ -1,7 +1,7 @@
 package edu.born.overseer.repository.jpa;
 
 import edu.born.overseer.model.ActualTime;
-import edu.born.overseer.model.OrderedObject;
+import edu.born.overseer.model.Order;
 import edu.born.overseer.repository.ActualTimeRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +19,9 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
 
     @Override
     @Transactional
-    public ActualTime save(ActualTime actualTime, int orderedObjectId) {
+    public ActualTime save(ActualTime actualTime, int orderId) {
 
-        actualTime.setOrderedObject(em.getReference(OrderedObject.class, orderedObjectId));
+        actualTime.setOrder(em.getReference(Order.class, orderId));
 
         if (actualTime.isNew()) {
             em.persist(actualTime);
@@ -41,9 +41,9 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
     }
 
     @Override
-    public List<ActualTime> getAllByOrderedObject(int orderedObjectId) {
-        return em.createNamedQuery(ActualTime.ALL_BY_ORDERED_OBJECT, ActualTime.class)
-                .setParameter("orderedObjectId", orderedObjectId)
+    public List<ActualTime> getAllByOrder(int orderId) {
+        return em.createNamedQuery(ActualTime.ALL_BY_ORDER, ActualTime.class)
+                .setParameter("orderId", orderId)
                 .getResultList();
     }
 }

@@ -16,6 +16,6 @@ public abstract class AbstractTaskController {
     private TaskRepository taskRepository;
 
     public List<Task> getAllByOrderedObject(int orderedObjectId) {
-        return taskRepository.getAllByOrderedObject(orderedObjectId);
+        return taskRepository.getAllByOrder(orderedObjectId);
     }
 }

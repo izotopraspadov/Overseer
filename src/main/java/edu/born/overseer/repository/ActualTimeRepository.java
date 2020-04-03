@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface ActualTimeRepository {
 
-    ActualTime save(ActualTime actualTime, int orderedObjectId);
+    ActualTime save(ActualTime actualTime, int orderId);
 
     // false if not found
     boolean delete(int id);
 
-    List<ActualTime> getAllByOrderedObject(int orderedObjectId);
+    List<ActualTime> getAllByOrder(int orderId);
 
 }

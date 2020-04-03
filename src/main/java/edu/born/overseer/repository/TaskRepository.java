@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface TaskRepository {
 
-    List<Task> getAllByOrderedObject(int orderedObjectId);
+    List<Task> getAllByOrder(int orderId);
 
 }

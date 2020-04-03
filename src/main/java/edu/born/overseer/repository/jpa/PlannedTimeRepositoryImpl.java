@@ -1,6 +1,6 @@
 package edu.born.overseer.repository.jpa;
 
-import edu.born.overseer.model.OrderedObject;
+import edu.born.overseer.model.Order;
 import edu.born.overseer.model.PlannedTime;
 import edu.born.overseer.repository.PlannedTimeRepository;
 import org.springframework.stereotype.Repository;
@@ -19,9 +19,9 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
 
     @Override
     @Transactional
-    public PlannedTime save(PlannedTime plannedTime, int orderedObjectId) {
+    public PlannedTime save(PlannedTime plannedTime, int orderId) {
 
-        plannedTime.setOrderedObject(em.getReference(OrderedObject.class, orderedObjectId));
+        plannedTime.setOrder(em.getReference(Order.class, orderId));
 
         if (plannedTime.isNew()) {
             em.persist(plannedTime);
@@ -40,9 +40,9 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
     }
 
     @Override
-    public List<PlannedTime> getAllByOrderedObject(int orderedObjectId) {
-        return em.createNamedQuery(PlannedTime.ALL_BY_ORDERED_OBJECT, PlannedTime.class)
-                .setParameter("orderedObjectId", orderedObjectId)
+    public List<PlannedTime> getAllByOrder(int orderId) {
+        return em.createNamedQuery(PlannedTime.ALL_BY_ORDER, PlannedTime.class)
+                .setParameter("orderId", orderId)
                 .getResultList();
     }
 }

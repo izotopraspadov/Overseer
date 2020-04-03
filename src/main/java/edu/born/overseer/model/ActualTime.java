@@ -12,27 +12,21 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "actual_time",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"id", "ordered_object_id"}, name = "actual_time_unique_at_object_idx")
-        })
+@Table(name = "actual_time", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "order_id"}, name = "actual_time_unique_at_object_idx")})
 @NamedQueries({
-        @NamedQuery(name = ActualTime.DELETE,
-                query = "DELETE FROM ActualTime at WHERE at.id=:id"),
-        @NamedQuery(name = ActualTime.ALL_BY_ORDERED_OBJECT,
-                query = "SELECT at FROM ActualTime at WHERE at.orderedObject.id=:orderedObjectId")
-
+        @NamedQuery(name = ActualTime.DELETE, query = "DELETE FROM ActualTime at WHERE at.id=:id"),
+        @NamedQuery(name = ActualTime.ALL_BY_ORDER, query = "SELECT at FROM ActualTime at WHERE at.order.id=:orderId")
 })
 public class ActualTime extends AbstractBaseEntity {
 
     public static final String DELETE = "ActualTime.delete";
-    public static final String ALL_BY_ORDERED_OBJECT = "ActualTime.getAllByOrderedObject";
+    public static final String ALL_BY_ORDER = "ActualTime.getAllByOrder";
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ordered_object_id", nullable = false, unique = true)
+    @JoinColumn(name = "order_id", nullable = false, unique = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private OrderedObject orderedObject;
+    private Order order;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -58,21 +52,21 @@ public class ActualTime extends AbstractBaseEntity {
     public ActualTime() {
     }
 
-    public ActualTime(Integer id, OrderedObject orderedObject, Employee employee, LocalDate date, Integer actualManHours, Integer accountManHours) {
+    public ActualTime(Integer id, Order order, Employee employee, LocalDate date, Integer actualManHours, Integer accountManHours) {
         super(id);
-        this.orderedObject = orderedObject;
+        this.order = order;
         this.employee = employee;
         this.date = date;
         this.actualManHours = actualManHours;
         this.accountManHours = accountManHours;
     }
 
-    public OrderedObject getOrderedObject() {
-        return orderedObject;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderedObject(OrderedObject orderedObject) {
-        this.orderedObject = orderedObject;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Employee getEmployee() {

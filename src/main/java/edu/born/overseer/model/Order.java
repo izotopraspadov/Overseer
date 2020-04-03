@@ -17,56 +17,56 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "ordered_objects")
+@Table(name = "orders")
 @NamedQueries({
-        @NamedQuery(name = OrderedObject.DELETE,
-                query = "DELETE FROM OrderedObject o WHERE o.id=:id"),
-        @NamedQuery(name = OrderedObject.ALL,
-                query = "SELECT o FROM OrderedObject o ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.GET,
-                query = "SELECT o FROM OrderedObject o WHERE o.id=:id"),
-        @NamedQuery(name = OrderedObject.GET_WITH_PAYMENTS,
-                query = "SELECT DISTINCT o FROM OrderedObject o LEFT JOIN FETCH o.payments WHERE o.id=:id"),
-        @NamedQuery(name = OrderedObject.GET_WITH_TASKS,
-                query = "SELECT DISTINCT o FROM OrderedObject o LEFT JOIN FETCH o.tasks WHERE o.id=:id"),
-        @NamedQuery(name = OrderedObject.ALL_BY_TITLE,
-                query = "SELECT o FROM OrderedObject o WHERE lower(o.title) like lower(:title) ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_COMPANY,
-                query = "SELECT o FROM OrderedObject o WHERE o.company.id=:companyId ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_CASHLESS,
-                query = "SELECT o FROM OrderedObject o WHERE o.cashless=:cashless ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_ORDER_TYPE,
-                query = "SELECT o FROM OrderedObject o " +
+        @NamedQuery(name = Order.DELETE,
+                query = "DELETE FROM Order o WHERE o.id=:id"),
+        @NamedQuery(name = Order.ALL,
+                query = "SELECT o FROM Order o ORDER BY o.title"),
+        @NamedQuery(name = Order.GET,
+                query = "SELECT o FROM Order o WHERE o.id=:id"),
+        @NamedQuery(name = Order.GET_WITH_PAYMENTS,
+                query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.payments WHERE o.id=:id"),
+        @NamedQuery(name = Order.GET_WITH_TASKS,
+                query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.tasks WHERE o.id=:id"),
+        @NamedQuery(name = Order.ALL_BY_TITLE,
+                query = "SELECT o FROM Order o WHERE lower(o.title) like lower(:title) ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_COMPANY,
+                query = "SELECT o FROM Order o WHERE o.company.id=:companyId ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_CASHLESS,
+                query = "SELECT o FROM Order o WHERE o.cashless=:cashless ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_ORDER_TYPE,
+                query = "SELECT o FROM Order o " +
                         "LEFT JOIN FETCH o.orderType ot " +
                         "WHERE lower(ot.title) like lower(:orderType) ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_GROUP,
-                query = "SELECT o FROM OrderedObject o WHERE o.group.id=:groupId ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_CONTRACT_IS_NEED,
-                query = "SELECT o FROM OrderedObject o WHERE o.contractIsNeed=:contractIsNeed ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_CONTRACT_EXISTS,
-                query = "SELECT o FROM OrderedObject o WHERE o.contractExists=:contractExists ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_PLANNED_START_DATE,
-                query = "SELECT o FROM OrderedObject o WHERE o.plannedStartDate=:date ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_ACTUAL_START_DATE,
-                query = "SELECT o FROM OrderedObject o WHERE o.actualStartDate=:date ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_PLANNED_END_DATE,
-                query = "SELECT o FROM OrderedObject o WHERE o.plannedEndDate=:date ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_ACTUAL_END_DATE,
-                query = "SELECT o FROM OrderedObject o WHERE o.actualEndDate=:date ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_SUM,
-                query = "SELECT o FROM OrderedObject o WHERE o.sum=:currentSum ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_MANAGER,
-                query = "SELECT o FROM OrderedObject o WHERE o.manager.id=:managerId ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_UNDERWAY,
-                query = "SELECT o FROM OrderedObject o WHERE o.underway=:underway ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_EXPECTED_PAYMENT,
-                query = "SELECT o FROM OrderedObject o WHERE o.expectedPayment=:expectedPayment ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_PAYMENT_ORDER,
-                query = "SELECT o FROM OrderedObject o WHERE lower(o.paymentOrder) like lower(:paymentOrder) ORDER BY o.title"),
-        @NamedQuery(name = OrderedObject.ALL_BY_NUMBER_OF_LINES,
-                query = "SELECT o FROM OrderedObject o WHERE o.numberOfLines=:numberOfLines ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_GROUP,
+                query = "SELECT o FROM Order o WHERE o.group.id=:groupId ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_CONTRACT_IS_NEED,
+                query = "SELECT o FROM Order o WHERE o.contractIsNeed=:contractIsNeed ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_CONTRACT_EXISTS,
+                query = "SELECT o FROM Order o WHERE o.contractExists=:contractExists ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_PLANNED_START_DATE,
+                query = "SELECT o FROM Order o WHERE o.plannedStartDate=:date ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_ACTUAL_START_DATE,
+                query = "SELECT o FROM Order o WHERE o.actualStartDate=:date ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_PLANNED_END_DATE,
+                query = "SELECT o FROM Order o WHERE o.plannedEndDate=:date ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_ACTUAL_END_DATE,
+                query = "SELECT o FROM Order o WHERE o.actualEndDate=:date ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_SUM,
+                query = "SELECT o FROM Order o WHERE o.sum=:currentSum ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_MANAGER,
+                query = "SELECT o FROM Order o WHERE o.manager.id=:managerId ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_UNDERWAY,
+                query = "SELECT o FROM Order o WHERE o.underway=:underway ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_EXPECTED_PAYMENT,
+                query = "SELECT o FROM Order o WHERE o.expectedPayment=:expectedPayment ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_PAYMENT_ORDER,
+                query = "SELECT o FROM Order o WHERE lower(o.paymentOrder) like lower(:paymentOrder) ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_NUMBER_OF_LINES,
+                query = "SELECT o FROM Order o WHERE o.numberOfLines=:numberOfLines ORDER BY o.title"),
 })
-public class OrderedObject extends AbstractBaseEntity {
+public class Order extends AbstractBaseEntity {
 
     public static final String DELETE = "OrderedObject.delete";
     public static final String ALL = "OrderedObject.getAll";
@@ -172,20 +172,20 @@ public class OrderedObject extends AbstractBaseEntity {
     @NotNull
     private OrderType orderType;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderedObject")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     @OrderBy("date DESC")
-    private List<OrderedObjectPayment> payments;
+    private List<OrderPayment> payments;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderedObject")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private List<Task> tasks;
 
-    public OrderedObject() {
+    public Order() {
     }
 
-    public OrderedObject(Integer id, Company company, String title, boolean cashless, boolean contractIsNeed,
-                         boolean contractExists, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate,
-                         LocalDate actualEndDate, BigDecimal sum, BigDecimal expectedPayment, String paymentOrder, Integer numberOfLines,
-                         Group group, Employee manager, boolean underway, OrderType orderType, List<OrderedObjectPayment> payments) {
+    public Order(Integer id, Company company, String title, boolean cashless, boolean contractIsNeed,
+                 boolean contractExists, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate,
+                 LocalDate actualEndDate, BigDecimal sum, BigDecimal expectedPayment, String paymentOrder, Integer numberOfLines,
+                 Group group, Employee manager, boolean underway, OrderType orderType, List<OrderPayment> payments) {
         super(id);
         this.company = company;
         this.title = title;
@@ -343,11 +343,11 @@ public class OrderedObject extends AbstractBaseEntity {
         this.underway = underway;
     }
 
-    public List<OrderedObjectPayment> getPayments() {
+    public List<OrderPayment> getPayments() {
         return payments;
     }
 
-    public void setPayments(List<OrderedObjectPayment> payments) {
+    public void setPayments(List<OrderPayment> payments) {
         this.payments = payments;
     }
 

@@ -15,17 +15,17 @@ import java.util.Set;
 @Entity
 @Table(name = "tasks")
 @NamedQueries({
-        @NamedQuery(name = Task.ALL_BY_ORDERED_OBJECT, query = "SELECT t FROM Task t WHERE t.orderedObject.id=: orderedObjectId ORDER BY t.taskDescription"),
+        @NamedQuery(name = Task.ALL_BY_ORDER, query = "SELECT t FROM Task t WHERE t.order.id=:orderId ORDER BY t.taskDescription"),
 })
 public class Task extends AbstractBaseEntity {
 
-    public static final String ALL_BY_ORDERED_OBJECT = "Task.getAllByOrderedObject";
+    public static final String ALL_BY_ORDER = "Task.getAllByOrder";
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ordered_object_id", nullable = false)
+    @JoinColumn(name = "order_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private OrderedObject orderedObject;
+    private Order order;
 
     @Column(name = "task_description", nullable = false)
     @NotBlank
@@ -56,10 +56,10 @@ public class Task extends AbstractBaseEntity {
     public Task() {
     }
 
-    public Task(Integer id, OrderedObject orderedObject, String taskDescription, Employee employee,
+    public Task(Integer id, Order order, String taskDescription, Employee employee,
                 LocalDate dateCompleted, Result result, String comment, Set<TaskEmail> taskEmails) {
         super(id);
-        this.orderedObject = orderedObject;
+        this.order = order;
         this.taskDescription = taskDescription;
         this.employee = employee;
         this.dateCompleted = dateCompleted;
@@ -68,12 +68,12 @@ public class Task extends AbstractBaseEntity {
         this.taskEmails = taskEmails;
     }
 
-    public OrderedObject getOrderedObject() {
-        return orderedObject;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderedObject(OrderedObject object) {
-        this.orderedObject = object;
+    public void setOrder(Order object) {
+        this.order = object;
     }
 
     public String getTaskDescription() {

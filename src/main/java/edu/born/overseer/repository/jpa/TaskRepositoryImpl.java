@@ -17,9 +17,9 @@ public class TaskRepositoryImpl implements TaskRepository {
     private EntityManager em;
 
     @Override
-    public List<Task> getAllByOrderedObject(int orderedObjectId) {
-        return em.createNamedQuery(Task.ALL_BY_ORDERED_OBJECT, Task.class)
-                .setParameter("orderedObjectId", orderedObjectId)
+    public List<Task> getAllByOrder(int orderId) {
+        return em.createNamedQuery(Task.ALL_BY_ORDER, Task.class)
+                .setParameter("orderId", orderId)
                 .getResultList();
     }
 
