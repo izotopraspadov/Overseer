@@ -33,7 +33,7 @@ VALUES ('Алтайский край'),               -- id 100000
        ('Санкт-Петербург'),              -- id 100011
        ('Ярославская область'); -- id 100012
 
-INSERT INTO companies (title, region_id, itn, address, reliability, whats_app_group_name, type_company)
+INSERT INTO companies (title, region_id, itn, address, reliability, chat_group_name, type_company)
 VALUES -- id 100013
        ('Первая Компания', 100000, '000000000000', 'Никакая ул. 1', 'LOW', 'Первая', 'OUR'),
        -- id 100014

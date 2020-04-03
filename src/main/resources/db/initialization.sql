@@ -41,7 +41,7 @@ CREATE TABLE companies
     itn                  VARCHAR(12)  NOT NULL,
     address              VARCHAR(255) NOT NULL,
     reliability          VARCHAR(255) NOT NULL,
-    whats_app_group_name VARCHAR(255) NOT NULL,
+    chat_group_name VARCHAR(255) NOT NULL,
     type_company         VARCHAR(255) NOT NULL,
     CONSTRAINT companies_unique_itn_idx UNIQUE (itn),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE

@@ -68,7 +68,7 @@ public class Company extends AbstractBaseEntity {
     @NotNull
     private Reliability reliability;
 
-    @Column(name = "whats_app_group_name", nullable = false)
+    @Column(name = "chat_group_name", nullable = false)
     @NotBlank
     @Size(max = 255)
     private String whatsAppGroupName;
