@@ -1,4 +1,4 @@
-package edu.born.overseer.repository.jpa;
+package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.model.Task;
 import edu.born.overseer.repository.TaskRepository;

@@ -1,4 +1,4 @@
-package edu.born.overseer.repository.jpa;
+package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.model.OrderPayment;
 import edu.born.overseer.repository.OrderPaymentRepository;

@@ -1,6 +1,7 @@
-package edu.born.overseer.repository.jpa;
+package edu.born.overseer.repository.implementation;
 
-import edu.born.overseer.repository.EmployeePaymentRepository;
+import edu.born.overseer.model.TypeOwner;
+import edu.born.overseer.repository.EmailRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
-class EmployeePaymentRepositoryImplTest {
+class EmailRepositoryImplTest {
 
     @Autowired
-    private EmployeePaymentRepository employeePaymentRepository;
+    private EmailRepository emailRepository;
 
     @Test
-    void getAllByDate() {
+    void getAllBySpecificOwner() {
+        emailRepository.getAllBySpecificOwner(100026, TypeOwner.EMPLOYEE)
+                .forEach(System.out::println);
     }
 }
