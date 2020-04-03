@@ -1,7 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.model.Email;
-import edu.born.overseer.model.TypeOwner;
+import edu.born.overseer.model.OwnerType;
 import edu.born.overseer.repository.EmailRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ public class EmailRepositoryImpl implements EmailRepository {
     private EntityManager em;
 
     @Override
-    public List<Email> getAllBySpecificOwner(int ownerId, TypeOwner owner) {
+    public List<Email> getAllBySpecificOwner(int ownerId, OwnerType owner) {
 
         switch (owner) {
             case EMPLOYEE:

@@ -2,7 +2,7 @@ package edu.born.overseer.model.abstraction;
 
 import edu.born.overseer.model.ContactPerson;
 import edu.born.overseer.model.Employee;
-import edu.born.overseer.model.TypeOwner;
+import edu.born.overseer.model.OwnerType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -27,16 +27,16 @@ public abstract class AbstractContactEntity extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "type_owner")
     @NotNull
-    private TypeOwner typeOwner;
+    private OwnerType ownerType;
 
     public AbstractContactEntity() {
     }
 
-    public AbstractContactEntity(Integer id, ContactPerson contactPerson, Employee employee, TypeOwner typeOwner) {
+    public AbstractContactEntity(Integer id, ContactPerson contactPerson, Employee employee, OwnerType ownerType) {
         super(id);
         this.contactPerson = contactPerson;
         this.employee = employee;
-        this.typeOwner = typeOwner;
+        this.ownerType = ownerType;
     }
 
     public ContactPerson getContactPerson() {
@@ -55,16 +55,16 @@ public abstract class AbstractContactEntity extends AbstractBaseEntity {
         this.employee = employee;
     }
 
-    public TypeOwner getTypeOwner() {
-        return typeOwner;
+    public OwnerType getOwnerType() {
+        return ownerType;
     }
 
-    public void setTypeOwner(TypeOwner typeOwner) {
-        this.typeOwner = typeOwner;
+    public void setOwnerType(OwnerType ownerType) {
+        this.ownerType = ownerType;
     }
 
     @Override
     public String toString() {
-        return String.format("Entity %s (%s, '%s')", getClass().getName(), id, typeOwner);
+        return String.format("Entity %s (%s, '%s')", getClass().getName(), id, ownerType);
     }
 }

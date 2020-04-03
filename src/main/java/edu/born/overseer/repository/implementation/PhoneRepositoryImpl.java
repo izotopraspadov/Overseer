@@ -1,7 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.model.Phone;
-import edu.born.overseer.model.TypeOwner;
+import edu.born.overseer.model.OwnerType;
 import edu.born.overseer.repository.PhoneRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ public class PhoneRepositoryImpl implements PhoneRepository {
     private EntityManager em;
 
     @Override
-    public List<Phone> getAllBySpecificOwner(int ownerId, TypeOwner owner) {
+    public List<Phone> getAllBySpecificOwner(int ownerId, OwnerType owner) {
 
         switch (owner) {
             case EMPLOYEE:

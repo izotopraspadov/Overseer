@@ -2,7 +2,7 @@ package edu.born.overseer.repository;
 
 import edu.born.overseer.model.Company;
 import edu.born.overseer.model.Reliability;
-import edu.born.overseer.model.TypeCompany;
+import edu.born.overseer.model.CompanyType;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public interface CompanyRepository {
 
     List<Company> getAllByReliability(Reliability reliability);
 
-    List<Company> getAllByType(TypeCompany type);
+    List<Company> getAllByType(CompanyType type);
 
     List<Company> getAllByTitle(String title);
 

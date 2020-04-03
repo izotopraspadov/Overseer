@@ -1,12 +1,12 @@
 package edu.born.overseer.model;
 
-public enum TypeCounterparty {
+public enum CounterpartyType {
     COMPANY("Компания"),
     EMPLOYEE("Сотрудник");
 
     private String description;
 
-    TypeCounterparty(String description) {
+    CounterpartyType(String description) {
         this.description = description;
     }
 

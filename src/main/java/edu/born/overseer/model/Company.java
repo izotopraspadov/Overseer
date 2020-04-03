@@ -19,7 +19,7 @@ import java.util.Objects;
         @NamedQuery(name = Company.BY_ID, query = "SELECT c FROM Company c WHERE c.id=:id"),
         @NamedQuery(name = Company.ALL_BY_REGION, query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_RELIABILITY, query = "SELECT c FROM Company c WHERE c.reliability=:reliability ORDER BY c.title"),
-        @NamedQuery(name = Company.ALL_BY_TYPE, query = "SELECT c FROM Company c WHERE c.typeCompany=:typeCompany ORDER BY c.title"),
+        @NamedQuery(name = Company.ALL_BY_TYPE, query = "SELECT c FROM Company c WHERE c.companyType=:typeCompany ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_TITLE, query = "SELECT c FROM Company c WHERE lower(c.title) LIKE lower(concat(:title, '%')) ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_ADDRESS, query = "SELECT c FROM Company c WHERE lower(c.address) LIKE lower(concat(:address, '%')) ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_CONTACT_PERSON, query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId"),
@@ -76,13 +76,13 @@ public class Company extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "type_company")
     @NotNull
-    private TypeCompany typeCompany;
+    private CompanyType companyType;
 
     public Company() {
     }
 
     public Company(Integer id, String title, Region region, String itn, String address,
-                   Reliability reliability, String chatGroupName, TypeCompany typeCompany) {
+                   Reliability reliability, String chatGroupName, CompanyType companyType) {
         super(id);
         this.title = title;
         this.region = region;
@@ -90,11 +90,11 @@ public class Company extends AbstractBaseEntity {
         this.address = address;
         this.reliability = reliability;
         this.chatGroupName = chatGroupName;
-        this.typeCompany = typeCompany;
+        this.companyType = companyType;
     }
 
     public Company(Integer id, String title, Region region, String itn, String address, List<ContactPerson> contactPersons,
-                   Reliability reliability, String chatGroupName, TypeCompany typeCompany) {
+                   Reliability reliability, String chatGroupName, CompanyType companyType) {
         super(id);
         this.title = title;
         this.region = region;
@@ -103,7 +103,7 @@ public class Company extends AbstractBaseEntity {
         this.contactPersons = contactPersons;
         this.reliability = reliability;
         this.chatGroupName = chatGroupName;
-        this.typeCompany = typeCompany;
+        this.companyType = companyType;
     }
 
     public String getTitle() {
@@ -162,12 +162,12 @@ public class Company extends AbstractBaseEntity {
         this.chatGroupName = whatsAppGroupName;
     }
 
-    public TypeCompany getTypeCompany() {
-        return typeCompany;
+    public CompanyType getCompanyType() {
+        return companyType;
     }
 
-    public void setTypeCompany(TypeCompany typeCompany) {
-        this.typeCompany = typeCompany;
+    public void setCompanyType(CompanyType companyType) {
+        this.companyType = companyType;
     }
 
     @Override
@@ -181,12 +181,12 @@ public class Company extends AbstractBaseEntity {
                 address.equals(otherCompany.address) &&
                 reliability == otherCompany.reliability &&
                 chatGroupName.equals(otherCompany.chatGroupName) &&
-                typeCompany == otherCompany.typeCompany;
+                companyType == otherCompany.companyType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), title, itn, address, reliability, chatGroupName, typeCompany);
+        return Objects.hash(super.hashCode(), title, itn, address, reliability, chatGroupName, companyType);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class Company extends AbstractBaseEntity {
                 ", reliability=" + reliability +
                 ", region='" + region.getTitle() + '\'' +
                 ", chatGroupName='" + chatGroupName + '\'' +
-                ", typeCompany=" + typeCompany +
+                ", typeCompany=" + companyType +
                 '}';
     }
 }

@@ -51,7 +51,7 @@ public class TaskEmail {
     @Enumerated(EnumType.STRING)
     @Column(name = "type_send")
     @NotNull
-    private TypeSend typeSend;
+    private SendType sendType;
 
     @ManyToOne
     @JoinColumn(name = "task_id",
@@ -66,8 +66,8 @@ public class TaskEmail {
     public TaskEmail() {
     }
 
-    public TaskEmail(TypeSend typeSend, Task task, Email email) {
-        this.typeSend = typeSend;
+    public TaskEmail(SendType sendType, Task task, Email email) {
+        this.sendType = sendType;
         this.task = task;
         this.email = email;
 
@@ -78,12 +78,12 @@ public class TaskEmail {
 
     }
 
-    public TypeSend getTypeSend() {
-        return typeSend;
+    public SendType getSendType() {
+        return sendType;
     }
 
-    public void setTypeSend(TypeSend typeSend) {
-        this.typeSend = typeSend;
+    public void setSendType(SendType sendType) {
+        this.sendType = sendType;
     }
 
     public Task getTask() {

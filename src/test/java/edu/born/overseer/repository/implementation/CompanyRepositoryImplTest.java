@@ -18,7 +18,7 @@ import static edu.born.overseer.ContactPersonTestData.CONTACT_PERSON_1_ID;
 import static edu.born.overseer.ContactPersonTestData.INVALID_CONTACT_PERSON_ID;
 import static edu.born.overseer.RegionTestData.REGION_1_ID;
 import static edu.born.overseer.model.Reliability.LOW;
-import static edu.born.overseer.model.TypeCompany.OUR;
+import static edu.born.overseer.model.CompanyType.OUR;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.IsNot.not;

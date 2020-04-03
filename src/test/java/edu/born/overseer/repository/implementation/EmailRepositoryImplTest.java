@@ -1,6 +1,6 @@
 package edu.born.overseer.repository.implementation;
 
-import edu.born.overseer.model.TypeOwner;
+import edu.born.overseer.model.OwnerType;
 import edu.born.overseer.repository.EmailRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ class EmailRepositoryImplTest {
 
     @Test
     void getAllBySpecificOwner() {
-        emailRepository.getAllBySpecificOwner(100026, TypeOwner.EMPLOYEE)
+        emailRepository.getAllBySpecificOwner(100026, OwnerType.EMPLOYEE)
                 .forEach(System.out::println);
     }
 }

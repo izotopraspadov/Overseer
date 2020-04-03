@@ -18,7 +18,7 @@ import java.util.List;
 import static edu.born.overseer.CompanyTestData.COMPANY_1;
 import static edu.born.overseer.CompanyTestData.COMPANY_1_ID;
 import static edu.born.overseer.ContactPersonTestData.*;
-import static edu.born.overseer.model.TypeOwner.CONTACT_PERSON;
+import static edu.born.overseer.model.OwnerType.CONTACT_PERSON;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.IsNot.not;

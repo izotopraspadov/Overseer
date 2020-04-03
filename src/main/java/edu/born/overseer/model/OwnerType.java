@@ -1,6 +1,6 @@
 package edu.born.overseer.model;
 
-public enum TypeOwner {
+public enum OwnerType {
     CONTACT_PERSON,
     EMPLOYEE
 }

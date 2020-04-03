@@ -6,7 +6,7 @@ import edu.born.overseer.model.Email;
 import java.util.Set;
 
 import static edu.born.overseer.ContactPersonTestData.*;
-import static edu.born.overseer.model.TypeOwner.CONTACT_PERSON;
+import static edu.born.overseer.model.OwnerType.CONTACT_PERSON;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class EmailTestData {

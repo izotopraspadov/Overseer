@@ -31,7 +31,7 @@ public class EmployeePayment extends AbstractPaymentEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "type_counterparty")
     @NotNull
-    private TypeCounterparty typeCounterparty;
+    private CounterpartyType counterpartyType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_counterparty_id")
@@ -52,12 +52,12 @@ public class EmployeePayment extends AbstractPaymentEntity {
     public EmployeePayment() {
     }
 
-    public EmployeePayment(Integer id, LocalDate date, BigDecimal transaction, Employee employee, TypeCounterparty typeCounterparty,
+    public EmployeePayment(Integer id, LocalDate date, BigDecimal transaction, Employee employee, CounterpartyType counterpartyType,
                            Company companyCounterparty, Employee employeeCounterparty,
                            boolean cashless, boolean charge, String comment) {
         super(id, date, transaction, cashless);
         this.employee = employee;
-        this.typeCounterparty = typeCounterparty;
+        this.counterpartyType = counterpartyType;
         this.companyCounterparty = companyCounterparty;
         this.employeeCounterparty = employeeCounterparty;
         this.charge = charge;
@@ -72,12 +72,12 @@ public class EmployeePayment extends AbstractPaymentEntity {
         this.employee = employee;
     }
 
-    public TypeCounterparty getTypeCounterparty() {
-        return typeCounterparty;
+    public CounterpartyType getCounterpartyType() {
+        return counterpartyType;
     }
 
-    public void setTypeCounterparty(TypeCounterparty typeCounterparty) {
-        this.typeCounterparty = typeCounterparty;
+    public void setCounterpartyType(CounterpartyType counterpartyType) {
+        this.counterpartyType = counterpartyType;
     }
 
     public Company getCompanyCounterparty() {
@@ -118,7 +118,7 @@ public class EmployeePayment extends AbstractPaymentEntity {
                 "id=" + id +
                 ", employee=" + employee.getFullName() +
                 ", transaction=" + transaction +
-                ", typeCounterparty=" + typeCounterparty +
+                ", typeCounterparty=" + counterpartyType +
                 ", cashless=" + cashless +
                 ", charge=" + charge +
                 ", comment='" + comment + '\'' +

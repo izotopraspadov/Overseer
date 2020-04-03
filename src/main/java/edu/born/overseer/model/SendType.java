@@ -1,6 +1,6 @@
 package edu.born.overseer.model;
 
-public enum TypeSend {
+public enum SendType {
     TEAM_LEADER,
     MANAGER
 }

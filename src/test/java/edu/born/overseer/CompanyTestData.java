@@ -4,7 +4,7 @@ import edu.born.overseer.model.Company;
 
 import static edu.born.overseer.RegionTestData.*;
 import static edu.born.overseer.model.Reliability.*;
-import static edu.born.overseer.model.TypeCompany.*;
+import static edu.born.overseer.model.CompanyType.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class CompanyTestData {
@@ -32,7 +32,7 @@ public class CompanyTestData {
 
     public static Company getPreparedUpdate() {
         return new Company(COMPANY_1.getId(), "Updated Company", COMPANY_1.getRegion(), COMPANY_1.getItn(),
-                COMPANY_1.getAddress(), COMPANY_1.getReliability(), COMPANY_1.getChatGroupName(), COMPANY_1.getTypeCompany());
+                COMPANY_1.getAddress(), COMPANY_1.getReliability(), COMPANY_1.getChatGroupName(), COMPANY_1.getCompanyType());
     }
 
 }

@@ -2,7 +2,7 @@ package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.model.Company;
 import edu.born.overseer.model.Reliability;
-import edu.born.overseer.model.TypeCompany;
+import edu.born.overseer.model.CompanyType;
 import edu.born.overseer.repository.CompanyRepository;
 import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Repository;
@@ -83,7 +83,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public List<Company> getAllByType(TypeCompany type) {
+    public List<Company> getAllByType(CompanyType type) {
         return em.createNamedQuery(Company.ALL_BY_TYPE, Company.class)
                 .setParameter("typeCompany", type)
                 .getResultList();

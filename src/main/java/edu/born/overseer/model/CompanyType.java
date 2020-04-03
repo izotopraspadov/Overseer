@@ -1,13 +1,13 @@
 package edu.born.overseer.model;
 
-public enum TypeCompany {
+public enum CompanyType {
     OUR("Наше"),
     CUSTOMER("Заказчик"),
     OTHER("Остальные");
 
     private String description;
 
-    TypeCompany(String description) {
+    CompanyType(String description) {
         this.description = description;
     }
 
