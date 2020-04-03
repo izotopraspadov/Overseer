@@ -71,7 +71,7 @@ VALUES (100024, 'USER'),
        (100029, 'ADMIN');
 
 
-INSERT INTO emails (email, type_owner, contact_person_id, employee_id)
+INSERT INTO emails (address, type_owner, contact_person_id, employee_id)
 VALUES ('1@mail.com', 'CONTACT_PERSON', 100016, null),  -- id 100030
 
        ('2@mail.com', 'CONTACT_PERSON', 100017, null),  -- id 100031

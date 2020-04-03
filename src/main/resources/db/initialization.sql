@@ -109,11 +109,11 @@ CREATE TABLE contact_persons
 CREATE TABLE emails
 (
     id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    email             VARCHAR(100) NOT NULL,
+    address           VARCHAR(100) NOT NULL,
     type_owner        VARCHAR(100) NOT NULL,
     contact_person_id INTEGER,
     employee_id       INTEGER,
-    CONSTRAINT email_unique_idx UNIQUE (email),
+    CONSTRAINT email_unique_idx UNIQUE (address),
     CHECK ((contact_person_id IS NOT NULL AND employee_id IS NULL)
         OR (contact_person_id IS NULL AND employee_id IS NOT NULL)),
     FOREIGN KEY (contact_person_id) REFERENCES contact_persons (id) ON DELETE CASCADE,
