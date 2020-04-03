@@ -3,12 +3,11 @@ package edu.born.overseer.model;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-    USER,
-    ADMIN;
-
+    USER, ADMIN;
 
     @Override
     public String getAuthority() {
         return name();
     }
+
 }

@@ -19,8 +19,8 @@ import java.time.LocalDate;
 })
 public class ActualTime extends AbstractBaseEntity {
 
-    public static final String DELETE = "ActualTime.delete";
-    public static final String ALL_BY_ORDER = "ActualTime.getAllByOrder";
+    public static final String DELETE = "ActualTime:delete";
+    public static final String ALL_BY_ORDER = "ActualTime:allByOrder";
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false, unique = true)

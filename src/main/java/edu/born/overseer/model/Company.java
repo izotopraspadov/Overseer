@@ -16,7 +16,7 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = Company.DELETE, query = "DELETE FROM Company c WHERE c.id=:id"),
         @NamedQuery(name = Company.ALL, query = "SELECT DISTINCT c FROM Company c ORDER BY c.title"),
-        @NamedQuery(name = Company.GET, query = "SELECT c FROM Company c WHERE c.id=:id"),
+        @NamedQuery(name = Company.BY_ID, query = "SELECT c FROM Company c WHERE c.id=:id"),
         @NamedQuery(name = Company.ALL_BY_REGION, query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_RELIABILITY, query = "SELECT c FROM Company c WHERE c.reliability=:reliability ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_TYPE, query = "SELECT c FROM Company c WHERE c.typeCompany=:typeCompany ORDER BY c.title"),
@@ -27,16 +27,16 @@ import java.util.Objects;
 })
 public class Company extends AbstractBaseEntity {
 
-    public static final String DELETE = "Company.delete";
-    public static final String ALL = "Company.getAll";
-    public static final String GET = "Company.get";
-    public static final String ALL_BY_REGION = "Company.getAllByRegion";
-    public static final String ALL_BY_RELIABILITY = "Company.getAllByReliability";
-    public static final String ALL_BY_TYPE = "Company.getAllByType";
-    public static final String ALL_BY_TITLE = "Company.getAllByTitle";
-    public static final String ALL_BY_ADDRESS = "Company.getAllByAddress";
-    public static final String ALL_BY_CONTACT_PERSON = "Company.findByContactPerson";
-    public static final String ALL_BY_ITN = "Company.getAllByItn";
+    public static final String DELETE = "Company:delete";
+    public static final String ALL = "Company:all";
+    public static final String BY_ID = "Company:byId";
+    public static final String ALL_BY_REGION = "Company:allByRegion";
+    public static final String ALL_BY_RELIABILITY = "Company:allByReliability";
+    public static final String ALL_BY_TYPE = "Company:allByType";
+    public static final String ALL_BY_TITLE = "Company:allByTitle";
+    public static final String ALL_BY_ADDRESS = "Company:allByAddress";
+    public static final String ALL_BY_CONTACT_PERSON = "Company:allByContactPerson";
+    public static final String ALL_BY_ITN = "Company:allByItn";
 
     @Column(name = "title", nullable = false)
     @NotBlank

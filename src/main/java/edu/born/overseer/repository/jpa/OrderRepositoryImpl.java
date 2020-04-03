@@ -48,7 +48,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Optional<Order> get(int id) {
-        return em.createNamedQuery(Order.GET, Order.class)
+        return em.createNamedQuery(Order.BY_ID, Order.class)
                 .setParameter("id", id)
                 .getResultList()
                 .stream()
@@ -57,7 +57,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Optional<Order> getWithPayments(int id) {
-        return em.createNamedQuery(Order.GET_WITH_PAYMENTS, Order.class)
+        return em.createNamedQuery(Order.BY_ID_WITH_PAYMENTS, Order.class)
                 .setParameter("id", id)
                 .getResultList()
                 .stream()
@@ -66,7 +66,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Optional<Order> getWithTasks(int id) {
-        return em.createNamedQuery(Order.GET_WITH_TASKS, Order.class)
+        return em.createNamedQuery(Order.BY_ID_WITH_TASKS, Order.class)
                 .setParameter("id", id)
                 .getResultList()
                 .stream()

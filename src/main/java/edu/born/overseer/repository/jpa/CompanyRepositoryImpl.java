@@ -40,7 +40,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @Override
     public Company getById(int id) {
-        return em.createNamedQuery(Company.GET, Company.class)
+        return em.createNamedQuery(Company.BY_ID, Company.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }

@@ -9,22 +9,15 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "planned_time",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"id", "order_id"}, name = "planned_time_unique_pt_object_idx")
-        })
-
+@Table(name = "planned_time", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "order_id"}, name = "planned_time_unique_pt_object_idx")})
 @NamedQueries({
-        @NamedQuery(name = PlannedTime.DELETE,
-                query = "DELETE FROM PlannedTime pt WHERE pt.id=:id"),
-        @NamedQuery(name = PlannedTime.ALL_BY_ORDER,
-                query = "SELECT pt FROM PlannedTime pt WHERE pt.order.id=:orderId")
-
+        @NamedQuery(name = PlannedTime.DELETE, query = "DELETE FROM PlannedTime pt WHERE pt.id=:id"),
+        @NamedQuery(name = PlannedTime.ALL_BY_ORDER, query = "SELECT pt FROM PlannedTime pt WHERE pt.order.id=:orderId")
 })
 public class PlannedTime extends AbstractBaseEntity {
 
-    public static final String DELETE = "PlannedTimed.delete";
-    public static final String ALL_BY_ORDER = "PlannedTime.getAllByOrder";
+    public static final String DELETE = "PlannedTimed:delete";
+    public static final String ALL_BY_ORDER = "PlannedTime:allByOrder";
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false, unique = true)

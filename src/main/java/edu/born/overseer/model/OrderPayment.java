@@ -12,18 +12,15 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "order_payments")
 @NamedQueries({
-        @NamedQuery(name = OrderPayment.ALL,
-                query = "SELECT oop FROM OrderPayment oop ORDER BY oop.company.title"),
-        @NamedQuery(name = OrderPayment.ALL_BY_DATE,
-                query = "SELECT oop FROM OrderPayment oop WHERE oop.date=:date ORDER BY oop.company.title"),
-        @NamedQuery(name = OrderPayment.ALL_BY_ORDER,
-                query = "SELECT oop FROM OrderPayment oop WHERE oop.order.id=:orderId ORDER BY oop.company.title"),
+        @NamedQuery(name = OrderPayment.ALL, query = "SELECT oop FROM OrderPayment oop ORDER BY oop.company.title"),
+        @NamedQuery(name = OrderPayment.ALL_BY_DATE, query = "SELECT oop FROM OrderPayment oop WHERE oop.date=:date ORDER BY oop.company.title"),
+        @NamedQuery(name = OrderPayment.ALL_BY_ORDER, query = "SELECT oop FROM OrderPayment oop WHERE oop.order.id=:orderId ORDER BY oop.company.title"),
 })
 public class OrderPayment extends AbstractPaymentEntity {
 
-    public static final String ALL = "OrderedObjectPaymentRepository.getAll";
-    public static final String ALL_BY_DATE = "OrderedObjectPaymentRepository.getAllByDate";
-    public static final String ALL_BY_ORDER = "OrderedObjectPaymentRepository.getAllByOrder";
+    public static final String ALL = "OrderPayment:all";
+    public static final String ALL_BY_DATE = "OrderPayment:allByDate";
+    public static final String ALL_BY_ORDER = "OrderPayment:allByOrder";
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)

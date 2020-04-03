@@ -13,9 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "salaries",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "start_date"},
-                name = "salaries_unique_employee_start_date_idx")})
+@Table(name = "salaries", uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "start_date"}, name = "salaries_unique_employee_start_date_idx")})
 public class Salary extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

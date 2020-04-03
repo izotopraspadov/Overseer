@@ -8,20 +8,17 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@Table(name = "groups",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "title", name = "group_unique_title_idx")
-        })
+@Table(name = "groups", uniqueConstraints = {@UniqueConstraint(columnNames = "title", name = "group_unique_title_idx")})
 @NamedQueries({
         @NamedQuery(name = Group.DELETE, query = "DELETE FROM Group  g WHERE g.id=:id"),
+        @NamedQuery(name = Group.BY_ID, query = "SELECT g FROM Group  g WHERE g.id=:id"),
         @NamedQuery(name = Group.ALL, query = "SELECT DISTINCT g FROM Group g LEFT JOIN FETCH g.types t ORDER BY g.title"),
-        @NamedQuery(name = Group.GET, query = "SELECT g FROM Group  g WHERE g.id=:id")
 })
 public class Group extends AbstractBaseEntity {
 
-    public static final String DELETE = "Group.delete";
-    public static final String ALL = "Group.getAll";
-    public static final String GET = "Group.get";
+    public static final String DELETE = "Group:delete";
+    public static final String BY_ID = "Group:byId";
+    public static final String ALL = "Group:all";
 
     @Column(name = "title", nullable = false, unique = true)
     @NotBlank

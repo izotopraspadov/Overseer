@@ -15,8 +15,8 @@ import java.util.Objects;
 })
 public class Phone extends AbstractContactEntity {
 
-    public static final String ALL_BY_EMPLOYEE = "Phone.GetAllByEmployee";
-    public static final String ALL_BY_CONTACT_PERSON = "Phone.GetAllBContactPerson";
+    public static final String ALL_BY_EMPLOYEE = "Phone:allByEmployee";
+    public static final String ALL_BY_CONTACT_PERSON = "Phone:allBContactPerson";
 
     @Column(name = "number", nullable = false, unique = true)
     @NotBlank

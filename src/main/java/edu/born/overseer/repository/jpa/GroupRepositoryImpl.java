@@ -37,7 +37,7 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public Group get(int id) {
-        return em.createNamedQuery(Group.GET, Group.class)
+        return em.createNamedQuery(Group.BY_ID, Group.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }

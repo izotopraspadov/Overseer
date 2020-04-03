@@ -19,77 +19,54 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @NamedQueries({
-        @NamedQuery(name = Order.DELETE,
-                query = "DELETE FROM Order o WHERE o.id=:id"),
-        @NamedQuery(name = Order.ALL,
-                query = "SELECT o FROM Order o ORDER BY o.title"),
-        @NamedQuery(name = Order.GET,
-                query = "SELECT o FROM Order o WHERE o.id=:id"),
-        @NamedQuery(name = Order.GET_WITH_PAYMENTS,
-                query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.payments WHERE o.id=:id"),
-        @NamedQuery(name = Order.GET_WITH_TASKS,
-                query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.tasks WHERE o.id=:id"),
-        @NamedQuery(name = Order.ALL_BY_TITLE,
-                query = "SELECT o FROM Order o WHERE lower(o.title) like lower(:title) ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_COMPANY,
-                query = "SELECT o FROM Order o WHERE o.company.id=:companyId ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_CASHLESS,
-                query = "SELECT o FROM Order o WHERE o.cashless=:cashless ORDER BY o.title"),
+        @NamedQuery(name = Order.DELETE, query = "DELETE FROM Order o WHERE o.id=:id"),
+        @NamedQuery(name = Order.ALL, query = "SELECT o FROM Order o ORDER BY o.title"),
+        @NamedQuery(name = Order.BY_ID, query = "SELECT o FROM Order o WHERE o.id=:id"),
+        @NamedQuery(name = Order.BY_ID_WITH_PAYMENTS, query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.payments WHERE o.id=:id"),
+        @NamedQuery(name = Order.BY_ID_WITH_TASKS, query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.tasks WHERE o.id=:id"),
+        @NamedQuery(name = Order.ALL_BY_TITLE, query = "SELECT o FROM Order o WHERE lower(o.title) like lower(:title) ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_COMPANY, query = "SELECT o FROM Order o WHERE o.company.id=:companyId ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_CASHLESS, query = "SELECT o FROM Order o WHERE o.cashless=:cashless ORDER BY o.title"),
         @NamedQuery(name = Order.ALL_BY_ORDER_TYPE,
-                query = "SELECT o FROM Order o " +
-                        "LEFT JOIN FETCH o.orderType ot " +
-                        "WHERE lower(ot.title) like lower(:orderType) ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_GROUP,
-                query = "SELECT o FROM Order o WHERE o.group.id=:groupId ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_CONTRACT_IS_NEED,
-                query = "SELECT o FROM Order o WHERE o.contractIsNeed=:contractIsNeed ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_CONTRACT_EXISTS,
-                query = "SELECT o FROM Order o WHERE o.contractExists=:contractExists ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_PLANNED_START_DATE,
-                query = "SELECT o FROM Order o WHERE o.plannedStartDate=:date ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_ACTUAL_START_DATE,
-                query = "SELECT o FROM Order o WHERE o.actualStartDate=:date ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_PLANNED_END_DATE,
-                query = "SELECT o FROM Order o WHERE o.plannedEndDate=:date ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_ACTUAL_END_DATE,
-                query = "SELECT o FROM Order o WHERE o.actualEndDate=:date ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_SUM,
-                query = "SELECT o FROM Order o WHERE o.sum=:currentSum ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_MANAGER,
-                query = "SELECT o FROM Order o WHERE o.manager.id=:managerId ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_UNDERWAY,
-                query = "SELECT o FROM Order o WHERE o.underway=:underway ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_EXPECTED_PAYMENT,
-                query = "SELECT o FROM Order o WHERE o.expectedPayment=:expectedPayment ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_PAYMENT_ORDER,
-                query = "SELECT o FROM Order o WHERE lower(o.paymentOrder) like lower(:paymentOrder) ORDER BY o.title"),
-        @NamedQuery(name = Order.ALL_BY_NUMBER_OF_LINES,
-                query = "SELECT o FROM Order o WHERE o.numberOfLines=:numberOfLines ORDER BY o.title"),
+                query = "SELECT o FROM Order o LEFT JOIN FETCH o.orderType ot WHERE lower(ot.title) like lower(:orderType) ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_GROUP, query = "SELECT o FROM Order o WHERE o.group.id=:groupId ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_CONTRACT_IS_NEED, query = "SELECT o FROM Order o WHERE o.contractIsNeed=:contractIsNeed ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_CONTRACT_EXISTS, query = "SELECT o FROM Order o WHERE o.contractExists=:contractExists ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_PLANNED_START_DATE, query = "SELECT o FROM Order o WHERE o.plannedStartDate=:date ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_ACTUAL_START_DATE, query = "SELECT o FROM Order o WHERE o.actualStartDate=:date ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_PLANNED_END_DATE, query = "SELECT o FROM Order o WHERE o.plannedEndDate=:date ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_ACTUAL_END_DATE, query = "SELECT o FROM Order o WHERE o.actualEndDate=:date ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_SUM, query = "SELECT o FROM Order o WHERE o.sum=:currentSum ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_MANAGER, query = "SELECT o FROM Order o WHERE o.manager.id=:managerId ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_UNDERWAY, query = "SELECT o FROM Order o WHERE o.underway=:underway ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_EXPECTED_PAYMENT, query = "SELECT o FROM Order o WHERE o.expectedPayment=:expectedPayment ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_PAYMENT_ORDER, query = "SELECT o FROM Order o WHERE lower(o.paymentOrder) like lower(:paymentOrder) ORDER BY o.title"),
+        @NamedQuery(name = Order.ALL_BY_NUMBER_OF_LINES, query = "SELECT o FROM Order o WHERE o.numberOfLines=:numberOfLines ORDER BY o.title"),
 })
 public class Order extends AbstractBaseEntity {
 
-    public static final String DELETE = "OrderedObject.delete";
-    public static final String ALL = "OrderedObject.getAll";
-    public static final String GET = "OrderedObject.get";
-    public static final String GET_WITH_PAYMENTS = "OrderedObject.getWithPayments";
-    public static final String GET_WITH_TASKS = "OrderedObject.getWithTasks";
-    public static final String ALL_BY_TITLE = "OrderedObject.getAllByTitle";
-    public static final String ALL_BY_COMPANY = "OrderedObject.getAllByCompany";
-    public static final String ALL_BY_CASHLESS = "OrderedObject.getAllByCashless";
-    public static final String ALL_BY_ORDER_TYPE = "OrderedObject.getAllByOrderType";
-    public static final String ALL_BY_GROUP = "OrderedObject.getAllByGroup";
-    public static final String ALL_BY_CONTRACT_IS_NEED = "OrderedObject.getAllByContractIsNeed";
-    public static final String ALL_BY_CONTRACT_EXISTS = "OrderedObject.getAllByContractExists";
-    public static final String ALL_BY_PLANNED_START_DATE = "OrderedObject.getAllByPlannedStartDate";
-    public static final String ALL_BY_ACTUAL_START_DATE = "OrderedObject.getAllByActualStartDat";
-    public static final String ALL_BY_PLANNED_END_DATE = "OrderedObject.getAllByPlannedEndDate";
-    public static final String ALL_BY_ACTUAL_END_DATE = "OrderedObject.getAllByActualEndDate";
-    public static final String ALL_BY_SUM = "OrderedObject.getAllBySum";
-    public static final String ALL_BY_MANAGER = "OrderedObject.getAllByManager";
-    public static final String ALL_BY_UNDERWAY = "OrderedObject.getAllByUnderway";
-    public static final String ALL_BY_EXPECTED_PAYMENT = "OrderedObject.getAllByExpectedPayment";
-    public static final String ALL_BY_PAYMENT_ORDER = "OrderedObject.getAllByPaymentOrder";
-    public static final String ALL_BY_NUMBER_OF_LINES = "OrderedObject.getAllByNumberOfLines";
+    public static final String DELETE = "Order:delete";
+    public static final String ALL = "Order:all";
+    public static final String BY_ID = "Order:byId";
+    public static final String BY_ID_WITH_PAYMENTS = "Order:byIdWithPayments";
+    public static final String BY_ID_WITH_TASKS = "Order:byIdWithTasks";
+    public static final String ALL_BY_TITLE = "Order:allByTitle";
+    public static final String ALL_BY_COMPANY = "Order:allByCompany";
+    public static final String ALL_BY_CASHLESS = "Order:allByCashless";
+    public static final String ALL_BY_ORDER_TYPE = "Order:allByOrderType";
+    public static final String ALL_BY_GROUP = "Order:allByGroup";
+    public static final String ALL_BY_CONTRACT_IS_NEED = "Order:allByContractIsNeed";
+    public static final String ALL_BY_CONTRACT_EXISTS = "Order:allByContractExists";
+    public static final String ALL_BY_PLANNED_START_DATE = "Order:allByPlannedStartDate";
+    public static final String ALL_BY_ACTUAL_START_DATE = "Order:allByActualStartDat";
+    public static final String ALL_BY_PLANNED_END_DATE = "Order:allByPlannedEndDate";
+    public static final String ALL_BY_ACTUAL_END_DATE = "Order:allByActualEndDate";
+    public static final String ALL_BY_SUM = "Order:allBySum";
+    public static final String ALL_BY_MANAGER = "Order:allByManager";
+    public static final String ALL_BY_UNDERWAY = "Order:allByUnderway";
+    public static final String ALL_BY_EXPECTED_PAYMENT = "Order:allByExpectedPayment";
+    public static final String ALL_BY_PAYMENT_ORDER = "Order:allByPaymentOrder";
+    public static final String ALL_BY_NUMBER_OF_LINES = "Order:allByNumberOfLines";
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)

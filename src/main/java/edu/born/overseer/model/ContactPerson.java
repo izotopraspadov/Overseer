@@ -14,17 +14,17 @@ import static javax.persistence.CascadeType.*;
 @NamedQueries({
         @NamedQuery(name = ContactPerson.DELETE, query = "DELETE FROM ContactPerson cp WHERE cp.id=:id"),
         @NamedQuery(name = ContactPerson.ALL, query = "SELECT cp FROM ContactPerson cp ORDER BY cp.fullName"),
-        @NamedQuery(name = ContactPerson.GET, query = "SELECT cp FROM ContactPerson cp WHERE cp.id=:id"),
-        @NamedQuery(name = ContactPerson.GET_WITH_COMPANY, query = "SELECT cp FROM ContactPerson cp LEFT JOIN FETCH cp.company WHERE cp.id=:id"),
+        @NamedQuery(name = ContactPerson.BY_ID, query = "SELECT cp FROM ContactPerson cp WHERE cp.id=:id"),
+        @NamedQuery(name = ContactPerson.BY_ID_WITH_COMPANY, query = "SELECT cp FROM ContactPerson cp LEFT JOIN FETCH cp.company WHERE cp.id=:id"),
         @NamedQuery(name = ContactPerson.ALL_BY_COMPANY, query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId ORDER BY cp.fullName"),
 })
 public class ContactPerson extends AbstractFullNameEntity {
 
-    public static final String DELETE = "ContactPerson.delete";
-    public static final String ALL = "ContactPerson.getAll";
-    public static final String GET = "ContactPerson.get";
-    public static final String GET_WITH_COMPANY = "ContactPerson.getWithCompany";
-    public static final String ALL_BY_COMPANY = "ContactPerson.getAllByCompany";
+    public static final String DELETE = "ContactPerson:delete";
+    public static final String ALL = "ContactPerson:all";
+    public static final String BY_ID = "ContactPerson:byId";
+    public static final String BY_ID_WITH_COMPANY = "ContactPerson:byIdWithCompany";
+    public static final String ALL_BY_COMPANY = "ContactPerson:allByCompany";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)

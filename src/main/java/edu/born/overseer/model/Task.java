@@ -19,7 +19,7 @@ import java.util.Set;
 })
 public class Task extends AbstractBaseEntity {
 
-    public static final String ALL_BY_ORDER = "Task.getAllByOrder";
+    public static final String ALL_BY_ORDER = "Task:allByOrder";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)

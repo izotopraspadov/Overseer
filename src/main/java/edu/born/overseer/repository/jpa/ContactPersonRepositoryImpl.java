@@ -41,14 +41,14 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
 
     @Override
     public ContactPerson getById(int id) {
-        return em.createNamedQuery(ContactPerson.GET, ContactPerson.class)
+        return em.createNamedQuery(ContactPerson.BY_ID, ContactPerson.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
 
     @Override
     public ContactPerson getWithCompany(int id) {
-        return em.createNamedQuery(ContactPerson.GET_WITH_COMPANY, ContactPerson.class)
+        return em.createNamedQuery(ContactPerson.BY_ID_WITH_COMPANY, ContactPerson.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }

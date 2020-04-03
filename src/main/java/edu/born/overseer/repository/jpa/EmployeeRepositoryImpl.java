@@ -42,7 +42,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Optional<Employee> get(int id) {
-        return em.createNamedQuery(Employee.GET, Employee.class)
+        return em.createNamedQuery(Employee.BY_ID, Employee.class)
                 .setParameter("id", id)
                 .getResultList()
                 .stream()
@@ -50,7 +50,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
     @Override
     public Optional<Employee> getWithPayments(int id) {
-        return em.createNamedQuery(Employee.GET_WITH_PAYMENTS, Employee.class)
+        return em.createNamedQuery(Employee.BY_ID_WITH_PAYMENTS, Employee.class)
                 .setParameter("id", id)
                 .getResultList()
                 .stream()
@@ -59,7 +59,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Optional<Employee> getWithSalary(int id) {
-        return em.createNamedQuery(Employee.GET_WITH_SALARY, Employee.class)
+        return em.createNamedQuery(Employee.BY_ID_WITH_SALARY, Employee.class)
                 .setParameter("id", id)
                 .getResultList()
                 .stream()
@@ -68,7 +68,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Optional<Employee> getWithSalaryAndPhonesAndEmails(int id) {
-        return em.createNamedQuery(Employee.GET_WITH_SALARY_AND_PHONES_AND_EMAILS, Employee.class)
+        return em.createNamedQuery(Employee.BY_ID_WITH_SALARY_AND_PHONES_AND_EMAILS, Employee.class)
                 .setParameter("id", id)
                 .getResultList()
                 .stream()
@@ -77,7 +77,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Optional<Employee> getWithEmails(int id) {
-        return em.createNamedQuery(Employee.GET_WITH_EMAILS, Employee.class)
+        return em.createNamedQuery(Employee.BY_ID_WITH_EMAILS, Employee.class)
                 .setParameter("id", id)
                 .getResultList()
                 .stream()
@@ -86,7 +86,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Optional<Employee> getWithPhones(int id) {
-        return em.createNamedQuery(Employee.GET_WITH_PHONES, Employee.class)
+        return em.createNamedQuery(Employee.BY_ID_WITH_PHONES, Employee.class)
                 .setParameter("id", id)
                 .getResultList()
                 .stream()
@@ -122,7 +122,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Optional<Employee> findByLogin(String login) {
-        return em.createNamedQuery(Employee.FIND_BY_LOGIN, Employee.class)
+        return em.createNamedQuery(Employee.BY_LOGIN, Employee.class)
                 .setParameter("login", "%" + login + "%")
                 .getResultList()
                 .stream()

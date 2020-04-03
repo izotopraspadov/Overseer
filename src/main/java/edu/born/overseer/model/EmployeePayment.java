@@ -12,19 +12,15 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "employee_payments")
 @NamedQueries({
-        @NamedQuery(name = EmployeePayment.ALL,
-                query = "SELECT ep FROM EmployeePayment ep ORDER BY ep.employee.fullName"),
-        @NamedQuery(name = EmployeePayment.ALL_BY_DATE,
-                query = "SELECT ep FROM EmployeePayment ep WHERE ep.date=:date ORDER BY ep.employee.fullName"),
-        @NamedQuery(name = EmployeePayment.ALL_BY_EMPLOYEE,
-                query = "SELECT ep FROM EmployeePayment ep WHERE ep.employee.id=:employeeId ORDER BY ep.date"),
-
+        @NamedQuery(name = EmployeePayment.ALL, query = "SELECT ep FROM EmployeePayment ep ORDER BY ep.employee.fullName"),
+        @NamedQuery(name = EmployeePayment.ALL_BY_DATE, query = "SELECT ep FROM EmployeePayment ep WHERE ep.date=:date ORDER BY ep.employee.fullName"),
+        @NamedQuery(name = EmployeePayment.ALL_BY_EMPLOYEE, query = "SELECT ep FROM EmployeePayment ep WHERE ep.employee.id=:employeeId ORDER BY ep.date"),
 })
 public class EmployeePayment extends AbstractPaymentEntity {
 
-    public static final String ALL = "EmployeePayment.getAll";
-    public static final String ALL_BY_DATE = "EmployeePayment.getAllByDate";
-    public static final String ALL_BY_EMPLOYEE = "EmployeePayment.getAllByEmployee";
+    public static final String ALL = "EmployeePayment:all";
+    public static final String ALL_BY_DATE = "EmployeePayment:allByDate";
+    public static final String ALL_BY_EMPLOYEE = "EmployeePayment:allByEmployee";
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
