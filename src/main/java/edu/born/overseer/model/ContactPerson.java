@@ -36,7 +36,7 @@ public class ContactPerson extends AbstractFullNameEntity {
     private Set<Phone> phones = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson", cascade = {PERSIST, MERGE, REMOVE})
-    @OrderBy("email DESC")
+    @OrderBy("address DESC")
     private Set<Email> emails = new HashSet<>();
 
     public ContactPerson() {

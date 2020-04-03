@@ -91,7 +91,7 @@ public class Employee extends AbstractFullNameEntity {
     private Set<Phone> phones;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
-    @OrderBy("email DESC")
+    @OrderBy("address DESC")
    // @Fetch(value = FetchMode.SUBSELECT)
     private Set<Email> emails;
 
