@@ -204,12 +204,12 @@ CREATE TABLE tasks
     id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     order_id         INTEGER      NOT NULL,
     task_description TEXT         NOT NULL,
-    employee_id      INTEGER      NOT NULL,
+    responsible_id      INTEGER      NOT NULL,
     date_completed   DATE         NOT NULL,
     result           VARCHAR(255) NOT NULL,
     comment          TEXT,
     FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
-    FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
+    FOREIGN KEY (responsible_id) REFERENCES employees (id) ON DELETE CASCADE
 );
 
 CREATE TABLE task_emails
