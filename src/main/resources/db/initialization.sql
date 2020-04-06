@@ -35,14 +35,14 @@ CREATE TABLE order_type_by_group
 
 CREATE TABLE companies
 (
-    id              INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    title           VARCHAR(255) NOT NULL,
-    region_id       INTEGER      NOT NULL,
-    itn             VARCHAR(12)  NOT NULL,
-    address         VARCHAR(255) NOT NULL,
-    reliability_type     VARCHAR(255) NOT NULL,
-    chat_group_name VARCHAR(255) NOT NULL,
-    company_type    VARCHAR(255) NOT NULL,
+    id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    title            VARCHAR(255) NOT NULL,
+    region_id        INTEGER      NOT NULL,
+    itn              VARCHAR(12)  NOT NULL,
+    address          VARCHAR(255) NOT NULL,
+    reliability_type VARCHAR(255) NOT NULL,
+    chat_group_name  VARCHAR(255) NOT NULL,
+    company_type     VARCHAR(255) NOT NULL,
     CONSTRAINT companies_unique_itn_idx UNIQUE (itn),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE
 );
@@ -123,7 +123,7 @@ CREATE TABLE emails
 CREATE TABLE phones
 (
     id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    number            VARCHAR(15)  NOT NULL,
+    number            VARCHAR(17)  NOT NULL,
     owner_type        VARCHAR(100) NOT NULL,
     contact_person_id INTEGER,
     employee_id       INTEGER,
@@ -204,9 +204,9 @@ CREATE TABLE tasks
     id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     order_id         INTEGER      NOT NULL,
     task_description TEXT         NOT NULL,
-    responsible_id      INTEGER      NOT NULL,
+    responsible_id   INTEGER      NOT NULL,
     date_completed   DATE         NOT NULL,
-    result_type           VARCHAR(255) NOT NULL,
+    result_type      VARCHAR(255) NOT NULL,
     comment          TEXT,
     FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
     FOREIGN KEY (responsible_id) REFERENCES employees (id) ON DELETE CASCADE
