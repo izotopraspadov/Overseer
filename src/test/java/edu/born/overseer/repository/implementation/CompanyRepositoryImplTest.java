@@ -10,6 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.TransactionSystemException;
 
 import javax.persistence.NoResultException;
 
@@ -45,6 +46,14 @@ class CompanyRepositoryImplTest {
     @Test
     void createDuplicate() {
         assertThrows(DataIntegrityViolationException.class, () -> companyRepository.save(getPreparedDuplicate()));
+    }
+
+    @Test
+    void createWithInvalidITN() {
+        var prepared = getPreparedCreate();
+        prepared.setItn("001");
+
+        assertThrows(TransactionSystemException.class, () -> companyRepository.save(prepared));
     }
 
     @Test
