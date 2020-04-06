@@ -10,7 +10,7 @@ public class ITNValidator implements ConstraintValidator<ITN, String> {
     @Override
     public boolean isValid(String itn, ConstraintValidatorContext constraintValidatorContext) {
         int length = itn.length();
-        if (length == 7 || length == 11)
+        if (length == 10 || length == 12)
             if (Pattern.matches("\\d+", itn))
                 return true;
         return false;
