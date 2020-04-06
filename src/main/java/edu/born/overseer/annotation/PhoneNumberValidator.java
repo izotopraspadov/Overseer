@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 
 public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, String> {
 
-    private static final String russianFormatNumber = "^((\\+\\d)((-)([0-9]){3}){2}((-)([0-9]){2}){2})$";
+    private static final String RUSSIAN_FORMAT_NUMBER = "^((\\+\\d)((-)([0-9]){3}){2}((-)([0-9]){2}){2})$";
 
     @Override
     public boolean isValid(String number, ConstraintValidatorContext constraintValidatorContext) {
-        return Pattern.matches(russianFormatNumber, number);
+        return Pattern.matches(RUSSIAN_FORMAT_NUMBER, number);
     }
 
 }
