@@ -32,10 +32,10 @@ public class Task extends AbstractBaseEntity {
     private String taskDescription;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "responsible_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Employee employee;
+    private Employee responsible;
 
     @Column(name = "date_completed", nullable = false)
     @NotNull
@@ -45,7 +45,7 @@ public class Task extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "result")
     @NotNull
-    private Result result;
+    private ResultType resultType;
 
     @Column(name = "comment")
     private String comment;
@@ -56,14 +56,14 @@ public class Task extends AbstractBaseEntity {
     public Task() {
     }
 
-    public Task(Integer id, Order order, String taskDescription, Employee employee,
-                LocalDate dateCompleted, Result result, String comment, Set<TaskEmail> taskEmails) {
+    public Task(Integer id, Order order, String taskDescription, Employee responsible,
+                LocalDate dateCompleted, ResultType resultType, String comment, Set<TaskEmail> taskEmails) {
         super(id);
         this.order = order;
         this.taskDescription = taskDescription;
-        this.employee = employee;
+        this.responsible = responsible;
         this.dateCompleted = dateCompleted;
-        this.result = result;
+        this.resultType = resultType;
         this.comment = comment;
         this.taskEmails = taskEmails;
     }
@@ -84,12 +84,12 @@ public class Task extends AbstractBaseEntity {
         this.taskDescription = taskDescription;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Employee getResponsible() {
+        return responsible;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setResponsible(Employee employee) {
+        this.responsible = employee;
     }
 
     public LocalDate getDateCompleted() {
@@ -100,12 +100,12 @@ public class Task extends AbstractBaseEntity {
         this.dateCompleted = dateCompleted;
     }
 
-    public Result getResult() {
-        return result;
+    public ResultType getResultType() {
+        return resultType;
     }
 
-    public void setResult(Result result) {
-        this.result = result;
+    public void setResultType(ResultType resultType) {
+        this.resultType = resultType;
     }
 
     public String getComment() {
@@ -130,7 +130,7 @@ public class Task extends AbstractBaseEntity {
                 "id=" + id +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", dateCompleted=" + dateCompleted +
-                ", result=" + result +
+                ", result=" + resultType +
                 ", comment='" + comment + '\'' +
                 '}';
     }
