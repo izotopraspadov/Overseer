@@ -2,13 +2,13 @@ package edu.born.overseer.transformed;
 
 import edu.born.overseer.model.abstraction.HasId;
 
-public abstract class BaseTo implements HasId {
+public abstract class TransformedBase implements HasId {
     protected Integer id;
 
-    public BaseTo() {
+    public TransformedBase() {
     }
 
-    public BaseTo(Integer id) {
+    public TransformedBase(Integer id) {
         this.id = id;
     }
 
