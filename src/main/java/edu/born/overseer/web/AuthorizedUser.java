@@ -1,14 +1,14 @@
 package edu.born.overseer.web;
 
 import edu.born.overseer.model.Employee;
-import edu.born.overseer.transformed.UserTo;
+import edu.born.overseer.transformed.TransformedUser;
 import edu.born.overseer.util.EmployeeUtil;
 
 
 public class AuthorizedUser extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = 1L;
 
-    private UserTo userTo;
+    private TransformedUser userTo;
 
     public AuthorizedUser(Employee employee) {
         super(employee.getLogin(), employee.getPassword(), employee.getRoles());
@@ -19,11 +19,11 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
         return userTo.getId();
     }
 
-    public void update(UserTo newTo) {
+    public void update(TransformedUser newTo) {
         userTo = newTo;
     }
 
-    public UserTo getUserTo() {
+    public TransformedUser getUserTo() {
         return userTo;
     }
 

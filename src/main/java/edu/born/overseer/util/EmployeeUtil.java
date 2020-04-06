@@ -1,12 +1,12 @@
 package edu.born.overseer.util;
 
 import edu.born.overseer.model.Employee;
-import edu.born.overseer.transformed.UserTo;
+import edu.born.overseer.transformed.TransformedUser;
 
 public class EmployeeUtil {
 
-    public static UserTo asTo(Employee employee) {
-        return new UserTo(employee.getId(), employee.getLogin(), employee.getPassword());
+    public static TransformedUser asTo(Employee employee) {
+        return new TransformedUser(employee.getId(), employee.getLogin(), employee.getPassword());
     }
 
 
