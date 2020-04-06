@@ -42,13 +42,10 @@ class CompanyRepositoryImplTest {
     @Test
     void create() {
         var prepared = getPreparedCreate();
-       // prepared.setItn("1");
         var savedId = companyRepository.save(prepared).getId();
         prepared.setId(savedId);
 
-        System.out.println(companyRepository.getById(savedId));
-
-        //assertEquals(companyRepository.getById(savedId), prepared);
+        assertEquals(companyRepository.getById(savedId), prepared);
     }
 
     @Test
