@@ -1,5 +1,6 @@
 package edu.born.overseer.repository.implementation;
 
+import edu.born.overseer.model.Company;
 import edu.born.overseer.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -12,13 +13,18 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.NoResultException;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.Set;
 
 import static edu.born.overseer.CompanyTestData.*;
 import static edu.born.overseer.ContactPersonTestData.CONTACT_PERSON_1_ID;
 import static edu.born.overseer.ContactPersonTestData.INVALID_CONTACT_PERSON_ID;
 import static edu.born.overseer.RegionTestData.REGION_1_ID;
-import static edu.born.overseer.model.Reliability.LOW;
 import static edu.born.overseer.model.CompanyType.OUR;
+import static edu.born.overseer.model.ReliabilityType.LOW;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.IsNot.not;
@@ -36,10 +42,24 @@ class CompanyRepositoryImplTest {
     @Test
     void create() {
         var prepared = getPreparedCreate();
+       // prepared.setItn("1");
         var savedId = companyRepository.save(prepared).getId();
         prepared.setId(savedId);
 
-        assertEquals(companyRepository.getById(savedId), prepared);
+        System.out.println(companyRepository.getById(savedId));
+
+        //assertEquals(companyRepository.getById(savedId), prepared);
+    }
+
+    @Test
+    void test() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        var prepared = getPreparedCreate();
+        Set<ConstraintViolation<Company>> vol = validator.validate(prepared);
+
+        System.out.println(vol.size());
     }
 
     @Test

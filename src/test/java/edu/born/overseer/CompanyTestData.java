@@ -3,7 +3,7 @@ package edu.born.overseer;
 import edu.born.overseer.model.Company;
 
 import static edu.born.overseer.RegionTestData.*;
-import static edu.born.overseer.model.Reliability.*;
+import static edu.born.overseer.model.ReliabilityType.*;
 import static edu.born.overseer.model.CompanyType.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
@@ -23,7 +23,7 @@ public class CompanyTestData {
             "Зимняя ул. 89", HIGH, "Третья", OTHER);
 
     public static Company getPreparedCreate() {
-        return new Company(null, "New Company", REGION_2, "000000000111", "New Street", LOW, "New Group", OUR);
+        return new Company(null, "New Company", REGION_2, "000000000003", "New Street", LOW, "New Group", OUR);
     }
 
     public static Company getPreparedDuplicate() {
@@ -32,7 +32,7 @@ public class CompanyTestData {
 
     public static Company getPreparedUpdate() {
         return new Company(COMPANY_1.getId(), "Updated Company", COMPANY_1.getRegion(), COMPANY_1.getItn(),
-                COMPANY_1.getAddress(), COMPANY_1.getReliability(), COMPANY_1.getChatGroupName(), COMPANY_1.getCompanyType());
+                COMPANY_1.getAddress(), COMPANY_1.getReliabilityType(), COMPANY_1.getChatGroupName(), COMPANY_1.getCompanyType());
     }
 
 }

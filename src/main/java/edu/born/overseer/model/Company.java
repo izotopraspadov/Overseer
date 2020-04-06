@@ -18,7 +18,7 @@ import java.util.Objects;
         @NamedQuery(name = Company.ALL, query = "SELECT DISTINCT c FROM Company c ORDER BY c.title"),
         @NamedQuery(name = Company.BY_ID, query = "SELECT c FROM Company c WHERE c.id=:id"),
         @NamedQuery(name = Company.ALL_BY_REGION, query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
-        @NamedQuery(name = Company.ALL_BY_RELIABILITY, query = "SELECT c FROM Company c WHERE c.reliability=:reliability ORDER BY c.title"),
+        @NamedQuery(name = Company.ALL_BY_RELIABILITY, query = "SELECT c FROM Company c WHERE c.reliabilityType=:reliability ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_TYPE, query = "SELECT c FROM Company c WHERE c.companyType=:typeCompany ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_TITLE, query = "SELECT c FROM Company c WHERE lower(c.title) LIKE lower(concat(:title, '%')) ORDER BY c.title"),
         @NamedQuery(name = Company.ALL_BY_ADDRESS, query = "SELECT c FROM Company c WHERE lower(c.address) LIKE lower(concat(:address, '%')) ORDER BY c.title"),
@@ -66,7 +66,7 @@ public class Company extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "reliability")
     @NotNull
-    private Reliability reliability;
+    private ReliabilityType reliabilityType;
 
     @Column(name = "chat_group_name", nullable = false)
     @NotBlank
@@ -82,26 +82,26 @@ public class Company extends AbstractBaseEntity {
     }
 
     public Company(Integer id, String title, Region region, String itn, String address,
-                   Reliability reliability, String chatGroupName, CompanyType companyType) {
+                   ReliabilityType reliabilityType, String chatGroupName, CompanyType companyType) {
         super(id);
         this.title = title;
         this.region = region;
         this.itn = itn;
         this.address = address;
-        this.reliability = reliability;
+        this.reliabilityType = reliabilityType;
         this.chatGroupName = chatGroupName;
         this.companyType = companyType;
     }
 
     public Company(Integer id, String title, Region region, String itn, String address, List<ContactPerson> contactPersons,
-                   Reliability reliability, String chatGroupName, CompanyType companyType) {
+                   ReliabilityType reliabilityType, String chatGroupName, CompanyType companyType) {
         super(id);
         this.title = title;
         this.region = region;
         this.itn = itn;
         this.address = address;
         this.contactPersons = contactPersons;
-        this.reliability = reliability;
+        this.reliabilityType = reliabilityType;
         this.chatGroupName = chatGroupName;
         this.companyType = companyType;
     }
@@ -146,12 +146,12 @@ public class Company extends AbstractBaseEntity {
         this.contactPersons = contactPersons;
     }
 
-    public Reliability getReliability() {
-        return reliability;
+    public ReliabilityType getReliabilityType() {
+        return reliabilityType;
     }
 
-    public void setReliability(Reliability reliability) {
-        this.reliability = reliability;
+    public void setReliabilityType(ReliabilityType reliabilityType) {
+        this.reliabilityType = reliabilityType;
     }
 
     public String getChatGroupName() {
@@ -179,14 +179,14 @@ public class Company extends AbstractBaseEntity {
         return title.equals(otherCompany.title) &&
                 itn.equals(otherCompany.itn) &&
                 address.equals(otherCompany.address) &&
-                reliability == otherCompany.reliability &&
+                reliabilityType == otherCompany.reliabilityType &&
                 chatGroupName.equals(otherCompany.chatGroupName) &&
                 companyType == otherCompany.companyType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), title, itn, address, reliability, chatGroupName, companyType);
+        return Objects.hash(super.hashCode(), title, itn, address, reliabilityType, chatGroupName, companyType);
     }
 
     @Override
@@ -196,7 +196,7 @@ public class Company extends AbstractBaseEntity {
                 ", id=" + id +
                 ", itn='" + itn + '\'' +
                 ", address='" + address + '\'' +
-                ", reliability=" + reliability +
+                ", reliability=" + reliabilityType +
                 ", region='" + region.getTitle() + '\'' +
                 ", chatGroupName='" + chatGroupName + '\'' +
                 ", typeCompany=" + companyType +
