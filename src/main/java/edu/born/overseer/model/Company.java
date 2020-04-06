@@ -1,5 +1,6 @@
 package edu.born.overseer.model;
 
+import edu.born.overseer.annotation.ITN;
 import edu.born.overseer.model.abstraction.AbstractBaseEntity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -50,8 +51,7 @@ public class Company extends AbstractBaseEntity {
     private Region region;
 
     @Column(name = "itn", nullable = false, unique = true)
-    @NotBlank
-    @Size(min = 10, max = 12)
+    @ITN
     private String itn;
 
     @Column(name = "address", nullable = false)
