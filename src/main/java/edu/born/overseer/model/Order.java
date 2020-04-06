@@ -1,5 +1,6 @@
 package edu.born.overseer.model;
 
+import edu.born.overseer.annotation.PaymentFormat;
 import edu.born.overseer.model.abstraction.AbstractBaseEntity;
 import edu.born.overseer.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
@@ -119,8 +120,7 @@ public class Order extends AbstractBaseEntity {
     private BigDecimal expectedPayment;
 
     @Column(name = "payment_format", nullable = false)
-    @NotBlank
-    // regex
+    @PaymentFormat
     private String paymentFormat;
 
     @Column(name = "number_of_lines", nullable = false)
