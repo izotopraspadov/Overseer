@@ -1,4 +1,6 @@
-package edu.born.overseer.annotation;
+package edu.born.overseer.annotation.validator;
+
+import edu.born.overseer.annotation.PaymentFormat;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
