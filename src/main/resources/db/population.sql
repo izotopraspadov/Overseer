@@ -33,7 +33,7 @@ VALUES ('Алтайский край'),               -- id 100000
        ('Санкт-Петербург'),              -- id 100011
        ('Ярославская область'); -- id 100012
 
-INSERT INTO companies (title, region_id, itn, address, reliability, chat_group_name, type_company)
+INSERT INTO companies (title, region_id, itn, address, reliability_type, chat_group_name, company_type)
 VALUES -- id 100013
        ('Первая Компания', 100000, '000000000000', 'Никакая ул. 1', 'LOW', 'Первая', 'OUR'),
        -- id 100014
@@ -71,7 +71,7 @@ VALUES (100024, 'USER'),
        (100029, 'ADMIN');
 
 
-INSERT INTO emails (address, type_owner, contact_person_id, employee_id)
+INSERT INTO emails (address, owner_type, contact_person_id, employee_id)
 VALUES ('1@mail.com', 'CONTACT_PERSON', 100016, null),  -- id 100030
 
        ('2@mail.com', 'CONTACT_PERSON', 100017, null),  -- id 100031
@@ -113,7 +113,7 @@ VALUES ('1@mail.com', 'CONTACT_PERSON', 100016, null),  -- id 100030
        ('26@mail.com', 'EMPLOYEE', null, 100029);
 -- id 100055
 
-INSERT INTO phones (number, type_owner, contact_person_id, employee_id)
+INSERT INTO phones (number, owner_type, contact_person_id, employee_id)
 VALUES ('00000000001', 'CONTACT_PERSON', 100016, null), -- id 100056
        ('00000000002', 'CONTACT_PERSON', 100016, null), -- id 100057
 
@@ -152,7 +152,7 @@ VALUES ('00000000001', 'CONTACT_PERSON', 100016, null), -- id 100056
        ('00000000024', 'EMPLOYEE', null, 100029);
 -- id 100078
 
-INSERT INTO employee_payments (date, employee_id, type_counterparty,
+INSERT INTO employee_payments (date, employee_id, counterparty_type,
                                company_counterparty_id, employee_counterparty_id, transaction, cashless, charge,
                                comment)
 VALUES ('2019-10-01', 100024, 'COMPANY', 100013, null, 10000.00, true, true, '$$$'),          -- id 100079
@@ -228,7 +228,7 @@ VALUES (100103, 100029, '2019-09-20', 15, 30), -- id 100119
        (100105, 100025, '2019-09-23', 35, 40), -- id 100121
        (100106, 100024, '2019-10-01', 13, 15); -- id 100122
 
-INSERT INTO tasks (order_id, task_description, responsible_id, date_completed, result, comment)
+INSERT INTO tasks (order_id, task_description, responsible_id, date_completed, result_type, comment)
 VALUES (100103, 'Step 1st', 100026, '2019-09-20', 'PARTIALLY_COMPLETED', 'Step 1st done!'),          -- id 100123
        (100103, 'Step 2st', 100027, '2019-09-24', 'PARTIALLY_COMPLETED', 'Step 2st done!'),          -- id 100124
        (100104, 'Estimate 001', 100026, '2019-09-25', 'COMPLETED', null),                            -- id 100125
@@ -238,7 +238,7 @@ VALUES (100103, 'Step 1st', 100026, '2019-09-20', 'PARTIALLY_COMPLETED', 'Step 1
        (100106, 'Legal Service By Customer 01', 100027, '2019-09-13', 'NOT_COMPLETED', 'Not Done!'), -- id 100129
        (100106, 'Legal Service By Customer 02', 100027, '2019-09-29', 'COMPLETED', 'Done!'); -- id 100130
 
-INSERT INTO task_emails (task_id, email_id, type_send)
+INSERT INTO task_emails (task_id, email_id, send_type)
 VALUES (100123, 100030, 'TEAM_LEADER'),
        (100123, 100045, 'MANAGER'),
 

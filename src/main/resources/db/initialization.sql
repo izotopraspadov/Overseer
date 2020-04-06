@@ -40,9 +40,9 @@ CREATE TABLE companies
     region_id       INTEGER      NOT NULL,
     itn             VARCHAR(12)  NOT NULL,
     address         VARCHAR(255) NOT NULL,
-    reliability     VARCHAR(255) NOT NULL,
+    reliability_type     VARCHAR(255) NOT NULL,
     chat_group_name VARCHAR(255) NOT NULL,
-    type_company    VARCHAR(255) NOT NULL,
+    company_type    VARCHAR(255) NOT NULL,
     CONSTRAINT companies_unique_itn_idx UNIQUE (itn),
     FOREIGN KEY (region_id) REFERENCES regions (id) ON DELETE CASCADE
 );
@@ -72,7 +72,7 @@ CREATE TABLE employee_payments
     id                       INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     date                     DATE                DEFAULT now() NOT NULL,
     employee_id              INTEGER                           NOT NULL,
-    type_counterparty        VARCHAR(255)                      NOT NULL,
+    counterparty_type        VARCHAR(255)                      NOT NULL,
     company_counterparty_id  INTEGER,
     employee_counterparty_id INTEGER,
     transaction              NUMERIC(13, 2)                    NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE emails
 (
     id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     address           VARCHAR(100) NOT NULL,
-    type_owner        VARCHAR(100) NOT NULL,
+    owner_type        VARCHAR(100) NOT NULL,
     contact_person_id INTEGER,
     employee_id       INTEGER,
     CONSTRAINT email_unique_idx UNIQUE (address),
@@ -124,7 +124,7 @@ CREATE TABLE phones
 (
     id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     number            VARCHAR(15)  NOT NULL,
-    type_owner        VARCHAR(100) NOT NULL,
+    owner_type        VARCHAR(100) NOT NULL,
     contact_person_id INTEGER,
     employee_id       INTEGER,
     CONSTRAINT phone_unique_idx UNIQUE (number),
@@ -206,7 +206,7 @@ CREATE TABLE tasks
     task_description TEXT         NOT NULL,
     responsible_id      INTEGER      NOT NULL,
     date_completed   DATE         NOT NULL,
-    result           VARCHAR(255) NOT NULL,
+    result_type           VARCHAR(255) NOT NULL,
     comment          TEXT,
     FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
     FOREIGN KEY (responsible_id) REFERENCES employees (id) ON DELETE CASCADE
@@ -216,7 +216,7 @@ CREATE TABLE task_emails
 (
     task_id   INTEGER      NOT NULL,
     email_id  INTEGER      NOT NULL,
-    type_send VARCHAR(255) NOT NULL,
+    send_type VARCHAR(255) NOT NULL,
     CONSTRAINT task_email_idx UNIQUE (task_id, email_id),
     FOREIGN KEY (task_id) REFERENCES tasks (id) ON DELETE CASCADE,
     FOREIGN KEY (email_id) REFERENCES emails (id) ON DELETE CASCADE
