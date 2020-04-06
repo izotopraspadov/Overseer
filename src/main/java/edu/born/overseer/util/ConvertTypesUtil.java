@@ -3,6 +3,7 @@ package edu.born.overseer.util;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import edu.born.overseer.model.CompanyType;
+import edu.born.overseer.model.CounterpartyType;
 import edu.born.overseer.model.ReliabilityType;
 import edu.born.overseer.model.ResultType;
 
@@ -29,6 +30,11 @@ public class ConvertTypesUtil {
             .put(ReliabilityType.HIGH, "Высокий")
             .build();
 
+    private static BiMap<CounterpartyType, String> counterpartyTypes = new ImmutableBiMap.Builder<CounterpartyType, String>()
+            .put(CounterpartyType.COMPANY, "Компания")
+            .put(CounterpartyType.EMPLOYEE, "Сотрудник")
+            .build();
+
     public static String companyTypeToString(CompanyType type) {
         return companyTypes.get(type);
     }
@@ -51,6 +57,14 @@ public class ConvertTypesUtil {
 
     public static ReliabilityType stringToReliabilityType(String type) {
         return reliabilityTypes.inverse().get(type);
+    }
+
+    public static String counterpartyTypeToString(CounterpartyType type) {
+        return counterpartyTypes.get(type);
+    }
+
+    public static CounterpartyType stringToCounterpartyType(String type) {
+        return counterpartyTypes.inverse().get(type);
     }
 
 }
