@@ -114,42 +114,42 @@ VALUES ('1@mail.com', 'CONTACT_PERSON', 100016, null),  -- id 100030
 -- id 100055
 
 INSERT INTO phones (number, owner_type, contact_person_id, employee_id)
-VALUES ('00000000001', 'CONTACT_PERSON', 100016, null), -- id 100056
-       ('00000000002', 'CONTACT_PERSON', 100016, null), -- id 100057
+VALUES ('+7-000-000-00-01', 'CONTACT_PERSON', 100016, null),  -- id 100056
+       ('+7-000-000-00-02', 'CONTACT_PERSON', 100016, null),  -- id 100057
 
-       ('00000000003', 'CONTACT_PERSON', 100017, null), -- id 100058
+       ('+7-000-000-00-03', 'CONTACT_PERSON', 100017, null),  -- id 100058
 
-       ('00000000004', 'CONTACT_PERSON', 100018, null), -- id 100059
-       ('00000000005', 'CONTACT_PERSON', 100018, null), -- id 100060
-       ('00000000006', 'CONTACT_PERSON', 100018, null), -- id 100061
+       ('+7-000-000-00-04', 'CONTACT_PERSON', 100018, null),  -- id 100059
+       ('+7-000-000-00-05', 'CONTACT_PERSON', 100018, null),  -- id 100060
+       ('+7-000-000-00-006', 'CONTACT_PERSON', 100018, null), -- id 100061
 
-       ('00000000007', 'CONTACT_PERSON', 100019, null), -- id 100062
-       ('00000000008', 'CONTACT_PERSON', 100019, null), -- id 100063
+       ('+7-000-000-00-07', 'CONTACT_PERSON', 100019, null),  -- id 100062
+       ('+7-000-000-00-08', 'CONTACT_PERSON', 100019, null),  -- id 100063
 
-       ('00000000009', 'CONTACT_PERSON', 100020, null), -- id 100064
+       ('+7-000-000-00-09', 'CONTACT_PERSON', 100020, null),  -- id 100064
 
-       ('00000000010', 'CONTACT_PERSON', 100021, null), -- id 100065
+       ('+7-000-000-00-10', 'CONTACT_PERSON', 100021, null),  -- id 100065
 
-       ('00000000011', 'CONTACT_PERSON', 100022, null), -- id 100066
-       ('00000000012', 'CONTACT_PERSON', 100022, null), -- id 100067
+       ('+7-000-000-00-11', 'CONTACT_PERSON', 100022, null),  -- id 100066
+       ('+7-000-000-00-12', 'CONTACT_PERSON', 100022, null),  -- id 100067
 
-       ('00000000013', 'CONTACT_PERSON', 100023, null), -- id 100068
+       ('+7-000-000-00-13', 'CONTACT_PERSON', 100023, null),  -- id 100068
 
-       ('00000000014', 'EMPLOYEE', null, 100024),       -- id 100069
-       ('00000000015', 'EMPLOYEE', null, 100024),       -- id 100070
-       ('00000000016', 'EMPLOYEE', null, 100024),       -- id 100071
+       ('+7-000-000-00-14', 'EMPLOYEE', null, 100024),        -- id 100069
+       ('+7-000-000-00-15', 'EMPLOYEE', null, 100024),        -- id 100070
+       ('+7-000-000-00-16', 'EMPLOYEE', null, 100024),        -- id 100071
 
-       ('00000000017', 'EMPLOYEE', null, 100025),       -- id 100072
+       ('+7-000-000-00-17', 'EMPLOYEE', null, 100025),        -- id 100072
 
-       ('00000000018', 'EMPLOYEE', null, 100026),       -- id 100073
+       ('+7-000-000-00-18', 'EMPLOYEE', null, 100026),        -- id 100073
 
-       ('00000000019', 'EMPLOYEE', null, 100027),       -- id 100074
-       ('00000000020', 'EMPLOYEE', null, 100027),       -- id 100075
+       ('+7-000-000-00-19', 'EMPLOYEE', null, 100027),        -- id 100074
+       ('+7-000-000-00-20', 'EMPLOYEE', null, 100027),        -- id 100075
 
-       ('00000000022', 'EMPLOYEE', null, 100028),       -- id 100076
+       ('+7-000-000-00-22', 'EMPLOYEE', null, 100028),        -- id 100076
 
-       ('00000000023', 'EMPLOYEE', null, 100029),       -- id 100077
-       ('00000000024', 'EMPLOYEE', null, 100029);
+       ('+7-000-000-00-23', 'EMPLOYEE', null, 100029),        -- id 100077
+       ('+7-000-000-00-24', 'EMPLOYEE', null, 100029);
 -- id 100078
 
 INSERT INTO employee_payments (date, employee_id, counterparty_type,
@@ -181,9 +181,9 @@ VALUES ('Проект'),            -- id 100094
 
 INSERT INTO groups (title, comment)
 VALUES ('001', 'Need to get the resultType! Now!'), -- id 100098
-       ('002', null),                           -- id 100099
-       ('003', null),                           -- id 100100
-       ('004', 'Good luck...'),                 -- id 100101
+       ('002', null),                               -- id 100099
+       ('003', null),                               -- id 100100
+       ('004', 'Good luck...'),                     -- id 100101
        ('005', null); -- id 100102
 
 INSERT INTO order_type_by_group (group_id, order_type_id)
