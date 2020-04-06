@@ -43,7 +43,7 @@ public class Task extends AbstractBaseEntity {
     private LocalDate dateCompleted;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "result")
+    @Column(name = "result_type")
     @NotNull
     private ResultType resultType;
 

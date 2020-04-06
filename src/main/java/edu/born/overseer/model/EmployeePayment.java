@@ -29,7 +29,7 @@ public class EmployeePayment extends AbstractPaymentEntity {
     private Employee employee;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type_counterparty")
+    @Column(name = "counterparty_type")
     @NotNull
     private CounterpartyType counterpartyType;
 

@@ -64,7 +64,7 @@ public class Company extends AbstractBaseEntity {
     private List<ContactPerson> contactPersons;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "reliability")
+    @Column(name = "reliability_type")
     @NotNull
     private ReliabilityType reliabilityType;
 
@@ -74,7 +74,7 @@ public class Company extends AbstractBaseEntity {
     private String chatGroupName;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type_company")
+    @Column(name = "company_type")
     @NotNull
     private CompanyType companyType;
 

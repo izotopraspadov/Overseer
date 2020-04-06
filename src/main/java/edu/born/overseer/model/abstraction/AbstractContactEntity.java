@@ -25,7 +25,7 @@ public abstract class AbstractContactEntity extends AbstractBaseEntity {
     private Employee employee;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type_owner")
+    @Column(name = "owner_type")
     @NotNull
     private OwnerType ownerType;
 
