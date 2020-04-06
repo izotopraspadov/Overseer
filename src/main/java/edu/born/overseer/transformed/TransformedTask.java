@@ -8,7 +8,7 @@ import edu.born.overseer.model.TaskEmail;
 import java.time.LocalDate;
 import java.util.Set;
 
-import static edu.born.overseer.util.ConvertTypesUtil.resultTypeToString;
+import static edu.born.overseer.util.ConvertTypesUtil.convertResultTypeToString;
 
 public class TransformedTask extends TransformedBase {
 
@@ -32,7 +32,7 @@ public class TransformedTask extends TransformedBase {
         this.taskDescription = task.getTaskDescription();
         this.responsible = task.getResponsible();
         this.dateCompleted = task.getDateCompleted();
-        this.resultType = resultTypeToString(task.getResultType());
+        this.resultType = convertResultTypeToString(task.getResultType());
         this.comment = task.getComment();
         this.taskEmails = task.getTaskEmails();
     }

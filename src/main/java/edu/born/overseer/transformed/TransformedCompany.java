@@ -33,9 +33,9 @@ public class TransformedCompany extends TransformedBase {
         this.itn = company.getItn();
         this.address = company.getAddress();
         this.contactPersons = company.getContactPersons();
-        this.reliabilityType = reliabilityTypeToString(company.getReliabilityType());
+        this.reliabilityType = convertReliabilityTypeToString(company.getReliabilityType());
         this.chatGroupName = company.getChatGroupName();
-        this.companyType = companyTypeToString(company.getCompanyType());
+        this.companyType = convertCompanyTypeToString(company.getCompanyType());
     }
 
     public String getTitle() {

@@ -35,35 +35,35 @@ public class ConvertTypesUtil {
             .put(CounterpartyType.EMPLOYEE, "Сотрудник")
             .build();
 
-    public static String companyTypeToString(CompanyType type) {
+    public static String convertCompanyTypeToString(CompanyType type) {
         return companyTypes.get(type);
     }
 
-    public static CompanyType stringToCompanyType(String type) {
+    public static CompanyType convertStringToCompanyType(String type) {
         return companyTypes.inverse().get(type);
     }
 
-    public static String resultTypeToString(ResultType type) {
+    public static String convertResultTypeToString(ResultType type) {
         return resultTypes.get(type);
     }
 
-    public static ResultType stringToResultType(String type) {
+    public static ResultType convertStringToResultType(String type) {
         return resultTypes.inverse().get(type);
     }
 
-    public static String reliabilityTypeToString(ReliabilityType type) {
+    public static String convertReliabilityTypeToString(ReliabilityType type) {
         return reliabilityTypes.get(type);
     }
 
-    public static ReliabilityType stringToReliabilityType(String type) {
+    public static ReliabilityType convertStringToReliabilityType(String type) {
         return reliabilityTypes.inverse().get(type);
     }
 
-    public static String counterpartyTypeToString(CounterpartyType type) {
+    public static String convertCounterpartyTypeToString(CounterpartyType type) {
         return counterpartyTypes.get(type);
     }
 
-    public static CounterpartyType stringToCounterpartyType(String type) {
+    public static CounterpartyType convertStringToCounterpartyType(String type) {
         return counterpartyTypes.inverse().get(type);
     }
 
