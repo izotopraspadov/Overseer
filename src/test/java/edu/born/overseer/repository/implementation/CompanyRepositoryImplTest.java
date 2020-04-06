@@ -1,6 +1,5 @@
 package edu.born.overseer.repository.implementation;
 
-import edu.born.overseer.model.Company;
 import edu.born.overseer.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -13,11 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.NoResultException;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import java.util.Set;
 
 import static edu.born.overseer.CompanyTestData.*;
 import static edu.born.overseer.ContactPersonTestData.CONTACT_PERSON_1_ID;
@@ -46,17 +40,6 @@ class CompanyRepositoryImplTest {
         prepared.setId(savedId);
 
         assertEquals(companyRepository.getById(savedId), prepared);
-    }
-
-    @Test
-    void test() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-
-        var prepared = getPreparedCreate();
-        Set<ConstraintViolation<Company>> vol = validator.validate(prepared);
-
-        System.out.println(vol.size());
     }
 
     @Test
