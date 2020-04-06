@@ -74,4 +74,8 @@ public class PhoneTestData {
                 new Phone(CONTACT_PERSON_PHONE_2_ID, owner, CONTACT_PERSON, "+7-000-000-99-98"));
     }
 
+    public static Set<Phone> getPreparedInvalidSet(ContactPerson owner) {
+        return Set.of(new Phone(null, owner, CONTACT_PERSON, "0000-000-9999"));
+    }
+
 }
