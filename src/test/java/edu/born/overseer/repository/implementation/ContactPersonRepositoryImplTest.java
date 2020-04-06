@@ -1,5 +1,6 @@
 package edu.born.overseer.repository.implementation;
 
+import edu.born.overseer.PhoneTestData;
 import edu.born.overseer.repository.ContactPersonRepository;
 import edu.born.overseer.repository.EmailRepository;
 import edu.born.overseer.repository.PhoneRepository;
@@ -10,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.TransactionSystemException;
 
 import javax.persistence.NoResultException;
 import java.util.Collections;
@@ -50,6 +52,14 @@ class ContactPersonRepositoryImplTest {
         assertEquals(received, prepared);
         assertEquals(List.copyOf(received.getEmails()), List.copyOf(prepared.getEmails()));
         assertEquals(List.copyOf(received.getPhones()), List.copyOf(prepared.getPhones()));
+    }
+
+    @Test
+    void createWithInvalidPhoneNumber() {
+        var prepared = getPreparedCreate();
+        prepared.setPhones(PhoneTestData.getPreparedInvalidSet(prepared));
+
+        assertThrows(TransactionSystemException.class, () -> contactPersonRepository.save(prepared, prepared.getCompany().getId()));
     }
 
     @Test
