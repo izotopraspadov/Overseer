@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 
 public class PaymentFormatValidator implements ConstraintValidator<PaymentFormat, String> {
 
-    private static final String FORMAT = "^[0-9]{1,3}(-)[0-9]{1,3}(-)[0-9]{1,3}$";
-    @Override
+    private static final String FORMAT = "^[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,3}$";
 
+    @Override
     public boolean isValid(String paymentFormat, ConstraintValidatorContext constraintValidatorContext) {
         return Pattern.matches(FORMAT, paymentFormat);
     }
