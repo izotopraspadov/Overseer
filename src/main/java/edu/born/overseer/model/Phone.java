@@ -1,10 +1,9 @@
 package edu.born.overseer.model;
 
+import edu.born.overseer.annotation.PhoneNumber;
 import edu.born.overseer.model.abstraction.AbstractContactEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -19,8 +18,7 @@ public class Phone extends AbstractContactEntity {
     public static final String ALL_BY_CONTACT_PERSON = "Phone:allBContactPerson";
 
     @Column(name = "number", nullable = false, unique = true)
-    @NotBlank
-    @Size(min = 11, max = 11)
+    @PhoneNumber
     private String number;
 
     public Phone() {
