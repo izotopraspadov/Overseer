@@ -17,6 +17,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Table(name = "orders")
 @NamedQueries({
@@ -77,7 +79,7 @@ public class Order extends AbstractBaseEntity {
 
     @Column(name = "title", nullable = false)
     @NotBlank
-    @Size(min = 2, max = 255)
+    @Size(max = 255)
     private String title;
 
     @Column(name = "cashless", nullable = false)
@@ -90,32 +92,32 @@ public class Order extends AbstractBaseEntity {
     private boolean contractExists;
 
     @Column(name = "planned_start_date", nullable = false)
-    @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @NotNull
     private LocalDate plannedStartDate;
 
     @Column(name = "actual_start_date")
-    @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @NotNull
     private LocalDate actualStartDate;
 
     @Column(name = "planned_end_date", nullable = false)
-    @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @NotNull
     private LocalDate plannedEndDate;
 
     @Column(name = "actual_end_date")
-    @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @NotNull
     private LocalDate actualEndDate;
 
-    @Digits(integer = 11, fraction = 2)
     @Column(name = "sum")
+    @Digits(integer = 11, fraction = 2)
     @NotNull
     private BigDecimal sum;
 
-    @Digits(integer = 11, fraction = 2)
     @Column(name = "expected_payment", nullable = false)
+    @Digits(integer = 11, fraction = 2)
     @NotNull
     private BigDecimal expectedPayment;
 
@@ -153,7 +155,7 @@ public class Order extends AbstractBaseEntity {
     @OrderBy("date DESC")
     private List<OrderPayment> payments;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = {PERSIST, MERGE, REMOVE})
     private List<Task> tasks;
 
     public Order() {
