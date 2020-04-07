@@ -1,9 +1,6 @@
 package edu.born.overseer.repository.implementation;
 
-import edu.born.overseer.model.Company;
-import edu.born.overseer.model.Employee;
-import edu.born.overseer.model.Group;
-import edu.born.overseer.model.Order;
+import edu.born.overseer.model.*;
 import edu.born.overseer.repository.OrderRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,17 +20,18 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     @Transactional
-    public Order save(Order object, int companyId, int groupId, int managerId) {
+    public Order save(Order order, int companyId, int groupId, int managerId, int orderTypeId) {
 
-        object.setCompany(em.getReference(Company.class, companyId));
-        object.setGroup(em.getReference(Group.class, groupId));
-        object.setManager(em.getReference(Employee.class, managerId));
+        order.setCompany(em.getReference(Company.class, companyId));
+        order.setGroup(em.getReference(Group.class, groupId));
+        order.setManager(em.getReference(Employee.class, managerId));
+        order.setOrderType(em.getReference(OrderType.class, orderTypeId));
 
-        if (object.isNew()) {
-            em.persist(object);
-            return object;
+        if (order.isNew()) {
+            em.persist(order);
+            return order;
         } else {
-            return em.merge(object);
+            return em.merge(order);
         }
     }
 

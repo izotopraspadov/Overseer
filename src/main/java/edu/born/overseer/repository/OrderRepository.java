@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderRepository {
 
-    Order save(Order object, int companyId, int groupId, int managerId);
+    Order save(Order order, int companyId, int groupId, int managerId, int orderTypeId);
 
     // false if not found
     boolean delete(int id);
