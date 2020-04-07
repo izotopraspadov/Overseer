@@ -46,4 +46,25 @@ public class OrderTestData {
                     BigDecimal.valueOf(50000.00), BigDecimal.valueOf(10000.00), "20-20-60", null,
                     GROUP_5, EMPLOYEE_4, true, ORDER_TYPE_4, ORDER_4_PAYMENTS);
 
+    public static Order getPreparedCreate() {
+        var order = new Order(null, COMPANY_1, "Created Project", false, false, true,
+                LocalDate.of(2019, 9, 1), LocalDate.of(2019, 9, 10),
+                LocalDate.of(2019, 10, 1), LocalDate.of(2019, 10, 1),
+                BigDecimal.valueOf(1000000.00), BigDecimal.valueOf(500000.00), "50-50", null,
+                GROUP_1, EMPLOYEE_1, true, ORDER_TYPE_1, null);
+
+        order.setPayments(OrderPaymentTestData.getPreparedCreateList(order));
+
+        return order;
+    }
+
+    public static Order getPreparedUpdate() {
+        return new Order(ORDER_1.getId(), ORDER_1.getCompany(), "Updated Project", ORDER_1.isCashless(),
+                ORDER_1.isContractIsNeed(), ORDER_1.isContractExists(),
+                ORDER_1.getPlannedStartDate(), ORDER_1.getActualStartDate(),
+                ORDER_1.getPlannedEndDate(), ORDER_1.getActualEndDate(),
+                BigDecimal.valueOf(1000000.00), BigDecimal.valueOf(250000.00), ORDER_1.getPaymentFormat(), ORDER_1.getNumberOfLines(),
+                ORDER_1.getGroup(), ORDER_1.getManager(), ORDER_1.isUnderway(), ORDER_1.getOrderType(), ORDER_1.getPayments());
+    }
+
 }
