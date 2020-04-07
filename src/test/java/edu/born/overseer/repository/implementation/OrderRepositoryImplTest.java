@@ -9,9 +9,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@SpringJUnitConfig(locations = {
-        "classpath:spring/spring-db.xml"
-})
+@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
 class OrderRepositoryImplTest {
@@ -20,7 +18,15 @@ class OrderRepositoryImplTest {
     private OrderRepository orderRepository;
 
     @Test
-    void save() {
+    void create() {
+    }
+
+    @Test
+    void createWithInvalidPaymentFormat() {
+    }
+
+    @Test
+    void update() {
     }
 
     @Test
@@ -28,17 +34,19 @@ class OrderRepositoryImplTest {
     }
 
     @Test
-    void get() {
+    void deleteNotExecute() {
     }
 
     @Test
-    void getWithPayments() {
+    void getById() {
     }
 
+    @Test
+    void getByIdNotFound() {
+    }
 
     @Test
-    void getWithTasks() {
-      //  orderedObjectRepository.getWithTasks(100103).getTasks().forEach(System.out::println);
+    void getByIdWithPayments() {
     }
 
     @Test
@@ -66,7 +74,27 @@ class OrderRepositoryImplTest {
     }
 
     @Test
+    void getAllByContractIsNeed() {
+    }
+
+    @Test
     void getAllByContractExists() {
+    }
+
+    @Test
+    void getAllByPlannedStartDate() {
+    }
+
+    @Test
+    void getAllByActualStartDate() {
+    }
+
+    @Test
+    void getAllByPlannedEndDate() {
+    }
+
+    @Test
+    void getAllByActualEndDate() {
     }
 
     @Test
@@ -80,4 +108,17 @@ class OrderRepositoryImplTest {
     @Test
     void getAllByUnderway() {
     }
+
+    @Test
+    void getAllByExpectedPayment() {
+    }
+
+    @Test
+    void getAllByPaymentFormat() {
+    }
+
+    @Test
+    void getAllByNumberOfLines() {
+    }
+
 }
