@@ -98,8 +98,8 @@ public class Employee extends AbstractFullNameEntity {
     public Employee() {
     }
 
-    public Employee(Integer id, String fullName, Region region, String address, String login,
-                    String password, Set<Role> roles, List<EmployeePayment> payments,
+    public Employee(Integer id, String fullName, Region region, String login,
+                    String password, String address, Set<Role> roles, List<EmployeePayment> payments,
                     Set<Salary> salary, Set<Phone> phones, Set<Email> emails) {
         super(id, fullName);
         this.region = region;
