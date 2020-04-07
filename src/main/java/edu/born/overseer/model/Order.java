@@ -340,22 +340,22 @@ public class Order extends AbstractBaseEntity {
 
     @Override
     public String toString() {
-        return "OrderedObject{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", cashless=" + cashless +
-                ", contractIsNeed=" + contractIsNeed +
-                ", contractExists=" + contractExists +
-                ", plannedStartDate=" + plannedStartDate +
-                ", actualStartDate=" + actualStartDate +
-                ", plannedEndDate=" + plannedEndDate +
-                ", actualEndDate=" + actualEndDate +
-                ", sum=" + sum +
-                ", expectedPayment=" + expectedPayment +
-                ", orderType=" + orderType +
-                ", paymentFormat='" + paymentFormat + '\'' +
-                ", numberOfLines=" + numberOfLines +
-                ", underway=" + underway +
-                '}';
+        return "Order {" +
+                "id=" + id + ", " +
+                "title=" + title + ", " +
+                "cashless=" + cashless + ", " +
+                "contractIsNeed=" + contractIsNeed + ", " +
+                "contractExists=" + contractExists + ", " +
+                "plannedStartDate=" + plannedStartDate + ", " +
+                "actualStartDate=" + actualStartDate + ", " +
+                "plannedEndDate=" + plannedEndDate + ", " +
+                "actualEndDate=" + actualEndDate + ", " +
+                "sum=" + sum + ", " +
+                "expectedPayment=" + expectedPayment + ", " +
+                "orderType=" + orderType + ", " +
+                "paymentFormat=" + paymentFormat + ", " +
+                "numberOfLines=" + numberOfLines + ", " +
+                "underway=" + underway +
+                "}\n";
     }
 }
