@@ -1,5 +1,6 @@
 package edu.born.overseer;
 
+import edu.born.overseer.model.Order;
 import edu.born.overseer.model.OrderPayment;
 
 import java.math.BigDecimal;
@@ -53,6 +54,9 @@ public class OrderPaymentTestData {
     public static final List<OrderPayment> ORDER_3_PAYMENTS = List.of(ORDER_PAYMENT_4, ORDER_PAYMENT_5);
     public static final List<OrderPayment> ORDER_4_PAYMENTS = List.of(ORDER_PAYMENT_6, ORDER_PAYMENT_7, ORDER_PAYMENT_8);
 
-
+    public static List<OrderPayment> getPreparedCreateList(Order order) {
+        return List.of(new OrderPayment(null, LocalDate.of(2019, 9, 21),
+                COMPANY_1, order, COMPANY_1, BigDecimal.valueOf(300000.00), false, "big up"));
+    }
 
 }
