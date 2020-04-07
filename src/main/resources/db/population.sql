@@ -70,7 +70,6 @@ VALUES (100024, 'USER'),
        (100029, 'USER'),
        (100029, 'ADMIN');
 
-
 INSERT INTO emails (address, owner_type, contact_person_id, employee_id)
 VALUES ('1@mail.com', 'CONTACT_PERSON', 100016, null),  -- id 100030
 
@@ -146,10 +145,10 @@ VALUES ('+7-000-000-00-01', 'CONTACT_PERSON', 100016, null),  -- id 100056
        ('+7-000-000-00-19', 'EMPLOYEE', null, 100027),        -- id 100074
        ('+7-000-000-00-20', 'EMPLOYEE', null, 100027),        -- id 100075
 
-       ('+7-000-000-00-22', 'EMPLOYEE', null, 100028),        -- id 100076
+       ('+7-000-000-00-21', 'EMPLOYEE', null, 100028),        -- id 100076
 
-       ('+7-000-000-00-23', 'EMPLOYEE', null, 100029),        -- id 100077
-       ('+7-000-000-00-24', 'EMPLOYEE', null, 100029);
+       ('+7-000-000-00-22', 'EMPLOYEE', null, 100029),        -- id 100077
+       ('+7-000-000-00-23', 'EMPLOYEE', null, 100029);
 -- id 100078
 
 INSERT INTO employee_payments (date, employee_id, counterparty_type,
@@ -159,7 +158,7 @@ VALUES ('2019-10-01', 100024, 'COMPANY', 100013, null, 10000.00, true, true, '$$
        ('2019-10-01', 100025, 'EMPLOYEE', null, 100024, 20000.00, false, false, 'Give me %'), -- id 100080
        ('2019-10-02', 100024, 'EMPLOYEE', null, 100025, 2000.00, false, false, null),         -- id 100081
        ('2019-10-02', 100026, 'COMPANY', 100014, null, 30000.00, true, false, null),          -- id 100082
-       ('2019-10-03', 100027, 'EMPLOYEE', null, 100027, 5000.00, false, true, 'Good Job'),    -- id 100083
+       ('2019-10-03', 100027, 'EMPLOYEE', null, 100024, 5000.00, false, true, 'Good Job'),    -- id 100083
        ('2019-10-03', 100026, 'EMPLOYEE', null, 100027, 5000.00, false, true, '$$$'),         -- id 100084
        ('2019-10-04', 100027, 'COMPANY', 100015, null, 7000.00, true, false, null),           -- id 100085
        ('2019-10-04', 100028, 'COMPANY', 100015, null, 9000.00, true, true, null); -- id 100086
@@ -180,10 +179,10 @@ VALUES ('Проект'),            -- id 100094
        ('Юр. Услуги'); -- id 100097
 
 INSERT INTO groups (title, comment)
-VALUES ('001', 'Need to get the resultType! Now!'), -- id 100098
-       ('002', null),                               -- id 100099
-       ('003', null),                               -- id 100100
-       ('004', 'Good luck...'),                     -- id 100101
+VALUES ('001', 'Need to get the result! Now!'), -- id 100098
+       ('002', null),                           -- id 100099
+       ('003', null),                           -- id 100100
+       ('004', 'Good luck...'),                 -- id 100101
        ('005', null); -- id 100102
 
 INSERT INTO order_type_by_group (group_id, order_type_id)
