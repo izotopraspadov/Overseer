@@ -108,7 +108,6 @@ public class Order extends AbstractBaseEntity {
 
     @Column(name = "actual_end_date")
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
-    @NotNull
     private LocalDate actualEndDate;
 
     @Column(name = "sum")
