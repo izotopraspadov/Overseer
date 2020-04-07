@@ -7,6 +7,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Table(name = "groups", uniqueConstraints = {@UniqueConstraint(columnNames = "title", name = "group_unique_title_idx")})
 @NamedQueries({
@@ -25,7 +27,7 @@ public class Group extends AbstractBaseEntity {
     @Size(min = 2, max = 255)
     private String title;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {PERSIST, MERGE, REMOVE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "order_type_by_group",
             joinColumns = @JoinColumn(name = "group_id"),
@@ -39,11 +41,11 @@ public class Group extends AbstractBaseEntity {
     public Group() {
     }
 
-    public Group(Integer id, String title, Set<OrderType> types, String comment) {
+    public Group(Integer id, String title, String comment, Set<OrderType> types) {
         super(id);
         this.title = title;
-        this.types = types;
         this.comment = comment;
+        this.types = types;
     }
 
     public String getTitle() {
