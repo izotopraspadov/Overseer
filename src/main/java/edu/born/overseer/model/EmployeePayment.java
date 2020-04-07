@@ -52,8 +52,8 @@ public class EmployeePayment extends AbstractPaymentEntity {
     public EmployeePayment() {
     }
 
-    public EmployeePayment(Integer id, LocalDate date, BigDecimal transaction, Employee employee, CounterpartyType counterpartyType,
-                           Company companyCounterparty, Employee employeeCounterparty,
+    public EmployeePayment(Integer id, LocalDate date, Employee employee, CounterpartyType counterpartyType,
+                           Company companyCounterparty, Employee employeeCounterparty, BigDecimal transaction,
                            boolean cashless, boolean charge, String comment) {
         super(id, date, transaction, cashless);
         this.employee = employee;
