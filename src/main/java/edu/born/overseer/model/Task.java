@@ -57,6 +57,11 @@ public class Task extends AbstractBaseEntity {
     }
 
     public Task(Integer id, Order order, String taskDescription, Employee responsible,
+                LocalDate dateCompleted, ResultType resultType, String comment) {
+        this(id, order, taskDescription, responsible, dateCompleted, resultType, comment, null);
+    }
+
+    public Task(Integer id, Order order, String taskDescription, Employee responsible,
                 LocalDate dateCompleted, ResultType resultType, String comment, Set<TaskEmail> taskEmails) {
         super(id);
         this.order = order;
