@@ -25,9 +25,9 @@ import static javax.persistence.CascadeType.*;
 @NamedQueries({
         @NamedQuery(name = Order.DELETE, query = "DELETE FROM Order o WHERE o.id=:id"),
         @NamedQuery(name = Order.ALL, query = "SELECT o FROM Order o ORDER BY o.title"),
-        @NamedQuery(name = Order.BY_ID, query = "SELECT o FROM Order o WHERE o.id=:id"),
+        //  @NamedQuery(name = Order.BY_ID, query = "SELECT o FROM Order o WHERE o.id=:id"),
         @NamedQuery(name = Order.BY_ID_WITH_PAYMENTS, query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.payments WHERE o.id=:id"),
-        @NamedQuery(name = Order.BY_ID_WITH_TASKS, query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.tasks WHERE o.id=:id"),
+        @NamedQuery(name = Order.BY_ID, query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.tasks WHERE o.id=:id"),
         @NamedQuery(name = Order.ALL_BY_TITLE, query = "SELECT o FROM Order o WHERE lower(o.title) like lower(:title) ORDER BY o.title"),
         @NamedQuery(name = Order.ALL_BY_COMPANY, query = "SELECT o FROM Order o WHERE o.company.id=:companyId ORDER BY o.title"),
         @NamedQuery(name = Order.ALL_BY_CASHLESS, query = "SELECT o FROM Order o WHERE o.cashless=:cashless ORDER BY o.title"),
@@ -53,7 +53,7 @@ public class Order extends AbstractBaseEntity {
     public static final String ALL = "Order:all";
     public static final String BY_ID = "Order:byId";
     public static final String BY_ID_WITH_PAYMENTS = "Order:byIdWithPayments";
-    public static final String BY_ID_WITH_TASKS = "Order:byIdWithTasks";
+    // public static final String BY_ID_WITH_TASKS = "Order:byIdWithTasks";
     public static final String ALL_BY_TITLE = "Order:allByTitle";
     public static final String ALL_BY_COMPANY = "Order:allByCompany";
     public static final String ALL_BY_CASHLESS = "Order:allByCashless";
@@ -164,6 +164,17 @@ public class Order extends AbstractBaseEntity {
                  boolean contractExists, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate,
                  LocalDate actualEndDate, BigDecimal sum, BigDecimal expectedPayment, String paymentFormat, Integer numberOfLines,
                  Group group, Employee manager, boolean underway, OrderType orderType, List<OrderPayment> payments) {
+
+        this(id, company, title, cashless, contractIsNeed, contractExists, plannedStartDate,
+                actualStartDate, plannedEndDate, actualEndDate, sum, expectedPayment, paymentFormat,
+                numberOfLines, group, manager, underway, orderType, payments, null);
+
+    }
+
+    public Order(Integer id, Company company, String title, boolean cashless, boolean contractIsNeed,
+                 boolean contractExists, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate,
+                 LocalDate actualEndDate, BigDecimal sum, BigDecimal expectedPayment, String paymentFormat, Integer numberOfLines,
+                 Group group, Employee manager, boolean underway, OrderType orderType, List<OrderPayment> payments, List<Task> tasks) {
         super(id);
         this.company = company;
         this.title = title;
@@ -183,6 +194,7 @@ public class Order extends AbstractBaseEntity {
         this.underway = underway;
         this.orderType = orderType;
         this.payments = payments;
+        this.tasks = tasks;
     }
 
     public String getTitle() {
