@@ -8,9 +8,11 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.TransactionSystemException;
 
 import static edu.born.overseer.OrderTestData.getPreparedCreate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,7 +25,7 @@ class OrderRepositoryImplTest {
     @Test
     void create() {
         var prepared = getPreparedCreate();
-        System.out.println(prepared);
+
         var companyId = prepared.getCompany().getId();
         var groupId = prepared.getGroup().getId();
         var managerId = prepared.getManager().getId();
@@ -40,6 +42,16 @@ class OrderRepositoryImplTest {
 
     @Test
     void createWithInvalidPaymentFormat() {
+        var prepared = getPreparedCreate();
+
+        prepared.setPaymentFormat("100-100");
+
+        var companyId = prepared.getCompany().getId();
+        var groupId = prepared.getGroup().getId();
+        var managerId = prepared.getManager().getId();
+        var orderTypeId = prepared.getOrderType().getId();
+
+        assertThrows(TransactionSystemException.class, () -> orderRepository.save(prepared, companyId, groupId, managerId, orderTypeId));
     }
 
     @Test
