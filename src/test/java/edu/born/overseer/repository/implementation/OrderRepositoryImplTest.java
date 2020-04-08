@@ -9,6 +9,9 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static edu.born.overseer.OrderTestData.getPreparedCreate;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
@@ -19,6 +22,20 @@ class OrderRepositoryImplTest {
 
     @Test
     void create() {
+        var prepared = getPreparedCreate();
+        System.out.println(prepared);
+        var companyId = prepared.getCompany().getId();
+        var groupId = prepared.getGroup().getId();
+        var managerId = prepared.getManager().getId();
+        var orderTypeId = prepared.getOrderType().getId();
+
+        var savedId = orderRepository
+                .save(prepared, companyId, groupId, managerId, orderTypeId)
+                .getId();
+
+        prepared.setId(savedId);
+
+        assertEquals(orderRepository.getById(savedId), prepared);
     }
 
     @Test
