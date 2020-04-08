@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import static javax.persistence.CascadeType.*;
 
@@ -337,6 +338,33 @@ public class Order extends AbstractBaseEntity {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        Order otherOrder = (Order) other;
+        return cashless == otherOrder.cashless &&
+                contractIsNeed == otherOrder.contractIsNeed &&
+                contractExists == otherOrder.contractExists &&
+                underway == otherOrder.underway &&
+                title.equals(otherOrder.title) &&
+                plannedStartDate.equals(otherOrder.plannedStartDate) &&
+                actualStartDate.equals(otherOrder.actualStartDate) &&
+                plannedEndDate.equals(otherOrder.plannedEndDate) &&
+                actualEndDate.equals(otherOrder.actualEndDate) &&
+                sum.equals(otherOrder.sum) &&
+                expectedPayment.equals(otherOrder.expectedPayment) &&
+                paymentFormat.equals(otherOrder.paymentFormat);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), title, cashless, contractIsNeed, contractExists,
+                plannedStartDate, actualStartDate, plannedEndDate, actualEndDate, sum, expectedPayment,
+                paymentFormat, underway);
+    }
+
+    @Override
     public String toString() {
         return "Order {" +
                 "id=" + id + ", " +
@@ -350,7 +378,6 @@ public class Order extends AbstractBaseEntity {
                 "actualEndDate=" + actualEndDate + ", " +
                 "sum=" + sum + ", " +
                 "expectedPayment=" + expectedPayment + ", " +
-                "orderType=" + orderType + ", " +
                 "paymentFormat=" + paymentFormat + ", " +
                 "numberOfLines=" + numberOfLines + ", " +
                 "underway=" + underway +
