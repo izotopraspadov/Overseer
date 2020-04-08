@@ -58,13 +58,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order getByIdWithTasks(int id) {
-        return em.createNamedQuery(Order.BY_ID_WITH_TASKS, Order.class)
-                .setParameter("id", id)
-                .getSingleResult();
-    }
-
-    @Override
     public List<Order> getAll() {
         return em.createNamedQuery(Order.ALL, Order.class)
                 .getResultList();

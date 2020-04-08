@@ -17,8 +17,6 @@ public interface OrderRepository {
 
     Order getByIdWithPayments(int id);
 
-    Order getByIdWithTasks(int id);
-
     List<Order> getAll();
 
     List<Order> getAllByTitle(String title);
