@@ -79,6 +79,10 @@ class OrderRepositoryImplTest {
     }
 
     @Test
+    void getByIdWithTasks() {
+    }
+
+    @Test
     void getAll() {
     }
 
