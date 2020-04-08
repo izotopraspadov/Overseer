@@ -8,10 +8,11 @@ import java.util.regex.Pattern;
 
 public class PaymentFormatValidator implements ConstraintValidator<PaymentFormat, String> {
 
-    private static final String FORMAT = "^[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,3}$";
+    private static final Pattern PAYMENT_FORMAT = Pattern.compile("^\\d{3}|\\d{2}-\\d{2}|\\d{2}-\\d{2}-\\d{2}$");
 
     @Override
     public boolean isValid(String paymentFormat, ConstraintValidatorContext constraintValidatorContext) {
-        return Pattern.matches(FORMAT, paymentFormat);
+        return PAYMENT_FORMAT.matcher(paymentFormat).find();
     }
+
 }
