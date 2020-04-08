@@ -12,7 +12,7 @@ public class ITNValidator implements ConstraintValidator<ITN, String> {
 
     @Override
     public boolean isValid(String itn, ConstraintValidatorContext constraintValidatorContext) {
-        return ITN_PATTERN.matcher(itn).find();
+        return ITN_PATTERN.matcher(itn).matches();
     }
 
 }

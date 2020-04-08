@@ -12,7 +12,7 @@ public class PaymentFormatValidator implements ConstraintValidator<PaymentFormat
 
     @Override
     public boolean isValid(String paymentFormat, ConstraintValidatorContext constraintValidatorContext) {
-        return PAYMENT_FORMAT.matcher(paymentFormat).find();
+        return PAYMENT_FORMAT.matcher(paymentFormat).matches();
     }
 
 }

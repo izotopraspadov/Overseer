@@ -12,7 +12,7 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, St
 
     @Override
     public boolean isValid(String number, ConstraintValidatorContext constraintValidatorContext) {
-        return RUSSIAN_NUMBER_FORMAT.matcher(number).find();
+        return RUSSIAN_NUMBER_FORMAT.matcher(number).matches();
     }
 
 }
