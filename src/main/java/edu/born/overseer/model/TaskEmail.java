@@ -66,10 +66,10 @@ public class TaskEmail {
     public TaskEmail() {
     }
 
-    public TaskEmail(SendType sendType, Task task, Email email) {
-        this.sendType = sendType;
+    public TaskEmail(Task task, Email email, SendType sendType) {
         this.task = task;
         this.email = email;
+        this.sendType = sendType;
 
         this.id.tastId = task.getId();
         this.id.emailId = email.getId();
