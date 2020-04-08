@@ -3,6 +3,7 @@ package edu.born.overseer;
 import edu.born.overseer.model.Order;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 import static edu.born.overseer.CompanyTestData.*;
@@ -50,7 +51,9 @@ public class OrderTestData {
         var order = new Order(null, COMPANY_1, "Created Project", false, false, true,
                 LocalDate.of(2019, 9, 1), LocalDate.of(2019, 9, 10),
                 LocalDate.of(2019, 10, 1), LocalDate.of(2019, 10, 1),
-                BigDecimal.valueOf(1000000.00), BigDecimal.valueOf(500000.00), "50-50", null,
+                BigDecimal.valueOf(1000000.00).setScale(2, RoundingMode.DOWN),
+                BigDecimal.valueOf(500000.00).setScale(2, RoundingMode.DOWN),
+                "50-50", null,
                 GROUP_1, EMPLOYEE_1, true, ORDER_TYPE_1, null);
 
         order.setPayments(OrderPaymentTestData.getPreparedCreateList(order));
@@ -63,7 +66,9 @@ public class OrderTestData {
                 ORDER_1.isContractIsNeed(), ORDER_1.isContractExists(),
                 ORDER_1.getPlannedStartDate(), ORDER_1.getActualStartDate(),
                 ORDER_1.getPlannedEndDate(), ORDER_1.getActualEndDate(),
-                BigDecimal.valueOf(1000000.00), BigDecimal.valueOf(250000.00), ORDER_1.getPaymentFormat(), ORDER_1.getNumberOfLines(),
+                BigDecimal.valueOf(1000000.00).setScale(2, RoundingMode.DOWN),
+                BigDecimal.valueOf(250000.00).setScale(2, RoundingMode.DOWN),
+                ORDER_1.getPaymentFormat(), ORDER_1.getNumberOfLines(),
                 ORDER_1.getGroup(), ORDER_1.getManager(), ORDER_1.isUnderway(), ORDER_1.getOrderType(), ORDER_1.getPayments());
     }
 
