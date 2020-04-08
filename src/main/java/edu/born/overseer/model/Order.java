@@ -126,7 +126,6 @@ public class Order extends AbstractBaseEntity {
 
     @Column(name = "number_of_lines", nullable = false)
     @Range(max = 200)
-    @NotNull
     private Integer numberOfLines;
 
     @ManyToOne(fetch = FetchType.EAGER)
