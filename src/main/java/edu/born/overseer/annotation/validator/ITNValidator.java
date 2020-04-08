@@ -7,12 +7,11 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
 
 public class ITNValidator implements ConstraintValidator<ITN, String> {
+
+    private static final Pattern ITN_PATTERN = Pattern.compile("^\\d{10}|\\d{12}$");
+
     @Override
     public boolean isValid(String itn, ConstraintValidatorContext constraintValidatorContext) {
-        int length = itn.length();
-        if (length == 10 || length == 12)
-            if (Pattern.matches("\\d+", itn))
-                return true;
-        return false;
+        return ITN_PATTERN.matcher(itn).find();
     }
 }
