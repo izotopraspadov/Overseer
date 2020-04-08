@@ -11,6 +11,7 @@ import static edu.born.overseer.EmployeeTestData.*;
 import static edu.born.overseer.GroupTestData.*;
 import static edu.born.overseer.OrderPaymentTestData.*;
 import static edu.born.overseer.OrderTypeTestData.*;
+import static edu.born.overseer.TaskTestData.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class OrderTestData {
@@ -27,25 +28,25 @@ public class OrderTestData {
                     LocalDate.of(2019, 9, 1), LocalDate.of(2019, 9, 10),
                     LocalDate.of(2019, 10, 1), null,
                     BigDecimal.valueOf(100000.00), BigDecimal.valueOf(17000.00), "100", null,
-                    GROUP_1, EMPLOYEE_1, true, ORDER_TYPE_1, ORDER_1_PAYMENTS);
+                    GROUP_1, EMPLOYEE_1, true, ORDER_TYPE_1, ORDER_1_PAYMENTS, ORDER_1_TASKS);
     public static final Order ORDER_2 =
             new Order(ORDER_2_ID, COMPANY_1, "First  Estimate", true, true, false,
                     LocalDate.of(2019, 9, 3), LocalDate.of(2019, 9, 3),
                     LocalDate.of(2019, 10, 5), null,
                     BigDecimal.valueOf(10000.00), BigDecimal.valueOf(15000.00), "30-70", 50,
-                    GROUP_3, EMPLOYEE_2, true, ORDER_TYPE_2, ORDER_2_PAYMENTS);
+                    GROUP_3, EMPLOYEE_2, true, ORDER_TYPE_2, ORDER_2_PAYMENTS, ORDER_2_TASKS);
     public static final Order ORDER_3 =
             new Order(ORDER_3_ID, COMPANY_2, "Second Project", false, false, true,
                     LocalDate.of(2019, 9, 1), LocalDate.of(2019, 9, 10),
                     LocalDate.of(2019, 10, 1), LocalDate.of(2019, 10, 1),
                     BigDecimal.valueOf(200000.00), BigDecimal.valueOf(0.00), "50-50", null,
-                    GROUP_5, EMPLOYEE_3, false, ORDER_TYPE_1, ORDER_3_PAYMENTS);
+                    GROUP_5, EMPLOYEE_3, false, ORDER_TYPE_1, ORDER_3_PAYMENTS, ORDER_3_TASKS);
     public static final Order ORDER_4 =
             new Order(ORDER_4_ID, COMPANY_3, "First Legal Service", true, true, false,
                     LocalDate.of(2019, 9, 7), LocalDate.of(2019, 9, 7),
                     LocalDate.of(2019, 10, 7), null,
                     BigDecimal.valueOf(50000.00), BigDecimal.valueOf(10000.00), "20-20-60", null,
-                    GROUP_5, EMPLOYEE_4, true, ORDER_TYPE_4, ORDER_4_PAYMENTS);
+                    GROUP_5, EMPLOYEE_4, true, ORDER_TYPE_4, ORDER_4_PAYMENTS, ORDER_4_TASKS);
 
     public static Order getPreparedCreate() {
         var order = new Order(null, COMPANY_1, "Created Project", false, false, true,
@@ -57,6 +58,7 @@ public class OrderTestData {
                 GROUP_1, EMPLOYEE_1, true, ORDER_TYPE_1, null);
 
         order.setPayments(OrderPaymentTestData.getPreparedCreateList(order));
+        order.setTasks(TaskTestData.getPreparedCreateSet(order));
 
         return order;
     }
