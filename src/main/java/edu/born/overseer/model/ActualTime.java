@@ -14,13 +14,10 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "actual_time", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "order_id"}, name = "actual_time_unique_at_object_idx")})
 @NamedQueries({
-        @NamedQuery(name = ActualTime.DELETE, query = "DELETE FROM ActualTime at WHERE at.id=:id"),
-        @NamedQuery(name = ActualTime.ALL_BY_ORDER, query = "SELECT at FROM ActualTime at WHERE at.order.id=:orderId")
+        @NamedQuery(name = "ActualTime:delete", query = "DELETE FROM ActualTime at WHERE at.id=:id"),
+        @NamedQuery(name = "ActualTime:allByOrder", query = "SELECT at FROM ActualTime at WHERE at.order.id=:orderId")
 })
 public class ActualTime extends AbstractBaseEntity {
-
-    public static final String DELETE = "ActualTime:delete";
-    public static final String ALL_BY_ORDER = "ActualTime:allByOrder";
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false, unique = true)

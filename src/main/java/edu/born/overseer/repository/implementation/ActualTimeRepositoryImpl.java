@@ -35,14 +35,14 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
     @Override
     @Transactional
     public boolean delete(int id) {
-        return em.createNamedQuery(ActualTime.DELETE)
+        return em.createNamedQuery("ActualTime:delete")
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
     public List<ActualTime> getAllByOrder(int orderId) {
-        return em.createNamedQuery(ActualTime.ALL_BY_ORDER, ActualTime.class)
+        return em.createNamedQuery("ActualTime:allByOrder", ActualTime.class)
                 .setParameter("orderId", orderId)
                 .getResultList();
     }
