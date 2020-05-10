@@ -86,20 +86,6 @@ class CompanyRepositoryImplTest {
     }
 
     @Test
-    void getByItb() {
-        assertThat(companyRepository.getAllByItb(COMPANY_1.getItn()), contains(COMPANY_1));
-    }
-
-    @Test
-    void getByItbPartialMatch() {
-        assertThat(companyRepository.getAllByItb("00000000"), contains(
-                COMPANY_2,
-                COMPANY_1,
-                COMPANY_3)
-        );
-    }
-
-    @Test
     void getByContactPersonId() {
         assertEquals(companyRepository.getByContactPersonId(CONTACT_PERSON_1_ID), COMPANY_1);
     }
@@ -134,6 +120,16 @@ class CompanyRepositoryImplTest {
     }
 
     @Test
+    void getAllByTitle() {
+        assertThat(companyRepository.getAllByTitle(COMPANY_1.getTitle()), contains(COMPANY_1));
+    }
+
+    @Test
+    void getAllByTitlePartialMatch() {
+        assertThat(companyRepository.getAllByTitle("Пер"), contains(COMPANY_1));
+    }
+
+    @Test
     void getAllByAddress() {
         assertThat(companyRepository.getAllByAddress(COMPANY_1.getAddress()), contains(COMPANY_1));
     }
@@ -147,13 +143,17 @@ class CompanyRepositoryImplTest {
     }
 
     @Test
-    void getAllByTitle() {
-        assertThat(companyRepository.getAllByTitle(COMPANY_1.getTitle()), contains(COMPANY_1));
+    void getByItb() {
+        assertThat(companyRepository.getAllByItb(COMPANY_1.getItn()), contains(COMPANY_1));
     }
 
     @Test
-    void getAllByTitlePartialMatch() {
-        assertThat(companyRepository.getAllByTitle("Пер"), contains(COMPANY_1));
+    void getByItbPartialMatch() {
+        assertThat(companyRepository.getAllByItb("00000000"), contains(
+                COMPANY_2,
+                COMPANY_1,
+                COMPANY_3)
+        );
     }
 
 }

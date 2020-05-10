@@ -15,29 +15,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "companies", uniqueConstraints = {@UniqueConstraint(columnNames = "itn", name = "companies_unique_itn_idx")})
 @NamedQueries({
-        @NamedQuery(name = Company.DELETE, query = "DELETE FROM Company c WHERE c.id=:id"),
-        @NamedQuery(name = Company.ALL, query = "SELECT DISTINCT c FROM Company c ORDER BY c.title"),
-        @NamedQuery(name = Company.BY_ID, query = "SELECT c FROM Company c WHERE c.id=:id"),
-        @NamedQuery(name = Company.ALL_BY_REGION, query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
-        @NamedQuery(name = Company.ALL_BY_RELIABILITY, query = "SELECT c FROM Company c WHERE c.reliabilityType=:reliability ORDER BY c.title"),
-        @NamedQuery(name = Company.ALL_BY_TYPE, query = "SELECT c FROM Company c WHERE c.companyType=:typeCompany ORDER BY c.title"),
-        @NamedQuery(name = Company.ALL_BY_TITLE, query = "SELECT c FROM Company c WHERE lower(c.title) LIKE lower(concat(:title, '%')) ORDER BY c.title"),
-        @NamedQuery(name = Company.ALL_BY_ADDRESS, query = "SELECT c FROM Company c WHERE lower(c.address) LIKE lower(concat(:address, '%')) ORDER BY c.title"),
-        @NamedQuery(name = Company.ALL_BY_CONTACT_PERSON, query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId"),
-        @NamedQuery(name = Company.ALL_BY_ITN, query = "SELECT c FROM Company c WHERE lower(c.itn) LIKE lower(concat(:itn, '%')) ORDER BY c.title"),
+        @NamedQuery(name = "Company:delete", query = "DELETE FROM Company c WHERE c.id=:id"),
+        @NamedQuery(name = "Company:byId", query = "SELECT c FROM Company c WHERE c.id=:id"),
+        @NamedQuery(name = "Company:byContactPerson", query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId"),
+        @NamedQuery(name = "Company:all", query = "SELECT DISTINCT c FROM Company c ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByRegion", query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByReliability", query = "SELECT c FROM Company c WHERE c.reliabilityType=:reliability ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByType", query = "SELECT c FROM Company c WHERE c.companyType=:typeCompany ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByTitle", query = "SELECT c FROM Company c WHERE lower(c.title) LIKE lower(concat(:title, '%')) ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByAddress", query = "SELECT c FROM Company c WHERE lower(c.address) LIKE lower(concat(:address, '%')) ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByItn", query = "SELECT c FROM Company c WHERE lower(c.itn) LIKE lower(concat(:itn, '%')) ORDER BY c.title"),
 })
 public class Company extends AbstractBaseEntity {
-
-    public static final String DELETE = "Company:delete";
-    public static final String ALL = "Company:all";
-    public static final String BY_ID = "Company:byId";
-    public static final String ALL_BY_REGION = "Company:allByRegion";
-    public static final String ALL_BY_RELIABILITY = "Company:allByReliability";
-    public static final String ALL_BY_TYPE = "Company:allByType";
-    public static final String ALL_BY_TITLE = "Company:allByTitle";
-    public static final String ALL_BY_ADDRESS = "Company:allByAddress";
-    public static final String ALL_BY_CONTACT_PERSON = "Company:allByContactPerson";
-    public static final String ALL_BY_ITN = "Company:allByItn";
 
     @Column(name = "title", nullable = false)
     @NotBlank

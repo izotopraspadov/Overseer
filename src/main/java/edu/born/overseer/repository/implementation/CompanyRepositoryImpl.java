@@ -33,28 +33,21 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     @Override
     @Transactional
     public boolean delete(int id) {
-        return em.createNamedQuery(Company.DELETE)
+        return em.createNamedQuery("Company:delete")
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
     public Company getById(int id) {
-        return em.createNamedQuery(Company.BY_ID, Company.class)
+        return em.createNamedQuery("Company:byId", Company.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
 
     @Override
-    public List<Company> getAllByItb(String itn) {
-        return em.createNamedQuery(Company.ALL_BY_ITN, Company.class)
-                .setParameter("itn", itn)
-                .getResultList();
-    }
-
-    @Override
     public Company getByContactPersonId(int contactPersonId) {
-        return em.createNamedQuery(Company.ALL_BY_CONTACT_PERSON, Company.class)
+        return em.createNamedQuery("Company:byContactPerson", Company.class)
                 .setParameter("contactPersonId", contactPersonId)
                 .getResultList()
                 .stream()
@@ -64,42 +57,49 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @Override
     public List<Company> getAll() {
-        return em.createNamedQuery(Company.ALL, Company.class)
+        return em.createNamedQuery("Company:all", Company.class)
                 .getResultList();
     }
 
     @Override
     public List<Company> getAllByRegion(int regionId) {
-        return em.createNamedQuery(Company.ALL_BY_REGION, Company.class)
+        return em.createNamedQuery("Company:allByRegion", Company.class)
                 .setParameter("regionId", regionId)
                 .getResultList();
     }
 
     @Override
     public List<Company> getAllByReliability(ReliabilityType reliabilityType) {
-        return em.createNamedQuery(Company.ALL_BY_RELIABILITY, Company.class)
+        return em.createNamedQuery("Company:allByReliability", Company.class)
                 .setParameter("reliability", reliabilityType)
                 .getResultList();
     }
 
     @Override
     public List<Company> getAllByType(CompanyType type) {
-        return em.createNamedQuery(Company.ALL_BY_TYPE, Company.class)
+        return em.createNamedQuery("Company:allByType", Company.class)
                 .setParameter("typeCompany", type)
                 .getResultList();
     }
 
     @Override
     public List<Company> getAllByTitle(String title) {
-        return em.createNamedQuery(Company.ALL_BY_TITLE, Company.class)
+        return em.createNamedQuery("Company:allByTitle", Company.class)
                 .setParameter("title", title)
                 .getResultList();
     }
 
     @Override
     public List<Company> getAllByAddress(String address) {
-        return em.createNamedQuery(Company.ALL_BY_ADDRESS, Company.class)
+        return em.createNamedQuery("Company:allByAddress", Company.class)
                 .setParameter("address", address)
+                .getResultList();
+    }
+
+    @Override
+    public List<Company> getAllByItb(String itn) {
+        return em.createNamedQuery("Company:allByItn", Company.class)
+                .setParameter("itn", itn)
                 .getResultList();
     }
 
