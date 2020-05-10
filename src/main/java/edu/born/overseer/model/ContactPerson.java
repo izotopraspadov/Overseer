@@ -12,19 +12,13 @@ import static javax.persistence.CascadeType.*;
 @Entity
 @Table(name = "contact_persons", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "company_id"}, name = "contact_persons_unique_id_company_id_idx")})
 @NamedQueries({
-        @NamedQuery(name = ContactPerson.DELETE, query = "DELETE FROM ContactPerson cp WHERE cp.id=:id"),
-        @NamedQuery(name = ContactPerson.ALL, query = "SELECT cp FROM ContactPerson cp ORDER BY cp.fullName"),
-        @NamedQuery(name = ContactPerson.BY_ID, query = "SELECT cp FROM ContactPerson cp WHERE cp.id=:id"),
-        @NamedQuery(name = ContactPerson.BY_ID_WITH_COMPANY, query = "SELECT cp FROM ContactPerson cp LEFT JOIN FETCH cp.company WHERE cp.id=:id"),
-        @NamedQuery(name = ContactPerson.ALL_BY_COMPANY, query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId ORDER BY cp.fullName"),
+        @NamedQuery(name = "ContactPerson:delete", query = "DELETE FROM ContactPerson cp WHERE cp.id=:id"),
+        @NamedQuery(name = "ContactPerson:byId", query = "SELECT cp FROM ContactPerson cp WHERE cp.id=:id"),
+        @NamedQuery(name = "ContactPerson:byIdWithCompany", query = "SELECT cp FROM ContactPerson cp LEFT JOIN FETCH cp.company WHERE cp.id=:id"),
+        @NamedQuery(name = "ContactPerson:all", query = "SELECT cp FROM ContactPerson cp ORDER BY cp.fullName"),
+        @NamedQuery(name = "ContactPerson:allByCompany", query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId ORDER BY cp.fullName"),
 })
 public class ContactPerson extends AbstractFullNameEntity {
-
-    public static final String DELETE = "ContactPerson:delete";
-    public static final String ALL = "ContactPerson:all";
-    public static final String BY_ID = "ContactPerson:byId";
-    public static final String BY_ID_WITH_COMPANY = "ContactPerson:byIdWithCompany";
-    public static final String ALL_BY_COMPANY = "ContactPerson:allByCompany";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)

@@ -34,35 +34,36 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
     @Override
     @Transactional
     public boolean delete(int id) {
-        return em.createNamedQuery(ContactPerson.DELETE)
+        return em.createNamedQuery("ContactPerson:delete")
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
     public ContactPerson getById(int id) {
-        return em.createNamedQuery(ContactPerson.BY_ID, ContactPerson.class)
+        return em.createNamedQuery("ContactPerson:byId", ContactPerson.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
 
     @Override
     public ContactPerson getByIdWithCompany(int id) {
-        return em.createNamedQuery(ContactPerson.BY_ID_WITH_COMPANY, ContactPerson.class)
+        return em.createNamedQuery("ContactPerson:byIdWithCompany", ContactPerson.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
 
     @Override
     public List<ContactPerson> getAll() {
-        return em.createNamedQuery(ContactPerson.ALL, ContactPerson.class)
+        return em.createNamedQuery("ContactPerson:all", ContactPerson.class)
                 .getResultList();
     }
 
     @Override
     public List<ContactPerson> getAllByCompany(int companyId) {
-        return em.createNamedQuery(ContactPerson.ALL_BY_COMPANY, ContactPerson.class)
+        return em.createNamedQuery("ContactPerson:allByCompany", ContactPerson.class)
                 .setParameter("companyId", companyId)
                 .getResultList();
     }
+
 }
