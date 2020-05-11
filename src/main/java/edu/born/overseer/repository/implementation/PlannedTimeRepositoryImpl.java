@@ -34,15 +34,16 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
     @Override
     @Transactional
     public boolean delete(int id) {
-        return em.createNamedQuery(PlannedTime.DELETE)
+        return em.createNamedQuery("PlannedTimed:delete")
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
     public List<PlannedTime> getAllByOrder(int orderId) {
-        return em.createNamedQuery(PlannedTime.ALL_BY_ORDER, PlannedTime.class)
+        return em.createNamedQuery("PlannedTime:allByOrder", PlannedTime.class)
                 .setParameter("orderId", orderId)
                 .getResultList();
     }
+
 }
