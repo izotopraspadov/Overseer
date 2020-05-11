@@ -1,6 +1,8 @@
 package edu.born.overseer.model;
 
 import edu.born.overseer.model.abstraction.AbstractBaseEntity;
+import edu.born.overseer.util.ArgumentHasNoDefaultInitializationException;
+import edu.born.overseer.util.BuilderUtil;
 import edu.born.overseer.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -14,88 +16,108 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "actual_time", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "order_id"}, name = "actual_time_unique_at_object_idx")})
 @NamedQueries({
-        @NamedQuery(name = "ActualTime:delete", query = "DELETE FROM ActualTime at WHERE at.id=:id"),
-        @NamedQuery(name = "ActualTime:allByOrder", query = "SELECT at FROM ActualTime at WHERE at.order.id=:orderId")
+        @NamedQuery(name = "ActualTime:delete",
+                query = "DELETE FROM ActualTime at WHERE at.id=:id"),
+        @NamedQuery(name = "ActualTime:allByOrder",
+                query = "SELECT at FROM ActualTime at WHERE at.order.id=:orderId")
 })
 public class ActualTime extends AbstractBaseEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false, unique = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @OneToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "order_id", nullable = false, unique = true)
     private Order order;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
-    @Column(name = "date", nullable = false)
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "actual_man_hours", nullable = false)
-    @Range(max = 5000)
     @NotNull
+    @Range(max = 5000)
+    @Column(name = "actual_man_hours", nullable = false)
     private Integer actualManHours;
 
-    @Column(name = "account_man_hours", nullable = false)
-    @Range(max = 5000)
     @NotNull
+    @Range(max = 5000)
+    @Column(name = "account_man_hours", nullable = false)
     private Integer accountManHours;
 
-    public ActualTime() {
-    }
-
-    public ActualTime(Integer id, Order order, Employee employee, LocalDate date, Integer actualManHours, Integer accountManHours) {
-        super(id);
-        this.order = order;
-        this.employee = employee;
-        this.date = date;
-        this.actualManHours = actualManHours;
-        this.accountManHours = accountManHours;
+    protected ActualTime() {
     }
 
     public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
     public Employee getEmployee() {
         return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public Integer getActualManHours() {
         return actualManHours;
-    }
-
-    public void setActualManHours(Integer actualManHours) {
-        this.actualManHours = actualManHours;
     }
 
     public Integer getAccountManHours() {
         return accountManHours;
     }
 
-    public void setAccountManHours(Integer accountManHours) {
-        this.accountManHours = accountManHours;
+    public static Builder newBuilder() {
+        return new ActualTime().new Builder();
+    }
+
+    public class Builder {
+
+        private Builder() {
+        }
+
+        public Builder setId(Integer id) {
+            ActualTime.this.id = id;
+            return this;
+        }
+
+        public Builder setOrder(Order order) {
+            ActualTime.this.order = order;
+            return this;
+        }
+
+        public Builder setEmployee(Employee employee) {
+            ActualTime.this.employee = employee;
+            return this;
+        }
+
+        public Builder setDate(LocalDate date) {
+            ActualTime.this.date = date;
+            return this;
+        }
+
+        public Builder setActualManHours(Integer actualManHours) {
+            ActualTime.this.actualManHours = actualManHours;
+            return this;
+        }
+
+        public Builder setAccountManHours(Integer accountManHours) {
+            ActualTime.this.accountManHours = accountManHours;
+            return this;
+        }
+
+        public ActualTime build() {
+            if (BuilderUtil.isNull(order, employee, date, actualManHours, accountManHours))
+                throw new ArgumentHasNoDefaultInitializationException();
+            else return ActualTime.this;
+        }
+
     }
 
     @Override
@@ -107,4 +129,5 @@ public class ActualTime extends AbstractBaseEntity {
                 ", accountManHours=" + accountManHours +
                 '}';
     }
+
 }
