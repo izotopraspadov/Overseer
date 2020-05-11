@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface OrderPaymentRepository {
 
+    List<OrderPayment> getAll();
+
     List<OrderPayment> getAllByDate(LocalDate date);
 
     List<OrderPayment> getAllByOrder(int orderId);
-
-    List<OrderPayment> getAll();
 
 }

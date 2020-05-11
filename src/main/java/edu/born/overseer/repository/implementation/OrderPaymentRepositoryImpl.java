@@ -18,22 +18,23 @@ public class OrderPaymentRepositoryImpl implements OrderPaymentRepository {
     private EntityManager em;
 
     @Override
+    public List<OrderPayment> getAll() {
+        return em.createNamedQuery("OrderPayment:all", OrderPayment.class)
+                .getResultList();
+    }
+
+    @Override
     public List<OrderPayment> getAllByDate(LocalDate date) {
-        return em.createNamedQuery(OrderPayment.ALL_BY_DATE, OrderPayment.class)
+        return em.createNamedQuery("OrderPayment:allByDate", OrderPayment.class)
                 .setParameter("date", date)
                 .getResultList();
     }
 
     @Override
     public List<OrderPayment> getAllByOrder(int orderId) {
-        return em.createNamedQuery(OrderPayment.ALL_BY_ORDER, OrderPayment.class)
+        return em.createNamedQuery("OrderPayment:allByOrder", OrderPayment.class)
                 .setParameter("orderId", orderId)
                 .getResultList();
     }
 
-    @Override
-    public List<OrderPayment> getAll() {
-        return em.createNamedQuery(OrderPayment.ALL, OrderPayment.class)
-                .getResultList();
-    }
 }
