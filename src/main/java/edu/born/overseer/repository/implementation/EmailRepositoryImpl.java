@@ -23,11 +23,11 @@ public class EmailRepositoryImpl implements EmailRepository {
 
         switch (owner) {
             case EMPLOYEE:
-                return em.createNamedQuery(Email.ALL_BY_EMPLOYEE, Email.class)
+                return em.createNamedQuery("Email:allByEmployee", Email.class)
                         .setParameter("ownerId", ownerId)
                         .getResultList();
             case CONTACT_PERSON:
-                return em.createNamedQuery(Email.ALL_BY_CONTACT_PERSON, Email.class)
+                return em.createNamedQuery("Email:allBContactPerson", Email.class)
                         .setParameter("ownerId", ownerId)
                         .getResultList();
             default:
@@ -35,4 +35,5 @@ public class EmailRepositoryImpl implements EmailRepository {
         }
 
     }
+
 }

@@ -10,13 +10,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "emails", uniqueConstraints = {@UniqueConstraint(columnNames = "address", name = "email_unique_idx")})
 @NamedQueries({
-        @NamedQuery(name = Email.ALL_BY_EMPLOYEE, query = "SELECT e FROM Email e WHERE e.employee.id=:ownerId ORDER BY e.address"),
-        @NamedQuery(name = Email.ALL_BY_CONTACT_PERSON, query = "SELECT e FROM Email e WHERE e.contactPerson.id=:ownerId ORDER BY e.address")
+        @NamedQuery(name = "Email:allByEmployee",
+                query = "SELECT e FROM Email e WHERE e.employee.id=:ownerId ORDER BY e.address"),
+        @NamedQuery(name = "Email:allBContactPerson",
+                query = "SELECT e FROM Email e WHERE e.contactPerson.id=:ownerId ORDER BY e.address")
 })
 public class Email extends AbstractContactEntity {
-
-    public static final String ALL_BY_EMPLOYEE = "Email:allByEmployee";
-    public static final String ALL_BY_CONTACT_PERSON = "Email:allBContactPerson";
 
     @Column(name = "address", nullable = false, unique = true)
     @javax.validation.constraints.Email
@@ -66,4 +65,5 @@ public class Email extends AbstractContactEntity {
                 ", address='" + address + '\'' +
                 '}';
     }
+
 }
