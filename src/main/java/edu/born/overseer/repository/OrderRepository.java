@@ -13,19 +13,17 @@ public interface OrderRepository {
     // false if not found
     boolean delete(int id);
 
+    // null if not found
     Order getById(int id);
 
+    // null if not found
     Order getByIdWithPayments(int id);
 
     List<Order> getAll();
 
-    List<Order> getAllByTitle(String title);
-
     List<Order> getAllByCompany(int companyId);
 
     List<Order> getAllByCashless(boolean cashless);
-
-    List<Order> getAllByOrderType(String orderType);
 
     List<Order> getAllByGroup(int groupId);
 
@@ -49,8 +47,15 @@ public interface OrderRepository {
 
     List<Order> getAllByExpectedPayment(BigDecimal expectedPayment);
 
+    List<Order> getAllByNumberOfLines(int numberOfLines);
+
+    // partial match using 'like'
     List<Order> getAllByPaymentFormat(String format);
 
-    List<Order> getAllByNumberOfLines(int numberOfLines);
+    // partial match using 'like'
+    List<Order> getAllByTitle(String title);
+
+    // partial match using 'like'
+    List<Order> getAllByOrderType(String orderType);
 
 }
