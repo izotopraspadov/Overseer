@@ -11,10 +11,12 @@ public interface RegionRepository {
     // false if not found
     boolean delete(int id);
 
+    // null if not found
     Region getById(int id);
 
-    Region getByTitle(String title);
-
     List<Region> getAll();
+
+    // partial match using 'like'
+    List<Region> getAllByTitle(String title);
 
 }

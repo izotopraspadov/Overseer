@@ -30,28 +30,29 @@ public class RegionRepositoryImpl implements RegionRepository {
     @Override
     @Transactional
     public boolean delete(int id) {
-        return em.createNamedQuery(Region.DELETE)
+        return em.createNamedQuery("Region:delete")
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
     public Region getById(int id) {
-        return em.createNamedQuery(Region.BY_ID, Region.class)
+        return em.createNamedQuery("Region:byId", Region.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
 
-    @Override
-    public Region getByTitle(String title) {
-        return em.createNamedQuery(Region.BY_TITLE, Region.class)
-                .setParameter("title", title)
-                .getSingleResult();
-    }
 
     @Override
     public List<Region> getAll() {
-        return em.createNamedQuery(Region.ALL, Region.class)
+        return em.createNamedQuery("Region:all", Region.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Region> getAllByTitle(String title) {
+        return em.createNamedQuery("Region:allByTitle", Region.class)
+                .setParameter("title", title)
                 .getResultList();
     }
 
