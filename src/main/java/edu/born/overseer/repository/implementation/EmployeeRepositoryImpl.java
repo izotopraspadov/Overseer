@@ -47,6 +47,13 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
+    public Employee getByLogin(String login) {
+        return em.createNamedQuery("Employee:byLogin", Employee.class)
+                .setParameter("login", login)
+                .getSingleResult();
+    }
+
+    @Override
     public Employee getWithPayments(int id) {
         return em.createNamedQuery("Employee:byIdWithPayments", Employee.class)
                 .setParameter("id", id)
@@ -91,13 +98,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     public List<Employee> getAllByRegion(int regionId) {
         return em.createNamedQuery("Employee:allByRegion", Employee.class)
                 .setParameter("regionId", regionId)
-                .getResultList();
-    }
-
-    @Override
-    public List<Employee> getAllByLogin(String login) {
-        return em.createNamedQuery("Employee:allByLogin", Employee.class)
-                .setParameter("login", login)
                 .getResultList();
     }
 

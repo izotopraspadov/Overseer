@@ -15,6 +15,9 @@ public interface EmployeeRepository {
     Employee getById(int id);
 
     // null if not found
+    Employee getByLogin(String login);
+
+    // null if not found
     Employee getWithPayments(int id);
 
     // null if not found
@@ -32,9 +35,6 @@ public interface EmployeeRepository {
     List<Employee> getAll();
 
     List<Employee> getAllByRegion(int regionId);
-
-    // partial match using 'like'
-    List<Employee> getAllByLogin(String login);
 
     // partial match using 'like'
     List<Employee> getAllByAddress(String address);
