@@ -19,35 +19,32 @@ import java.util.Set;
 @Entity
 @Table(name = "employees", uniqueConstraints = {@UniqueConstraint(columnNames = "login", name = "employees_unique_login_idx")})
 @NamedQueries({
-        @NamedQuery(name = Employee.DELETE, query = "DELETE FROM Employee e WHERE e.id=:id"),
-        @NamedQuery(name = Employee.ALL, query = "SELECT e FROM Employee e ORDER BY e.fullName"),
-        @NamedQuery(name = Employee.BY_LOGIN, query = "SELECT e FROM Employee e WHERE lower(e.login) like lower(:login)"),
-        @NamedQuery(name = Employee.BY_ID, query = "SELECT e FROM Employee e LEFT JOIN FETCH e.phones ph LEFT JOIN FETCH e.emails em WHERE e.id=:id"),
-        @NamedQuery(name = Employee.BY_ID_WITH_PAYMENTS, query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.payments WHERE e.id=:id"),
-        @NamedQuery(name = Employee.BY_ID_WITH_SALARY_AND_PHONES_AND_EMAILS,
-                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.salary s LEFT JOIN FETCH e.phones ph LEFT JOIN FETCH e.emails em WHERE e.id=:id AND s.endDate IS NULL"),
-        @NamedQuery(name = Employee.BY_ID_WITH_SALARY,
+        @NamedQuery(name = "Employee:delete",
+                query = "DELETE FROM Employee e WHERE e.id=:id"),
+        @NamedQuery(name = "Employee:byId",
+                query = "SELECT e FROM Employee e LEFT JOIN FETCH e.phones ph LEFT JOIN FETCH e.emails em WHERE e.id=:id"),
+        @NamedQuery(name = "Employee:byIdWithPayments",
+                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.payments WHERE e.id=:id"),
+        @NamedQuery(name = "Employee:byIdWithSalary",
                 query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.salary s WHERE e.id=:id AND s.endDate IS NULL"),
-        @NamedQuery(name = Employee.BY_ID_WITH_EMAILS, query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.emails WHERE e.id=:id"),
-        @NamedQuery(name = Employee.BY_ID_WITH_PHONES, query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.phones WHERE e.id=:id"),
-        @NamedQuery(name = Employee.ALL_BY_REGION, query = "SELECT e FROM Employee e WHERE e.region.id=:regionId ORDER BY e.fullName"),
-        @NamedQuery(name = Employee.ALL_BY_ADDRESS, query = "SELECT e FROM Employee e WHERE lower(e.address) like lower(:address)"),
-        @NamedQuery(name = Employee.ALL_BY_FULL_NAME, query = "SELECT e FROM Employee e WHERE lower(e.fullName) like lower(:fullName)"),
+        @NamedQuery(name = "Employee:byIdWithEmails",
+                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.emails WHERE e.id=:id"),
+        @NamedQuery(name = "Employee:byIdWithPhones",
+                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.phones WHERE e.id=:id"),
+        @NamedQuery(name = "Employee:byIdWithSalaryAndPhonesAndEmails",
+                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.salary s LEFT JOIN FETCH e.phones ph LEFT JOIN FETCH e.emails em WHERE e.id=:id AND s.endDate IS NULL"),
+        @NamedQuery(name = "Employee:all",
+                query = "SELECT e FROM Employee e ORDER BY e.fullName"),
+        @NamedQuery(name = "Employee:allByRegion",
+                query = "SELECT e FROM Employee e WHERE e.region.id=:regionId ORDER BY e.fullName"),
+        @NamedQuery(name = "Employee:allByLogin",
+                query = "SELECT e FROM Employee e WHERE lower(e.login) LIKE lower(concat(:login, '%')) ORDER BY e.fullName"),
+        @NamedQuery(name = "Employee:allByAddress",
+                query = "SELECT e FROM Employee e WHERE lower(e.address) LIKE lower(concat(:address, '%')) ORDER BY e.fullName"),
+        @NamedQuery(name = "Employee:allByFullName",
+                query = "SELECT e FROM Employee e WHERE lower(e.fullName) LIKE lower(concat(:fullName, '%')) ORDER BY e.fullName"),
 })
 public class Employee extends AbstractFullNameEntity {
-
-    public static final String DELETE = "Employee:delete";
-    public static final String ALL = "Employee:all";
-    public static final String BY_ID = "Employee:byId";
-    public static final String BY_LOGIN = "Employee:byLogin";
-    public static final String BY_ID_WITH_PAYMENTS = "Employee:byIdWithPayments";
-    public static final String BY_ID_WITH_SALARY = "Employee:byIdWithSalary";
-    public static final String BY_ID_WITH_SALARY_AND_PHONES_AND_EMAILS = "Employee:byIdWithSalaryAndPhonesAndEmails";
-    public static final String BY_ID_WITH_EMAILS = "Employee:byIdWithEmails";
-    public static final String BY_ID_WITH_PHONES = "Employee:byIdWithPhones";
-    public static final String ALL_BY_REGION = "Employee:allByRegion";
-    public static final String ALL_BY_ADDRESS = "Employee:allByAddress";
-    public static final String ALL_BY_FULL_NAME = "Employee:allByFullName";
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "region_id", nullable = false)
@@ -82,17 +79,17 @@ public class Employee extends AbstractFullNameEntity {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
     @OrderBy("startDate DESC")
-   // @Fetch(value = FetchMode.SUBSELECT)
+    // @Fetch(value = FetchMode.SUBSELECT)
     private Set<Salary> salary;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
     @OrderBy("number DESC")
-   // @Fetch(value = FetchMode.SUBSELECT)
+    // @Fetch(value = FetchMode.SUBSELECT)
     private Set<Phone> phones;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
     @OrderBy("address DESC")
-   // @Fetch(value = FetchMode.SUBSELECT)
+    // @Fetch(value = FetchMode.SUBSELECT)
     private Set<Email> emails;
 
     public Employee() {
