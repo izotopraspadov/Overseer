@@ -9,13 +9,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "phones", uniqueConstraints = {@UniqueConstraint(columnNames = "number", name = "phone_unique_idx")})
 @NamedQueries({
-        @NamedQuery(name = Phone.ALL_BY_EMPLOYEE, query = "SELECT p FROM Phone p WHERE p.employee.id=:ownerId ORDER BY p.number"),
-        @NamedQuery(name = Phone.ALL_BY_CONTACT_PERSON, query = "SELECT p FROM Phone p WHERE p.contactPerson.id=:ownerId ORDER BY p.number")
+        @NamedQuery(name = "Phone:allByEmployee",
+                query = "SELECT p FROM Phone p WHERE p.employee.id=:ownerId ORDER BY p.number"),
+        @NamedQuery(name = "Phone:allBContactPerson",
+                query = "SELECT p FROM Phone p WHERE p.contactPerson.id=:ownerId ORDER BY p.number")
 })
 public class Phone extends AbstractContactEntity {
-
-    public static final String ALL_BY_EMPLOYEE = "Phone:allByEmployee";
-    public static final String ALL_BY_CONTACT_PERSON = "Phone:allBContactPerson";
 
     @Column(name = "number", nullable = false, unique = true)
     @PhoneNumber
@@ -68,4 +67,5 @@ public class Phone extends AbstractContactEntity {
                 ", number='" + number + '\'' +
                 '}';
     }
+
 }

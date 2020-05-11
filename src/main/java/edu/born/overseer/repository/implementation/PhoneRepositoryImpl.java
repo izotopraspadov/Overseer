@@ -23,11 +23,11 @@ public class PhoneRepositoryImpl implements PhoneRepository {
 
         switch (owner) {
             case EMPLOYEE:
-                return em.createNamedQuery(Phone.ALL_BY_EMPLOYEE, Phone.class)
+                return em.createNamedQuery("Phone:allByEmployee", Phone.class)
                         .setParameter("ownerId", ownerId)
                         .getResultList();
             case CONTACT_PERSON:
-                return em.createNamedQuery(Phone.ALL_BY_CONTACT_PERSON, Phone.class)
+                return em.createNamedQuery("Phone:allBContactPerson", Phone.class)
                         .setParameter("ownerId", ownerId)
                         .getResultList();
             default:
@@ -35,4 +35,5 @@ public class PhoneRepositoryImpl implements PhoneRepository {
         }
 
     }
+
 }
