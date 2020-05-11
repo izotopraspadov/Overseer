@@ -18,7 +18,7 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public List<Task> getAllByOrder(int orderId) {
-        return em.createNamedQuery(Task.ALL_BY_ORDER, Task.class)
+        return em.createNamedQuery("Task:allByOrder", Task.class)
                 .setParameter("orderId", orderId)
                 .getResultList();
     }

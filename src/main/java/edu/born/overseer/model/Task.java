@@ -15,11 +15,10 @@ import java.util.Set;
 @Entity
 @Table(name = "tasks")
 @NamedQueries({
-        @NamedQuery(name = Task.ALL_BY_ORDER, query = "SELECT t FROM Task t WHERE t.order.id=:orderId ORDER BY t.taskDescription"),
+        @NamedQuery(name = "Task:allByOrder",
+                query = "SELECT t FROM Task t WHERE t.order.id=:orderId ORDER BY t.taskDescription"),
 })
 public class Task extends AbstractBaseEntity {
-
-    public static final String ALL_BY_ORDER = "Task:allByOrder";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
