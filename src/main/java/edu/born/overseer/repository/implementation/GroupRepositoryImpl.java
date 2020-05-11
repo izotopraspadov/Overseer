@@ -30,21 +30,22 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Override
     @Transactional
     public boolean delete(int id) {
-        return em.createNamedQuery(Group.DELETE)
+        return em.createNamedQuery("Group:delete")
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
-    public Group get(int id) {
-        return em.createNamedQuery(Group.BY_ID, Group.class)
+    public Group getById(int id) {
+        return em.createNamedQuery("Group:byId", Group.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
 
     @Override
     public List<Group> getAll() {
-        return em.createNamedQuery(Group.ALL, Group.class)
+        return em.createNamedQuery("Group:all", Group.class)
                 .getResultList();
     }
+
 }

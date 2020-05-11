@@ -1,7 +1,5 @@
 package edu.born.overseer.repository;
 
-
-
 import edu.born.overseer.model.Group;
 
 import java.util.List;
@@ -14,7 +12,7 @@ public interface GroupRepository {
     boolean delete(int id);
 
     // null if not found
-    Group get(int id);
+    Group getById(int id);
 
     List<Group> getAll();
 
