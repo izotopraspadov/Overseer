@@ -62,29 +62,30 @@ public class OrderPayment extends AbstractPaymentEntity {
         return comment;
     }
 
-    public OrderPayment Company(Company company) {
+    public void setCompany(Company company) {
         this.company = company;
-        return this;
     }
 
-    public OrderPayment Order(Order order) {
+    public void setOrder(Order order) {
         this.order = order;
-        return this;
     }
 
-    public OrderPayment OurCompany(Company ourCompany) {
+    public void setOurCompany(Company ourCompany) {
         this.ourCompany = ourCompany;
-        return this;
     }
 
-    public OrderPayment Comment(String comment) {
+    public void setComment(String comment) {
         this.comment = comment;
-        return this;
     }
 
     /**
      * Fluent API
      **/
+
+    public OrderPayment id(Integer id) {
+        this.id = id;
+        return this;
+    }
 
     public OrderPayment date(LocalDate date) {
         this.date = date;
