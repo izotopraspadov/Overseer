@@ -16,62 +16,127 @@ import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUE
 
 public class OrderTestData {
 
-    public static final int INVALID_ORDER_ID = START_SEQUENCE - 1;
-
     public static final int ORDER_1_ID = START_SEQUENCE + 103;
     public static final int ORDER_2_ID = START_SEQUENCE + 104;
     public static final int ORDER_3_ID = START_SEQUENCE + 105;
     public static final int ORDER_4_ID = START_SEQUENCE + 106;
 
-    public static final Order ORDER_1 =
-            new Order(ORDER_1_ID, COMPANY_1, "First Project", false, false, true,
-                    LocalDate.of(2019, 9, 1), LocalDate.of(2019, 9, 10),
-                    LocalDate.of(2019, 10, 1), null,
-                    BigDecimal.valueOf(100000.00), BigDecimal.valueOf(17000.00), "100", null,
-                    GROUP_1, EMPLOYEE_1, true, ORDER_TYPE_1, ORDER_1_PAYMENTS, ORDER_1_TASKS);
-    public static final Order ORDER_2 =
-            new Order(ORDER_2_ID, COMPANY_1, "First  Estimate", true, true, false,
-                    LocalDate.of(2019, 9, 3), LocalDate.of(2019, 9, 3),
-                    LocalDate.of(2019, 10, 5), null,
-                    BigDecimal.valueOf(10000.00), BigDecimal.valueOf(15000.00), "30-70", 50,
-                    GROUP_3, EMPLOYEE_2, true, ORDER_TYPE_2, ORDER_2_PAYMENTS, ORDER_2_TASKS);
-    public static final Order ORDER_3 =
-            new Order(ORDER_3_ID, COMPANY_2, "Second Project", false, false, true,
-                    LocalDate.of(2019, 9, 1), LocalDate.of(2019, 9, 10),
-                    LocalDate.of(2019, 10, 1), LocalDate.of(2019, 10, 1),
-                    BigDecimal.valueOf(200000.00), BigDecimal.valueOf(0.00), "50-50", null,
-                    GROUP_5, EMPLOYEE_3, false, ORDER_TYPE_1, ORDER_3_PAYMENTS, ORDER_3_TASKS);
-    public static final Order ORDER_4 =
-            new Order(ORDER_4_ID, COMPANY_3, "First Legal Service", true, true, false,
-                    LocalDate.of(2019, 9, 7), LocalDate.of(2019, 9, 7),
-                    LocalDate.of(2019, 10, 7), null,
-                    BigDecimal.valueOf(50000.00), BigDecimal.valueOf(10000.00), "20-20-60", null,
-                    GROUP_5, EMPLOYEE_4, true, ORDER_TYPE_4, ORDER_4_PAYMENTS, ORDER_4_TASKS);
+    public static final String INVALID_PAYMENT_FORMAT = "100-100";
+
+    public static final Order ORDER_1 = new Order()
+            .id(ORDER_1_ID)
+            .company(COMPANY_1)
+            .title("First Project")
+            .contractExists(true)
+            .plannedStartDate(LocalDate.of(2019, 9, 1))
+            .actualStartDate(LocalDate.of(2019, 9, 10))
+            .plannedEndDate(LocalDate.of(2019, 10, 1))
+            .sum(BigDecimal.valueOf(100000.00))
+            .expectedPayment(BigDecimal.valueOf(17000.00))
+            .paymentFormat("100")
+            .group(GROUP_1)
+            .manager(EMPLOYEE_1)
+            .underway(true)
+            .orderType(ORDER_TYPE_1)
+            .payments(ORDER_1_PAYMENTS)
+            .tasks(ORDER_1_TASKS);
+
+    public static final Order ORDER_2 = new Order()
+            .id(ORDER_2_ID)
+            .company(COMPANY_1)
+            .title("First  Estimate")
+            .cashless(true)
+            .contractIsNeed(true)
+            .plannedStartDate(LocalDate.of(2019, 9, 3))
+            .actualStartDate(LocalDate.of(2019, 9, 3))
+            .plannedEndDate(LocalDate.of(2019, 10, 5))
+            .sum(BigDecimal.valueOf(10000.00))
+            .expectedPayment(BigDecimal.valueOf(15000.00))
+            .paymentFormat("30-70")
+            .numberOfLines(50)
+            .group(GROUP_3)
+            .manager(EMPLOYEE_2)
+            .underway(true)
+            .orderType(ORDER_TYPE_2)
+            .payments(ORDER_2_PAYMENTS)
+            .tasks(ORDER_2_TASKS);
+
+    public static final Order ORDER_3 = new Order()
+            .id(ORDER_3_ID)
+            .company(COMPANY_2)
+            .title("Second Project")
+            .contractExists(true)
+            .plannedStartDate(LocalDate.of(2019, 9, 1))
+            .actualStartDate(LocalDate.of(2019, 9, 10))
+            .plannedEndDate(LocalDate.of(2019, 10, 1))
+            .actualEndDate(LocalDate.of(2019, 10, 1))
+            .sum(BigDecimal.valueOf(200000.00))
+            .paymentFormat("50-50")
+            .group(GROUP_5)
+            .manager(EMPLOYEE_3)
+            .orderType(ORDER_TYPE_1)
+            .payments(ORDER_3_PAYMENTS)
+            .tasks(ORDER_3_TASKS);
+
+    public static final Order ORDER_4 = new Order()
+            .id(ORDER_4_ID)
+            .company(COMPANY_3)
+            .title("First Legal Service")
+            .cashless(true)
+            .contractIsNeed(true)
+            .plannedStartDate(LocalDate.of(2019, 9, 7))
+            .actualStartDate(LocalDate.of(2019, 9, 7))
+            .plannedEndDate(LocalDate.of(2019, 10, 7))
+            .sum(BigDecimal.valueOf(50000.00))
+            .expectedPayment(BigDecimal.valueOf(10000.00))
+            .paymentFormat("20-20-60")
+            .group(GROUP_5)
+            .manager(EMPLOYEE_4)
+            .underway(true)
+            .orderType(ORDER_TYPE_4)
+            .payments(ORDER_4_PAYMENTS)
+            .tasks(ORDER_4_TASKS);
+
 
     public static Order getPreparedCreate() {
-        var order = new Order(null, COMPANY_1, "Created Project", false, false, true,
-                LocalDate.of(2019, 9, 1), LocalDate.of(2019, 9, 10),
-                LocalDate.of(2019, 10, 1), LocalDate.of(2019, 10, 1),
-                BigDecimal.valueOf(1000000.00).setScale(2, RoundingMode.DOWN),
-                BigDecimal.valueOf(500000.00).setScale(2, RoundingMode.DOWN),
-                "50-50", null,
-                GROUP_1, EMPLOYEE_1, true, ORDER_TYPE_1, null);
+        var order = new Order()
+                .company(COMPANY_1)
+                .title("Created Project")
+                .contractExists(true)
+                .plannedStartDate(LocalDate.of(2019, 9, 1))
+                .actualStartDate(LocalDate.of(2019, 9, 10))
+                .plannedEndDate(LocalDate.of(2019, 10, 1))
+                .actualEndDate(LocalDate.of(2019, 10, 1))
+                .sum(BigDecimal.valueOf(1000000.00)
+                        .setScale(2, RoundingMode.DOWN))
+                .expectedPayment(BigDecimal.valueOf(500000.00)
+                        .setScale(2, RoundingMode.DOWN))
+                .paymentFormat("50-50")
+                .group(GROUP_1)
+                .manager(EMPLOYEE_1)
+                .underway(true)
+                .orderType(ORDER_TYPE_1);
 
-        order.setPayments(OrderPaymentTestData.getPreparedCreateList(order));
-        order.setTasks(TaskTestData.getPreparedCreateSet(order));
+        order.getPayments().addAll(OrderPaymentTestData.getPreparedCreateList(order));
+        order.getTasks().addAll(TaskTestData.getPreparedCreateSet(order));
 
         return order;
     }
 
+    public static Order getPreparedCreateWithInvalidPaymentFormat() {
+
+        return getPreparedCreate()
+                .paymentFormat(INVALID_PAYMENT_FORMAT);
+    }
+
     public static Order getPreparedUpdate() {
-        return new Order(ORDER_1.getId(), ORDER_1.getCompany(), "Updated Project", ORDER_1.isCashless(),
-                ORDER_1.isContractIsNeed(), ORDER_1.isContractExists(),
-                ORDER_1.getPlannedStartDate(), ORDER_1.getActualStartDate(),
-                ORDER_1.getPlannedEndDate(), ORDER_1.getActualEndDate(),
-                BigDecimal.valueOf(1000000.00).setScale(2, RoundingMode.DOWN),
-                BigDecimal.valueOf(250000.00).setScale(2, RoundingMode.DOWN),
-                ORDER_1.getPaymentFormat(), ORDER_1.getNumberOfLines(),
-                ORDER_1.getGroup(), ORDER_1.getManager(), ORDER_1.isUnderway(), ORDER_1.getOrderType(), ORDER_1.getPayments());
+
+        return new Order(ORDER_1)
+                .title("Updated Project")
+                .sum(BigDecimal.valueOf(1000000.00)
+                        .setScale(2, RoundingMode.DOWN))
+                .expectedPayment(BigDecimal.valueOf(250000.00)
+                        .setScale(2, RoundingMode.DOWN));
     }
 
 }
