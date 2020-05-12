@@ -227,7 +227,7 @@ VALUES (100103, 100029, '2019-09-20', 15, 30), -- id 100119
        (100105, 100025, '2019-09-23', 35, 40), -- id 100121
        (100106, 100024, '2019-10-01', 13, 15); -- id 100122
 
-INSERT INTO tasks (order_id, task_description, responsible_id, date_completed, result_type, comment)
+INSERT INTO tasks (order_id, description, responsible_id, date_completed, result_type, comment)
 VALUES (100103, 'Step 1st', 100026, '2019-09-20', 'PARTIALLY_COMPLETED', 'Step 1st done!'),          -- id 100123
        (100103, 'Step 2st', 100027, '2019-09-24', 'PARTIALLY_COMPLETED', 'Step 2st done!'),          -- id 100124
        (100104, 'Estimate 001', 100026, '2019-09-25', 'COMPLETED', null),                            -- id 100125
