@@ -201,13 +201,13 @@ CREATE TABLE actual_time
 
 CREATE TABLE tasks
 (
-    id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    order_id         INTEGER      NOT NULL,
-    task_description TEXT         NOT NULL,
-    responsible_id   INTEGER      NOT NULL,
-    date_completed   DATE         NOT NULL,
-    result_type      VARCHAR(255) NOT NULL,
-    comment          TEXT,
+    id             INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    order_id       INTEGER      NOT NULL,
+    description    TEXT         NOT NULL,
+    responsible_id INTEGER      NOT NULL,
+    date_completed DATE         NOT NULL,
+    result_type    VARCHAR(255) NOT NULL,
+    comment        TEXT,
     FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
     FOREIGN KEY (responsible_id) REFERENCES employees (id) ON DELETE CASCADE
 );

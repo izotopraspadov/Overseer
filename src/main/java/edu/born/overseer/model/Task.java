@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "tasks")
 @NamedQueries({
         @NamedQuery(name = "Task:allByOrder",
-                query = "SELECT t FROM Task t WHERE t.order.id=:orderId ORDER BY t.taskDescription"),
+                query = "SELECT t FROM Task t WHERE t.order.id=:orderId ORDER BY t.description"),
 })
 public class Task extends AbstractBaseEntity {
 
@@ -27,8 +27,8 @@ public class Task extends AbstractBaseEntity {
     private Order order;
 
     @NotBlank
-    @Column(name = "task_description", nullable = false)
-    private String taskDescription;
+    @Column(name = "description", nullable = false)
+    private String description;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -59,8 +59,8 @@ public class Task extends AbstractBaseEntity {
         return order;
     }
 
-    public String getTaskDescription() {
-        return taskDescription;
+    public String getDescription() {
+        return description;
     }
 
     public Employee getResponsible() {
@@ -87,8 +87,8 @@ public class Task extends AbstractBaseEntity {
         this.order = order;
     }
 
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setResponsible(Employee responsible) {
@@ -125,8 +125,8 @@ public class Task extends AbstractBaseEntity {
         return this;
     }
 
-    public Task taskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
+    public Task description(String description) {
+        this.description = description;
         return this;
     }
 
@@ -162,7 +162,7 @@ public class Task extends AbstractBaseEntity {
         if (!super.equals(other)) return false;
         Task otherTask = (Task) other;
         return Objects.equals(order, otherTask.order) &&
-                Objects.equals(taskDescription, otherTask.taskDescription) &&
+                Objects.equals(description, otherTask.description) &&
                 Objects.equals(responsible, otherTask.responsible) &&
                 Objects.equals(dateCompleted, otherTask.dateCompleted) &&
                 resultType == otherTask.resultType &&
@@ -172,14 +172,14 @@ public class Task extends AbstractBaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), order, taskDescription, responsible, dateCompleted, resultType, comment, taskEmails);
+        return Objects.hash(super.hashCode(), order, description, responsible, dateCompleted, resultType, comment, taskEmails);
     }
 
     @Override
     public String toString() {
         return "Task {" +
                 "id=" + id + ", " +
-                "taskDescription=" + taskDescription + ", " +
+                "description=" + description + ", " +
                 "dateCompleted=" + dateCompleted + ", " +
                 "result=" + resultType + ", " +
                 "comment=" + comment + ", " +
