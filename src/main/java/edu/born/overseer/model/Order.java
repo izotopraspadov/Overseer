@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -67,282 +68,349 @@ import static javax.persistence.CascadeType.*;
                 query = "SELECT o FROM Order o LEFT JOIN FETCH o.orderType ot WHERE lower(ot.title) LIKE lower(concat(:orderType, '%')) ORDER BY o.title"),
 })
 public class Order extends AbstractBaseEntity {
+    // not inherited from AbstractTitleEntity, due to differences in the uniqueness of the title field
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "company_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    @Column(name = "title", nullable = false)
     @NotBlank
     @Size(max = 255)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "cashless", nullable = false)
-    private boolean cashless;
+    private boolean cashless = false;
 
     @Column(name = "contract_is_need", nullable = false)
-    private boolean contractIsNeed;
+    private boolean contractIsNeed = false;
 
     @Column(name = "contract_exists", nullable = false)
-    private boolean contractExists;
+    private boolean contractExists = false;
 
-    @Column(name = "planned_start_date", nullable = false)
-    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     @NotNull
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @Column(name = "planned_start_date", nullable = false)
     private LocalDate plannedStartDate;
 
+    @NotNull
     @Column(name = "actual_start_date")
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
-    @NotNull
     private LocalDate actualStartDate;
 
-    @Column(name = "planned_end_date", nullable = false)
-    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     @NotNull
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @Column(name = "planned_end_date", nullable = false)
     private LocalDate plannedEndDate;
 
-    @Column(name = "actual_end_date")
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @Column(name = "actual_end_date")
     private LocalDate actualEndDate;
 
-    @Column(name = "sum")
-    @Digits(integer = 11, fraction = 2)
     @NotNull
+    @Digits(integer = 11, fraction = 2)
+    @Column(name = "sum")
     private BigDecimal sum;
 
-    @Column(name = "expected_payment", nullable = false)
-    @Digits(integer = 11, fraction = 2)
     @NotNull
-    private BigDecimal expectedPayment;
+    @Digits(integer = 11, fraction = 2)
+    @Column(name = "expected_payment", nullable = false)
+    private BigDecimal expectedPayment = BigDecimal.ZERO;
 
-    @Column(name = "payment_format", nullable = false)
     @PaymentFormat
+    @Column(name = "payment_format", nullable = false)
     private String paymentFormat;
 
-    @Column(name = "number_of_lines", nullable = false)
     @Range(max = 200)
-    private Integer numberOfLines;
+    @Column(name = "number_of_lines")
+    private Integer numberOfLines = 0;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "group_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "manager_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "manager_id", nullable = false)
     private Employee manager;
 
     @Column(name = "underway", nullable = false)
-    private boolean underway;
+    private boolean underway = true;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_type_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
     private OrderType orderType;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     @OrderBy("date DESC")
-    private List<OrderPayment> payments;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private List<OrderPayment> payments = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = {PERSIST, MERGE, REMOVE})
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();
 
     public Order() {
-    }
-
-    public Order(Integer id, Company company, String title, boolean cashless, boolean contractIsNeed,
-                 boolean contractExists, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate,
-                 LocalDate actualEndDate, BigDecimal sum, BigDecimal expectedPayment, String paymentFormat, Integer numberOfLines,
-                 Group group, Employee manager, boolean underway, OrderType orderType, List<OrderPayment> payments) {
-
-        this(id, company, title, cashless, contractIsNeed, contractExists, plannedStartDate,
-                actualStartDate, plannedEndDate, actualEndDate, sum, expectedPayment, paymentFormat,
-                numberOfLines, group, manager, underway, orderType, payments, null);
-
-    }
-
-    public Order(Integer id, Company company, String title, boolean cashless, boolean contractIsNeed,
-                 boolean contractExists, LocalDate plannedStartDate, LocalDate actualStartDate, LocalDate plannedEndDate,
-                 LocalDate actualEndDate, BigDecimal sum, BigDecimal expectedPayment, String paymentFormat, Integer numberOfLines,
-                 Group group, Employee manager, boolean underway, OrderType orderType, List<OrderPayment> payments, List<Task> tasks) {
-        super(id);
-        this.company = company;
-        this.title = title;
-        this.cashless = cashless;
-        this.contractIsNeed = contractIsNeed;
-        this.contractExists = contractExists;
-        this.plannedStartDate = plannedStartDate;
-        this.actualStartDate = actualStartDate;
-        this.plannedEndDate = plannedEndDate;
-        this.actualEndDate = actualEndDate;
-        this.sum = sum;
-        this.expectedPayment = expectedPayment;
-        this.paymentFormat = paymentFormat;
-        this.numberOfLines = numberOfLines;
-        this.group = group;
-        this.manager = manager;
-        this.underway = underway;
-        this.orderType = orderType;
-        this.payments = payments;
-        this.tasks = tasks;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Company getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public String getTitle() {
+        return title;
     }
 
     public boolean isCashless() {
         return cashless;
     }
 
-    public void setCashless(boolean cashless) {
-        this.cashless = cashless;
-    }
-
     public boolean isContractIsNeed() {
         return contractIsNeed;
-    }
-
-    public void setContractIsNeed(boolean contractIsNeed) {
-        this.contractIsNeed = contractIsNeed;
     }
 
     public boolean isContractExists() {
         return contractExists;
     }
 
-    public void setContractExists(boolean contractExists) {
-        this.contractExists = contractExists;
-    }
-
     public LocalDate getPlannedStartDate() {
         return plannedStartDate;
-    }
-
-    public void setPlannedStartDate(LocalDate plannedStartDate) {
-        this.plannedStartDate = plannedStartDate;
     }
 
     public LocalDate getActualStartDate() {
         return actualStartDate;
     }
 
-    public void setActualStartDate(LocalDate actualStartDate) {
-        this.actualStartDate = actualStartDate;
-    }
-
     public LocalDate getPlannedEndDate() {
         return plannedEndDate;
-    }
-
-    public void setPlannedEndDate(LocalDate plannedEndDate) {
-        this.plannedEndDate = plannedEndDate;
     }
 
     public LocalDate getActualEndDate() {
         return actualEndDate;
     }
 
-    public void setActualEndDate(LocalDate actualEndDate) {
-        this.actualEndDate = actualEndDate;
-    }
-
     public BigDecimal getSum() {
         return sum;
-    }
-
-    public void setSum(BigDecimal sum) {
-        this.sum = sum;
     }
 
     public BigDecimal getExpectedPayment() {
         return expectedPayment;
     }
 
-    public void setExpectedPayment(BigDecimal expectedPayment) {
-        this.expectedPayment = expectedPayment;
-    }
-
-    public OrderType getOrderType() {
-        return orderType;
-    }
-
-    public void setOrderType(OrderType objectType) {
-        this.orderType = objectType;
-    }
-
     public String getPaymentFormat() {
         return paymentFormat;
-    }
-
-    public void setPaymentFormat(String paymentOrder) {
-        this.paymentFormat = paymentOrder;
     }
 
     public Integer getNumberOfLines() {
         return numberOfLines;
     }
 
-    public void setNumberOfLines(Integer numberOfLines) {
-        this.numberOfLines = numberOfLines;
-    }
-
     public Group getGroup() {
         return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
     }
 
     public Employee getManager() {
         return manager;
     }
 
-    public void setManager(Employee manager) {
-        this.manager = manager;
-    }
-
     public boolean isUnderway() {
         return underway;
     }
 
-    public void setUnderway(boolean underway) {
-        this.underway = underway;
+    public OrderType getOrderType() {
+        return orderType;
     }
 
     public List<OrderPayment> getPayments() {
         return payments;
     }
 
-    public void setPayments(List<OrderPayment> payments) {
-        this.payments = payments;
-    }
-
     public List<Task> getTasks() {
         return tasks;
     }
 
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setCashless(boolean cashless) {
+        this.cashless = cashless;
+    }
+
+    public void setContractIsNeed(boolean contractIsNeed) {
+        this.contractIsNeed = contractIsNeed;
+    }
+
+    public void setContractExists(boolean contractExists) {
+        this.contractExists = contractExists;
+    }
+
+    public void setPlannedStartDate(LocalDate plannedStartDate) {
+        this.plannedStartDate = plannedStartDate;
+    }
+
+    public void setActualStartDate(LocalDate actualStartDate) {
+        this.actualStartDate = actualStartDate;
+    }
+
+    public void setPlannedEndDate(LocalDate plannedEndDate) {
+        this.plannedEndDate = plannedEndDate;
+    }
+
+    public void setActualEndDate(LocalDate actualEndDate) {
+        this.actualEndDate = actualEndDate;
+    }
+
+    public void setSum(BigDecimal sum) {
+        this.sum = sum;
+    }
+
+    public void setExpectedPayment(BigDecimal expectedPayment) {
+        this.expectedPayment = expectedPayment;
+    }
+
+    public void setPaymentFormat(String paymentFormat) {
+        this.paymentFormat = paymentFormat;
+    }
+
+    public void setNumberOfLines(Integer numberOfLines) {
+        this.numberOfLines = numberOfLines;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
+
+    public void setUnderway(boolean underway) {
+        this.underway = underway;
+    }
+
+    public void setOrderType(OrderType orderType) {
+        this.orderType = orderType;
+    }
+
+    public void setPayments(List<OrderPayment> payments) {
+        this.payments = payments;
+    }
+
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    /**
+     * Fluent API
+     **/
+
+    public Order id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Order company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public Order title(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public Order cashless(boolean cashless) {
+        this.cashless = cashless;
+        return this;
+    }
+
+    public Order contractIsNeed(boolean contractIsNeed) {
+        this.contractIsNeed = contractIsNeed;
+        return this;
+    }
+
+    public Order contractExists(boolean contractExists) {
+        this.contractExists = contractExists;
+        return this;
+    }
+
+    public Order plannedStartDate(LocalDate plannedStartDate) {
+        this.plannedStartDate = plannedStartDate;
+        return this;
+    }
+
+    public Order actualStartDate(LocalDate actualStartDate) {
+        this.actualStartDate = actualStartDate;
+        return this;
+    }
+
+    public Order plannedEndDate(LocalDate plannedEndDate) {
+        this.plannedEndDate = plannedEndDate;
+        return this;
+    }
+
+    public Order actualEndDate(LocalDate actualEndDate) {
+        this.actualEndDate = actualEndDate;
+        return this;
+    }
+
+    public Order sum(BigDecimal sum) {
+        this.sum = sum;
+        return this;
+    }
+
+    public Order expectedPayment(BigDecimal expectedPayment) {
+        this.expectedPayment = expectedPayment;
+        return this;
+    }
+
+    public Order paymentFormat(String paymentFormat) {
+        this.paymentFormat = paymentFormat;
+        return this;
+    }
+
+    public Order numberOfLines(Integer numberOfLines) {
+        this.numberOfLines = numberOfLines;
+        return this;
+    }
+
+    public Order group(Group group) {
+        this.group = group;
+        return this;
+    }
+
+    public Order manager(Employee manager) {
+        this.manager = manager;
+        return this;
+    }
+
+    public Order underway(boolean underway) {
+        this.underway = underway;
+        return this;
+    }
+
+    public Order orderType(OrderType orderType) {
+        this.orderType = orderType;
+        return this;
+    }
+
+    public Order payments(List<OrderPayment> payments) {
+        this.payments = payments;
+        return this;
+    }
+
+    public Order tasks(List<Task> tasks) {
+        this.tasks = tasks;
+        return this;
     }
 
     @Override
