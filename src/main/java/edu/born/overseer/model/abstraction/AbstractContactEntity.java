@@ -13,18 +13,18 @@ import javax.validation.constraints.NotNull;
 public abstract class AbstractContactEntity extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contact_person_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "contact_person_id")
     private ContactPerson contactPerson;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "owner_type")
-    @NotNull
     private OwnerType ownerType;
 
     public AbstractContactEntity() {
@@ -65,4 +65,5 @@ public abstract class AbstractContactEntity extends AbstractBaseEntity {
     public String toString() {
         return String.format("Entity %s (%s, '%s')", getClass().getName(), id, ownerType);
     }
+
 }
