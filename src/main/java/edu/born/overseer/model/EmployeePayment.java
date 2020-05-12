@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "employee_payments")
@@ -21,25 +22,25 @@ import java.time.LocalDate;
 })
 public class EmployeePayment extends AbstractPaymentEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "counterparty_type")
-    @NotNull
     private CounterpartyType counterpartyType;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "company_counterparty_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "company_counterparty_id")
     private Company companyCounterparty;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_counterparty_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "employee_counterparty_id")
     private Employee employeeCounterparty;
 
     @Column(name = "charge", nullable = false)
@@ -51,76 +52,148 @@ public class EmployeePayment extends AbstractPaymentEntity {
     public EmployeePayment() {
     }
 
-    public EmployeePayment(Integer id, LocalDate date, Employee employee, CounterpartyType counterpartyType,
-                           Company companyCounterparty, Employee employeeCounterparty, BigDecimal transaction,
-                           boolean cashless, boolean charge, String comment) {
-        super(id, date, transaction, cashless);
-        this.employee = employee;
-        this.counterpartyType = counterpartyType;
-        this.companyCounterparty = companyCounterparty;
-        this.employeeCounterparty = employeeCounterparty;
-        this.charge = charge;
-        this.comment = comment;
+    /**
+     * Cloning constructor
+     **/
+
+    public EmployeePayment(EmployeePayment other) {
+        super(other.getId(), other.getDate(), other.getTransaction(), other.isCashless());
+        this.employee = other.getEmployee();
+        this.counterpartyType = other.getCounterpartyType();
+        this.companyCounterparty = other.getCompanyCounterparty();
+        this.employeeCounterparty = other.getEmployeeCounterparty();
+        this.charge = other.isCharge();
+        this.comment = other.getComment();
     }
 
     public Employee getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     public CounterpartyType getCounterpartyType() {
         return counterpartyType;
-    }
-
-    public void setCounterpartyType(CounterpartyType counterpartyType) {
-        this.counterpartyType = counterpartyType;
     }
 
     public Company getCompanyCounterparty() {
         return companyCounterparty;
     }
 
-    public void setCompanyCounterparty(Company companyCounterparty) {
-        this.companyCounterparty = companyCounterparty;
-    }
-
     public Employee getEmployeeCounterparty() {
         return employeeCounterparty;
-    }
-
-    public void setEmployeeCounterparty(Employee employeeCounterparty) {
-        this.employeeCounterparty = employeeCounterparty;
     }
 
     public boolean isCharge() {
         return charge;
     }
 
-    public void setCharge(boolean charge) {
-        this.charge = charge;
-    }
-
     public String getComment() {
         return comment;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public void setCounterpartyType(CounterpartyType counterpartyType) {
+        this.counterpartyType = counterpartyType;
+    }
+
+    public void setCompanyCounterparty(Company companyCounterparty) {
+        this.companyCounterparty = companyCounterparty;
+    }
+
+    public void setEmployeeCounterparty(Employee employeeCounterparty) {
+        this.employeeCounterparty = employeeCounterparty;
+    }
+
+    public void setCharge(boolean charge) {
+        this.charge = charge;
     }
 
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    /**
+     * Fluent API
+     **/
+
+    public EmployeePayment id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public EmployeePayment date(LocalDate date) {
+        this.date = date;
+        return this;
+    }
+
+    public EmployeePayment transaction(BigDecimal transaction) {
+        this.transaction = transaction;
+        return this;
+    }
+
+    public EmployeePayment cashless(boolean cashless) {
+        this.cashless = cashless;
+        return this;
+    }
+
+    public EmployeePayment employee(Employee employee) {
+        this.employee = employee;
+        return this;
+    }
+
+    public EmployeePayment counterpartyType(CounterpartyType counterpartyType) {
+        this.counterpartyType = counterpartyType;
+        return this;
+    }
+
+    public EmployeePayment companyCounterparty(Company companyCounterparty) {
+        this.companyCounterparty = companyCounterparty;
+        return this;
+    }
+
+    public EmployeePayment employeeCounterparty(Employee employeeCounterparty) {
+        this.employeeCounterparty = employeeCounterparty;
+        return this;
+    }
+
+    public EmployeePayment charge(boolean charge) {
+        this.charge = charge;
+        return this;
+    }
+
+    public EmployeePayment comment(String comment) {
+        this.comment = comment;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        EmployeePayment otherEmployeePayment = (EmployeePayment) other;
+        return charge == otherEmployeePayment.charge &&
+                counterpartyType == otherEmployeePayment.counterpartyType &&
+                Objects.equals(comment, otherEmployeePayment.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), counterpartyType, charge, comment);
+    }
+
     @Override
     public String toString() {
         return "EmployeePayment{" +
-                "id=" + id +
-                ", employee=" + employee.getFullName() +
-                ", transaction=" + transaction +
-                ", typeCounterparty=" + counterpartyType +
-                ", cashless=" + cashless +
-                ", charge=" + charge +
-                ", comment='" + comment + '\'' +
+                "id=" + id + ", " +
+                "date=" + date + ", " +
+                "transaction=" + transaction + ", " +
+                "cashless=" + cashless + ", " +
+                "typeCounterparty=" + counterpartyType + ", " +
+                "charge=" + charge + ", " +
+                "comment=" + comment +
                 '}';
     }
 
