@@ -16,7 +16,7 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
     @Column(name = "date", nullable = false, columnDefinition = "date default now()")
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
-    protected LocalDate date;
+    protected LocalDate date = LocalDate.now();
 
     @Digits(integer = 11, fraction = 2)
     @Column(name = "transaction", nullable = false)
@@ -24,7 +24,7 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
     protected BigDecimal transaction;
 
     @Column(name = "cashless", nullable = false)
-    protected boolean cashless;
+    protected boolean cashless = false;
 
     public AbstractPaymentEntity() {
     }
