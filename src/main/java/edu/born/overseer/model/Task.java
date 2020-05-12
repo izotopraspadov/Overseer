@@ -50,7 +50,7 @@ public class Task extends AbstractBaseEntity {
     private String comment;
 
     @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
-    private Set<TaskEmail> taskEmails;
+    private Set<TaskEmail> emails;
 
     public Task() {
     }
@@ -79,8 +79,8 @@ public class Task extends AbstractBaseEntity {
         return comment;
     }
 
-    public Set<TaskEmail> getTaskEmails() {
-        return taskEmails;
+    public Set<TaskEmail> getEmails() {
+        return emails;
     }
 
     public void setOrder(Order order) {
@@ -107,8 +107,8 @@ public class Task extends AbstractBaseEntity {
         this.comment = comment;
     }
 
-    public void setTaskEmails(Set<TaskEmail> taskEmails) {
-        this.taskEmails = taskEmails;
+    public void setEmails(Set<TaskEmail> emails) {
+        this.emails = emails;
     }
 
     /**
@@ -150,8 +150,8 @@ public class Task extends AbstractBaseEntity {
         return this;
     }
 
-    public Task taskEmails(Set<TaskEmail> taskEmails) {
-        this.taskEmails = taskEmails;
+    public Task emails(Set<TaskEmail> emails) {
+        this.emails = emails;
         return this;
     }
 
@@ -167,12 +167,12 @@ public class Task extends AbstractBaseEntity {
                 Objects.equals(dateCompleted, otherTask.dateCompleted) &&
                 resultType == otherTask.resultType &&
                 Objects.equals(comment, otherTask.comment) &&
-                Objects.equals(taskEmails, otherTask.taskEmails);
+                Objects.equals(emails, otherTask.emails);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), order, description, responsible, dateCompleted, resultType, comment, taskEmails);
+        return Objects.hash(super.hashCode(), order, description, responsible, dateCompleted, resultType, comment, emails);
     }
 
     @Override
