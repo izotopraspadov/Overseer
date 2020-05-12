@@ -164,18 +164,15 @@ public class Task extends AbstractBaseEntity {
         if (other == null || getClass() != other.getClass()) return false;
         if (!super.equals(other)) return false;
         Task otherTask = (Task) other;
-        return Objects.equals(order, otherTask.order) &&
-                Objects.equals(description, otherTask.description) &&
-                Objects.equals(responsible, otherTask.responsible) &&
+        return Objects.equals(description, otherTask.description) &&
                 Objects.equals(dateCompleted, otherTask.dateCompleted) &&
                 resultType == otherTask.resultType &&
-                Objects.equals(comment, otherTask.comment) &&
-                Objects.equals(emails, otherTask.emails);
+                Objects.equals(comment, otherTask.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), order, description, responsible, dateCompleted, resultType, comment, emails);
+        return Objects.hash(super.hashCode(), description, dateCompleted, resultType, comment);
     }
 
     @Override
