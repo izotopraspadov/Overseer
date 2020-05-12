@@ -157,6 +157,33 @@ public class Order extends AbstractBaseEntity {
     public Order() {
     }
 
+    /**
+     * Cloning constructor
+     **/
+
+    public Order(Order other) {
+        super(other.getId());
+        this.company = other.getCompany();
+        this.title = other.title;
+        this.cashless = other.isCashless();
+        this.contractIsNeed = other.isContractIsNeed();
+        this.contractExists = other.isContractExists();
+        this.plannedStartDate = other.getPlannedStartDate();
+        this.actualStartDate = other.getActualStartDate();
+        this.plannedEndDate = other.getPlannedEndDate();
+        this.actualEndDate = other.getActualEndDate();
+        this.sum = other.getSum();
+        this.expectedPayment = other.getExpectedPayment();
+        this.paymentFormat = other.getPaymentFormat();
+        this.numberOfLines = other.getNumberOfLines();
+        this.group = other.getGroup();
+        this.manager = other.getManager();
+        this.underway = other.isUnderway();
+        this.orderType = other.getOrderType();
+        this.payments = other.getPayments();
+        this.tasks = other.getTasks();
+    }
+
     public Company getCompany() {
         return company;
     }
