@@ -1,8 +1,6 @@
 package edu.born.overseer.model;
 
 import edu.born.overseer.model.abstraction.AbstractBaseEntity;
-import edu.born.overseer.util.ArgumentHasNoDefaultInitializationException;
-import edu.born.overseer.util.BuilderUtil;
 import edu.born.overseer.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -12,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "actual_time", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "order_id"}, name = "actual_time_unique_at_object_idx")})
@@ -50,7 +49,20 @@ public class ActualTime extends AbstractBaseEntity {
     @Column(name = "account_man_hours", nullable = false)
     private Integer accountManHours;
 
-    protected ActualTime() {
+    public ActualTime() {
+    }
+
+    /**
+     * Cloning constructor
+     **/
+
+    public ActualTime(ActualTime other) {
+        super(other.getId());
+        this.order = other.getOrder();
+        this.employee = other.getEmployee();
+        this.date = other.getDate();
+        this.actualManHours = other.getActualManHours();
+        this.accountManHours = other.getAccountManHours();
     }
 
     public Order getOrder() {
@@ -73,61 +85,84 @@ public class ActualTime extends AbstractBaseEntity {
         return accountManHours;
     }
 
-    public static Builder newBuilder() {
-        return new ActualTime().new Builder();
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public class Builder {
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
-        private Builder() {
-        }
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
-        public Builder setId(Integer id) {
-            ActualTime.this.id = id;
-            return this;
-        }
+    public void setActualManHours(Integer actualManHours) {
+        this.actualManHours = actualManHours;
+    }
 
-        public Builder setOrder(Order order) {
-            ActualTime.this.order = order;
-            return this;
-        }
+    public void setAccountManHours(Integer accountManHours) {
+        this.accountManHours = accountManHours;
+    }
 
-        public Builder setEmployee(Employee employee) {
-            ActualTime.this.employee = employee;
-            return this;
-        }
+    /**
+     * Fluent API
+     **/
 
-        public Builder setDate(LocalDate date) {
-            ActualTime.this.date = date;
-            return this;
-        }
+    public ActualTime id(Integer id) {
+        this.id = id;
+        return this;
+    }
 
-        public Builder setActualManHours(Integer actualManHours) {
-            ActualTime.this.actualManHours = actualManHours;
-            return this;
-        }
+    public ActualTime order(Order order) {
+        this.order = order;
+        return this;
+    }
 
-        public Builder setAccountManHours(Integer accountManHours) {
-            ActualTime.this.accountManHours = accountManHours;
-            return this;
-        }
+    public ActualTime employee(Employee employee) {
+        this.employee = employee;
+        return this;
+    }
 
-        public ActualTime build() {
-            if (BuilderUtil.isNull(order, employee, date, actualManHours, accountManHours))
-                throw new ArgumentHasNoDefaultInitializationException();
-            else return ActualTime.this;
-        }
+    public ActualTime date(LocalDate date) {
+        this.date = date;
+        return this;
+    }
 
+    public ActualTime actualManHours(Integer actualManHours) {
+        this.actualManHours = actualManHours;
+        return this;
+    }
+
+    public ActualTime accountManHours(Integer accountManHours) {
+        this.accountManHours = accountManHours;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        ActualTime otherActualTime = (ActualTime) other;
+        return Objects.equals(date, otherActualTime.date) &&
+                Objects.equals(actualManHours, otherActualTime.actualManHours) &&
+                Objects.equals(accountManHours, otherActualTime.accountManHours);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), date, actualManHours, accountManHours);
     }
 
     @Override
     public String toString() {
-        return "ActualTime{" +
-                "id=" + id +
-                ", date=" + date +
-                ", actualManHours=" + actualManHours +
-                ", accountManHours=" + accountManHours +
-                '}';
+        return "ActualTime {" +
+                "id=" + id + ", " +
+                "date=" + date + ", " +
+                "actualManHours=" + actualManHours + ", " +
+                "accountManHours=" + accountManHours + ", " +
+                "}\n";
     }
 
 }
