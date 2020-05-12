@@ -140,10 +140,27 @@ public class TaskEmail {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        TaskEmail otherTaskEmail = (TaskEmail) other;
+        return Objects.equals(id, otherTaskEmail.id) &&
+                sendType == otherTaskEmail.sendType &&
+                Objects.equals(task, otherTaskEmail.task) &&
+                Objects.equals(email, otherTaskEmail.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, sendType, task, email);
+    }
+
+    @Override
     public String toString() {
         return "TaskEmail {" +
                 "id=" + id + ", " +
                 "sendType=" + sendType + ", " +
                 '}';
     }
+
 }
