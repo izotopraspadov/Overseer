@@ -16,7 +16,7 @@ public class TaskEmail {
     public static class Id implements Serializable {
 
         @Column(name = "task_id")
-        private Integer tastId;
+        private Integer taskId;
 
         @Column(name = "email_id")
         private Integer emailId;
@@ -24,8 +24,8 @@ public class TaskEmail {
         public Id() {
         }
 
-        public Id(Integer tastId, Integer emailId) {
-            this.tastId = tastId;
+        public Id(Integer taskId, Integer emailId) {
+            this.taskId = taskId;
             this.emailId = emailId;
         }
 
@@ -34,13 +34,21 @@ public class TaskEmail {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Id id = (Id) o;
-            return Objects.equals(tastId, id.tastId) &&
+            return Objects.equals(taskId, id.taskId) &&
                     Objects.equals(emailId, id.emailId);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(tastId, emailId);
+            return Objects.hash(taskId, emailId);
+        }
+
+        @Override
+        public String toString() {
+            return "Id{" +
+                    "taskId=" + taskId + ", " +
+                    "emailId=" + emailId + ", " +
+                    "}\n";
         }
 
     }
@@ -48,19 +56,17 @@ public class TaskEmail {
     @EmbeddedId
     private Id id = new Id();
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type_send")
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "send_type")
     private SendType sendType;
 
     @ManyToOne
-    @JoinColumn(name = "task_id",
-            insertable = false, updatable = false)
+    @JoinColumn(name = "task_id", insertable = false, updatable = false)
     private Task task;
 
     @ManyToOne
-    @JoinColumn(name = "email_id",
-            insertable = false, updatable = false)
+    @JoinColumn(name = "email_id", insertable = false, updatable = false)
     private Email email;
 
     public TaskEmail() {
@@ -71,34 +77,73 @@ public class TaskEmail {
         this.email = email;
         this.sendType = sendType;
 
-        this.id.tastId = task.getId();
+        this.id.taskId = task.getId();
         this.id.emailId = email.getId();
 
-        task.getTaskEmails().add(this);
+        task.getEmails().add(this);
+    }
 
+    public Id getId() {
+        return id;
     }
 
     public SendType getSendType() {
         return sendType;
     }
 
-    public void setSendType(SendType sendType) {
-        this.sendType = sendType;
-    }
-
     public Task getTask() {
         return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
     }
 
     public Email getEmail() {
         return email;
     }
 
+    public void setId(Id id) {
+        this.id = id;
+    }
+
+    public void setSendType(SendType sendType) {
+        this.sendType = sendType;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
     public void setEmail(Email email) {
         this.email = email;
+    }
+
+    /**
+     * Fluent API
+     **/
+
+    public TaskEmail id(Id id) {
+        this.id = id;
+        return this;
+    }
+
+    public TaskEmail sendType(SendType sendType) {
+        this.sendType = sendType;
+        return this;
+    }
+
+    public TaskEmail task(Task task) {
+        this.task = task;
+        return this;
+    }
+
+    public TaskEmail email(Email email) {
+        this.email = email;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "TaskEmail {" +
+                "id=" + id + ", " +
+                "sendType=" + sendType + ", " +
+                '}';
     }
 }
