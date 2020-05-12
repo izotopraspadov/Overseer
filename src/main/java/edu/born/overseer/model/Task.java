@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -152,6 +153,26 @@ public class Task extends AbstractBaseEntity {
     public Task taskEmails(Set<TaskEmail> taskEmails) {
         this.taskEmails = taskEmails;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        Task otherTask = (Task) other;
+        return Objects.equals(order, otherTask.order) &&
+                Objects.equals(taskDescription, otherTask.taskDescription) &&
+                Objects.equals(responsible, otherTask.responsible) &&
+                Objects.equals(dateCompleted, otherTask.dateCompleted) &&
+                resultType == otherTask.resultType &&
+                Objects.equals(comment, otherTask.comment) &&
+                Objects.equals(taskEmails, otherTask.taskEmails);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), order, taskDescription, responsible, dateCompleted, resultType, comment, taskEmails);
     }
 
     @Override
