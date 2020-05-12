@@ -72,17 +72,6 @@ public class TaskEmail {
     public TaskEmail() {
     }
 
-    public TaskEmail(Task task, Email email, SendType sendType) {
-        this.task = task;
-        this.email = email;
-        this.sendType = sendType;
-
-        this.id.taskId = task.getId();
-        this.id.emailId = email.getId();
-
-        task.getEmails().add(this);
-    }
-
     public Id getId() {
         return id;
     }
@@ -131,11 +120,14 @@ public class TaskEmail {
 
     public TaskEmail task(Task task) {
         this.task = task;
+        this.id.taskId = task.getId();
+        task.getEmails().add(this);
         return this;
     }
 
     public TaskEmail email(Email email) {
         this.email = email;
+        this.id.emailId = email.getId();
         return this;
     }
 
@@ -145,22 +137,20 @@ public class TaskEmail {
         if (other == null || getClass() != other.getClass()) return false;
         TaskEmail otherTaskEmail = (TaskEmail) other;
         return Objects.equals(id, otherTaskEmail.id) &&
-                sendType == otherTaskEmail.sendType &&
-                Objects.equals(task, otherTaskEmail.task) &&
-                Objects.equals(email, otherTaskEmail.email);
+                sendType == otherTaskEmail.sendType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, sendType, task, email);
+        return Objects.hash(id, sendType);
     }
 
     @Override
     public String toString() {
         return "TaskEmail {" +
                 "id=" + id + ", " +
-                "sendType=" + sendType + ", " +
-                '}';
+                "sendType=" + sendType +
+                "}\n";
     }
 
 }
