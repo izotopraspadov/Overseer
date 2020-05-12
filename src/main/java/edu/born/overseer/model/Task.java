@@ -156,12 +156,13 @@ public class Task extends AbstractBaseEntity {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", taskDescription='" + taskDescription + '\'' +
-                ", dateCompleted=" + dateCompleted +
-                ", result=" + resultType +
-                ", comment='" + comment + '\'' +
-                '}';
+        return "Task {" +
+                "id=" + id + ", " +
+                "taskDescription=" + taskDescription + ", " +
+                "dateCompleted=" + dateCompleted + ", " +
+                "result=" + resultType + ", " +
+                "comment=" + comment + ", " +
+                "}\n";
     }
+
 }
