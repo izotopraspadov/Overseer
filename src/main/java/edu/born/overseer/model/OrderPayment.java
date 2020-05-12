@@ -122,14 +122,13 @@ public class OrderPayment extends AbstractPaymentEntity {
 
     @Override
     public String toString() {
-        return "OrderedObjectPaymentRepository{" +
-                "id=" + id +
-                ", company=" + company.getTitle() +
-                ", date=" + date +
-                ", transaction=" + transaction +
-                ", cashless=" + cashless +
-                ", comment='" + comment + '\'' +
-                '}';
+        return "OrderPayment {" +
+                "id=" + id + ", " +
+                "date=" + date + ", " +
+                "transaction=" + transaction + ", " +
+                "cashless=" + cashless + ", " +
+                "comment='" + comment + ", " +
+                "}\n";
     }
 
 }
