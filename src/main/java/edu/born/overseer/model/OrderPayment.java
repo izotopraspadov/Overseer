@@ -21,22 +21,22 @@ import java.time.LocalDate;
 })
 public class OrderPayment extends AbstractPaymentEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "company_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "our_company_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "our_company_id", nullable = false)
     private Company ourCompany;
 
     @Column(name = "comment")
@@ -45,45 +45,79 @@ public class OrderPayment extends AbstractPaymentEntity {
     public OrderPayment() {
     }
 
-    public OrderPayment(Integer id, LocalDate date, Company company, Order order, Company ourCompany,
-                        BigDecimal transaction, boolean cashless, String comment) {
-        super(id, date, transaction, cashless);
-        this.company = company;
-        this.order = order;
-        this.ourCompany = ourCompany;
-        this.comment = comment;
-    }
-
     public Company getCompany() {
         return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Company getOurCompany() {
-        return ourCompany;
-    }
-
-    public void setOurCompany(Company ourCompany) {
-        this.ourCompany = ourCompany;
     }
 
     public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public Company getOurCompany() {
+        return ourCompany;
     }
 
     public String getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
+    public OrderPayment Company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public OrderPayment Order(Order order) {
+        this.order = order;
+        return this;
+    }
+
+    public OrderPayment OurCompany(Company ourCompany) {
+        this.ourCompany = ourCompany;
+        return this;
+    }
+
+    public OrderPayment Comment(String comment) {
         this.comment = comment;
+        return this;
+    }
+
+    /**
+     * Fluent API
+     **/
+
+    public OrderPayment date(LocalDate date) {
+        this.date = date;
+        return this;
+    }
+
+    public OrderPayment transaction(BigDecimal transaction) {
+        this.transaction = transaction;
+        return this;
+    }
+
+    public OrderPayment cashless(boolean cashless) {
+        this.cashless = cashless;
+        return this;
+    }
+
+    public OrderPayment company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public OrderPayment order(Order order) {
+        this.order = order;
+        return this;
+    }
+
+    public OrderPayment ourCompany(Company ourCompany) {
+        this.ourCompany = ourCompany;
+        return this;
+    }
+
+    public OrderPayment comment(String comment) {
+        this.comment = comment;
+        return this;
     }
 
     @Override
