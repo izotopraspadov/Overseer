@@ -20,30 +20,29 @@ import java.util.Set;
 })
 public class Task extends AbstractBaseEntity {
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
     private Order order;
 
-    @Column(name = "task_description", nullable = false)
     @NotBlank
+    @Column(name = "task_description", nullable = false)
     private String taskDescription;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "responsible_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "responsible_id", nullable = false)
     private Employee responsible;
 
-    @Column(name = "date_completed", nullable = false)
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @Column(name = "date_completed", nullable = false)
     private LocalDate dateCompleted;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "result_type")
-    @NotNull
     private ResultType resultType;
 
     @Column(name = "comment")
@@ -55,77 +54,104 @@ public class Task extends AbstractBaseEntity {
     public Task() {
     }
 
-    public Task(Integer id, Order order, String taskDescription, Employee responsible,
-                LocalDate dateCompleted, ResultType resultType, String comment) {
-        this(id, order, taskDescription, responsible, dateCompleted, resultType, comment, null);
-    }
-
-    public Task(Integer id, Order order, String taskDescription, Employee responsible,
-                LocalDate dateCompleted, ResultType resultType, String comment, Set<TaskEmail> taskEmails) {
-        super(id);
-        this.order = order;
-        this.taskDescription = taskDescription;
-        this.responsible = responsible;
-        this.dateCompleted = dateCompleted;
-        this.resultType = resultType;
-        this.comment = comment;
-        this.taskEmails = taskEmails;
-    }
-
     public Order getOrder() {
         return order;
-    }
-
-    public void setOrder(Order object) {
-        this.order = object;
     }
 
     public String getTaskDescription() {
         return taskDescription;
     }
 
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
-    }
-
     public Employee getResponsible() {
         return responsible;
-    }
-
-    public void setResponsible(Employee employee) {
-        this.responsible = employee;
     }
 
     public LocalDate getDateCompleted() {
         return dateCompleted;
     }
 
-    public void setDateCompleted(LocalDate dateCompleted) {
-        this.dateCompleted = dateCompleted;
-    }
-
     public ResultType getResultType() {
         return resultType;
-    }
-
-    public void setResultType(ResultType resultType) {
-        this.resultType = resultType;
     }
 
     public String getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public Set<TaskEmail> getTaskEmails() {
         return taskEmails;
     }
 
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
+
+    public void setResponsible(Employee responsible) {
+        this.responsible = responsible;
+    }
+
+    public void setDateCompleted(LocalDate dateCompleted) {
+        this.dateCompleted = dateCompleted;
+    }
+
+    public void setResultType(ResultType resultType) {
+        this.resultType = resultType;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public void setTaskEmails(Set<TaskEmail> taskEmails) {
         this.taskEmails = taskEmails;
+    }
+
+    /**
+     * Fluent API
+     **/
+
+    public Task id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Task order(Order order) {
+        this.order = order;
+        return this;
+    }
+
+    public Task taskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+        return this;
+    }
+
+    public Task responsible(Employee responsible) {
+        this.responsible = responsible;
+        return this;
+    }
+
+    public Task dateCompleted(LocalDate dateCompleted) {
+        this.dateCompleted = dateCompleted;
+        return this;
+    }
+
+    public Task resultType(ResultType resultType) {
+        this.resultType = resultType;
+        return this;
+    }
+
+    public Task comment(String comment) {
+        this.comment = comment;
+        return this;
+    }
+
+    public Task taskEmails(Set<TaskEmail> taskEmails) {
+        this.taskEmails = taskEmails;
+        return this;
     }
 
     @Override
