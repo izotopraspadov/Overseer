@@ -17,31 +17,55 @@ import java.util.Objects;
 })
 public class Email extends AbstractContactEntity {
 
-    @Column(name = "address", nullable = false, unique = true)
-    @javax.validation.constraints.Email
     @NotBlank
     @Size(max = 100)
+    @javax.validation.constraints.Email
+    @Column(name = "address", nullable = false, unique = true)
     private String address;
 
     public Email() {
     }
 
-    public Email(Integer id, ContactPerson contactPerson, OwnerType ownerType, String address) {
-        super(id, contactPerson, null, ownerType);
-        this.address = address;
+    /**
+     * Cloning constructor
+     **/
+
+    public Email(Email other) {
+        super(other.getId(), other.getContactPerson(), other.getEmployee(), other.getOwnerType());
+        this.address = other.getAddress();
     }
 
-    public Email(Integer id, Employee employee, OwnerType ownerType, String address) {
-        super(id, null, employee, ownerType);
-        this.address = address;
-    }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String email) {
-        this.address = email;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * Fluent API
+     **/
+
+    public Email contactPerson(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public Email employee(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public Email ownerType(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public Email address(String address) {
+        this.address = address;
+        return this;
     }
 
     @Override
@@ -60,10 +84,10 @@ public class Email extends AbstractContactEntity {
 
     @Override
     public String toString() {
-        return "Email{" +
-                "id=" + id +
-                ", address='" + address + '\'' +
-                '}';
+        return "Email {" +
+                "id=" + id + ", " +
+                ", address='" + address + ", " +
+                "}\n";
     }
 
 }
