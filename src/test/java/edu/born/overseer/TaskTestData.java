@@ -8,13 +8,10 @@ import java.util.List;
 
 import static edu.born.overseer.EmployeeTestData.*;
 import static edu.born.overseer.OrderTestData.*;
-import static edu.born.overseer.TaskEmailTestData.*;
 import static edu.born.overseer.model.ResultType.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class TaskTestData {
-
-    public static final int INVALID_TASK_ID = START_SEQUENCE - 1;
 
     public static final int TASK_1_ID = START_SEQUENCE + 123;
     public static final int TASK_2_ID = START_SEQUENCE + 124;
@@ -25,39 +22,91 @@ public class TaskTestData {
     public static final int TASK_7_ID = START_SEQUENCE + 129;
     public static final int TASK_8_ID = START_SEQUENCE + 130;
 
-    public static final Task TASK_1 =
-            new Task(TASK_1_ID, ORDER_1, "Step 1st", EMPLOYEE_3, LocalDate.of(2019, 9, 20),
-                    PARTIALLY_COMPLETED, "Step 1st done!", TASK_1_EMAILS);
-    public static final Task TASK_2 =
-            new Task(TASK_2_ID, ORDER_1, "Step 2st", EMPLOYEE_4, LocalDate.of(2019, 9, 24),
-                    PARTIALLY_COMPLETED, "Step 2st done!", TASK_2_EMAILS);
-    public static final Task TASK_3 =
-            new Task(TASK_3_ID, ORDER_2, "Estimate 001", EMPLOYEE_3, LocalDate.of(2019, 9, 25),
-                    COMPLETED, null, TASK_3_EMAILS);
-    public static final Task TASK_4 =
-            new Task(TASK_4_ID, ORDER_3, "001 Second Pr.", EMPLOYEE_6, LocalDate.of(2019, 9, 15),
-                    NOT_COMPLETED, null, TASK_4_EMAILS);
-    public static final Task TASK_5 =
-            new Task(TASK_5_ID, ORDER_3, "002 Second Pr.", EMPLOYEE_5, LocalDate.of(2019, 9, 21),
-                    PARTIALLY_COMPLETED, null, TASK_5_EMAILS);
-    public static final Task TASK_6 =
-            new Task(TASK_6_ID, ORDER_3, "003 Second Pr.", EMPLOYEE_6, LocalDate.of(2019, 9, 26),
-                    COMPLETED, null, TASK_6_EMAILS);
-    public static final Task TASK_7 =
-            new Task(TASK_7_ID, ORDER_4, "Legal Service By Customer 01", EMPLOYEE_4, LocalDate.of(2019, 9, 13),
-                    NOT_COMPLETED, "Not Done!", TASK_7_EMAILS);
-    public static final Task TASK_8 =
-            new Task(TASK_8_ID, ORDER_4, "Legal Service By Customer 02", EMPLOYEE_4, LocalDate.of(2019, 9, 29),
-                    COMPLETED, "Done!", TASK_8_EMAILS);
+    public static final Task TASK_1 = new Task()
+            .id(TASK_1_ID)
+            .order(ORDER_1)
+            .description("Step 1st")
+            .responsible(EMPLOYEE_3)
+            .dateCompleted(LocalDate.of(2019, 9, 20))
+            .resultType(PARTIALLY_COMPLETED)
+            .comment("Step 1st done!");
 
-    public static final List<Task> ORDER_1_TASKS = List.of(TASK_1, TASK_2);
+    // TaskEmail will assign itself when created
+
+    public static final Task TASK_2 = new Task()
+            .id(TASK_2_ID)
+            .order(ORDER_1)
+            .description("Step 2st")
+            .responsible(EMPLOYEE_4)
+            .dateCompleted(LocalDate.of(2019, 9, 24))
+            .resultType(PARTIALLY_COMPLETED)
+            .comment("Step 2st done!");
+
+    public static final Task TASK_3 = new Task()
+            .id(TASK_3_ID)
+            .order(ORDER_2)
+            .description("Estimate 001")
+            .responsible(EMPLOYEE_3)
+            .dateCompleted(LocalDate.of(2019, 9, 25))
+            .resultType(COMPLETED);
+
+    public static final Task TASK_4 = new Task()
+            .id(TASK_4_ID)
+            .order(ORDER_3)
+            .description("001 Second Pr.")
+            .responsible(EMPLOYEE_6)
+            .dateCompleted(LocalDate.of(2019, 9, 15))
+            .resultType(NOT_COMPLETED);
+
+    public static final Task TASK_5 = new Task()
+            .id(TASK_5_ID)
+            .order(ORDER_3)
+            .description("002 Second Pr.")
+            .responsible(EMPLOYEE_5)
+            .dateCompleted(LocalDate.of(2019, 9, 21))
+            .resultType(PARTIALLY_COMPLETED);
+
+    public static final Task TASK_6 = new Task()
+            .id(TASK_6_ID)
+            .order(ORDER_3)
+            .description("003 Second Pr.")
+            .responsible(EMPLOYEE_6)
+            .dateCompleted(LocalDate.of(2019, 9, 26))
+            .resultType(COMPLETED);
+
+    public static final Task TASK_7 = new Task()
+            .id(TASK_7_ID)
+            .order(ORDER_4)
+            .description("Legal Service By Customer 01")
+            .responsible(EMPLOYEE_4)
+            .dateCompleted(LocalDate.of(2019, 9, 13))
+            .resultType(NOT_COMPLETED)
+            .comment("Not Done!");
+
+    public static final Task TASK_8 = new Task()
+            .id(TASK_8_ID)
+            .order(ORDER_4)
+            .description("Legal Service By Customer 02")
+            .responsible(EMPLOYEE_4)
+            .dateCompleted(LocalDate.of(2019, 9, 29))
+            .resultType(COMPLETED)
+            .comment("Done!");
+
+    public static final List<Task> ORDER_1_TASKS = List.of(TASK_1);
     public static final List<Task> ORDER_2_TASKS = List.of(TASK_3);
     public static final List<Task> ORDER_3_TASKS = List.of(TASK_4, TASK_5, TASK_6);
     public static final List<Task> ORDER_4_TASKS = List.of(TASK_7, TASK_8);
 
     public static List<Task> getPreparedCreateSet(Order order) {
-        var task = new Task(null, order, "Created Task", EMPLOYEE_1, LocalDate.now(), COMPLETED, null);
-        task.setTaskEmails(TaskEmailTestData.getPreparedCreateSet(task));
+        var task = new Task()
+                .order(order)
+                .description("Created Task")
+                .responsible(EMPLOYEE_1)
+                .dateCompleted(LocalDate.now())
+                .resultType(COMPLETED);
+
+        task.setEmails(TaskEmailTestData.getPreparedCreateSet(task));
+
         return List.of(task);
     }
 
