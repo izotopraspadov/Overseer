@@ -15,148 +15,198 @@ import java.util.Objects;
 @Entity
 @Table(name = "companies", uniqueConstraints = {@UniqueConstraint(columnNames = "itn", name = "companies_unique_itn_idx")})
 @NamedQueries({
-        @NamedQuery(name = "Company:delete", query = "DELETE FROM Company c WHERE c.id=:id"),
-        @NamedQuery(name = "Company:byId", query = "SELECT c FROM Company c WHERE c.id=:id"),
-        @NamedQuery(name = "Company:byContactPerson", query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId"),
-        @NamedQuery(name = "Company:all", query = "SELECT DISTINCT c FROM Company c ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByRegion", query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByReliability", query = "SELECT c FROM Company c WHERE c.reliabilityType=:reliability ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByType", query = "SELECT c FROM Company c WHERE c.companyType=:typeCompany ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByTitle", query = "SELECT c FROM Company c WHERE lower(c.title) LIKE lower(concat(:title, '%')) ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByAddress", query = "SELECT c FROM Company c WHERE lower(c.address) LIKE lower(concat(:address, '%')) ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByItn", query = "SELECT c FROM Company c WHERE lower(c.itn) LIKE lower(concat(:itn, '%')) ORDER BY c.title"),
+        @NamedQuery(name = "Company:delete",
+                query = "DELETE FROM Company c WHERE c.id=:id"),
+        @NamedQuery(name = "Company:byId",
+                query = "SELECT c FROM Company c WHERE c.id=:id"),
+        @NamedQuery(name = "Company:byContactPerson",
+                query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId"),
+        @NamedQuery(name = "Company:all",
+                query = "SELECT DISTINCT c FROM Company c ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByRegion",
+                query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByReliability",
+                query = "SELECT c FROM Company c WHERE c.reliabilityType=:reliability ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByType",
+                query = "SELECT c FROM Company c WHERE c.companyType=:typeCompany ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByTitle",
+                query = "SELECT c FROM Company c WHERE lower(c.title) LIKE lower(concat(:title, '%')) ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByAddress",
+                query = "SELECT c FROM Company c WHERE lower(c.address) LIKE lower(concat(:address, '%')) ORDER BY c.title"),
+        @NamedQuery(name = "Company:allByItn",
+                query = "SELECT c FROM Company c WHERE lower(c.itn) LIKE lower(concat(:itn, '%')) ORDER BY c.title"),
 })
 public class Company extends AbstractBaseEntity {
 
-    @Column(name = "title", nullable = false)
     @NotBlank
     @Size(max = 255)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "region_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "region_id", nullable = false)
     private Region region;
 
-    @Column(name = "itn", nullable = false, unique = true)
     @ITN
+    @Column(name = "itn", nullable = false, unique = true)
     private String itn;
 
-    @Column(name = "address", nullable = false)
     @NotBlank
     @Size(max = 255)
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
     @OrderBy("fullName DESC")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
     private List<ContactPerson> contactPersons;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "reliability_type")
-    @NotNull
     private ReliabilityType reliabilityType;
 
-    @Column(name = "chat_group_name", nullable = false)
     @NotBlank
     @Size(max = 255)
+    @Column(name = "chat_group_name", nullable = false)
     private String chatGroupName;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "company_type")
-    @NotNull
     private CompanyType companyType;
 
     public Company() {
     }
 
-    public Company(Integer id, String title, Region region, String itn, String address,
-                   ReliabilityType reliabilityType, String chatGroupName, CompanyType companyType) {
-        super(id);
-        this.title = title;
-        this.region = region;
-        this.itn = itn;
-        this.address = address;
-        this.reliabilityType = reliabilityType;
-        this.chatGroupName = chatGroupName;
-        this.companyType = companyType;
-    }
+    /**
+     * Cloning constructor
+     **/
 
-    public Company(Integer id, String title, Region region, String itn, String address, List<ContactPerson> contactPersons,
-                   ReliabilityType reliabilityType, String chatGroupName, CompanyType companyType) {
-        super(id);
-        this.title = title;
-        this.region = region;
-        this.itn = itn;
-        this.address = address;
-        this.contactPersons = contactPersons;
-        this.reliabilityType = reliabilityType;
-        this.chatGroupName = chatGroupName;
-        this.companyType = companyType;
+    public Company(Company other) {
+        super(other.getId());
+        this.title = other.getTitle();
+        this.region = other.getRegion();
+        this.itn = other.getItn();
+        this.address = other.getAddress();
+        this.contactPersons = other.getContactPersons();
+        this.reliabilityType = other.reliabilityType;
+        this.chatGroupName = other.getChatGroupName();
+        this.companyType = other.getCompanyType();
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Region getRegion() {
         return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
     }
 
     public String getItn() {
         return itn;
     }
 
-    public void setItn(String itn) {
-        this.itn = itn;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public List<ContactPerson> getContactPersons() {
         return contactPersons;
     }
 
-    public void setContactPersons(List<ContactPerson> contactPersons) {
-        this.contactPersons = contactPersons;
-    }
-
     public ReliabilityType getReliabilityType() {
         return reliabilityType;
-    }
-
-    public void setReliabilityType(ReliabilityType reliabilityType) {
-        this.reliabilityType = reliabilityType;
     }
 
     public String getChatGroupName() {
         return chatGroupName;
     }
 
-    public void setChatGroupName(String whatsAppGroupName) {
-        this.chatGroupName = whatsAppGroupName;
-    }
-
     public CompanyType getCompanyType() {
         return companyType;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public void setItn(String itn) {
+        this.itn = itn;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setContactPersons(List<ContactPerson> contactPersons) {
+        this.contactPersons = contactPersons;
+    }
+
+    public void setReliabilityType(ReliabilityType reliabilityType) {
+        this.reliabilityType = reliabilityType;
+    }
+
+    public void setChatGroupName(String chatGroupName) {
+        this.chatGroupName = chatGroupName;
+    }
+
     public void setCompanyType(CompanyType companyType) {
         this.companyType = companyType;
+    }
+
+    /**
+     * Fluent API
+     **/
+
+    public Company id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Company title(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public Company region(Region region) {
+        this.region = region;
+        return this;
+    }
+
+    public Company itn(String itn) {
+        this.itn = itn;
+        return this;
+    }
+
+    public Company address(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public Company contactPersons(List<ContactPerson> contactPersons) {
+        this.contactPersons = contactPersons;
+        return this;
+    }
+
+    public Company reliabilityType(ReliabilityType reliabilityType) {
+        this.reliabilityType = reliabilityType;
+        return this;
+    }
+
+    public Company chatGroupName(String chatGroupName) {
+        this.chatGroupName = chatGroupName;
+        return this;
+    }
+
+    public Company companyType(CompanyType companyType) {
+        this.companyType = companyType;
+        return this;
     }
 
     @Override
@@ -180,15 +230,15 @@ public class Company extends AbstractBaseEntity {
 
     @Override
     public String toString() {
-        return "Company{" +
-                "title='" + title + '\'' +
-                ", id=" + id +
-                ", itn='" + itn + '\'' +
-                ", address='" + address + '\'' +
-                ", reliability=" + reliabilityType +
-                ", region='" + region.getTitle() + '\'' +
-                ", chatGroupName='" + chatGroupName + '\'' +
-                ", typeCompany=" + companyType +
-                '}';
+        return "Company {" +
+                "id=" + id + ", " +
+                "title='" + title + ", " +
+                "itn='" + itn + ", " +
+                "address='" + address + ", " +
+                "reliability=" + reliabilityType + ", " +
+                "chatGroupName='" + chatGroupName + ", " +
+                "typeCompany=" + companyType + ", " +
+                "}\n";
     }
+
 }
