@@ -16,26 +16,20 @@ import java.util.Objects;
 })
 public class Phone extends AbstractContactEntity {
 
-    @Column(name = "number", nullable = false, unique = true)
     @PhoneNumber
+    @Column(name = "number", nullable = false, unique = true)
     private String number;
 
     public Phone() {
     }
 
-    public Phone(Integer id, OwnerType ownerType, String number) {
-        super(id, null, null, ownerType);
-        this.number = number;
-    }
+    /**
+     * Cloning constructor
+     **/
 
-    public Phone(Integer id, ContactPerson contactPerson, OwnerType ownerType, String number) {
-        super(id, contactPerson, null, ownerType);
-        this.number = number;
-    }
-
-    public Phone(Integer id, Employee employee, OwnerType ownerType, String number) {
-        super(id, null, employee, ownerType);
-        this.number = number;
+    public Phone(Phone other) {
+        super(other.getId(), other.getContactPerson(), other.getEmployee(), other.getOwnerType());
+        this.number = other.getNumber();
     }
 
     public String getNumber() {
@@ -44,6 +38,35 @@ public class Phone extends AbstractContactEntity {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    /**
+     * Fluent API
+     **/
+
+    public Phone id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Phone contactPerson(ContactPerson contactPerson) {
+        this.contactPerson = contactPerson;
+        return this;
+    }
+
+    public Phone employee(Employee employee) {
+        this.employee = employee;
+        return this;
+    }
+
+    public Phone ownerType(OwnerType ownerType) {
+        this.ownerType = ownerType;
+        return this;
+    }
+
+    public Phone number(String number) {
+        this.number = number;
+        return this;
     }
 
     @Override
@@ -63,9 +86,10 @@ public class Phone extends AbstractContactEntity {
     @Override
     public String toString() {
         return "Phone{" +
-                "id=" + id +
-                ", number='" + number + '\'' +
-                '}';
+                "id=" + id + ", " +
+                "number='" + number + ", " +
+                "ownerType=" + ownerType +
+                "}\n";
     }
 
 }
