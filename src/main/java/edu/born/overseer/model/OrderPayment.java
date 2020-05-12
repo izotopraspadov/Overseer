@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_payments")
@@ -118,6 +119,23 @@ public class OrderPayment extends AbstractPaymentEntity {
     public OrderPayment comment(String comment) {
         this.comment = comment;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        OrderPayment otherPayment = (OrderPayment) other;
+        return Objects.equals(company, otherPayment.company) &&
+                Objects.equals(order, otherPayment.order) &&
+                Objects.equals(ourCompany, otherPayment.ourCompany) &&
+                Objects.equals(comment, otherPayment.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), company, order, ourCompany, comment);
     }
 
     @Override
