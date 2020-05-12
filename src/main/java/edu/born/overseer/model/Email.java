@@ -48,18 +48,23 @@ public class Email extends AbstractContactEntity {
      * Fluent API
      **/
 
-    public Email contactPerson(String address) {
-        this.address = address;
+    public Email id(Integer id) {
+        this.id = id;
         return this;
     }
 
-    public Email employee(String address) {
-        this.address = address;
+    public Email contactPerson(ContactPerson contactPerson) {
+        this.contactPerson = contactPerson;
         return this;
     }
 
-    public Email ownerType(String address) {
-        this.address = address;
+    public Email employee(Employee employee) {
+        this.employee = employee;
+        return this;
+    }
+
+    public Email ownerType(OwnerType ownerType) {
+        this.ownerType = ownerType;
         return this;
     }
 
@@ -73,8 +78,8 @@ public class Email extends AbstractContactEntity {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         if (!super.equals(other)) return false;
-        Email otherEmail = (Email) other;
-        return Objects.equals(address, otherEmail.address);
+        Email email = (Email) other;
+        return Objects.equals(address, email.address);
     }
 
     @Override
@@ -86,7 +91,8 @@ public class Email extends AbstractContactEntity {
     public String toString() {
         return "Email {" +
                 "id=" + id + ", " +
-                ", address='" + address + ", " +
+                "address=" + address + ", " +
+                "ownerType=" + ownerType +
                 "}\n";
     }
 
