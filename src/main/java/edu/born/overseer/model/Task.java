@@ -10,8 +10,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import static edu.born.overseer.model.ResultType.NOT_COMPLETED;
 
 @Entity
 @Table(name = "tasks")
@@ -44,13 +47,13 @@ public class Task extends AbstractBaseEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "result_type")
-    private ResultType resultType;
+    private ResultType resultType = NOT_COMPLETED;
 
     @Column(name = "comment")
     private String comment;
 
     @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
-    private Set<TaskEmail> emails;
+    private Set<TaskEmail> emails = new HashSet<>();
 
     public Task() {
     }
