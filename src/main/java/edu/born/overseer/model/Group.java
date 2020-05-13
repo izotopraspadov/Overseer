@@ -5,6 +5,7 @@ import edu.born.overseer.model.abstraction.AbstractBaseEntity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.*;
@@ -21,9 +22,9 @@ import static javax.persistence.CascadeType.*;
 })
 public class Group extends AbstractBaseEntity {
 
-    @Column(name = "title", nullable = false, unique = true)
     @NotBlank
     @Size(min = 2, max = 255)
+    @Column(name = "title", nullable = false, unique = true)
     private String title;
 
     @ManyToMany(cascade = {PERSIST, MERGE, REMOVE}, fetch = FetchType.EAGER)
@@ -40,45 +41,88 @@ public class Group extends AbstractBaseEntity {
     public Group() {
     }
 
-    public Group(Integer id, String title, String comment, Set<OrderType> types) {
-        super(id);
-        this.title = title;
-        this.comment = comment;
-        this.types = types;
+    /**
+     * Cloning constructor
+     **/
+
+    public Group(Group other) {
+        super(other.getId());
+        this.title = other.getTitle();
+        this.comment = other.getComment();
+        this.types = other.getTypes();
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Set<OrderType> getTypes() {
         return types;
-    }
-
-    public void setTypes(Set<OrderType> types) {
-        this.types = types;
     }
 
     public String getComment() {
         return comment;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setTypes(Set<OrderType> types) {
+        this.types = types;
+    }
+
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    /**
+     * Fluent API
+     **/
+
+    public Group id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Group title(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public Group types(Set<OrderType> types) {
+        this.types = types;
+        return this;
+    }
+
+    public Group comment(String comment) {
+        this.comment = comment;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        Group otherGroup = (Group) other;
+        return Objects.equals(title, otherGroup.title) &&
+                Objects.equals(comment, otherGroup.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), title, comment);
+    }
+
     @Override
     public String toString() {
-        return "Group{" +
-                "id=" + id +
-                ", types=" + types +
-                ", comment='" + comment + '\'' +
-                ", title='" + title + '\'' +
-                '}';
+        return "Group {" +
+                "id=" + id + ", " +
+                "types=" + types + ", " +
+                "comment='" + comment + ", " +
+                "title='" + title +
+                "}\n";
     }
 
 }
