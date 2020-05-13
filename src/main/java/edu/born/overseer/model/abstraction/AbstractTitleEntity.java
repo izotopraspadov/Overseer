@@ -9,9 +9,9 @@ import java.util.Objects;
 @MappedSuperclass
 public abstract class AbstractTitleEntity extends AbstractBaseEntity {
 
-    @Column(name = "title", nullable = false, unique = true)
     @NotBlank
     @Size(min = 2, max = 255)
+    @Column(name = "title", nullable = false, unique = true)
     protected String title;
 
     public AbstractTitleEntity() {
@@ -48,4 +48,5 @@ public abstract class AbstractTitleEntity extends AbstractBaseEntity {
     public String toString() {
         return String.format("Entity %s (%s, '%s')", getClass().getName(), id, title);
     }
+
 }
