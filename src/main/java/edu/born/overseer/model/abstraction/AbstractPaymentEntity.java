@@ -13,14 +13,14 @@ import java.time.LocalDate;
 @MappedSuperclass
 public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
 
-    @Column(name = "date", nullable = false, columnDefinition = "date default now()")
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @Column(name = "date", nullable = false, columnDefinition = "date default now()")
     protected LocalDate date = LocalDate.now();
 
+    @NotNull
     @Digits(integer = 11, fraction = 2)
     @Column(name = "transaction", nullable = false)
-    @NotNull
     protected BigDecimal transaction;
 
     @Column(name = "cashless", nullable = false)
