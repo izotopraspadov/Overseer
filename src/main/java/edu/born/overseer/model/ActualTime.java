@@ -1,9 +1,7 @@
 package edu.born.overseer.model;
 
-import edu.born.overseer.model.abstraction.AbstractBaseEntity;
+import edu.born.overseer.model.abstraction.AbstractTimeEntity;
 import edu.born.overseer.util.DateTimeUtil;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,19 +18,7 @@ import java.util.Objects;
         @NamedQuery(name = "ActualTime:allByOrder",
                 query = "SELECT at FROM ActualTime at WHERE at.order.id=:orderId")
 })
-public class ActualTime extends AbstractBaseEntity {
-
-    @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "order_id", nullable = false, unique = true)
-    private Order order;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employee;
+public class ActualTime extends AbstractTimeEntity {
 
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
@@ -57,20 +43,10 @@ public class ActualTime extends AbstractBaseEntity {
      **/
 
     public ActualTime(ActualTime other) {
-        super(other.getId());
-        this.order = other.getOrder();
-        this.employee = other.getEmployee();
+        super(other.getId(), other.getOrder(), other.getEmployee());
         this.date = other.getDate();
         this.actualManHours = other.getActualManHours();
         this.accountManHours = other.getAccountManHours();
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public Employee getEmployee() {
-        return employee;
     }
 
     public LocalDate getDate() {
@@ -83,14 +59,6 @@ public class ActualTime extends AbstractBaseEntity {
 
     public Integer getAccountManHours() {
         return accountManHours;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 
     public void setDate(LocalDate date) {
