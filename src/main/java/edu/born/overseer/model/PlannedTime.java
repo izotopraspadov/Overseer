@@ -1,12 +1,11 @@
 package edu.born.overseer.model;
 
-import edu.born.overseer.model.abstraction.AbstractBaseEntity;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import edu.born.overseer.model.abstraction.AbstractTimeEntity;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Table(name = "planned_time", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "order_id"}, name = "planned_time_unique_pt_object_idx")})
@@ -16,19 +15,7 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "PlannedTime:allByOrder",
                 query = "SELECT pt FROM PlannedTime pt WHERE pt.order.id=:orderId")
 })
-public class PlannedTime extends AbstractBaseEntity {
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false, unique = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
-    private Order order;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
-    private Employee employee;
+public class PlannedTime extends AbstractTimeEntity {
 
     @Column(name = "man_hours", nullable = false)
     @Range(max = 5000)
@@ -38,27 +25,13 @@ public class PlannedTime extends AbstractBaseEntity {
     public PlannedTime() {
     }
 
-    public PlannedTime(Integer id, Order order, Employee employee, Integer manHours) {
-        super(id);
-        this.order = order;
-        this.employee = employee;
-        this.manHours = manHours;
-    }
+    /**
+     * Cloning constructor
+     **/
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public PlannedTime(PlannedTime other) {
+        super(other.getId(), other.getOrder(), other.getEmployee());
+        this.manHours = other.getManHours();
     }
 
     public Integer getManHours() {
@@ -69,11 +42,50 @@ public class PlannedTime extends AbstractBaseEntity {
         this.manHours = manHours;
     }
 
+    /**
+     * Fluent API
+     **/
+
+    public PlannedTime id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public PlannedTime order(Order order) {
+        this.order = order;
+        return this;
+    }
+
+    public PlannedTime employee(Employee employee) {
+        this.employee = employee;
+        return this;
+    }
+
+    public PlannedTime manHours(Integer manHours) {
+        this.manHours = manHours;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        PlannedTime that = (PlannedTime) other;
+        return Objects.equals(manHours, that.manHours);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), manHours);
+    }
+
     @Override
     public String toString() {
-        return "PlannedTime{" +
-                "id=" + id +
-                ", manHours=" + manHours +
-                '}';
+        return "PlannedTime {" +
+                "id=" + id + ", " +
+                "manHours=" + manHours +
+                "}\n";
     }
+
 }
