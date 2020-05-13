@@ -11,81 +11,132 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "salaries", uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "start_date"}, name = "salaries_unique_employee_start_date_idx")})
 public class Salary extends AbstractBaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable = false, unique = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "employee_id", nullable = false, unique = true)
     private Employee employee;
 
-    @Column(name = "start_date", nullable = false, unique = true)
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @Column(name = "start_date", nullable = false, unique = true)
     private LocalDate startDate;
 
-    @Column(name = "end_date")
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @Column(name = "end_date")
     private LocalDate endDate;
 
+    @NotNull
     @Digits(integer = 5, fraction = 2)
     @Column(name = "amount")
-    @NotNull
     private BigDecimal amount;
 
     public Salary() {
     }
 
-    public Salary(Integer id, Employee employee, LocalDate startDate, LocalDate endDate, BigDecimal amount) {
-        super(id);
-        this.employee = employee;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.amount = amount;
+    /**
+     * Cloning constructor
+     **/
+
+    public Salary(Salary other) {
+        super(other.getId());
+        this.employee = other.getEmployee();
+        this.startDate = other.getStartDate();
+        this.endDate = other.getEndDate();
+        this.amount = other.getAmount();
     }
 
     public Employee getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     public LocalDate getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate dateEnd) {
-        this.endDate = dateEnd;
-    }
-
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
+    /**
+     * Fluent API
+     **/
+
+    public Salary id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Salary employee(Employee employee) {
+        this.employee = employee;
+        return this;
+    }
+
+    public Salary startDate(LocalDate startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public Salary endDate(LocalDate endDate) {
+        this.endDate = endDate;
+        return this;
+    }
+
+    public Salary amount(BigDecimal amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        Salary otherSalary = (Salary) other;
+        return Objects.equals(startDate, otherSalary.startDate) &&
+                Objects.equals(endDate, otherSalary.endDate) &&
+                Objects.equals(amount, otherSalary.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), startDate, endDate, amount);
+    }
+
     @Override
     public String toString() {
-        return "Salary{" +
-                "id=" + id +
-                ", dateStart=" + startDate +
-                ", dateEnd=" + endDate +
-                ", amount=" + amount +
-                '}';
+        return "Salary {" +
+                "id=" + id + ", " +
+                "dateStart=" + startDate + ", " +
+                "dateEnd=" + endDate + ", " +
+                "amount=" + amount +
+                "}\n";
     }
+
 }
