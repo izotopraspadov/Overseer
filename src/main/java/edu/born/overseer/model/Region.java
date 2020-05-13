@@ -21,16 +21,34 @@ public class Region extends AbstractTitleEntity {
     public Region() {
     }
 
-    public Region(Integer id, String title) {
-        super(id, title);
+    /**
+     * Cloning constructor
+     **/
+
+    public Region(Region other) {
+        super(other.getId(), other.getTitle());
+    }
+
+    /**
+     * Fluent API
+     **/
+
+    public Region id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Region title(String title) {
+        this.title = title;
+        return this;
     }
 
     @Override
     public String toString() {
-        return "Region{" +
-                "id=" + id + '\'' +
-                ", title='" + title +
-                '}';
+        return "Region {" +
+                "id=" + id + ", " +
+                "title='" + title +
+                "}\n";
     }
 
 }
