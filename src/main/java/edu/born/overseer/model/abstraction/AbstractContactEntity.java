@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class AbstractContactEntity extends AbstractBaseEntity {
@@ -59,6 +60,20 @@ public abstract class AbstractContactEntity extends AbstractBaseEntity {
 
     public void setOwnerType(OwnerType ownerType) {
         this.ownerType = ownerType;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        AbstractContactEntity otherAbstractContactEntity = (AbstractContactEntity) other;
+        return ownerType == otherAbstractContactEntity.ownerType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), ownerType);
     }
 
     @Override
