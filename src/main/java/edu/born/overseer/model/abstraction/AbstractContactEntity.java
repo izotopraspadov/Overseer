@@ -28,10 +28,10 @@ public abstract class AbstractContactEntity extends AbstractBaseEntity {
     @Column(name = "owner_type")
     protected OwnerType ownerType;
 
-    public AbstractContactEntity() {
+    protected AbstractContactEntity() {
     }
 
-    public AbstractContactEntity(Integer id, ContactPerson contactPerson, Employee employee, OwnerType ownerType) {
+    protected AbstractContactEntity(Integer id, ContactPerson contactPerson, Employee employee, OwnerType ownerType) {
         super(id);
         this.contactPerson = contactPerson;
         this.employee = employee;

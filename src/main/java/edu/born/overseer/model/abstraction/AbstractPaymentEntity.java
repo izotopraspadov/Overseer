@@ -26,10 +26,10 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
     @Column(name = "cashless", nullable = false)
     protected boolean cashless = false;
 
-    public AbstractPaymentEntity() {
+    protected AbstractPaymentEntity() {
     }
 
-    public AbstractPaymentEntity(Integer id, LocalDate date, BigDecimal transaction, boolean cashless) {
+    protected AbstractPaymentEntity(Integer id, LocalDate date, BigDecimal transaction, boolean cashless) {
         super(id);
         this.date = date;
         this.transaction = transaction;

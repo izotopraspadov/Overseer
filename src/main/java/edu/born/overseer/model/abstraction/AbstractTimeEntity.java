@@ -23,10 +23,10 @@ public abstract class AbstractTimeEntity extends AbstractBaseEntity {
     @JoinColumn(name = "employee_id", nullable = false)
     protected Employee employee;
 
-    public AbstractTimeEntity() {
+    protected AbstractTimeEntity() {
     }
 
-    public AbstractTimeEntity(Integer id, Order order, Employee employee) {
+    protected AbstractTimeEntity(Integer id, Order order, Employee employee) {
         super(id);
         this.order = order;
         this.employee = employee;

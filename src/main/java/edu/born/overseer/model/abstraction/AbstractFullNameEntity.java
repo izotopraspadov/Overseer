@@ -14,10 +14,10 @@ public abstract class AbstractFullNameEntity extends AbstractBaseEntity {
     @Column(name = "full_name", nullable = false)
     protected String fullName;
 
-    public AbstractFullNameEntity() {
+    protected AbstractFullNameEntity() {
     }
 
-    public AbstractFullNameEntity(Integer id, String fullName) {
+    protected AbstractFullNameEntity(Integer id, String fullName) {
         super(id);
         this.fullName = fullName;
     }

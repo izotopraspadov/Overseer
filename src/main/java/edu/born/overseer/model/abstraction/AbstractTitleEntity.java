@@ -14,10 +14,10 @@ public abstract class AbstractTitleEntity extends AbstractBaseEntity {
     @Column(name = "title", nullable = false, unique = true)
     protected String title;
 
-    public AbstractTitleEntity() {
+    protected AbstractTitleEntity() {
     }
 
-    public AbstractTitleEntity(Integer id, String title) {
+    protected AbstractTitleEntity(Integer id, String title) {
         super(id);
         this.title = title;
     }
