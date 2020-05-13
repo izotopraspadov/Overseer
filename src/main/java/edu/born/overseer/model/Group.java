@@ -1,10 +1,8 @@
 package edu.born.overseer.model;
 
-import edu.born.overseer.model.abstraction.AbstractBaseEntity;
+import edu.born.overseer.model.abstraction.AbstractTitleEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,12 +18,7 @@ import static javax.persistence.CascadeType.*;
         @NamedQuery(name = "Group:all",
                 query = "SELECT DISTINCT g FROM Group g LEFT JOIN FETCH g.types t ORDER BY g.title"),
 })
-public class Group extends AbstractBaseEntity {
-
-    @NotBlank
-    @Size(min = 2, max = 255)
-    @Column(name = "title", nullable = false, unique = true)
-    private String title;
+public class Group extends AbstractTitleEntity {
 
     @ManyToMany(cascade = {PERSIST, MERGE, REMOVE}, fetch = FetchType.EAGER)
     @JoinTable(
@@ -46,14 +39,9 @@ public class Group extends AbstractBaseEntity {
      **/
 
     public Group(Group other) {
-        super(other.getId());
-        this.title = other.getTitle();
+        super(other.getId(), other.getTitle());
         this.comment = other.getComment();
         this.types = other.getTypes();
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public Set<OrderType> getTypes() {
@@ -62,10 +50,6 @@ public class Group extends AbstractBaseEntity {
 
     public String getComment() {
         return comment;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public void setTypes(Set<OrderType> types) {
@@ -106,22 +90,20 @@ public class Group extends AbstractBaseEntity {
         if (other == null || getClass() != other.getClass()) return false;
         if (!super.equals(other)) return false;
         Group otherGroup = (Group) other;
-        return Objects.equals(title, otherGroup.title) &&
-                Objects.equals(comment, otherGroup.comment);
+        return Objects.equals(comment, otherGroup.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), title, comment);
+        return Objects.hash(super.hashCode(), comment);
     }
 
     @Override
     public String toString() {
         return "Group {" +
                 "id=" + id + ", " +
-                "types=" + types + ", " +
-                "comment='" + comment + ", " +
                 "title='" + title +
+                "comment='" + comment + ", " +
                 "}\n";
     }
 
