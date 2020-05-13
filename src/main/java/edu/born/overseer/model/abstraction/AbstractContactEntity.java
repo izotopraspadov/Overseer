@@ -15,17 +15,17 @@ public abstract class AbstractContactEntity extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "contact_person_id")
-    private ContactPerson contactPerson;
+    protected ContactPerson contactPerson;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "employee_id")
-    private Employee employee;
+    protected Employee employee;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "owner_type")
-    private OwnerType ownerType;
+    protected OwnerType ownerType;
 
     public AbstractContactEntity() {
     }
