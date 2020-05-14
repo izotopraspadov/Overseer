@@ -1,5 +1,6 @@
 package edu.born.overseer;
 
+import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.Salary;
 
 import java.math.BigDecimal;
@@ -89,6 +90,15 @@ public class SalaryTestData {
 
         return new Salary(SALARY_7)
                 .amount(BigDecimal.valueOf(46000.00)); // update
+    }
+
+    public static Set<Salary> getPreparedCreatedSet(Employee employee) {
+
+        return Set.of(new Salary()
+                .employee(employee)
+                .startDate(LocalDate.of(2019, 12, 1))
+                .amount(BigDecimal.valueOf(44000.00))
+        );
     }
 
 }
