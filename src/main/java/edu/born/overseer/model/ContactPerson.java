@@ -64,6 +64,18 @@ public class ContactPerson extends AbstractFullNameEntity {
         return emails;
     }
 
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public void setEmails(Set<Email> emails) {
+        this.emails = emails;
+    }
+
     /**
      * Fluent API
      **/
