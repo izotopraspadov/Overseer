@@ -44,7 +44,7 @@ public class EmployeePayment extends AbstractPaymentEntity {
     private Employee employeeCounterparty;
 
     @Column(name = "charge", nullable = false)
-    private boolean charge;
+    private boolean charge = false;
 
     @Column(name = "comment")
     private String comment;
