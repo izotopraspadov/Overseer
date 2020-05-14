@@ -28,7 +28,7 @@ public class ActualTime extends AbstractTimeEntity {
     @NotNull
     @Range(max = 5000)
     @Column(name = "actual_man_hours", nullable = false)
-    private Integer actualManHours;
+    private Integer actualManHours = 0;
 
     @NotNull
     @Range(max = 5000)
