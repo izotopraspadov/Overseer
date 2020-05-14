@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 
+import static edu.born.overseer.ActualTimeTestData.ORDER_1_ACTUAL_TIME;
 import static edu.born.overseer.CompanyTestData.*;
 import static edu.born.overseer.EmployeeTestData.*;
 import static edu.born.overseer.GroupTestData.*;
@@ -39,7 +40,8 @@ public class OrderTestData {
             .underway(true)
             .orderType(ORDER_TYPE_1)
             .payments(ORDER_1_PAYMENTS)
-            .tasks(ORDER_1_TASKS);
+            .tasks(ORDER_1_TASKS)
+            .actualTime(ORDER_1_ACTUAL_TIME);
 
     public static final Order ORDER_2 = new Order()
             .id(ORDER_2_ID)
@@ -59,7 +61,8 @@ public class OrderTestData {
             .underway(true)
             .orderType(ORDER_TYPE_2)
             .payments(ORDER_2_PAYMENTS)
-            .tasks(ORDER_2_TASKS);
+            .tasks(ORDER_2_TASKS)
+            .actualTime(ORDER_1_ACTUAL_TIME);
 
     public static final Order ORDER_3 = new Order()
             .id(ORDER_3_ID)
@@ -76,7 +79,8 @@ public class OrderTestData {
             .manager(EMPLOYEE_3)
             .orderType(ORDER_TYPE_1)
             .payments(ORDER_3_PAYMENTS)
-            .tasks(ORDER_3_TASKS);
+            .tasks(ORDER_3_TASKS)
+            .actualTime(ORDER_1_ACTUAL_TIME);
 
     public static final Order ORDER_4 = new Order()
             .id(ORDER_4_ID)
@@ -95,7 +99,8 @@ public class OrderTestData {
             .underway(true)
             .orderType(ORDER_TYPE_4)
             .payments(ORDER_4_PAYMENTS)
-            .tasks(ORDER_4_TASKS);
+            .tasks(ORDER_4_TASKS)
+            .actualTime(ORDER_1_ACTUAL_TIME);
 
 
     public static Order getPreparedCreate() {
@@ -119,6 +124,7 @@ public class OrderTestData {
 
         order.getPayments().addAll(OrderPaymentTestData.getPreparedCreateList(order));
         order.getTasks().addAll(TaskTestData.getPreparedCreateSet(order));
+        order.getActualTime().addAll(ActualTimeTestData.getPreparedCreateSet(order));
 
         return order;
     }
