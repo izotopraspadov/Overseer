@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import static javax.persistence.CascadeType.*;
 
@@ -147,6 +148,12 @@ public class Order extends AbstractBaseEntity {
     @JoinColumn(name = "order_type_id", nullable = false)
     private OrderType orderType;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private Set<ActualTime> actualTime;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private Set<PlannedTime> plannedTime;
+
     @OrderBy("date DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderPayment> payments = new ArrayList<>();
@@ -182,6 +189,8 @@ public class Order extends AbstractBaseEntity {
         this.orderType = other.getOrderType();
         this.payments = other.getPayments();
         this.tasks = other.getTasks();
+        this.actualTime = other.getActualTime();
+        this.plannedTime = other.getPlannedTime();
     }
 
     public Company getCompany() {
@@ -260,6 +269,14 @@ public class Order extends AbstractBaseEntity {
         return tasks;
     }
 
+    public Set<ActualTime> getActualTime() {
+        return actualTime;
+    }
+
+    public Set<PlannedTime> getPlannedTime() {
+        return plannedTime;
+    }
+
     public void setCompany(Company company) {
         this.company = company;
     }
@@ -334,6 +351,14 @@ public class Order extends AbstractBaseEntity {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public void setActualTime(Set<ActualTime> actualTime) {
+        this.actualTime = actualTime;
+    }
+
+    public void setPlannedTime(Set<PlannedTime> plannedTime) {
+        this.plannedTime = plannedTime;
     }
 
     /**
@@ -437,6 +462,16 @@ public class Order extends AbstractBaseEntity {
 
     public Order tasks(List<Task> tasks) {
         this.tasks = tasks;
+        return this;
+    }
+
+    public Order actualTime(Set<ActualTime> actualTime) {
+        this.actualTime = actualTime;
+        return this;
+    }
+
+    public Order plannedTime(Set<PlannedTime> plannedTime) {
+        this.plannedTime = plannedTime;
         return this;
     }
 
