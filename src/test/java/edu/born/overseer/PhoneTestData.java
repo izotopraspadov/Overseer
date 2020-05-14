@@ -14,8 +14,6 @@ import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUE
 
 public class PhoneTestData {
 
-    public static final int INVALID_PHONE_ID = START_SEQUENCE - 1;
-
     public static final int CONTACT_PERSON_PHONE_1_ID = START_SEQUENCE + 56;
     public static final int CONTACT_PERSON_PHONE_2_ID = START_SEQUENCE + 57;
     public static final int CONTACT_PERSON_PHONE_3_ID = START_SEQUENCE + 58;
@@ -41,53 +39,146 @@ public class PhoneTestData {
     public static final int EMPLOYEE_PHONE_9_ID = START_SEQUENCE + 77;
     public static final int EMPLOYEE_PHONE_10_ID = START_SEQUENCE + 78;
 
-    public static final Phone CONTACT_PERSON_PHONE_1 =
-            new Phone(CONTACT_PERSON_PHONE_1_ID, CONTACT_PERSON_1, CONTACT_PERSON, "+7-000-000-00-01");
-    public static final Phone CONTACT_PERSON_PHONE_2 =
-            new Phone(CONTACT_PERSON_PHONE_2_ID, CONTACT_PERSON_1, CONTACT_PERSON, "+7-000-000-00-02");
-    public static final Phone CONTACT_PERSON_PHONE_3 =
-            new Phone(CONTACT_PERSON_PHONE_3_ID, CONTACT_PERSON_2, CONTACT_PERSON, "+7-000-000-00-03");
-    public static final Phone CONTACT_PERSON_PHONE_4 =
-            new Phone(CONTACT_PERSON_PHONE_4_ID, CONTACT_PERSON_3, CONTACT_PERSON, "+7-000-000-00-04");
-    public static final Phone CONTACT_PERSON_PHONE_5 =
-            new Phone(CONTACT_PERSON_PHONE_5_ID, CONTACT_PERSON_3, CONTACT_PERSON, "+7-000-000-00-05");
-    public static final Phone CONTACT_PERSON_PHONE_6 =
-            new Phone(CONTACT_PERSON_PHONE_6_ID, CONTACT_PERSON_3, CONTACT_PERSON, "+7-000-000-00-06");
-    public static final Phone CONTACT_PERSON_PHONE_7 =
-            new Phone(CONTACT_PERSON_PHONE_7_ID, CONTACT_PERSON_4, CONTACT_PERSON, "+7-000-000-00-07");
-    public static final Phone CONTACT_PERSON_PHONE_8 =
-            new Phone(CONTACT_PERSON_PHONE_8_ID, CONTACT_PERSON_4, CONTACT_PERSON, "+7-000-000-00-08");
-    public static final Phone CONTACT_PERSON_PHONE_9 =
-            new Phone(CONTACT_PERSON_PHONE_9_ID, CONTACT_PERSON_5, CONTACT_PERSON, "+7-000-000-00-09");
-    public static final Phone CONTACT_PERSON_PHONE_10 =
-            new Phone(CONTACT_PERSON_PHONE_10_ID, CONTACT_PERSON_6, CONTACT_PERSON, "+7-000-000-00-10");
-    public static final Phone CONTACT_PERSON_PHONE_11 =
-            new Phone(CONTACT_PERSON_PHONE_11_ID, CONTACT_PERSON_7, CONTACT_PERSON, "+7-000-000-00-11");
-    public static final Phone CONTACT_PERSON_PHONE_12 =
-            new Phone(CONTACT_PERSON_PHONE_12_ID, CONTACT_PERSON_7, CONTACT_PERSON, "+7-000-000-00-12");
-    public static final Phone CONTACT_PERSON_PHONE_13 =
-            new Phone(CONTACT_PERSON_PHONE_13_ID, CONTACT_PERSON_8, CONTACT_PERSON, "+7-000-000-00-13");
+    public static final String INVALID_PHONE_NUMBER = "0000-000-9999";
 
-    public static final Phone EMPLOYEE_PHONE_1 =
-            new Phone(EMPLOYEE_PHONE_1_ID, EMPLOYEE_1, EMPLOYEE, "+7-000-000-00-14");
-    public static final Phone EMPLOYEE_PHONE_2 =
-            new Phone(EMPLOYEE_PHONE_2_ID, EMPLOYEE_1, EMPLOYEE, "+7-000-000-00-15");
-    public static final Phone EMPLOYEE_PHONE_3 =
-            new Phone(EMPLOYEE_PHONE_3_ID, EMPLOYEE_1, EMPLOYEE, "+7-000-000-00-16");
-    public static final Phone EMPLOYEE_PHONE_4 =
-            new Phone(EMPLOYEE_PHONE_4_ID, EMPLOYEE_2, EMPLOYEE, "+7-000-000-00-17");
-    public static final Phone EMPLOYEE_PHONE_5 =
-            new Phone(EMPLOYEE_PHONE_5_ID, EMPLOYEE_3, EMPLOYEE, "+7-000-000-00-18");
-    public static final Phone EMPLOYEE_PHONE_6 =
-            new Phone(EMPLOYEE_PHONE_6_ID, EMPLOYEE_4, EMPLOYEE, "+7-000-000-00-19");
-    public static final Phone EMPLOYEE_PHONE_7 =
-            new Phone(EMPLOYEE_PHONE_7_ID, EMPLOYEE_4, EMPLOYEE, "+7-000-000-00-20");
-    public static final Phone EMPLOYEE_PHONE_8 =
-            new Phone(EMPLOYEE_PHONE_8_ID, EMPLOYEE_5, EMPLOYEE, "+7-000-000-00-21");
-    public static final Phone EMPLOYEE_PHONE_9 =
-            new Phone(EMPLOYEE_PHONE_9_ID, EMPLOYEE_6, EMPLOYEE, "+7-000-000-00-22");
-    public static final Phone EMPLOYEE_PHONE_10 =
-            new Phone(EMPLOYEE_PHONE_10_ID, EMPLOYEE_6, EMPLOYEE, "+7-000-000-00-23");
+    public static final Phone CONTACT_PERSON_PHONE_1 = new Phone()
+            .id(CONTACT_PERSON_PHONE_1_ID)
+            .contactPerson(CONTACT_PERSON_1)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-01");
+
+    public static final Phone CONTACT_PERSON_PHONE_2 = new Phone()
+            .id(CONTACT_PERSON_PHONE_2_ID)
+            .contactPerson(CONTACT_PERSON_1)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-02");
+
+    public static final Phone CONTACT_PERSON_PHONE_3 = new Phone()
+            .id(CONTACT_PERSON_PHONE_3_ID)
+            .contactPerson(CONTACT_PERSON_2)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-03");
+
+    public static final Phone CONTACT_PERSON_PHONE_4 = new Phone()
+            .id(CONTACT_PERSON_PHONE_4_ID)
+            .contactPerson(CONTACT_PERSON_3)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-04");
+
+    public static final Phone CONTACT_PERSON_PHONE_5 = new Phone()
+            .id(CONTACT_PERSON_PHONE_5_ID)
+            .contactPerson(CONTACT_PERSON_3)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-05");
+
+    public static final Phone CONTACT_PERSON_PHONE_6 = new Phone()
+            .id(CONTACT_PERSON_PHONE_6_ID)
+            .contactPerson(CONTACT_PERSON_3)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-06");
+
+    public static final Phone CONTACT_PERSON_PHONE_7 = new Phone()
+            .id(CONTACT_PERSON_PHONE_7_ID)
+            .contactPerson(CONTACT_PERSON_4)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-07");
+
+    public static final Phone CONTACT_PERSON_PHONE_8 = new Phone()
+            .id(CONTACT_PERSON_PHONE_8_ID)
+            .contactPerson(CONTACT_PERSON_4)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-08");
+
+    public static final Phone CONTACT_PERSON_PHONE_9 = new Phone()
+            .id(CONTACT_PERSON_PHONE_9_ID)
+            .contactPerson(CONTACT_PERSON_5)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-09");
+
+    public static final Phone CONTACT_PERSON_PHONE_10 = new Phone()
+            .id(CONTACT_PERSON_PHONE_10_ID)
+            .contactPerson(CONTACT_PERSON_6)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-10");
+
+    public static final Phone CONTACT_PERSON_PHONE_11 = new Phone()
+            .id(CONTACT_PERSON_PHONE_11_ID)
+            .contactPerson(CONTACT_PERSON_7)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-11");
+
+    public static final Phone CONTACT_PERSON_PHONE_12 = new Phone()
+            .id(CONTACT_PERSON_PHONE_12_ID)
+            .contactPerson(CONTACT_PERSON_7)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-12");
+
+    public static final Phone CONTACT_PERSON_PHONE_13 = new Phone()
+            .id(CONTACT_PERSON_PHONE_13_ID)
+            .contactPerson(CONTACT_PERSON_8)
+            .ownerType(CONTACT_PERSON)
+            .number("+7-000-000-00-13");
+
+
+    public static final Phone EMPLOYEE_PHONE_1 = new Phone()
+            .id(EMPLOYEE_PHONE_1_ID)
+            .employee(EMPLOYEE_1)
+            .ownerType(EMPLOYEE)
+            .number("+7-000-000-00-14");
+
+    public static final Phone EMPLOYEE_PHONE_2 = new Phone()
+            .id(EMPLOYEE_PHONE_2_ID)
+            .employee(EMPLOYEE_1)
+            .ownerType(EMPLOYEE)
+            .number("+7-000-000-00-15");
+
+    public static final Phone EMPLOYEE_PHONE_3 = new Phone()
+            .id(EMPLOYEE_PHONE_3_ID)
+            .employee(EMPLOYEE_1)
+            .ownerType(EMPLOYEE)
+            .number("+7-000-000-00-16");
+
+    public static final Phone EMPLOYEE_PHONE_4 = new Phone()
+            .id(EMPLOYEE_PHONE_4_ID)
+            .employee(EMPLOYEE_2)
+            .ownerType(EMPLOYEE)
+            .number("+7-000-000-00-17");
+
+    public static final Phone EMPLOYEE_PHONE_5 = new Phone()
+            .id(EMPLOYEE_PHONE_5_ID)
+            .employee(EMPLOYEE_3)
+            .ownerType(EMPLOYEE)
+            .number("+7-000-000-00-18");
+
+    public static final Phone EMPLOYEE_PHONE_6 = new Phone()
+            .id(EMPLOYEE_PHONE_6_ID)
+            .employee(EMPLOYEE_4)
+            .ownerType(EMPLOYEE)
+            .number("+7-000-000-00-19");
+
+    public static final Phone EMPLOYEE_PHONE_7 = new Phone()
+            .id(EMPLOYEE_PHONE_7_ID)
+            .employee(EMPLOYEE_4)
+            .ownerType(EMPLOYEE)
+            .number("+7-000-000-00-20");
+
+    public static final Phone EMPLOYEE_PHONE_8 = new Phone()
+            .id(EMPLOYEE_PHONE_8_ID)
+            .employee(EMPLOYEE_5)
+            .ownerType(EMPLOYEE)
+            .number("+7-000-000-00-21");
+
+    public static final Phone EMPLOYEE_PHONE_9 = new Phone()
+            .id(EMPLOYEE_PHONE_9_ID)
+            .employee(EMPLOYEE_6)
+            .ownerType(EMPLOYEE)
+            .number("+7-000-000-00-22");
+
+    public static final Phone EMPLOYEE_PHONE_10 = new Phone()
+            .id(EMPLOYEE_PHONE_10_ID)
+            .employee(EMPLOYEE_6)
+            .ownerType(EMPLOYEE)
+            .number("+7-000-000-00-23");
 
     public static final Set<Phone> CONTACT_PERSON_1_PHONES = Set.of(CONTACT_PERSON_PHONE_1, CONTACT_PERSON_PHONE_2);
     public static final Set<Phone> CONTACT_PERSON_2_PHONES = Set.of(CONTACT_PERSON_PHONE_3);
@@ -106,30 +197,75 @@ public class PhoneTestData {
     public static final Set<Phone> EMPLOYEE_6_PHONES = Set.of(EMPLOYEE_PHONE_9, EMPLOYEE_PHONE_10);
 
     public static Set<Phone> getPreparedCreatedSet(ContactPerson owner) {
-        return Set.of(new Phone(null, owner, CONTACT_PERSON, "+7-000-000-99-99"));
+
+        return Set.of(new Phone()
+                .contactPerson(owner)
+                .ownerType(CONTACT_PERSON)
+                .number("+7-000-000-99-99")
+        );
     }
 
-    public static Set<Phone> getPreparedUpdateSet(ContactPerson owner) {
-        return Set.of(new Phone(CONTACT_PERSON_PHONE_1_ID, owner, CONTACT_PERSON, "+7-000-000-99-97"),
-                new Phone(CONTACT_PERSON_PHONE_2_ID, owner, CONTACT_PERSON, "+7-000-000-99-98"));
+    public static Set<Phone> getPreparedUpdateSetByPerson() {
+
+        return Set.of(
+                new Phone()
+                        .id(CONTACT_PERSON_PHONE_1_ID)
+                        .contactPerson(CONTACT_PERSON_1)
+                        .ownerType(CONTACT_PERSON)
+                        .number("+7-000-000-99-97"),
+                new Phone()
+                        .id(CONTACT_PERSON_PHONE_2_ID)
+                        .contactPerson(CONTACT_PERSON_1)
+                        .ownerType(CONTACT_PERSON)
+                        .number("+7-000-000-99-98")
+        );
     }
 
-    public static Set<Phone> getPreparedInvalidSet(ContactPerson owner) {
-        return Set.of(new Phone(null, owner, CONTACT_PERSON, "0000-000-9999"));
+    public static Set<Phone> getPreparedCreateInvalidSet(ContactPerson owner) {
+
+        return Set.of(new Phone()
+                .contactPerson(owner)
+                .ownerType(CONTACT_PERSON)
+                .number(INVALID_PHONE_NUMBER)
+        );
     }
 
     public static Set<Phone> getPreparedCreatedSet(Employee owner) {
-        return Set.of(new Phone(null, owner, EMPLOYEE, "+7-000-000-99-99"));
+
+        return Set.of(new Phone()
+                .employee(owner)
+                .ownerType(EMPLOYEE)
+                .number("+7-000-000-99-99")
+        );
     }
 
-    public static Set<Phone> getPreparedUpdateSet(Employee owner) {
-        return Set.of(new Phone(EMPLOYEE_PHONE_1_ID, owner, EMPLOYEE, "+7-000-000-99-96"),
-                new Phone(EMPLOYEE_PHONE_2_ID, owner, EMPLOYEE, "+7-000-000-99-97"),
-                new Phone(EMPLOYEE_PHONE_3_ID, owner, EMPLOYEE, "+7-000-000-99-98"));
+    public static Set<Phone> getPreparedUpdateSetByEmployee() {
+
+        return Set.of(new Phone()
+                        .id(EMPLOYEE_PHONE_1_ID)
+                        .employee(EMPLOYEE_1)
+                        .ownerType(EMPLOYEE)
+                        .number("+7-000-000-99-96"),
+                new Phone()
+                        .id(EMPLOYEE_PHONE_2_ID)
+                        .employee(EMPLOYEE_1)
+                        .ownerType(EMPLOYEE)
+                        .number("+7-000-000-99-96"),
+                new Phone()
+                        .id(EMPLOYEE_PHONE_3_ID)
+                        .employee(EMPLOYEE_1)
+                        .ownerType(EMPLOYEE)
+                        .number("+7-000-000-99-98")
+        );
     }
 
-    public static Set<Phone> getPreparedInvalidSet(Employee owner) {
-        return Set.of(new Phone(null, owner, EMPLOYEE, "0000-000-9999"));
+    public static Set<Phone> getPreparedCreateInvalidSet(Employee owner) {
+
+        return Set.of(new Phone()
+                .employee(owner)
+                .ownerType(EMPLOYEE)
+                .number(INVALID_PHONE_NUMBER)
+        );
     }
 
 }
