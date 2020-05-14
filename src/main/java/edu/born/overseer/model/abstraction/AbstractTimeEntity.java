@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public abstract class AbstractTimeEntity extends AbstractBaseEntity {
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "order_id", nullable = false, unique = true)
     protected Order order;
