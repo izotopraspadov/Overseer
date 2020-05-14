@@ -14,8 +14,6 @@ import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUE
 
 public class EmailTestData {
 
-    public static final int INVALID_EMAIL_ID = START_SEQUENCE - 1;
-
     public static final int CONTACT_PERSON_EMAIL_1_ID = START_SEQUENCE + 30;
     public static final int CONTACT_PERSON_EMAIL_2_ID = START_SEQUENCE + 31;
     public static final int CONTACT_PERSON_EMAIL_3_ID = START_SEQUENCE + 32;
@@ -44,59 +42,161 @@ public class EmailTestData {
     public static final int EMPLOYEE_EMAIL_10_ID = START_SEQUENCE + 54;
     public static final int EMPLOYEE_EMAIL_11_ID = START_SEQUENCE + 55;
 
-    public static final Email CONTACT_PERSON_EMAIL_1 =
-            new Email(CONTACT_PERSON_EMAIL_1_ID, CONTACT_PERSON_1, CONTACT_PERSON, "1@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_2 =
-            new Email(CONTACT_PERSON_EMAIL_2_ID, CONTACT_PERSON_2, CONTACT_PERSON, "2@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_3 =
-            new Email(CONTACT_PERSON_EMAIL_3_ID, CONTACT_PERSON_2, CONTACT_PERSON, "3@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_4 =
-            new Email(CONTACT_PERSON_EMAIL_4_ID, CONTACT_PERSON_3, CONTACT_PERSON, "4@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_5 =
-            new Email(CONTACT_PERSON_EMAIL_5_ID, CONTACT_PERSON_4, CONTACT_PERSON, "5@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_6 =
-            new Email(CONTACT_PERSON_EMAIL_6_ID, CONTACT_PERSON_4, CONTACT_PERSON, "6@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_7 =
-            new Email(CONTACT_PERSON_EMAIL_7_ID, CONTACT_PERSON_4, CONTACT_PERSON, "7@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_8 =
-            new Email(CONTACT_PERSON_EMAIL_8_ID, CONTACT_PERSON_5, CONTACT_PERSON, "8@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_9 =
-            new Email(CONTACT_PERSON_EMAIL_9_ID, CONTACT_PERSON_5, CONTACT_PERSON, "9@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_10 =
-            new Email(CONTACT_PERSON_EMAIL_10_ID, CONTACT_PERSON_6, CONTACT_PERSON, "10@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_11 =
-            new Email(CONTACT_PERSON_EMAIL_11_ID, CONTACT_PERSON_6, CONTACT_PERSON, "11@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_12 =
-            new Email(CONTACT_PERSON_EMAIL_12_ID, CONTACT_PERSON_6, CONTACT_PERSON, "12@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_13 =
-            new Email(CONTACT_PERSON_EMAIL_13_ID, CONTACT_PERSON_7, CONTACT_PERSON, "13@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_14 =
-            new Email(CONTACT_PERSON_EMAIL_14_ID, CONTACT_PERSON_8, CONTACT_PERSON, "14@mail.com");
-    public static final Email CONTACT_PERSON_EMAIL_15 =
-            new Email(CONTACT_PERSON_EMAIL_15_ID, CONTACT_PERSON_8, CONTACT_PERSON, "15@mail.com");
+    public static final Email CONTACT_PERSON_EMAIL_1 = new Email()
+            .id(CONTACT_PERSON_EMAIL_1_ID)
+            .contactPerson(CONTACT_PERSON_1)
+            .ownerType(CONTACT_PERSON)
+            .address("1@mail.com");
 
-    public static final Email EMPLOYEE_EMAIL_1 =
-            new Email(EMPLOYEE_EMAIL_1_ID, EMPLOYEE_1, EMPLOYEE, "16@mail.com");
-    public static final Email EMPLOYEE_EMAIL_2 =
-            new Email(EMPLOYEE_EMAIL_2_ID, EMPLOYEE_1, EMPLOYEE, "17@mail.com");
-    public static final Email EMPLOYEE_EMAIL_3 =
-            new Email(EMPLOYEE_EMAIL_3_ID, EMPLOYEE_2, EMPLOYEE, "18@mail.com");
-    public static final Email EMPLOYEE_EMAIL_4 =
-            new Email(EMPLOYEE_EMAIL_4_ID, EMPLOYEE_3, EMPLOYEE, "19@mail.com");
-    public static final Email EMPLOYEE_EMAIL_5 =
-            new Email(EMPLOYEE_EMAIL_5_ID, EMPLOYEE_3, EMPLOYEE, "20@mail.com");
-    public static final Email EMPLOYEE_EMAIL_6 =
-            new Email(EMPLOYEE_EMAIL_6_ID, EMPLOYEE_3, EMPLOYEE, "21@mail.com");
-    public static final Email EMPLOYEE_EMAIL_7 =
-            new Email(EMPLOYEE_EMAIL_7_ID, EMPLOYEE_4, EMPLOYEE, "22@mail.com");
-    public static final Email EMPLOYEE_EMAIL_8 =
-            new Email(EMPLOYEE_EMAIL_8_ID, EMPLOYEE_4, EMPLOYEE, "23@mail.com");
-    public static final Email EMPLOYEE_EMAIL_9 =
-            new Email(EMPLOYEE_EMAIL_9_ID, EMPLOYEE_5, EMPLOYEE, "24@mail.com");
-    public static final Email EMPLOYEE_EMAIL_10 =
-            new Email(EMPLOYEE_EMAIL_10_ID, EMPLOYEE_6, EMPLOYEE, "25@mail.com");
-    public static final Email EMPLOYEE_EMAIL_11 =
-            new Email(EMPLOYEE_EMAIL_11_ID, EMPLOYEE_6, EMPLOYEE, "26@mail.com");
+    public static final Email CONTACT_PERSON_EMAIL_2 = new Email()
+            .id(CONTACT_PERSON_EMAIL_2_ID)
+            .contactPerson(CONTACT_PERSON_2)
+            .ownerType(CONTACT_PERSON)
+            .address("2@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_3 = new Email()
+            .id(CONTACT_PERSON_EMAIL_3_ID)
+            .contactPerson(CONTACT_PERSON_2)
+            .ownerType(CONTACT_PERSON)
+            .address("3@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_4 = new Email()
+            .id(CONTACT_PERSON_EMAIL_4_ID)
+            .contactPerson(CONTACT_PERSON_3)
+            .ownerType(CONTACT_PERSON)
+            .address("4@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_5 = new Email()
+            .id(CONTACT_PERSON_EMAIL_5_ID)
+            .contactPerson(CONTACT_PERSON_4)
+            .ownerType(CONTACT_PERSON)
+            .address("5@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_6 = new Email()
+            .id(CONTACT_PERSON_EMAIL_6_ID)
+            .contactPerson(CONTACT_PERSON_4)
+            .ownerType(CONTACT_PERSON)
+            .address("6@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_7 = new Email()
+            .id(CONTACT_PERSON_EMAIL_7_ID)
+            .contactPerson(CONTACT_PERSON_4)
+            .ownerType(CONTACT_PERSON)
+            .address("7@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_8 = new Email()
+            .id(CONTACT_PERSON_EMAIL_8_ID)
+            .contactPerson(CONTACT_PERSON_5)
+            .ownerType(CONTACT_PERSON)
+            .address("8@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_9 = new Email()
+            .id(CONTACT_PERSON_EMAIL_9_ID)
+            .contactPerson(CONTACT_PERSON_5)
+            .ownerType(CONTACT_PERSON)
+            .address("9@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_10 = new Email()
+            .id(CONTACT_PERSON_EMAIL_10_ID)
+            .contactPerson(CONTACT_PERSON_6)
+            .ownerType(CONTACT_PERSON)
+            .address("10@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_11 = new Email()
+            .id(CONTACT_PERSON_EMAIL_11_ID)
+            .contactPerson(CONTACT_PERSON_6)
+            .ownerType(CONTACT_PERSON)
+            .address("11@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_12 = new Email()
+            .id(CONTACT_PERSON_EMAIL_12_ID)
+            .contactPerson(CONTACT_PERSON_6)
+            .ownerType(CONTACT_PERSON)
+            .address("12@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_13 = new Email()
+            .id(CONTACT_PERSON_EMAIL_13_ID)
+            .contactPerson(CONTACT_PERSON_7)
+            .ownerType(CONTACT_PERSON)
+            .address("13@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_14 = new Email()
+            .id(CONTACT_PERSON_EMAIL_14_ID)
+            .contactPerson(CONTACT_PERSON_8)
+            .ownerType(CONTACT_PERSON)
+            .address("14@mail.com");
+
+    public static final Email CONTACT_PERSON_EMAIL_15 = new Email()
+            .id(CONTACT_PERSON_EMAIL_15_ID)
+            .contactPerson(CONTACT_PERSON_8)
+            .ownerType(CONTACT_PERSON)
+            .address("15@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_1 = new Email()
+            .id(EMPLOYEE_EMAIL_1_ID)
+            .employee(EMPLOYEE_1)
+            .ownerType(EMPLOYEE)
+            .address("16@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_2 = new Email()
+            .id(EMPLOYEE_EMAIL_2_ID)
+            .employee(EMPLOYEE_1)
+            .ownerType(EMPLOYEE)
+            .address("17@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_3 = new Email()
+            .id(EMPLOYEE_EMAIL_3_ID)
+            .employee(EMPLOYEE_2)
+            .ownerType(EMPLOYEE)
+            .address("18@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_4 = new Email()
+            .id(EMPLOYEE_EMAIL_4_ID)
+            .employee(EMPLOYEE_3)
+            .ownerType(EMPLOYEE)
+            .address("19@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_5 = new Email()
+            .id(EMPLOYEE_EMAIL_5_ID)
+            .employee(EMPLOYEE_3)
+            .ownerType(EMPLOYEE)
+            .address("20@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_6 = new Email()
+            .id(EMPLOYEE_EMAIL_6_ID)
+            .employee(EMPLOYEE_3)
+            .ownerType(EMPLOYEE)
+            .address("21@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_7 = new Email()
+            .id(EMPLOYEE_EMAIL_7_ID)
+            .employee(EMPLOYEE_4)
+            .ownerType(EMPLOYEE)
+            .address("22@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_8 = new Email()
+            .id(EMPLOYEE_EMAIL_8_ID)
+            .employee(EMPLOYEE_4)
+            .ownerType(EMPLOYEE)
+            .address("23@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_9 = new Email()
+            .id(EMPLOYEE_EMAIL_9_ID)
+            .employee(EMPLOYEE_5)
+            .ownerType(EMPLOYEE)
+            .address("24@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_10 = new Email()
+            .id(EMPLOYEE_EMAIL_10_ID)
+            .employee(EMPLOYEE_6)
+            .ownerType(EMPLOYEE)
+            .address("25@mail.com");
+
+    public static final Email EMPLOYEE_EMAIL_11 = new Email()
+            .id(EMPLOYEE_EMAIL_11_ID)
+            .employee(EMPLOYEE_6)
+            .ownerType(EMPLOYEE)
+            .address("26@mail.com");
 
     public static final Set<Email> CONTACT_PERSON_1_EMAILS = Set.of(CONTACT_PERSON_EMAIL_1);
     public static final Set<Email> CONTACT_PERSON_2_EMAILS = Set.of(CONTACT_PERSON_EMAIL_2, CONTACT_PERSON_EMAIL_3);
@@ -115,20 +215,36 @@ public class EmailTestData {
     public static final Set<Email> EMPLOYEE_6_EMAILS = Set.of(EMPLOYEE_EMAIL_10, EMPLOYEE_EMAIL_11);
 
     public static Set<Email> getPreparedCreateSet(ContactPerson owner) {
-        return Set.of(new Email(null, owner, CONTACT_PERSON, "999@mail.com"));
+
+        return Set.of(new Email()
+                .contactPerson(owner)
+                .ownerType(CONTACT_PERSON)
+                .address("901@mail.com")
+        );
     }
 
-    public static Set<Email> getPreparedUpdateSet(ContactPerson owner) {
-        return Set.of(new Email(CONTACT_PERSON_EMAIL_1_ID, owner, CONTACT_PERSON, "updated@mail.com"));
+    public static Set<Email> getPreparedUpdateSetByPerson() {
+
+        return Set.of(new Email(CONTACT_PERSON_EMAIL_1)
+                .address("updated@mail.com")
+        );
     }
 
     public static Set<Email> getPreparedCreateSet(Employee owner) {
-        return Set.of(new Email(null, owner, EMPLOYEE, "999@mail.com"));
+
+        return Set.of(new Email()
+                .employee(owner)
+                .ownerType(EMPLOYEE)
+                .address("902@mail.com")
+        );
     }
 
-    public static Set<Email> getPreparedUpdateSet(Employee owner) {
-        return Set.of(new Email(EMPLOYEE_EMAIL_1_ID, owner, EMPLOYEE, "updated@mail.com"));
-    }
+    public static Set<Email> getPreparedUpdateSetByEmployee() {
 
+        return Set.of(new Email(EMPLOYEE_EMAIL_1)
+                .address("updated@mail.com")
+        );
+
+    }
 
 }
