@@ -1,19 +1,14 @@
 package edu.born.overseer.model;
 
 import edu.born.overseer.model.abstraction.AbstractFullNameEntity;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -76,7 +71,7 @@ public class Employee extends AbstractFullNameEntity {
 
     @OrderBy("date DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
-    private List<EmployeePayment> payments;
+    private Set<EmployeePayment> payments;
 
     @OrderBy("startDate DESC")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
@@ -130,7 +125,7 @@ public class Employee extends AbstractFullNameEntity {
         return roles;
     }
 
-    public List<EmployeePayment> getPayments() {
+    public Set<EmployeePayment> getPayments() {
         return payments;
     }
 
@@ -166,7 +161,7 @@ public class Employee extends AbstractFullNameEntity {
         this.roles = roles;
     }
 
-    public void setPayments(List<EmployeePayment> payments) {
+    public void setPayments(Set<EmployeePayment> payments) {
         this.payments = payments;
     }
 
@@ -221,7 +216,7 @@ public class Employee extends AbstractFullNameEntity {
         return this;
     }
 
-    public Employee payments(List<EmployeePayment> payments) {
+    public Employee payments(Set<EmployeePayment> payments) {
         this.payments = payments;
         return this;
     }
