@@ -9,8 +9,6 @@ import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUE
 
 public class ContactPersonTestData {
 
-    public static final int INVALID_CONTACT_PERSON_ID = START_SEQUENCE - 1;
-
     public static final int CONTACT_PERSON_1_ID = START_SEQUENCE + 16;
     public static final int CONTACT_PERSON_2_ID = START_SEQUENCE + 17;
     public static final int CONTACT_PERSON_3_ID = START_SEQUENCE + 18;
@@ -20,36 +18,78 @@ public class ContactPersonTestData {
     public static final int CONTACT_PERSON_7_ID = START_SEQUENCE + 22;
     public static final int CONTACT_PERSON_8_ID = START_SEQUENCE + 23;
 
-    public static final ContactPerson CONTACT_PERSON_1 =
-            new ContactPerson(CONTACT_PERSON_1_ID, "Иванов Иван Иванович", COMPANY_1, CONTACT_PERSON_1_PHONES, CONTACT_PERSON_1_EMAILS);
-    public static final ContactPerson CONTACT_PERSON_2 =
-            new ContactPerson(CONTACT_PERSON_2_ID, "Семёнов Семён Семёнович", COMPANY_1, CONTACT_PERSON_2_PHONES, CONTACT_PERSON_2_EMAILS);
-    public static final ContactPerson CONTACT_PERSON_3 =
-            new ContactPerson(CONTACT_PERSON_3_ID, "Петров Пётр Петрович", COMPANY_1, CONTACT_PERSON_3_PHONES, CONTACT_PERSON_3_EMAILS);
-    public static final ContactPerson CONTACT_PERSON_4 =
-            new ContactPerson(CONTACT_PERSON_4_ID, "Васильева Галина Васильевна", COMPANY_2, CONTACT_PERSON_4_PHONES, CONTACT_PERSON_4_EMAILS);
-    public static final ContactPerson CONTACT_PERSON_5 =
-            new ContactPerson(CONTACT_PERSON_5_ID, "Иванова Мария Семёновна", COMPANY_2, CONTACT_PERSON_5_PHONES, CONTACT_PERSON_5_EMAILS);
-    public static final ContactPerson CONTACT_PERSON_6 =
-            new ContactPerson(CONTACT_PERSON_6_ID, "Вадимов Вадим Вадимович", COMPANY_2, CONTACT_PERSON_6_PHONES, CONTACT_PERSON_6_EMAILS);
-    public static final ContactPerson CONTACT_PERSON_7 =
-            new ContactPerson(CONTACT_PERSON_7_ID, "Чернышевская Милана Фёдоровная", COMPANY_3, CONTACT_PERSON_7_PHONES, CONTACT_PERSON_7_EMAILS);
-    public static final ContactPerson CONTACT_PERSON_8 =
-            new ContactPerson(CONTACT_PERSON_8_ID, "Андреев Андрей Андреевич", COMPANY_3, CONTACT_PERSON_8_PHONES, CONTACT_PERSON_8_EMAILS);
+    public static final ContactPerson CONTACT_PERSON_1 = new ContactPerson()
+            .id(CONTACT_PERSON_1_ID)
+            .fullName("Иванов Иван Иванович")
+            .company(COMPANY_1)
+            .phones(CONTACT_PERSON_1_PHONES)
+            .emails(CONTACT_PERSON_1_EMAILS);
 
+    public static final ContactPerson CONTACT_PERSON_2 = new ContactPerson()
+            .id(CONTACT_PERSON_2_ID)
+            .fullName("Семёнов Семён Семёнович")
+            .company(COMPANY_1)
+            .phones(CONTACT_PERSON_2_PHONES)
+            .emails(CONTACT_PERSON_2_EMAILS);
+
+
+    public static final ContactPerson CONTACT_PERSON_3 = new ContactPerson()
+            .id(CONTACT_PERSON_3_ID)
+            .fullName("Петров Пётр Петрович")
+            .company(COMPANY_1)
+            .phones(CONTACT_PERSON_3_PHONES)
+            .emails(CONTACT_PERSON_3_EMAILS);
+
+
+    public static final ContactPerson CONTACT_PERSON_4 = new ContactPerson()
+            .id(CONTACT_PERSON_4_ID)
+            .fullName("Васильева Галина Васильевна")
+            .company(COMPANY_2)
+            .phones(CONTACT_PERSON_4_PHONES)
+            .emails(CONTACT_PERSON_4_EMAILS);
+
+    public static final ContactPerson CONTACT_PERSON_5 = new ContactPerson()
+            .id(CONTACT_PERSON_5_ID)
+            .fullName("Иванова Мария Семёновна")
+            .company(COMPANY_2)
+            .phones(CONTACT_PERSON_5_PHONES)
+            .emails(CONTACT_PERSON_5_EMAILS);
+
+    public static final ContactPerson CONTACT_PERSON_6 = new ContactPerson()
+            .id(CONTACT_PERSON_6_ID)
+            .fullName("Вадимов Вадим Вадимович")
+            .company(COMPANY_2)
+            .phones(CONTACT_PERSON_6_PHONES)
+            .emails(CONTACT_PERSON_6_EMAILS);
+
+    public static final ContactPerson CONTACT_PERSON_7 = new ContactPerson()
+            .id(CONTACT_PERSON_7_ID)
+            .fullName("Чернышевская Милана Фёдоровная")
+            .company(COMPANY_3)
+            .phones(CONTACT_PERSON_7_PHONES)
+            .emails(CONTACT_PERSON_7_EMAILS);
+
+    public static final ContactPerson CONTACT_PERSON_8 = new ContactPerson()
+            .id(CONTACT_PERSON_8_ID)
+            .fullName("Андреев Андрей Андреевич")
+            .company(COMPANY_3)
+            .phones(CONTACT_PERSON_8_PHONES)
+            .emails(CONTACT_PERSON_8_EMAILS);
 
     public static ContactPerson getPreparedCreate() {
-        var person = new ContactPerson(null, "New Person", COMPANY_1);
+        var person = new ContactPerson()
+                .fullName("New Person")
+                .company(COMPANY_1);
+
         person.setEmails(EmailTestData.getPreparedCreateSet(person));
         person.setPhones(PhoneTestData.getPreparedCreatedSet(person));
         return person;
     }
 
     public static ContactPerson getPreparedUpdate() {
-        var person = new ContactPerson(CONTACT_PERSON_1_ID, "Updated person", CONTACT_PERSON_1.getCompany());
-        person.setEmails(EmailTestData.getPreparedUpdateSet(person));
-        person.setPhones(PhoneTestData.getPreparedUpdateSet(person));
-        return person;
+
+        return new ContactPerson(CONTACT_PERSON_1)
+                .fullName("Updated person");
     }
 
 }
