@@ -5,7 +5,7 @@ import edu.born.overseer.model.EmployeePayment;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import static edu.born.overseer.CompanyTestData.*;
 import static edu.born.overseer.EmployeeTestData.*;
@@ -100,15 +100,17 @@ public class EmployeePaymentTestData {
             .counterpartyType(COMPANY)
             .companyCounterparty(COMPANY_3);
 
-    public static final List<EmployeePayment> EMPLOYEE_1_PAYMENTS = List.of(EMPLOYEE_PAYMENT_1, EMPLOYEE_PAYMENT_3);
-    public static final List<EmployeePayment> EMPLOYEE_2_PAYMENTS = List.of(EMPLOYEE_PAYMENT_3);
-    public static final List<EmployeePayment> EMPLOYEE_3_PAYMENTS = List.of(EMPLOYEE_PAYMENT_4, EMPLOYEE_PAYMENT_6);
-    public static final List<EmployeePayment> EMPLOYEE_4_PAYMENTS = List.of(EMPLOYEE_PAYMENT_5, EMPLOYEE_PAYMENT_7);
-    public static final List<EmployeePayment> EMPLOYEE_5_PAYMENTS = List.of(EMPLOYEE_PAYMENT_8);
-    public static final List<EmployeePayment> EMPLOYEE_6_PAYMENTS = List.of();
+    public static final Set<EmployeePayment> EMPLOYEE_1_PAYMENTS = Set.of(EMPLOYEE_PAYMENT_1, EMPLOYEE_PAYMENT_3);
+    public static final Set<EmployeePayment> EMPLOYEE_2_PAYMENTS = Set.of(EMPLOYEE_PAYMENT_2);
+    public static final Set<EmployeePayment> EMPLOYEE_3_PAYMENTS = Set.of(EMPLOYEE_PAYMENT_4, EMPLOYEE_PAYMENT_6);
+    public static final Set<EmployeePayment> EMPLOYEE_4_PAYMENTS = Set.of(EMPLOYEE_PAYMENT_5, EMPLOYEE_PAYMENT_7);
+    public static final Set<EmployeePayment> EMPLOYEE_5_PAYMENTS = Set.of(EMPLOYEE_PAYMENT_8);
+    public static final Set<EmployeePayment> EMPLOYEE_6_PAYMENTS = Set.of();
+    public static final Set<EmployeePayment> EMPLOYEE_7_PAYMENTS = Set.of();
+    public static final Set<EmployeePayment> EMPLOYEE_8_PAYMENTS = Set.of();
 
-    public static List<EmployeePayment> getPreparedCreateList(Employee employee) {
-        return List.of(new EmployeePayment()
+    public static Set<EmployeePayment> getPreparedCreateSet(Employee employee) {
+        return Set.of(new EmployeePayment()
                 .transaction(BigDecimal.valueOf(100000.00))
                 .charge(true)
                 .employee(EMPLOYEE_1)
