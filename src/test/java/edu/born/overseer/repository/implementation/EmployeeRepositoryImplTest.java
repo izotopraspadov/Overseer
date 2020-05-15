@@ -14,6 +14,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.NoResultException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -107,6 +109,31 @@ class EmployeeRepositoryImplTest {
         assertEquals(received, prepared);
         assertEquals(Set.copyOf(received.getEmails()), Set.copyOf(prepared.getEmails()));
         assertEquals(Set.copyOf(received.getPhones()), Set.copyOf(prepared.getPhones()));
+    }
+
+    @Test
+    void updateDuplicateSalary() {
+        var received = employeeRepository.getById(EMPLOYEE_1_ID);
+
+        var updateAmount = BigDecimal.valueOf(46000.00)
+                .setScale(2, RoundingMode.DOWN);
+
+        // update
+        var salary = received.getSalary()
+                .stream()
+                .filter(e -> e.getEndDate() == null)
+                .findFirst()
+                .orElseThrow(NullPointerException::new)
+                .amount(updateAmount);
+
+        var updated = employeeRepository.save(received, received.getRegion().getId())
+                .getSalary()
+                .stream()
+                .filter(e -> e.getEndDate() == null)
+                .findFirst()
+                .orElseThrow(NullPointerException::new);
+
+        assertEquals(updated.getAmount(), updateAmount);
     }
 
     @Test
