@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import static edu.born.overseer.data.EmployeeTestData.*;
+import static edu.born.overseer.data.TestDataUtil.NEXT_ID;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class SalaryTestData {
@@ -78,6 +79,14 @@ public class SalaryTestData {
                     .setScale(2, RoundingMode.DOWN)
             );
 
+    public static final Salary NEXT_SALARY = new Salary()
+            .id(NEXT_ID)
+            .employee(EMPLOYEE_1)
+            .startDate(LocalDate.now())
+            .amount(BigDecimal.valueOf(44000.00)
+                    .setScale(2, RoundingMode.DOWN)
+            );
+
     public static final Set<Salary> EMPLOYEE_1_SALARIES = Set.of(SALARY_7, SALARY_1);
     public static final Set<Salary> EMPLOYEE_2_SALARIES = Set.of(SALARY_2);
     public static final Set<Salary> EMPLOYEE_3_SALARIES = Set.of(SALARY_3);
@@ -89,7 +98,7 @@ public class SalaryTestData {
 
         return new Salary()
                 .employee(EMPLOYEE_1)
-                .startDate(LocalDate.of(2019, 10, 1))
+                .startDate(LocalDate.now())
                 .amount(BigDecimal.valueOf(44000.00));
     }
 
