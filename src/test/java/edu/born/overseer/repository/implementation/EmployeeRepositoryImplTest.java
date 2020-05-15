@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import static edu.born.overseer.data.EmployeeTestData.*;
+import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.IsNot.not;
@@ -72,6 +73,7 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void deleteNotExecute() {
+        assertEquals(employeeRepository.delete(INVALID_ID), Boolean.FALSE);
     }
 
     @Test
