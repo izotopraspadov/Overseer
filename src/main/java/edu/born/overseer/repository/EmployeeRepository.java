@@ -18,19 +18,7 @@ public interface EmployeeRepository {
     Employee getByLogin(String login);
 
     // null if not found
-    Employee getWithPayments(int id);
-
-    // null if not found
-    Employee getWithSalary(int id);
-
-    // null if not found
-    Employee getWithEmails(int id);
-
-    // null if not found
-    Employee getWithPhones(int id);
-
-    // null if not found
-    Employee getWithSalaryAndPhonesAndEmails(int id);
+    Employee getWithSalaryAndContacts(int id);
 
     List<Employee> getAll();
 

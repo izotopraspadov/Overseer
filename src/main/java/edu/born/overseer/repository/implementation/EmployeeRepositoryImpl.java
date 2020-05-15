@@ -54,36 +54,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Employee getWithPayments(int id) {
-        return em.createNamedQuery("Employee:byIdWithPayments", Employee.class)
-                .setParameter("id", id)
-                .getSingleResult();
-    }
-
-    @Override
-    public Employee getWithSalary(int id) {
-        return em.createNamedQuery("Employee:byIdWithSalary", Employee.class)
-                .setParameter("id", id)
-                .getSingleResult();
-    }
-
-    @Override
-    public Employee getWithEmails(int id) {
-        return em.createNamedQuery("Employee:byIdWithEmails", Employee.class)
-                .setParameter("id", id)
-                .getSingleResult();
-    }
-
-    @Override
-    public Employee getWithPhones(int id) {
-        return em.createNamedQuery("Employee:byIdWithPhones", Employee.class)
-                .setParameter("id", id)
-                .getSingleResult();
-    }
-
-    @Override
-    public Employee getWithSalaryAndPhonesAndEmails(int id) {
-        return em.createNamedQuery("Employee:byIdWithSalaryAndPhonesAndEmails", Employee.class)
+    public Employee getWithSalaryAndContacts(int id) {
+        return em.createNamedQuery("Employee:byIdWithSalaryAndContacts", Employee.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
