@@ -1,6 +1,5 @@
 package edu.born.overseer.repository.implementation;
 
-import edu.born.overseer.model.Employee;
 import edu.born.overseer.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -10,11 +9,9 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.*;
 
-@SpringJUnitConfig(locations = {
-        "classpath:spring/spring-db.xml"
-})
+@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
 class EmployeeRepositoryImplTest {
@@ -23,8 +20,15 @@ class EmployeeRepositoryImplTest {
     private EmployeeRepository employeeRepository;
 
     @Test
-    void save() {
+    void create() {
+    }
 
+    @Test
+    void createDuplicate() {
+    }
+
+    @Test
+    void update() {
     }
 
     @Test
@@ -32,31 +36,27 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
-    void get() {
+    void deleteNotExecute() {
     }
 
     @Test
-    void getWithPayments() {
-        // employeeRepository.getWithPayments(100026).getPayments().forEach(System.out::println);
+    void getById() {
     }
 
     @Test
-    void getWithSalary() {
+    void getByIdNotFound() {
+    }
+
+    @Test
+    void getByLogin() {
+    }
+
+    @Test
+    void getByLoginNotFound() {
     }
 
     @Test
     void getWithSalaryAndPhonesAndEmails() {
-        Optional<Employee> employee = employeeRepository.getWithSalaryAndPhonesAndEmails(100027);
-        employee.get().getSalary().forEach(System.out::println);
-    }
-
-    @Test
-    void getWithEmails() {
-        // employeeRepository.getWithEmails(100026).getEmails().forEach(System.out::println);
-    }
-
-    @Test
-    void getWithPhones() {
     }
 
     @Test
@@ -68,10 +68,19 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
-    void findByLogin() {
+    void getAllByAddress() {
     }
 
     @Test
-    void findByAddress() {
+    void getAllByAddressPartialMatch() {
     }
+
+    @Test
+    void getAllByFullName() {
+    }
+
+    @Test
+    void getAllByFullNamePartialMatch() {
+    }
+
 }
