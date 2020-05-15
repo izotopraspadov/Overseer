@@ -37,7 +37,7 @@ class CompanyRepositoryImplTest {
     @Test
     void create() {
         var prepared = getPreparedCreate();
-        var savedId = companyRepository.save(prepared).getId();
+        var savedId = companyRepository.save(prepared, prepared.getRegion().getId()).getId();
         prepared.setId(savedId);
 
         assertEquals(companyRepository.getById(savedId), prepared);
@@ -45,21 +45,22 @@ class CompanyRepositoryImplTest {
 
     @Test
     void createDuplicate() {
-        assertThrows(DataIntegrityViolationException.class, () -> companyRepository.save(getPreparedDuplicate()));
+        var prepared = getPreparedDuplicate();
+        assertThrows(DataIntegrityViolationException.class, () -> companyRepository.save(prepared, prepared.getRegion().getId()));
     }
 
     @Test
     void createWithInvalidITN() {
         var prepared = getPreparedCreateWithInvalidITN();
 
-        assertThrows(TransactionSystemException.class, () -> companyRepository.save(prepared));
+        assertThrows(TransactionSystemException.class, () -> companyRepository.save(prepared, prepared.getRegion().getId()));
     }
 
     @Test
     void update() {
         var prepared = getPreparedUpdate();
 
-        var updated = companyRepository.save(prepared);
+        var updated = companyRepository.save(prepared, prepared.getRegion().getId());
 
         assertEquals(updated, prepared);
     }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CompanyRepository {
 
-    Company save(Company company);
+    Company save(Company company, int regionId);
 
     // false if not found
     boolean delete(int id);

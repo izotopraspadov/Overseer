@@ -1,6 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.model.Company;
+import edu.born.overseer.model.Region;
 import edu.born.overseer.model.ReliabilityType;
 import edu.born.overseer.model.CompanyType;
 import edu.born.overseer.repository.CompanyRepository;
@@ -21,7 +22,10 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @Override
     @Transactional
-    public Company save(Company company) {
+    public Company save(Company company, int regionId) {
+
+        company.setRegion(em.getReference(Region.class, regionId));
+
         if (company.isNew()) {
             em.persist(company);
             return company;
