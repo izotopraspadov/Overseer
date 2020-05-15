@@ -2,8 +2,6 @@ package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.data.PhoneTestData;
 import edu.born.overseer.repository.ContactPersonRepository;
-import edu.born.overseer.repository.EmailRepository;
-import edu.born.overseer.repository.PhoneRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.TransactionSystemException;
 
 import javax.persistence.NoResultException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +19,6 @@ import static edu.born.overseer.data.CompanyTestData.COMPANY_1;
 import static edu.born.overseer.data.CompanyTestData.COMPANY_1_ID;
 import static edu.born.overseer.data.ContactPersonTestData.*;
 import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
-import static edu.born.overseer.model.OwnerType.CONTACT_PERSON;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.IsNot.not;
@@ -36,10 +32,6 @@ class ContactPersonRepositoryImplTest {
 
     @Autowired
     private ContactPersonRepository contactPersonRepository;
-    @Autowired
-    private EmailRepository emailRepository;
-    @Autowired
-    private PhoneRepository phoneRepository;
 
     @Test
     void create() {
@@ -83,8 +75,6 @@ class ContactPersonRepositoryImplTest {
     void delete() {
         assertEquals(contactPersonRepository.delete(CONTACT_PERSON_1_ID), Boolean.TRUE);
         assertThat(contactPersonRepository.getAll(), not(contains(CONTACT_PERSON_1)));
-        assertEquals(emailRepository.getAllBySpecificOwner(CONTACT_PERSON_1_ID, CONTACT_PERSON), Collections.EMPTY_LIST);
-        assertEquals(phoneRepository.getAllBySpecificOwner(CONTACT_PERSON_1_ID, CONTACT_PERSON), Collections.EMPTY_LIST);
     }
 
     @Test
