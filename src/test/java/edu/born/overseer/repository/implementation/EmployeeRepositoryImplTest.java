@@ -63,12 +63,7 @@ class EmployeeRepositoryImplTest {
         var received = employeeRepository.getById(EMPLOYEE_1_ID);
 
         // finish current salary
-        received.getSalary()
-                .stream()
-                .filter(e -> e.getEndDate() == null)
-                .findFirst()
-                .orElseThrow(NullPointerException::new)
-                .setEndDate(LocalDate.now());
+        SalaryTestData.finishCurrentSalary(received.getSalary());
 
         // create new
         var newSalary = SalaryTestData.getPreparedCreate();
@@ -85,6 +80,17 @@ class EmployeeRepositoryImplTest {
         var oldSalary = new Salary(SALARY_7).endDate(LocalDate.now());
 
         assertThat(updatedSalarySet, contains(SalaryTestData.NEXT_SALARY, oldSalary, SALARY_1));
+    }
+
+    @Test
+    void createDuplicateSalary() {
+        var received = employeeRepository.getById(EMPLOYEE_1_ID);
+
+        var duplicate = SalaryTestData.getPreparedDuplicate();
+
+        received.getSalary().add(duplicate);
+
+        assertThrows(DataIntegrityViolationException.class, () -> employeeRepository.save(received, received.getRegion().getId()));
     }
 
     @Test

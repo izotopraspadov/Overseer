@@ -106,7 +106,7 @@ public class SalaryTestData {
 
         return new Salary()
                 .employee(EMPLOYEE_1) // 1 duplicate
-                .startDate(LocalDate.of(2019, 11, 1)) // 2 duplicate
+                .startDate(LocalDate.of(2019, 10, 1)) // 2 duplicate
                 .amount(BigDecimal.valueOf(44000.00));
     }
 
@@ -123,6 +123,15 @@ public class SalaryTestData {
                 .startDate(LocalDate.of(2019, 12, 1))
                 .amount(BigDecimal.valueOf(44000.00))
         );
+    }
+
+    public static void finishCurrentSalary(Set<Salary> set) {
+
+        set.stream()
+                .filter(e -> e.getEndDate() == null)
+                .findFirst()
+                .orElseThrow(NullPointerException::new)
+                .setEndDate(LocalDate.now());
     }
 
 }
