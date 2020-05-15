@@ -111,7 +111,7 @@ public class ContactPerson extends AbstractFullNameEntity {
     public String toString() {
         return "ContactPerson {" +
                 "id=" + id + ", " +
-                "fullName=" + fullName + ", " +
+                "fullName=" + fullName +
                 "}\n";
     }
 
