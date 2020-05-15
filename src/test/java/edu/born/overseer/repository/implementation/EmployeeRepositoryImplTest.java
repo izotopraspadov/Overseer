@@ -1,6 +1,8 @@
 package edu.born.overseer.repository.implementation;
 
+import edu.born.overseer.repository.EmailRepository;
 import edu.born.overseer.repository.EmployeeRepository;
+import edu.born.overseer.repository.PhoneRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,10 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static edu.born.overseer.data.EmployeeTestData.getPreparedCreate;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,9 +23,24 @@ class EmployeeRepositoryImplTest {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private EmailRepository emailRepository;
+    @Autowired
+    private PhoneRepository phoneRepository;
 
     @Test
     void create() {
+        var prepared = getPreparedCreate();
+
+        var savedId = employeeRepository
+                .save(prepared, prepared.getRegion().getId())
+                .getId();
+
+        var received = employeeRepository.getById(savedId);
+
+        assertEquals(received, prepared);
+        assertEquals(List.copyOf(received.getEmails()), List.copyOf(prepared.getEmails()));
+        assertEquals(List.copyOf(received.getPhones()), List.copyOf(prepared.getPhones()));
     }
 
     @Test
@@ -56,7 +76,7 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
-    void getWithSalaryAndPhonesAndEmails() {
+    void getWithSalaryAndContacts() {
     }
 
     @Test
