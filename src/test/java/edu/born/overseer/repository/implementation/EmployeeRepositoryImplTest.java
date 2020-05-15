@@ -173,6 +173,7 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getAllByFullName() {
+        assertThat(employeeRepository.getAllByFullName(EMPLOYEE_1.getFullName()), contains(EMPLOYEE_1));
     }
 
     @Test
