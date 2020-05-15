@@ -1,5 +1,6 @@
 package edu.born.overseer.repository.implementation;
 
+import edu.born.overseer.data.RegionTestData;
 import edu.born.overseer.data.SalaryTestData;
 import edu.born.overseer.model.Salary;
 import edu.born.overseer.repository.EmployeeRepository;
@@ -157,14 +158,17 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getAllByRegion() {
+        assertThat(employeeRepository.getAllByRegion(RegionTestData.REGION_1_ID), contains(EMPLOYEE_1, EMPLOYEE_2));
     }
 
     @Test
     void getAllByAddress() {
+        assertThat(employeeRepository.getAllByAddress(EMPLOYEE_1.getAddress()), contains(EMPLOYEE_1));
     }
 
     @Test
     void getAllByAddressPartialMatch() {
+        assertThat(employeeRepository.getAllByAddress("ул."), contains(EMPLOYEE_4, EMPLOYEE_6, EMPLOYEE_1));
     }
 
     @Test
