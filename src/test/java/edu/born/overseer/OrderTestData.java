@@ -12,6 +12,7 @@ import static edu.born.overseer.EmployeeTestData.*;
 import static edu.born.overseer.GroupTestData.*;
 import static edu.born.overseer.OrderPaymentTestData.*;
 import static edu.born.overseer.OrderTypeTestData.*;
+import static edu.born.overseer.PlannedTimeTestData.*;
 import static edu.born.overseer.TaskTestData.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
@@ -41,7 +42,8 @@ public class OrderTestData {
             .orderType(ORDER_TYPE_1)
             .payments(ORDER_1_PAYMENTS)
             .tasks(ORDER_1_TASKS)
-            .actualTime(ORDER_1_ACTUAL_TIME);
+            .actualTime(ORDER_1_ACTUAL_TIME)
+            .plannedTime(ORDER_1_PLANNED_TIME);
 
     public static final Order ORDER_2 = new Order()
             .id(ORDER_2_ID)
@@ -62,7 +64,8 @@ public class OrderTestData {
             .orderType(ORDER_TYPE_2)
             .payments(ORDER_2_PAYMENTS)
             .tasks(ORDER_2_TASKS)
-            .actualTime(ORDER_1_ACTUAL_TIME);
+            .actualTime(ORDER_1_ACTUAL_TIME)
+            .plannedTime(ORDER_2_PLANNED_TIME);
 
     public static final Order ORDER_3 = new Order()
             .id(ORDER_3_ID)
@@ -80,7 +83,8 @@ public class OrderTestData {
             .orderType(ORDER_TYPE_1)
             .payments(ORDER_3_PAYMENTS)
             .tasks(ORDER_3_TASKS)
-            .actualTime(ORDER_1_ACTUAL_TIME);
+            .actualTime(ORDER_1_ACTUAL_TIME)
+            .plannedTime(ORDER_3_PLANNED_TIME);
 
     public static final Order ORDER_4 = new Order()
             .id(ORDER_4_ID)
@@ -100,8 +104,8 @@ public class OrderTestData {
             .orderType(ORDER_TYPE_4)
             .payments(ORDER_4_PAYMENTS)
             .tasks(ORDER_4_TASKS)
-            .actualTime(ORDER_1_ACTUAL_TIME);
-
+            .actualTime(ORDER_1_ACTUAL_TIME)
+            .plannedTime(ORDER_4_PLANNED_TIME);
 
     public static Order getPreparedCreate() {
         var order = new Order()
@@ -125,6 +129,7 @@ public class OrderTestData {
         order.getPayments().addAll(OrderPaymentTestData.getPreparedCreateList(order));
         order.getTasks().addAll(TaskTestData.getPreparedCreateSet(order));
         order.getActualTime().addAll(ActualTimeTestData.getPreparedCreateSet(order));
+        order.getPlannedTime().addAll(PlannedTimeTestData.getPreparedCreateSet(order));
 
         return order;
     }
