@@ -126,7 +126,7 @@ public class EmployeeTestData {
         return employee;
     }
 
-    public static Employee getPreparedDuplicateCreate() {
+    public static Employee getPreparedDuplicate() {
 
         return getPreparedCreate()
                 .login(EMPLOYEE_1.getLogin()); // duplicate
