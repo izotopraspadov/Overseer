@@ -78,6 +78,7 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getById() {
+        assertEquals(employeeRepository.getById(EMPLOYEE_1_ID), EMPLOYEE_1);
     }
 
     @Test
