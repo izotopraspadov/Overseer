@@ -268,4 +268,12 @@ public class PhoneTestData {
         );
     }
 
+    public static Phone getPreparedCreate() {
+
+        return new Phone()
+                .employee(EMPLOYEE_1)
+                .ownerType(EMPLOYEE)
+                .number("+7-000-000-99-99");
+    }
+
 }

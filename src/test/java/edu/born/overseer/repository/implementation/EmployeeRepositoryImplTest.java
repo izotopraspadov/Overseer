@@ -1,5 +1,6 @@
 package edu.born.overseer.repository.implementation;
 
+import edu.born.overseer.data.PhoneTestData;
 import edu.born.overseer.data.RegionTestData;
 import edu.born.overseer.data.SalaryTestData;
 import edu.born.overseer.model.Salary;
@@ -26,6 +27,7 @@ import static edu.born.overseer.data.PhoneTestData.EMPLOYEE_1_PHONES;
 import static edu.born.overseer.data.SalaryTestData.SALARY_1;
 import static edu.born.overseer.data.SalaryTestData.SALARY_7;
 import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
+import static edu.born.overseer.data.TestDataUtil.NEXT_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.IsNot.not;
@@ -83,6 +85,28 @@ class EmployeeRepositoryImplTest {
         var oldSalary = new Salary(SALARY_7).endDate(LocalDate.now());
 
         assertThat(updatedSalarySet, contains(SalaryTestData.NEXT_SALARY, oldSalary, SALARY_1));
+    }
+
+    @Test
+    void createNewPhone() {
+        var received = employeeRepository.getById(EMPLOYEE_1_ID);
+
+        // create new
+        var newPhone = PhoneTestData.getPreparedCreate();
+
+        received.getPhones().add(newPhone);
+
+        // update
+        employeeRepository
+                .save(received, received.getRegion().getId());
+
+        var updatedPhoneSet = employeeRepository.getById(EMPLOYEE_1_ID)
+                .getPhones();
+
+        assertThat(updatedPhoneSet, contains(newPhone.id(NEXT_ID),
+                PhoneTestData.EMPLOYEE_PHONE_3,
+                PhoneTestData.EMPLOYEE_PHONE_2,
+                PhoneTestData.EMPLOYEE_PHONE_1));
     }
 
     @Test
