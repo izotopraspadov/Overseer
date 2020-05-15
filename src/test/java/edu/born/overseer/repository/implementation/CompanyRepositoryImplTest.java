@@ -14,10 +14,10 @@ import org.springframework.transaction.TransactionSystemException;
 
 import javax.persistence.NoResultException;
 
-import static edu.born.overseer.CompanyTestData.*;
-import static edu.born.overseer.ContactPersonTestData.CONTACT_PERSON_1_ID;
-import static edu.born.overseer.ContactPersonTestData.INVALID_CONTACT_PERSON_ID;
-import static edu.born.overseer.RegionTestData.REGION_1_ID;
+import static edu.born.overseer.data.CompanyTestData.*;
+import static edu.born.overseer.data.ContactPersonTestData.CONTACT_PERSON_1_ID;
+import static edu.born.overseer.data.RegionTestData.REGION_1_ID;
+import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
 import static edu.born.overseer.model.CompanyType.OUR;
 import static edu.born.overseer.model.ReliabilityType.LOW;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -50,8 +50,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void createWithInvalidITN() {
-        var prepared = getPreparedCreate();
-        prepared.setItn("001");
+        var prepared = getPreparedCreateWithInvalidITN();
 
         assertThrows(TransactionSystemException.class, () -> companyRepository.save(prepared));
     }
@@ -59,6 +58,7 @@ class CompanyRepositoryImplTest {
     @Test
     void update() {
         var prepared = getPreparedUpdate();
+
         var updated = companyRepository.save(prepared);
 
         assertEquals(updated, prepared);
@@ -72,7 +72,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void deleteNotExecute() {
-        assertEquals(companyRepository.delete(INVALID_COMPANY_ID), Boolean.FALSE);
+        assertEquals(companyRepository.delete(INVALID_ID), Boolean.FALSE);
     }
 
     @Test
@@ -82,7 +82,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getByIdNotFound() {
-        assertThrows(NoResultException.class, () -> companyRepository.getById(INVALID_COMPANY_ID));
+        assertThrows(NoResultException.class, () -> companyRepository.getById(INVALID_ID));
     }
 
     @Test
@@ -92,7 +92,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getByContactPersonIdNotFound() {
-        assertThrows(NotFoundException.class, () -> companyRepository.getByContactPersonId(INVALID_CONTACT_PERSON_ID));
+        assertThrows(NotFoundException.class, () -> companyRepository.getByContactPersonId(INVALID_ID));
     }
 
     @Test
