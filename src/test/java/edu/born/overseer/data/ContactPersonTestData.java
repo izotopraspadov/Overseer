@@ -2,6 +2,8 @@ package edu.born.overseer.data;
 
 import edu.born.overseer.model.ContactPerson;
 
+import java.util.List;
+
 import static edu.born.overseer.data.CompanyTestData.*;
 import static edu.born.overseer.data.EmailTestData.*;
 import static edu.born.overseer.data.PhoneTestData.*;
@@ -21,60 +23,73 @@ public class ContactPersonTestData {
     public static final ContactPerson CONTACT_PERSON_1 = new ContactPerson()
             .id(CONTACT_PERSON_1_ID)
             .fullName("Иванов Иван Иванович")
-            .company(COMPANY_1)
-            .phones(CONTACT_PERSON_1_PHONES)
-            .emails(CONTACT_PERSON_1_EMAILS);
+            .company(COMPANY_1);
 
     public static final ContactPerson CONTACT_PERSON_2 = new ContactPerson()
             .id(CONTACT_PERSON_2_ID)
             .fullName("Семёнов Семён Семёнович")
-            .company(COMPANY_1)
-            .phones(CONTACT_PERSON_2_PHONES)
-            .emails(CONTACT_PERSON_2_EMAILS);
-
+            .company(COMPANY_1);
 
     public static final ContactPerson CONTACT_PERSON_3 = new ContactPerson()
             .id(CONTACT_PERSON_3_ID)
             .fullName("Петров Пётр Петрович")
-            .company(COMPANY_1)
-            .phones(CONTACT_PERSON_3_PHONES)
-            .emails(CONTACT_PERSON_3_EMAILS);
-
+            .company(COMPANY_1);
 
     public static final ContactPerson CONTACT_PERSON_4 = new ContactPerson()
             .id(CONTACT_PERSON_4_ID)
             .fullName("Васильева Галина Васильевна")
-            .company(COMPANY_2)
-            .phones(CONTACT_PERSON_4_PHONES)
-            .emails(CONTACT_PERSON_4_EMAILS);
+            .company(COMPANY_2);
 
     public static final ContactPerson CONTACT_PERSON_5 = new ContactPerson()
             .id(CONTACT_PERSON_5_ID)
             .fullName("Иванова Мария Семёновна")
-            .company(COMPANY_2)
-            .phones(CONTACT_PERSON_5_PHONES)
-            .emails(CONTACT_PERSON_5_EMAILS);
+            .company(COMPANY_2);
 
     public static final ContactPerson CONTACT_PERSON_6 = new ContactPerson()
             .id(CONTACT_PERSON_6_ID)
             .fullName("Вадимов Вадим Вадимович")
-            .company(COMPANY_2)
-            .phones(CONTACT_PERSON_6_PHONES)
-            .emails(CONTACT_PERSON_6_EMAILS);
+            .company(COMPANY_2);
 
     public static final ContactPerson CONTACT_PERSON_7 = new ContactPerson()
             .id(CONTACT_PERSON_7_ID)
             .fullName("Чернышевская Милана Фёдоровная")
-            .company(COMPANY_3)
-            .phones(CONTACT_PERSON_7_PHONES)
-            .emails(CONTACT_PERSON_7_EMAILS);
+            .company(COMPANY_3);
 
     public static final ContactPerson CONTACT_PERSON_8 = new ContactPerson()
             .id(CONTACT_PERSON_8_ID)
             .fullName("Андреев Андрей Андреевич")
-            .company(COMPANY_3)
-            .phones(CONTACT_PERSON_8_PHONES)
-            .emails(CONTACT_PERSON_8_EMAILS);
+            .company(COMPANY_3);
+
+    // added relationships
+    static {
+        CONTACT_PERSON_1.phones(CONTACT_PERSON_1_PHONES);
+        CONTACT_PERSON_1.emails(CONTACT_PERSON_1_EMAILS);
+
+        CONTACT_PERSON_2.phones(CONTACT_PERSON_2_PHONES);
+        CONTACT_PERSON_2.emails(CONTACT_PERSON_2_EMAILS);
+
+        CONTACT_PERSON_3.phones(CONTACT_PERSON_3_PHONES);
+        CONTACT_PERSON_3.emails(CONTACT_PERSON_3_EMAILS);
+
+        CONTACT_PERSON_4.phones(CONTACT_PERSON_4_PHONES);
+        CONTACT_PERSON_4.emails(CONTACT_PERSON_4_EMAILS);
+
+        CONTACT_PERSON_5.phones(CONTACT_PERSON_5_PHONES);
+        CONTACT_PERSON_5.emails(CONTACT_PERSON_5_EMAILS);
+
+        CONTACT_PERSON_6.phones(CONTACT_PERSON_6_PHONES);
+        CONTACT_PERSON_6.emails(CONTACT_PERSON_6_EMAILS);
+
+        CONTACT_PERSON_7.phones(CONTACT_PERSON_7_PHONES);
+        CONTACT_PERSON_7.emails(CONTACT_PERSON_7_EMAILS);
+
+        CONTACT_PERSON_8.phones(CONTACT_PERSON_8_PHONES);
+        CONTACT_PERSON_8.emails(CONTACT_PERSON_8_EMAILS);
+    }
+
+    public static final List<ContactPerson> COMPANY_1_CONTACT_PERSONS = List.of(CONTACT_PERSON_1, CONTACT_PERSON_2, CONTACT_PERSON_3);
+    public static final List<ContactPerson> COMPANY_2_CONTACT_PERSONS = List.of(CONTACT_PERSON_4, CONTACT_PERSON_5, CONTACT_PERSON_6);
+    public static final List<ContactPerson> COMPANY_3_CONTACT_PERSONS = List.of(CONTACT_PERSON_7, CONTACT_PERSON_8);
 
     public static ContactPerson getPreparedCreate() {
         var person = new ContactPerson()
