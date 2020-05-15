@@ -14,7 +14,7 @@ import javax.persistence.*;
         @NamedQuery(name = "Region:all",
                 query = "SELECT r FROM Region r ORDER BY r.title"),
         @NamedQuery(name = "Region:allByTitle",
-                query = "SELECT r FROM Region r WHERE lower(r.title) LIKE lower(concat(:title, '%')) ORDER BY r.title"),
+                query = "SELECT r FROM Region r WHERE lower(r.title) LIKE lower(concat('%', :title, '%')) ORDER BY r.title"),
 })
 public class Region extends AbstractTitleEntity {
 

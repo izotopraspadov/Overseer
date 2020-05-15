@@ -29,9 +29,9 @@ import static javax.persistence.CascadeType.*;
         @NamedQuery(name = "Employee:allByRegion",
                 query = "SELECT e FROM Employee e WHERE e.region.id=:regionId ORDER BY e.fullName"),
         @NamedQuery(name = "Employee:allByAddress",
-                query = "SELECT e FROM Employee e WHERE lower(e.address) LIKE lower(concat(:address, '%')) ORDER BY e.fullName"),
+                query = "SELECT e FROM Employee e WHERE lower(e.address) LIKE lower(concat('%', :address, '%')) ORDER BY e.fullName"),
         @NamedQuery(name = "Employee:allByFullName",
-                query = "SELECT e FROM Employee e WHERE lower(e.fullName) LIKE lower(concat(:fullName, '%')) ORDER BY e.fullName"),
+                query = "SELECT e FROM Employee e WHERE lower(e.fullName) LIKE lower(concat('%', :fullName, '%')) ORDER BY e.fullName"),
 })
 public class Employee extends AbstractFullNameEntity {
 

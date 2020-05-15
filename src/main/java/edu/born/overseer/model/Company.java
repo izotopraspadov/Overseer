@@ -31,11 +31,11 @@ import java.util.Objects;
         @NamedQuery(name = "Company:allByType",
                 query = "SELECT c FROM Company c WHERE c.companyType=:typeCompany ORDER BY c.title"),
         @NamedQuery(name = "Company:allByTitle",
-                query = "SELECT c FROM Company c WHERE lower(c.title) LIKE lower(concat(:title, '%')) ORDER BY c.title"),
+                query = "SELECT c FROM Company c WHERE lower(c.title) LIKE lower(concat('%', :title, '%')) ORDER BY c.title"),
         @NamedQuery(name = "Company:allByAddress",
-                query = "SELECT c FROM Company c WHERE lower(c.address) LIKE lower(concat(:address, '%')) ORDER BY c.title"),
+                query = "SELECT c FROM Company c WHERE lower(c.address) LIKE lower(concat('%', :address, '%')) ORDER BY c.title"),
         @NamedQuery(name = "Company:allByItn",
-                query = "SELECT c FROM Company c WHERE lower(c.itn) LIKE lower(concat(:itn, '%')) ORDER BY c.title"),
+                query = "SELECT c FROM Company c WHERE lower(c.itn) LIKE lower(concat('%', :itn, '%')) ORDER BY c.title"),
 })
 public class Company extends AbstractBaseEntity {
 

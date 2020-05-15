@@ -62,11 +62,11 @@ import static javax.persistence.CascadeType.*;
         @NamedQuery(name = "Order:allByNumberOfLines",
                 query = "SELECT o FROM Order o WHERE o.numberOfLines=:numberOfLines ORDER BY o.title"),
         @NamedQuery(name = "Order:allByPaymentFormat",
-                query = "SELECT o FROM Order o WHERE lower(o.paymentFormat) LIKE lower(concat(:paymentFormat, '%')) ORDER BY o.title"),
+                query = "SELECT o FROM Order o WHERE lower(o.paymentFormat) LIKE lower(concat('%', :paymentFormat, '%')) ORDER BY o.title"),
         @NamedQuery(name = "Order:allByTitle",
-                query = "SELECT o FROM Order o WHERE lower(o.title) LIKE lower(concat(:title, '%')) ORDER BY o.title"),
+                query = "SELECT o FROM Order o WHERE lower(o.title) LIKE lower(concat('%', :title, '%')) ORDER BY o.title"),
         @NamedQuery(name = "Order:allByOrderType",
-                query = "SELECT o FROM Order o LEFT JOIN FETCH o.orderType ot WHERE lower(ot.title) LIKE lower(concat(:orderType, '%')) ORDER BY o.title"),
+                query = "SELECT o FROM Order o LEFT JOIN FETCH o.orderType ot WHERE lower(ot.title) LIKE lower(concat('%', :orderType, '%')) ORDER BY o.title"),
 })
 public class Order extends AbstractBaseEntity {
     // not inherited from AbstractTitleEntity, due to differences in the uniqueness of the title field
