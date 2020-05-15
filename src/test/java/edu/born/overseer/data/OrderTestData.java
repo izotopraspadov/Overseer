@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 
-import static edu.born.overseer.data.ActualTimeTestData.ORDER_1_ACTUAL_TIME;
+import static edu.born.overseer.data.ActualTimeTestData.*;
 import static edu.born.overseer.data.CompanyTestData.*;
 import static edu.born.overseer.data.EmployeeTestData.*;
 import static edu.born.overseer.data.GroupTestData.*;
@@ -39,11 +39,7 @@ public class OrderTestData {
             .group(GROUP_1)
             .manager(EMPLOYEE_1)
             .underway(true)
-            .orderType(ORDER_TYPE_1)
-            .payments(ORDER_1_PAYMENTS)
-            .tasks(ORDER_1_TASKS)
-            .actualTime(ORDER_1_ACTUAL_TIME)
-            .plannedTime(ORDER_1_PLANNED_TIME);
+            .orderType(ORDER_TYPE_1);
 
     public static final Order ORDER_2 = new Order()
             .id(ORDER_2_ID)
@@ -61,11 +57,7 @@ public class OrderTestData {
             .group(GROUP_3)
             .manager(EMPLOYEE_2)
             .underway(true)
-            .orderType(ORDER_TYPE_2)
-            .payments(ORDER_2_PAYMENTS)
-            .tasks(ORDER_2_TASKS)
-            .actualTime(ORDER_1_ACTUAL_TIME)
-            .plannedTime(ORDER_2_PLANNED_TIME);
+            .orderType(ORDER_TYPE_2);
 
     public static final Order ORDER_3 = new Order()
             .id(ORDER_3_ID)
@@ -80,11 +72,7 @@ public class OrderTestData {
             .paymentFormat("50-50")
             .group(GROUP_5)
             .manager(EMPLOYEE_3)
-            .orderType(ORDER_TYPE_1)
-            .payments(ORDER_3_PAYMENTS)
-            .tasks(ORDER_3_TASKS)
-            .actualTime(ORDER_1_ACTUAL_TIME)
-            .plannedTime(ORDER_3_PLANNED_TIME);
+            .orderType(ORDER_TYPE_1);
 
     public static final Order ORDER_4 = new Order()
             .id(ORDER_4_ID)
@@ -101,11 +89,30 @@ public class OrderTestData {
             .group(GROUP_5)
             .manager(EMPLOYEE_4)
             .underway(true)
-            .orderType(ORDER_TYPE_4)
-            .payments(ORDER_4_PAYMENTS)
-            .tasks(ORDER_4_TASKS)
-            .actualTime(ORDER_1_ACTUAL_TIME)
-            .plannedTime(ORDER_4_PLANNED_TIME);
+            .orderType(ORDER_TYPE_4);
+
+    // added relationships
+    static {
+        ORDER_1.payments(ORDER_1_PAYMENTS)
+                .tasks(ORDER_1_TASKS)
+                .actualTime(ORDER_1_ACTUAL_TIME)
+                .plannedTime(ORDER_1_PLANNED_TIME);
+
+        ORDER_2.payments(ORDER_2_PAYMENTS)
+                .tasks(ORDER_2_TASKS)
+                .actualTime(ORDER_2_ACTUAL_TIME)
+                .plannedTime(ORDER_2_PLANNED_TIME);
+
+        ORDER_3.payments(ORDER_3_PAYMENTS)
+                .tasks(ORDER_3_TASKS)
+                .actualTime(ORDER_3_ACTUAL_TIME)
+                .plannedTime(ORDER_3_PLANNED_TIME);
+
+        ORDER_4.payments(ORDER_4_PAYMENTS)
+                .tasks(ORDER_4_TASKS)
+                .actualTime(ORDER_4_ACTUAL_TIME)
+                .plannedTime(ORDER_4_PLANNED_TIME);
+    }
 
     public static Order getPreparedCreate() {
         var order = new Order()
