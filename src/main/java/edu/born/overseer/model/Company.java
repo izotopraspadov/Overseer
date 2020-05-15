@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -60,7 +61,7 @@ public class Company extends AbstractBaseEntity {
 
     @OrderBy("fullName DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
-    private List<ContactPerson> contactPersons;
+    private List<ContactPerson> contactPersons = new ArrayList<>();
 
     @NotNull
     @Enumerated(EnumType.STRING)
