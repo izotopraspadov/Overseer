@@ -1,16 +1,14 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
-import edu.born.overseer.model.ContactPerson;
 import edu.born.overseer.model.Employee;
 
 import java.util.Set;
 
-import static edu.born.overseer.CompanyTestData.COMPANY_1;
-import static edu.born.overseer.EmailTestData.*;
-import static edu.born.overseer.EmployeePaymentTestData.*;
-import static edu.born.overseer.PhoneTestData.*;
-import static edu.born.overseer.RegionTestData.*;
-import static edu.born.overseer.SalaryTestData.*;
+import static edu.born.overseer.data.EmailTestData.*;
+import static edu.born.overseer.data.EmployeePaymentTestData.*;
+import static edu.born.overseer.data.PhoneTestData.*;
+import static edu.born.overseer.data.RegionTestData.*;
+import static edu.born.overseer.data.SalaryTestData.*;
 import static edu.born.overseer.model.Role.ADMIN;
 import static edu.born.overseer.model.Role.USER;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;

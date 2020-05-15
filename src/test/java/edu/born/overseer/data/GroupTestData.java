@@ -1,10 +1,10 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import edu.born.overseer.model.Group;
 
 import java.util.Set;
 
-import static edu.born.overseer.OrderTypeTestData.*;
+import static edu.born.overseer.data.OrderTypeTestData.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class GroupTestData {

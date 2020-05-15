@@ -1,4 +1,4 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import edu.born.overseer.model.OrderType;
 

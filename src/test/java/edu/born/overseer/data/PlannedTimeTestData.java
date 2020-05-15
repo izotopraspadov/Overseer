@@ -1,12 +1,12 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import edu.born.overseer.model.Order;
 import edu.born.overseer.model.PlannedTime;
 
 import java.util.Set;
 
-import static edu.born.overseer.EmployeeTestData.*;
-import static edu.born.overseer.OrderTestData.*;
+import static edu.born.overseer.data.EmployeeTestData.*;
+import static edu.born.overseer.data.OrderTestData.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class PlannedTimeTestData {

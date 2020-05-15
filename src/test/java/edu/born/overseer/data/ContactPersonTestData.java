@@ -1,10 +1,10 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import edu.born.overseer.model.ContactPerson;
 
-import static edu.born.overseer.CompanyTestData.*;
-import static edu.born.overseer.EmailTestData.*;
-import static edu.born.overseer.PhoneTestData.*;
+import static edu.born.overseer.data.CompanyTestData.*;
+import static edu.born.overseer.data.EmailTestData.*;
+import static edu.born.overseer.data.PhoneTestData.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class ContactPersonTestData {

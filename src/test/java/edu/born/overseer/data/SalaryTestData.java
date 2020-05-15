@@ -1,4 +1,4 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.Salary;
@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
-import static edu.born.overseer.EmployeeTestData.*;
+import static edu.born.overseer.data.EmployeeTestData.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class SalaryTestData {

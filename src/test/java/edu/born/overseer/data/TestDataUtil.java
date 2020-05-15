@@ -1,4 +1,4 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 

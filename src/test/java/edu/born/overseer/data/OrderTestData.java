@@ -1,4 +1,4 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import edu.born.overseer.model.Order;
 
@@ -6,14 +6,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 
-import static edu.born.overseer.ActualTimeTestData.ORDER_1_ACTUAL_TIME;
-import static edu.born.overseer.CompanyTestData.*;
-import static edu.born.overseer.EmployeeTestData.*;
-import static edu.born.overseer.GroupTestData.*;
-import static edu.born.overseer.OrderPaymentTestData.*;
-import static edu.born.overseer.OrderTypeTestData.*;
-import static edu.born.overseer.PlannedTimeTestData.*;
-import static edu.born.overseer.TaskTestData.*;
+import static edu.born.overseer.data.ActualTimeTestData.ORDER_1_ACTUAL_TIME;
+import static edu.born.overseer.data.CompanyTestData.*;
+import static edu.born.overseer.data.EmployeeTestData.*;
+import static edu.born.overseer.data.GroupTestData.*;
+import static edu.born.overseer.data.OrderPaymentTestData.*;
+import static edu.born.overseer.data.OrderTypeTestData.*;
+import static edu.born.overseer.data.PlannedTimeTestData.*;
+import static edu.born.overseer.data.TaskTestData.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class OrderTestData {

@@ -1,4 +1,4 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import edu.born.overseer.model.ContactPerson;
 import edu.born.overseer.model.Email;
@@ -6,8 +6,8 @@ import edu.born.overseer.model.Employee;
 
 import java.util.Set;
 
-import static edu.born.overseer.ContactPersonTestData.*;
-import static edu.born.overseer.EmployeeTestData.*;
+import static edu.born.overseer.data.ContactPersonTestData.*;
+import static edu.born.overseer.data.EmployeeTestData.*;
 import static edu.born.overseer.model.OwnerType.CONTACT_PERSON;
 import static edu.born.overseer.model.OwnerType.EMPLOYEE;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;

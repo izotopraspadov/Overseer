@@ -1,12 +1,12 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import edu.born.overseer.model.Task;
 import edu.born.overseer.model.TaskEmail;
 
 import java.util.Set;
 
-import static edu.born.overseer.EmailTestData.*;
-import static edu.born.overseer.TaskTestData.*;
+import static edu.born.overseer.data.EmailTestData.*;
+import static edu.born.overseer.data.TaskTestData.*;
 import static edu.born.overseer.model.SendType.MANAGER;
 import static edu.born.overseer.model.SendType.TEAM_LEADER;
 

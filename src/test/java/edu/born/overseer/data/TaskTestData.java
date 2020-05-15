@@ -1,4 +1,4 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import edu.born.overseer.model.Order;
 import edu.born.overseer.model.Task;
@@ -6,8 +6,8 @@ import edu.born.overseer.model.Task;
 import java.time.LocalDate;
 import java.util.List;
 
-import static edu.born.overseer.EmployeeTestData.*;
-import static edu.born.overseer.OrderTestData.*;
+import static edu.born.overseer.data.EmployeeTestData.*;
+import static edu.born.overseer.data.OrderTestData.*;
 import static edu.born.overseer.model.ResultType.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 

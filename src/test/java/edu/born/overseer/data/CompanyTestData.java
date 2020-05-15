@@ -1,8 +1,8 @@
-package edu.born.overseer;
+package edu.born.overseer.data;
 
 import edu.born.overseer.model.Company;
 
-import static edu.born.overseer.RegionTestData.*;
+import static edu.born.overseer.data.RegionTestData.*;
 import static edu.born.overseer.model.ReliabilityType.*;
 import static edu.born.overseer.model.CompanyType.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
