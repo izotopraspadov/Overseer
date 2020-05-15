@@ -2,9 +2,10 @@ package edu.born.overseer.data;
 
 import edu.born.overseer.model.Company;
 
+import static edu.born.overseer.data.ContactPersonTestData.*;
 import static edu.born.overseer.data.RegionTestData.*;
-import static edu.born.overseer.model.ReliabilityType.*;
 import static edu.born.overseer.model.CompanyType.*;
+import static edu.born.overseer.model.ReliabilityType.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class CompanyTestData {
@@ -44,6 +45,14 @@ public class CompanyTestData {
             .reliabilityType(HIGH)
             .chatGroupName("Третья")
             .companyType(OTHER);
+
+
+    // added relationships
+    static {
+        COMPANY_1.contactPersons(COMPANY_1_CONTACT_PERSONS);
+        COMPANY_2.contactPersons(COMPANY_2_CONTACT_PERSONS);
+        COMPANY_3.contactPersons(COMPANY_3_CONTACT_PERSONS);
+    }
 
     public static Company getPreparedCreate() {
 
