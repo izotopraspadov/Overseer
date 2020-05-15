@@ -13,9 +13,9 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import java.util.Set;
 
-import static edu.born.overseer.data.EmployeeTestData.getPreparedCreate;
-import static edu.born.overseer.data.EmployeeTestData.getPreparedDuplicate;
+import static edu.born.overseer.data.EmployeeTestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -54,6 +54,17 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void update() {
+        var prepared = getPreparedUpdate();
+
+        var updatedId = employeeRepository
+                .save(prepared, prepared.getRegion().getId())
+                .getId();
+
+        var received = employeeRepository.getById(updatedId);
+
+        assertEquals(received, prepared);
+        assertEquals(Set.copyOf(received.getEmails()), Set.copyOf(prepared.getEmails()));
+        assertEquals(Set.copyOf(received.getPhones()), Set.copyOf(prepared.getPhones()));
     }
 
     @Test
