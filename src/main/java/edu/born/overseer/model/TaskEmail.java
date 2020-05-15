@@ -121,7 +121,6 @@ public class TaskEmail {
     public TaskEmail task(Task task) {
         this.task = task;
         this.id.taskId = task.getId();
-        task.getEmails().add(this);
         return this;
     }
 

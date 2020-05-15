@@ -8,6 +8,7 @@ import java.util.List;
 
 import static edu.born.overseer.data.EmployeeTestData.*;
 import static edu.born.overseer.data.OrderTestData.*;
+import static edu.born.overseer.data.TaskEmailTestData.*;
 import static edu.born.overseer.model.ResultType.*;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
@@ -30,8 +31,6 @@ public class TaskTestData {
             .dateCompleted(LocalDate.of(2019, 9, 20))
             .resultType(PARTIALLY_COMPLETED)
             .comment("Step 1st done!");
-
-    // TaskEmail will assign itself when created
 
     public static final Task TASK_2 = new Task()
             .id(TASK_2_ID)
@@ -91,6 +90,18 @@ public class TaskTestData {
             .dateCompleted(LocalDate.of(2019, 9, 29))
             .resultType(COMPLETED)
             .comment("Done!");
+
+    // added relationships
+    static {
+        TASK_1.emails(TASK_1_EMAILS);
+        TASK_2.emails(TASK_2_EMAILS);
+        TASK_3.emails(TASK_3_EMAILS);
+        TASK_4.emails(TASK_4_EMAILS);
+        TASK_5.emails(TASK_5_EMAILS);
+        TASK_6.emails(TASK_6_EMAILS);
+        TASK_7.emails(TASK_7_EMAILS);
+        TASK_8.emails(TASK_8_EMAILS);
+    }
 
     public static final List<Task> ORDER_1_TASKS = List.of(TASK_1);
     public static final List<Task> ORDER_2_TASKS = List.of(TASK_3);
