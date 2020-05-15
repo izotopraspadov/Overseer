@@ -1,6 +1,6 @@
 package edu.born.overseer.repository.implementation;
 
-import edu.born.overseer.PhoneTestData;
+import edu.born.overseer.data.PhoneTestData;
 import edu.born.overseer.repository.ContactPersonRepository;
 import edu.born.overseer.repository.EmailRepository;
 import edu.born.overseer.repository.PhoneRepository;
@@ -16,10 +16,12 @@ import org.springframework.transaction.TransactionSystemException;
 import javax.persistence.NoResultException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
-import static edu.born.overseer.CompanyTestData.COMPANY_1;
-import static edu.born.overseer.CompanyTestData.COMPANY_1_ID;
-import static edu.born.overseer.ContactPersonTestData.*;
+import static edu.born.overseer.data.CompanyTestData.COMPANY_1;
+import static edu.born.overseer.data.CompanyTestData.COMPANY_1_ID;
+import static edu.born.overseer.data.ContactPersonTestData.*;
+import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
 import static edu.born.overseer.model.OwnerType.CONTACT_PERSON;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -57,7 +59,7 @@ class ContactPersonRepositoryImplTest {
     @Test
     void createWithInvalidPhoneNumber() {
         var prepared = getPreparedCreate();
-        prepared.setPhones(PhoneTestData.getPreparedInvalidSet(prepared));
+        prepared.setPhones(PhoneTestData.getPreparedCreateInvalidSet(prepared));
 
         assertThrows(TransactionSystemException.class, () -> contactPersonRepository.save(prepared, prepared.getCompany().getId()));
     }
@@ -65,6 +67,7 @@ class ContactPersonRepositoryImplTest {
     @Test
     void update() {
         var prepared = getPreparedUpdate();
+
         var updatedId = contactPersonRepository
                 .save(prepared, prepared.getCompany().getId())
                 .getId();
@@ -72,8 +75,8 @@ class ContactPersonRepositoryImplTest {
         var received = contactPersonRepository.getById(updatedId);
 
         assertEquals(received, prepared);
-        assertEquals(List.copyOf(received.getEmails()), List.copyOf(prepared.getEmails()));
-        assertEquals(List.copyOf(received.getPhones()), List.copyOf(prepared.getPhones()));
+        assertEquals(Set.copyOf(received.getEmails()), Set.copyOf(prepared.getEmails()));
+        assertEquals(Set.copyOf(received.getPhones()), Set.copyOf(prepared.getPhones()));
     }
 
     @Test
@@ -86,7 +89,7 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void deleteNotExecute() {
-        assertEquals(contactPersonRepository.delete(INVALID_CONTACT_PERSON_ID), Boolean.FALSE);
+        assertEquals(contactPersonRepository.delete(INVALID_ID), Boolean.FALSE);
     }
 
     @Test
@@ -96,7 +99,7 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void getByIdNotFound() {
-        assertThrows(NoResultException.class, () -> contactPersonRepository.getById(INVALID_CONTACT_PERSON_ID));
+        assertThrows(NoResultException.class, () -> contactPersonRepository.getById(INVALID_ID));
     }
 
     @Test
