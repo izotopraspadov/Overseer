@@ -144,9 +144,15 @@ class EmployeeRepositoryImplTest {
         assertThrows(NoResultException.class, () -> employeeRepository.getByLogin(INVALID_LOGIN));
     }
 
-
     @Test
     void getAll() {
+        assertThat(employeeRepository.getAll(), contains(EMPLOYEE_4,
+                EMPLOYEE_6,
+                EMPLOYEE_5,
+                EMPLOYEE_1,
+                EMPLOYEE_3,
+                EMPLOYEE_2)
+        );
     }
 
     @Test
