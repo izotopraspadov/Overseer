@@ -12,6 +12,8 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Table(name = "employees", uniqueConstraints = {@UniqueConstraint(columnNames = "login", name = "employees_unique_login_idx")})
 @NamedQueries({
@@ -21,16 +23,9 @@ import java.util.Set;
                 query = "SELECT e FROM Employee e LEFT JOIN FETCH e.phones ph LEFT JOIN FETCH e.emails em WHERE e.id=:id"),
         @NamedQuery(name = "Employee:byLogin",
                 query = "SELECT e FROM Employee e WHERE e.login=:login"),
-        @NamedQuery(name = "Employee:byIdWithPayments",
-                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.payments WHERE e.id=:id"),
-        @NamedQuery(name = "Employee:byIdWithSalary",
-                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.salary s WHERE e.id=:id AND s.endDate IS NULL"),
-        @NamedQuery(name = "Employee:byIdWithEmails",
-                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.emails WHERE e.id=:id"),
-        @NamedQuery(name = "Employee:byIdWithPhones",
-                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.phones WHERE e.id=:id"),
-        @NamedQuery(name = "Employee:byIdWithSalaryAndPhonesAndEmails",
-                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.salary s LEFT JOIN FETCH e.phones ph LEFT JOIN FETCH e.emails em WHERE e.id=:id AND s.endDate IS NULL"),
+        @NamedQuery(name = "Employee:byIdWithSalaryAndContacts",
+                query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.salary s LEFT JOIN FETCH e.phones ph " +
+                        "LEFT JOIN FETCH e.emails em WHERE e.id=:id ORDER BY e.fullName"),
         @NamedQuery(name = "Employee:all",
                 query = "SELECT e FROM Employee e ORDER BY e.fullName"),
         @NamedQuery(name = "Employee:allByRegion",
@@ -73,16 +68,16 @@ public class Employee extends AbstractFullNameEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private Set<EmployeePayment> payments;
 
-    @OrderBy("startDate DESC")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
+    @OrderBy("endDate DESC NULLS FIRST")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = {PERSIST, MERGE, REMOVE})
     private Set<Salary> salary;
 
     @OrderBy("number DESC")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = {PERSIST, MERGE, REMOVE})
     private Set<Phone> phones;
 
     @OrderBy("address DESC")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = {PERSIST, MERGE, REMOVE})
     private Set<Email> emails;
 
     public Employee() {
