@@ -177,6 +177,7 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getAllByFullNamePartialMatch() {
+        assertThat(employeeRepository.getAllByFullName("Роман"), contains(EMPLOYEE_1, EMPLOYEE_3));
     }
 
 }
