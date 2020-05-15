@@ -1,5 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
+import edu.born.overseer.data.SalaryTestData;
+import edu.born.overseer.model.Salary;
 import edu.born.overseer.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -11,13 +13,15 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.NoResultException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 import static edu.born.overseer.data.EmailTestData.EMPLOYEE_1_EMAILS;
 import static edu.born.overseer.data.EmployeeTestData.*;
 import static edu.born.overseer.data.PhoneTestData.EMPLOYEE_1_PHONES;
-import static edu.born.overseer.data.SalaryTestData.EMPLOYEE_1_SALARIES;
+import static edu.born.overseer.data.SalaryTestData.SALARY_1;
+import static edu.born.overseer.data.SalaryTestData.SALARY_7;
 import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -55,6 +59,35 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
+    void createNewSalary() {
+        var received = employeeRepository.getById(EMPLOYEE_1_ID);
+
+        // finish current salary
+        received.getSalary()
+                .stream()
+                .filter(e -> e.getEndDate() == null)
+                .findFirst()
+                .orElseThrow(NullPointerException::new)
+                .setEndDate(LocalDate.now());
+
+        // create new
+        var newSalary = SalaryTestData.getPreparedCreate();
+
+        received.getSalary().add(newSalary);
+
+        // update
+        employeeRepository
+                .save(received, received.getRegion().getId());
+
+        var updatedSalarySet = employeeRepository.getById(EMPLOYEE_1_ID)
+                .getSalary();
+
+        var oldSalary = new Salary(SALARY_7).endDate(LocalDate.now());
+
+        assertThat(updatedSalarySet, contains(SalaryTestData.NEXT_SALARY, oldSalary, SALARY_1));
+    }
+
+    @Test
     void update() {
         var prepared = getPreparedUpdate();
 
@@ -87,7 +120,7 @@ class EmployeeRepositoryImplTest {
         assertEquals(received, EMPLOYEE_1);
         assertEquals(received.getEmails(), EMPLOYEE_1_EMAILS);
         assertEquals(received.getPhones(), EMPLOYEE_1_PHONES);
-        assertEquals(received.getSalary(), EMPLOYEE_1_SALARIES);
+        assertEquals(received.getSalary(), SalaryTestData.EMPLOYEE_1_SALARIES);
     }
 
     @Test
