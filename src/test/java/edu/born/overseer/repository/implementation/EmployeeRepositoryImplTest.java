@@ -14,7 +14,10 @@ import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Set;
 
+import static edu.born.overseer.data.EmailTestData.EMPLOYEE_1_EMAILS;
 import static edu.born.overseer.data.EmployeeTestData.*;
+import static edu.born.overseer.data.PhoneTestData.EMPLOYEE_1_PHONES;
+import static edu.born.overseer.data.SalaryTestData.EMPLOYEE_1_SALARIES;
 import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -79,7 +82,12 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getById() {
-        assertEquals(employeeRepository.getById(EMPLOYEE_1_ID), EMPLOYEE_1);
+        var received = employeeRepository.getById(EMPLOYEE_1_ID);
+
+        assertEquals(received, EMPLOYEE_1);
+        assertEquals(received.getEmails(), EMPLOYEE_1_EMAILS);
+        assertEquals(received.getPhones(), EMPLOYEE_1_PHONES);
+        assertEquals(received.getSalary(), EMPLOYEE_1_SALARIES);
     }
 
     @Test
@@ -94,11 +102,9 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getByLoginNotFound() {
+        assertThrows(NoResultException.class, () -> employeeRepository.getByLogin(INVALID_LOGIN));
     }
 
-    @Test
-    void getWithSalaryAndContacts() {
-    }
 
     @Test
     void getAll() {

@@ -23,6 +23,7 @@ public class EmployeeTestData {
     public static final int EMPLOYEE_6_ID = START_SEQUENCE + 29;
 
     public static final String EMPLOYEE_1_LOGIN = "user";
+    public static final String INVALID_LOGIN = "unknown";
 
     public static final Employee EMPLOYEE_1 = new Employee()
             .id(EMPLOYEE_1_ID)

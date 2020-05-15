@@ -4,6 +4,7 @@ import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.Salary;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -25,45 +26,59 @@ public class SalaryTestData {
             .employee(EMPLOYEE_1)
             .startDate(LocalDate.of(2019, 9, 1))
             .endDate(LocalDate.of(2019, 10, 1))
-            .amount(BigDecimal.valueOf(35000.00));
+            .amount(BigDecimal.valueOf(35000.00)
+                    .setScale(2, RoundingMode.DOWN)
+            );
 
     public static final Salary SALARY_2 = new Salary()
             .id(SALARY_2_ID)
             .employee(EMPLOYEE_2)
             .startDate(LocalDate.of(2019, 9, 3))
-            .amount(BigDecimal.valueOf(30000.00));
+            .amount(BigDecimal.valueOf(30000.00)
+                    .setScale(2, RoundingMode.DOWN)
+            );
 
     public static final Salary SALARY_3 = new Salary()
             .id(SALARY_3_ID)
             .employee(EMPLOYEE_3)
             .startDate(LocalDate.of(2019, 9, 5))
-            .amount(BigDecimal.valueOf(29000.00));
+            .amount(BigDecimal.valueOf(29000.00)
+                    .setScale(2, RoundingMode.DOWN)
+            );
 
     public static final Salary SALARY_4 = new Salary()
             .id(SALARY_4_ID)
             .employee(EMPLOYEE_4)
             .startDate(LocalDate.of(2019, 9, 7))
-            .amount(BigDecimal.valueOf(40000.00));
+            .amount(BigDecimal.valueOf(40000.00)
+                    .setScale(2, RoundingMode.DOWN)
+            );
 
     public static final Salary SALARY_5 = new Salary()
             .id(SALARY_5_ID)
             .employee(EMPLOYEE_5)
             .startDate(LocalDate.of(2019, 9, 7))
-            .amount(BigDecimal.valueOf(50000.00));
+            .amount(BigDecimal.valueOf(50000.00)
+                    .setScale(2, RoundingMode.DOWN)
+            );
 
     public static final Salary SALARY_6 = new Salary()
             .id(SALARY_6_ID)
             .employee(EMPLOYEE_6)
             .startDate(LocalDate.of(2019, 9, 7))
-            .amount(BigDecimal.valueOf(33000.00));
+            .amount(BigDecimal.valueOf(33000.00)
+                    .setScale(2, RoundingMode.DOWN)
+            );
 
     public static final Salary SALARY_7 = new Salary()
             .id(SALARY_7_ID)
             .employee(EMPLOYEE_1)
             .startDate(LocalDate.of(2019, 10, 1))
-            .amount(BigDecimal.valueOf(45000.00));
+            .amount(BigDecimal.valueOf(45000.00)
+                    .setScale(2, RoundingMode.DOWN)
+            );
 
-    public static final Set<Salary> EMPLOYEE_1_SALARIES = Set.of(SALARY_1, SALARY_7);
+    public static final Set<Salary> EMPLOYEE_1_SALARIES = Set.of(SALARY_7, SALARY_1);
     public static final Set<Salary> EMPLOYEE_2_SALARIES = Set.of(SALARY_2);
     public static final Set<Salary> EMPLOYEE_3_SALARIES = Set.of(SALARY_3);
     public static final Set<Salary> EMPLOYEE_4_SALARIES = Set.of(SALARY_4);
