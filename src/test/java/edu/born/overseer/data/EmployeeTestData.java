@@ -86,30 +86,30 @@ public class EmployeeTestData {
         EMPLOYEE_1.phones(EMPLOYEE_1_PHONES);
         EMPLOYEE_1.emails(EMPLOYEE_1_EMAILS);
 
-        EMPLOYEE_2.payments(EMPLOYEE_1_PAYMENTS);
-        EMPLOYEE_2.salary(EMPLOYEE_1_SALARIES);
-        EMPLOYEE_2.phones(EMPLOYEE_1_PHONES);
-        EMPLOYEE_2.emails(EMPLOYEE_1_EMAILS);
+        EMPLOYEE_2.payments(EMPLOYEE_2_PAYMENTS);
+        EMPLOYEE_2.salary(EMPLOYEE_2_SALARIES);
+        EMPLOYEE_2.phones(EMPLOYEE_2_PHONES);
+        EMPLOYEE_2.emails(EMPLOYEE_2_EMAILS);
 
-        EMPLOYEE_3.payments(EMPLOYEE_1_PAYMENTS);
-        EMPLOYEE_3.salary(EMPLOYEE_1_SALARIES);
-        EMPLOYEE_3.phones(EMPLOYEE_1_PHONES);
-        EMPLOYEE_3.emails(EMPLOYEE_1_EMAILS);
+        EMPLOYEE_3.payments(EMPLOYEE_3_PAYMENTS);
+        EMPLOYEE_3.salary(EMPLOYEE_3_SALARIES);
+        EMPLOYEE_3.phones(EMPLOYEE_3_PHONES);
+        EMPLOYEE_3.emails(EMPLOYEE_3_EMAILS);
 
-        EMPLOYEE_4.payments(EMPLOYEE_1_PAYMENTS);
-        EMPLOYEE_4.salary(EMPLOYEE_1_SALARIES);
-        EMPLOYEE_4.phones(EMPLOYEE_1_PHONES);
-        EMPLOYEE_4.emails(EMPLOYEE_1_EMAILS);
+        EMPLOYEE_4.payments(EMPLOYEE_4_PAYMENTS);
+        EMPLOYEE_4.salary(EMPLOYEE_4_SALARIES);
+        EMPLOYEE_4.phones(EMPLOYEE_4_PHONES);
+        EMPLOYEE_4.emails(EMPLOYEE_4_EMAILS);
 
-        EMPLOYEE_5.payments(EMPLOYEE_1_PAYMENTS);
-        EMPLOYEE_5.salary(EMPLOYEE_1_SALARIES);
-        EMPLOYEE_5.phones(EMPLOYEE_1_PHONES);
-        EMPLOYEE_5.emails(EMPLOYEE_1_EMAILS);
+        EMPLOYEE_5.payments(EMPLOYEE_5_PAYMENTS);
+        EMPLOYEE_5.salary(EMPLOYEE_5_SALARIES);
+        EMPLOYEE_5.phones(EMPLOYEE_5_PHONES);
+        EMPLOYEE_5.emails(EMPLOYEE_5_EMAILS);
 
-        EMPLOYEE_6.payments(EMPLOYEE_1_PAYMENTS);
-        EMPLOYEE_6.salary(EMPLOYEE_1_SALARIES);
-        EMPLOYEE_6.phones(EMPLOYEE_1_PHONES);
-        EMPLOYEE_6.emails(EMPLOYEE_1_EMAILS);
+        EMPLOYEE_6.payments(EMPLOYEE_6_PAYMENTS);
+        EMPLOYEE_6.salary(EMPLOYEE_6_SALARIES);
+        EMPLOYEE_6.phones(EMPLOYEE_6_PHONES);
+        EMPLOYEE_6.emails(EMPLOYEE_6_EMAILS);
     }
 
     public static Employee getPreparedCreate() {
