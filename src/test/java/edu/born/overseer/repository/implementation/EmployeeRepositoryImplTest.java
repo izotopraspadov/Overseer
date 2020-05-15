@@ -10,6 +10,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Set;
 
@@ -83,10 +84,12 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getByIdNotFound() {
+        assertThrows(NoResultException.class, () -> employeeRepository.getById(INVALID_ID));
     }
 
     @Test
     void getByLogin() {
+        assertEquals(employeeRepository.getByLogin(EMPLOYEE_1_LOGIN), EMPLOYEE_1);
     }
 
     @Test

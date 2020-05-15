@@ -22,6 +22,8 @@ public class EmployeeTestData {
     public static final int EMPLOYEE_5_ID = START_SEQUENCE + 28;
     public static final int EMPLOYEE_6_ID = START_SEQUENCE + 29;
 
+    public static final String EMPLOYEE_1_LOGIN = "user";
+
     public static final Employee EMPLOYEE_1 = new Employee()
             .id(EMPLOYEE_1_ID)
             .fullName("Романов Роман Романович")
