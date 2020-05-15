@@ -12,7 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.NoResultException;
 
-import static edu.born.overseer.RegionTestData.*;
+import static edu.born.overseer.data.RegionTestData.*;
+import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.IsNot.not;
@@ -57,7 +58,7 @@ class RegionRepositoryImplTest {
 
     @Test
     void deleteNotExecute() {
-        assertEquals(regionRepository.delete(INVALID_REGION_ID), Boolean.FALSE);
+        assertEquals(regionRepository.delete(INVALID_ID), Boolean.FALSE);
     }
 
     @Test
@@ -67,7 +68,7 @@ class RegionRepositoryImplTest {
 
     @Test()
     void getByIdNotFound() {
-        assertThrows(NoResultException.class, () -> regionRepository.getById(INVALID_REGION_ID));
+        assertThrows(NoResultException.class, () -> regionRepository.getById(INVALID_ID));
     }
 
     @Test
@@ -87,4 +88,5 @@ class RegionRepositoryImplTest {
                 REGION_13)
         );
     }
+
 }
