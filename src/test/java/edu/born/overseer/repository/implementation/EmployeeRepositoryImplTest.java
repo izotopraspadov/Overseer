@@ -1,8 +1,6 @@
 package edu.born.overseer.repository.implementation;
 
-import edu.born.overseer.repository.EmailRepository;
 import edu.born.overseer.repository.EmployeeRepository;
-import edu.born.overseer.repository.PhoneRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,9 @@ import java.util.List;
 import java.util.Set;
 
 import static edu.born.overseer.data.EmployeeTestData.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -26,10 +27,6 @@ class EmployeeRepositoryImplTest {
 
     @Autowired
     private EmployeeRepository employeeRepository;
-    @Autowired
-    private EmailRepository emailRepository;
-    @Autowired
-    private PhoneRepository phoneRepository;
 
     @Test
     void create() {
@@ -69,6 +66,8 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void delete() {
+        assertEquals(employeeRepository.delete(EMPLOYEE_1_ID), Boolean.TRUE);
+        assertThat(employeeRepository.getAll(), not(contains(EMPLOYEE_1)));
     }
 
     @Test
