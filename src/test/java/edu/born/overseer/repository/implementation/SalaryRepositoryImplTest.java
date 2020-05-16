@@ -4,7 +4,6 @@ import edu.born.overseer.repository.SalaryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -16,8 +15,9 @@ import static edu.born.overseer.data.EmployeeTestData.EMPLOYEE_1_ID;
 import static edu.born.overseer.data.SalaryTestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.core.IsNot.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -46,13 +46,13 @@ class SalaryRepositoryImplTest {
 
     @Test
     void delete() {
-        assertThrows(DataIntegrityViolationException.class, () -> salaryRepository.save(getPreparedDuplicate(), EMPLOYEE_1_ID));
+        assertEquals(salaryRepository.delete(SALARY_1_ID), Boolean.TRUE);
+        assertThat(salaryRepository.getAllByEmployee(EMPLOYEE_1_ID), not(contains(SALARY_1)));
     }
 
     @Test
     void getCurrentByEmployee() {
         var received = salaryRepository.getCurrentByEmployee(EMPLOYEE_1_ID);
-
         assertNull(received.getEndDate());
     }
 
