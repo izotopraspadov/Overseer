@@ -51,13 +51,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order getByIdWithPayments(int id) {
-        return em.createNamedQuery("Order:byIdWithPayments", Order.class)
-                .setParameter("id", id)
-                .getSingleResult();
-    }
-
-    @Override
     public List<Order> getAll() {
         return em.createNamedQuery("Order:all", Order.class)
                 .getResultList();

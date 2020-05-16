@@ -16,9 +16,6 @@ public interface OrderRepository {
     // null if not found
     Order getById(int id);
 
-    // null if not found
-    Order getByIdWithPayments(int id);
-
     List<Order> getAll();
 
     List<Order> getAllByCompany(int companyId);
