@@ -99,7 +99,9 @@ public class SalaryTestData {
         return new Salary()
                 .employee(EMPLOYEE_1)
                 .startDate(LocalDate.now())
-                .amount(BigDecimal.valueOf(44000.00));
+                .amount(BigDecimal.valueOf(44000.00)
+                        .setScale(2, RoundingMode.DOWN)
+                );
     }
 
     public static Salary getPreparedDuplicate() {
@@ -107,13 +109,17 @@ public class SalaryTestData {
         return new Salary()
                 .employee(EMPLOYEE_1) // 1 duplicate
                 .startDate(LocalDate.of(2019, 10, 1)) // 2 duplicate
-                .amount(BigDecimal.valueOf(44000.00));
+                .amount(BigDecimal.valueOf(44000.00)
+                        .setScale(2, RoundingMode.DOWN)
+                );
     }
 
     public static Salary getPreparedUpdate() {
 
         return new Salary(SALARY_7)
-                .amount(BigDecimal.valueOf(46000.00)); // update
+                .amount(BigDecimal.valueOf(46000.00)
+                        .setScale(2, RoundingMode.DOWN) // update
+                );
     }
 
     public static Set<Salary> getPreparedCreatedSet(Employee employee) {
