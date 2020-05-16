@@ -31,7 +31,7 @@ class SalaryRepositoryImplTest {
     void create() {
         var prepared = getPreparedCreate();
 
-        var current = salaryRepository.getCurrent(EMPLOYEE_1_ID)
+        var current = salaryRepository.getCurrentByEmployee(EMPLOYEE_1_ID)
                 .endDate(LocalDate.now());
 
         salaryRepository.save(current, EMPLOYEE_1_ID);
@@ -51,7 +51,7 @@ class SalaryRepositoryImplTest {
 
     @Test
     void getCurrentByEmployee() {
-        var received = salaryRepository.getCurrent(EMPLOYEE_1_ID);
+        var received = salaryRepository.getCurrentByEmployee(EMPLOYEE_1_ID);
 
         assertNull(received.getEndDate());
     }

@@ -11,7 +11,7 @@ public interface SalaryRepository {
     // false if not found
     boolean delete(int id);
 
-    Salary getCurrent(int employeeId);
+    Salary getCurrentByEmployee(int employeeId);
 
     List<Salary> getAllByEmployee(int employeeId);
 

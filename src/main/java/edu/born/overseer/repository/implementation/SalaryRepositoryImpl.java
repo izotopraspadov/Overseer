@@ -40,7 +40,7 @@ public class SalaryRepositoryImpl implements SalaryRepository {
     }
 
     @Override
-    public Salary getCurrent(int employeeId) {
+    public Salary getCurrentByEmployee(int employeeId) {
         return em.createNamedQuery("Salary:currentByEmployee", Salary.class)
                 .setParameter("employeeId", employeeId)
                 .getSingleResult();
