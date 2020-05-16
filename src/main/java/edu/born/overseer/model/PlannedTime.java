@@ -12,6 +12,8 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "PlannedTimed:delete",
                 query = "DELETE FROM PlannedTime pt WHERE pt.id=:id"),
+        @NamedQuery(name = "PlannedTimed:byId",
+                query = "SELECT pt FROM PlannedTime pt WHERE pt.id=:id"),
         @NamedQuery(name = "PlannedTime:allByOrder",
                 query = "SELECT pt FROM PlannedTime pt WHERE pt.order.id=:orderId")
 })

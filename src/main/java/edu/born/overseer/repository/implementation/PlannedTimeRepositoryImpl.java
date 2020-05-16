@@ -1,5 +1,6 @@
 package edu.born.overseer.repository.implementation;
 
+import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.Order;
 import edu.born.overseer.model.PlannedTime;
 import edu.born.overseer.repository.PlannedTimeRepository;
@@ -19,9 +20,10 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
 
     @Override
     @Transactional
-    public PlannedTime save(PlannedTime plannedTime, int orderId) {
+    public PlannedTime save(PlannedTime plannedTime, int orderId, int employeeId) {
 
         plannedTime.setOrder(em.getReference(Order.class, orderId));
+        plannedTime.setEmployee(em.getReference(Employee.class, employeeId));
 
         if (plannedTime.isNew()) {
             em.persist(plannedTime);
@@ -37,6 +39,13 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
         return em.createNamedQuery("PlannedTimed:delete")
                 .setParameter("id", id)
                 .executeUpdate() != 0;
+    }
+
+    @Override
+    public PlannedTime getById(int id) {
+        return em.createNamedQuery("PlannedTimed:byId", PlannedTime.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override
