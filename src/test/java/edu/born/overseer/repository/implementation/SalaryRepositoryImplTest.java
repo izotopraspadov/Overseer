@@ -58,6 +58,7 @@ class SalaryRepositoryImplTest {
 
     @Test
     void getAllByEmployee() {
+        assertThat(salaryRepository.getAllByEmployee(EMPLOYEE_1_ID), contains(SALARY_7, SALARY_1));
     }
 
 }
