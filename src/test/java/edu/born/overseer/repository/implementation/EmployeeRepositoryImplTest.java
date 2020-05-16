@@ -3,7 +3,6 @@ package edu.born.overseer.repository.implementation;
 import edu.born.overseer.data.PhoneTestData;
 import edu.born.overseer.data.RegionTestData;
 import edu.born.overseer.data.SalaryTestData;
-import edu.born.overseer.model.Salary;
 import edu.born.overseer.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,17 +14,12 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.NoResultException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 import static edu.born.overseer.data.EmailTestData.EMPLOYEE_1_EMAILS;
 import static edu.born.overseer.data.EmployeeTestData.*;
 import static edu.born.overseer.data.PhoneTestData.EMPLOYEE_1_PHONES;
-import static edu.born.overseer.data.SalaryTestData.SALARY_1;
-import static edu.born.overseer.data.SalaryTestData.SALARY_7;
 import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
 import static edu.born.overseer.data.TestDataUtil.NEXT_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -64,30 +58,6 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
-    void createNewSalary() {
-        var received = employeeRepository.getById(EMPLOYEE_1_ID);
-
-        // finish current salary
-        SalaryTestData.finishCurrentSalary(received.getSalary());
-
-        // create new
-        var newSalary = SalaryTestData.getPreparedCreate();
-
-        received.getSalary().add(newSalary);
-
-        // update
-        employeeRepository
-                .save(received, received.getRegion().getId());
-
-        var updatedSalarySet = employeeRepository.getById(EMPLOYEE_1_ID)
-                .getSalary();
-
-        var oldSalary = new Salary(SALARY_7).endDate(LocalDate.now());
-
-        assertThat(updatedSalarySet, contains(SalaryTestData.NEXT_SALARY, oldSalary, SALARY_1));
-    }
-
-    @Test
     void createNewPhone() {
         var received = employeeRepository.getById(EMPLOYEE_1_ID);
 
@@ -110,17 +80,6 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
-    void createDuplicateSalary() {
-        var received = employeeRepository.getById(EMPLOYEE_1_ID);
-
-        var duplicate = SalaryTestData.getPreparedDuplicate();
-
-        received.getSalary().add(duplicate);
-
-        assertThrows(DataIntegrityViolationException.class, () -> employeeRepository.save(received, received.getRegion().getId()));
-    }
-
-    @Test
     void update() {
         var prepared = getPreparedUpdate();
 
@@ -133,31 +92,6 @@ class EmployeeRepositoryImplTest {
         assertEquals(received, prepared);
         assertEquals(Set.copyOf(received.getEmails()), Set.copyOf(prepared.getEmails()));
         assertEquals(Set.copyOf(received.getPhones()), Set.copyOf(prepared.getPhones()));
-    }
-
-    @Test
-    void updateDuplicateSalary() {
-        var received = employeeRepository.getById(EMPLOYEE_1_ID);
-
-        var updateAmount = BigDecimal.valueOf(46000.00)
-                .setScale(2, RoundingMode.DOWN);
-
-        // update
-        var salary = received.getSalary()
-                .stream()
-                .filter(e -> e.getEndDate() == null)
-                .findFirst()
-                .orElseThrow(NullPointerException::new)
-                .amount(updateAmount);
-
-        var updated = employeeRepository.save(received, received.getRegion().getId())
-                .getSalary()
-                .stream()
-                .filter(e -> e.getEndDate() == null)
-                .findFirst()
-                .orElseThrow(NullPointerException::new);
-
-        assertEquals(updated.getAmount(), updateAmount);
     }
 
     @Test
