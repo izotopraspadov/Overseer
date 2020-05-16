@@ -108,6 +108,19 @@ public class TaskTestData {
     public static final Set<Task> ORDER_3_TASKS = Set.of(TASK_4, TASK_5, TASK_6);
     public static final Set<Task> ORDER_4_TASKS = Set.of(TASK_7, TASK_8);
 
+    public static Task getPreparedCreate() {
+        var task = new Task()
+                .order(ORDER_1)
+                .description("Created Task")
+                .responsible(EMPLOYEE_1)
+                .dateCompleted(LocalDate.now())
+                .resultType(COMPLETED);
+
+        task.setEmails(TaskEmailTestData.getPreparedCreateSet(task));
+
+        return task;
+    }
+
     public static Set<Task> getPreparedCreateSet(Order order) {
         var task = new Task()
                 .order(order)

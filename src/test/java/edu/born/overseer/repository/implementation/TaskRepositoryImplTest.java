@@ -1,0 +1,50 @@
+package edu.born.overseer.repository.implementation;
+
+import edu.born.overseer.repository.TaskRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static edu.born.overseer.data.EmployeeTestData.EMPLOYEE_1_ID;
+import static edu.born.overseer.data.OrderTestData.ORDER_1_ID;
+import static edu.born.overseer.data.TaskTestData.getPreparedCreate;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
+class TaskRepositoryImplTest {
+
+    @Autowired
+    private TaskRepository taskRepository;
+
+    @Test
+    void create() {
+        var prepared = getPreparedCreate();
+        var savedId = taskRepository.save(prepared, ORDER_1_ID, EMPLOYEE_1_ID).getId();
+
+        prepared.setId(savedId);
+
+        assertEquals(taskRepository.getById(savedId), prepared);
+    }
+
+    @Test
+    void update() {
+    }
+
+    @Test
+    void delete() {
+    }
+
+    @Test
+    void getById() {
+    }
+
+    @Test
+    void getAllByOrder() {
+    }
+}
