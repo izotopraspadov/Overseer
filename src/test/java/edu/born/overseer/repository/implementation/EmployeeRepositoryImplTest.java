@@ -90,8 +90,6 @@ class EmployeeRepositoryImplTest {
         var received = employeeRepository.getById(updatedId);
 
         assertEquals(received, prepared);
-        assertEquals(Set.copyOf(received.getEmails()), Set.copyOf(prepared.getEmails()));
-        assertEquals(Set.copyOf(received.getPhones()), Set.copyOf(prepared.getPhones()));
     }
 
     @Test
