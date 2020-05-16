@@ -11,8 +11,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static edu.born.overseer.data.EmployeeTestData.EMPLOYEE_1_ID;
 import static edu.born.overseer.data.OrderTestData.ORDER_1_ID;
-import static edu.born.overseer.data.TaskTestData.getPreparedCreate;
-import static edu.born.overseer.data.TaskTestData.getPreparedUpdate;
+import static edu.born.overseer.data.TaskTestData.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
@@ -43,6 +45,8 @@ class TaskRepositoryImplTest {
 
     @Test
     void delete() {
+        assertEquals(taskRepository.delete(TASK_1_ID), Boolean.TRUE);
+        assertThat(taskRepository.getAllByOrder(ORDER_1_ID), not(contains(TASK_1)));
     }
 
     @Test
