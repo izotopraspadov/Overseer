@@ -62,6 +62,21 @@ public class Task extends AbstractBaseEntity {
     public Task() {
     }
 
+    /**
+     * Cloning constructor
+     **/
+
+    public Task(Task other) {
+        super(other.getId());
+        this.order = other.getOrder();
+        this.description = other.getDescription();
+        this.responsible = other.getResponsible();
+        this.dateCompleted = other.getDateCompleted();
+        this.resultType = other.getResultType();
+        this.comment = other.getComment();
+        this.emails = other.getEmails();
+    }
+
     public Order getOrder() {
         return order;
     }

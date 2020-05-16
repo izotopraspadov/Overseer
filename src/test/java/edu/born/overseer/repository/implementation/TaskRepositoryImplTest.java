@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static edu.born.overseer.data.EmployeeTestData.EMPLOYEE_1_ID;
 import static edu.born.overseer.data.OrderTestData.ORDER_1_ID;
 import static edu.born.overseer.data.TaskTestData.getPreparedCreate;
+import static edu.born.overseer.data.TaskTestData.getPreparedUpdate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
@@ -34,6 +35,10 @@ class TaskRepositoryImplTest {
 
     @Test
     void update() {
+        var prepared = getPreparedUpdate();
+        var updated = taskRepository.save(prepared, ORDER_1_ID, EMPLOYEE_1_ID);
+
+        assertEquals(updated, prepared);
     }
 
     @Test
@@ -47,4 +52,5 @@ class TaskRepositoryImplTest {
     @Test
     void getAllByOrder() {
     }
+
 }

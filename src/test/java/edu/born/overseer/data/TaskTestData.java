@@ -121,6 +121,12 @@ public class TaskTestData {
         return task;
     }
 
+    public static Task getPreparedUpdate() {
+
+        return new Task(TASK_1)
+                .dateCompleted(LocalDate.now()); // update
+    }
+
     public static Set<Task> getPreparedCreateSet(Order order) {
         var task = new Task()
                 .order(order)
