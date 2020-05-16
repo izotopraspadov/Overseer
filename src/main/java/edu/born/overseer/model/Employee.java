@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -60,23 +61,23 @@ public class Employee extends AbstractFullNameEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "employee_roles", joinColumns = @JoinColumn(name = "employee_id"))
     @Column(name = "role")
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     @OrderBy("date DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
-    private Set<EmployeePayment> payments;
+    private Set<EmployeePayment> payments = new HashSet<>();
 
     @OrderBy("endDate DESC NULLS FIRST")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = {PERSIST, MERGE, REMOVE})
-    private Set<Salary> salary;
+    private Set<Salary> salary = new HashSet<>();
 
     @OrderBy("number DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = {PERSIST, MERGE, REMOVE})
-    private Set<Phone> phones;
+    private Set<Phone> phones = new HashSet<>();
 
     @OrderBy("address DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = {PERSIST, MERGE, REMOVE})
-    private Set<Email> emails;
+    private Set<Email> emails = new HashSet<>();
 
     public Employee() {
     }

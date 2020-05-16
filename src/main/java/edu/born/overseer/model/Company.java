@@ -9,9 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "companies", uniqueConstraints = {@UniqueConstraint(columnNames = "itn", name = "companies_unique_itn_idx")})
@@ -61,7 +59,7 @@ public class Company extends AbstractBaseEntity {
 
     @OrderBy("fullName DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
-    private List<ContactPerson> contactPersons = new ArrayList<>();
+    private Set<ContactPerson> contactPersons = new HashSet<>();
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -113,7 +111,7 @@ public class Company extends AbstractBaseEntity {
         return address;
     }
 
-    public List<ContactPerson> getContactPersons() {
+    public Set<ContactPerson> getContactPersons() {
         return contactPersons;
     }
 
@@ -145,7 +143,7 @@ public class Company extends AbstractBaseEntity {
         this.address = address;
     }
 
-    public void setContactPersons(List<ContactPerson> contactPersons) {
+    public void setContactPersons(Set<ContactPerson> contactPersons) {
         this.contactPersons = contactPersons;
     }
 
@@ -190,7 +188,7 @@ public class Company extends AbstractBaseEntity {
         return this;
     }
 
-    public Company contactPersons(List<ContactPerson> contactPersons) {
+    public Company contactPersons(Set<ContactPerson> contactPersons) {
         this.contactPersons = contactPersons;
         return this;
     }

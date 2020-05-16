@@ -151,7 +151,7 @@ public class Order extends AbstractBaseEntity {
 
     @OrderBy("date DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-    private List<OrderPayment> payments = new ArrayList<>();
+    private Set<OrderPayment> payments = new HashSet<>();
 
     @OrderBy("dateCompleted DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
@@ -257,7 +257,7 @@ public class Order extends AbstractBaseEntity {
         return orderType;
     }
 
-    public List<OrderPayment> getPayments() {
+    public Set<OrderPayment> getPayments() {
         return payments;
     }
 
@@ -341,7 +341,7 @@ public class Order extends AbstractBaseEntity {
         this.orderType = orderType;
     }
 
-    public void setPayments(List<OrderPayment> payments) {
+    public void setPayments(Set<OrderPayment> payments) {
         this.payments = payments;
     }
 
@@ -451,7 +451,7 @@ public class Order extends AbstractBaseEntity {
         return this;
     }
 
-    public Order payments(List<OrderPayment> payments) {
+    public Order payments(Set<OrderPayment> payments) {
         this.payments = payments;
         return this;
     }

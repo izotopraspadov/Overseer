@@ -4,7 +4,7 @@ import edu.born.overseer.model.Order;
 import edu.born.overseer.model.Task;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import static edu.born.overseer.data.EmployeeTestData.*;
 import static edu.born.overseer.data.OrderTestData.*;
@@ -103,12 +103,12 @@ public class TaskTestData {
         TASK_8.emails(TASK_8_EMAILS);
     }
 
-    public static final List<Task> ORDER_1_TASKS = List.of(TASK_1);
-    public static final List<Task> ORDER_2_TASKS = List.of(TASK_3);
-    public static final List<Task> ORDER_3_TASKS = List.of(TASK_4, TASK_5, TASK_6);
-    public static final List<Task> ORDER_4_TASKS = List.of(TASK_7, TASK_8);
+    public static final Set<Task> ORDER_1_TASKS = Set.of(TASK_1);
+    public static final Set<Task> ORDER_2_TASKS = Set.of(TASK_3);
+    public static final Set<Task> ORDER_3_TASKS = Set.of(TASK_4, TASK_5, TASK_6);
+    public static final Set<Task> ORDER_4_TASKS = Set.of(TASK_7, TASK_8);
 
-    public static List<Task> getPreparedCreateSet(Order order) {
+    public static Set<Task> getPreparedCreateSet(Order order) {
         var task = new Task()
                 .order(order)
                 .description("Created Task")
@@ -118,7 +118,7 @@ public class TaskTestData {
 
         task.setEmails(TaskEmailTestData.getPreparedCreateSet(task));
 
-        return List.of(task);
+        return Set.of(task);
     }
 
 }

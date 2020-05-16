@@ -5,7 +5,7 @@ import edu.born.overseer.model.OrderPayment;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import static edu.born.overseer.data.CompanyTestData.*;
 import static edu.born.overseer.data.OrderTestData.*;
@@ -94,13 +94,13 @@ public class OrderPaymentTestData {
             .transaction(BigDecimal.valueOf(30000.00))
             .comment("777");
 
-    public static final List<OrderPayment> ORDER_1_PAYMENTS = List.of(ORDER_PAYMENT_1);
-    public static final List<OrderPayment> ORDER_2_PAYMENTS = List.of(ORDER_PAYMENT_2, ORDER_PAYMENT_3);
-    public static final List<OrderPayment> ORDER_3_PAYMENTS = List.of(ORDER_PAYMENT_4, ORDER_PAYMENT_5);
-    public static final List<OrderPayment> ORDER_4_PAYMENTS = List.of(ORDER_PAYMENT_6, ORDER_PAYMENT_7, ORDER_PAYMENT_8);
+    public static final Set<OrderPayment> ORDER_1_PAYMENTS = Set.of(ORDER_PAYMENT_1);
+    public static final Set<OrderPayment> ORDER_2_PAYMENTS = Set.of(ORDER_PAYMENT_2, ORDER_PAYMENT_3);
+    public static final Set<OrderPayment> ORDER_3_PAYMENTS = Set.of(ORDER_PAYMENT_4, ORDER_PAYMENT_5);
+    public static final Set<OrderPayment> ORDER_4_PAYMENTS = Set.of(ORDER_PAYMENT_6, ORDER_PAYMENT_7, ORDER_PAYMENT_8);
 
-    public static List<OrderPayment> getPreparedCreateList(Order order) {
-        return List.of(new OrderPayment()
+    public static Set<OrderPayment> getPreparedCreateList(Order order) {
+        return Set.of(new OrderPayment()
                 .date(LocalDate.now())
                 .company(COMPANY_1)
                 .order(order)

@@ -2,7 +2,7 @@ package edu.born.overseer.data;
 
 import edu.born.overseer.model.ContactPerson;
 
-import java.util.List;
+import java.util.Set;
 
 import static edu.born.overseer.data.CompanyTestData.*;
 import static edu.born.overseer.data.EmailTestData.*;
@@ -87,9 +87,9 @@ public class ContactPersonTestData {
         CONTACT_PERSON_8.emails(CONTACT_PERSON_8_EMAILS);
     }
 
-    public static final List<ContactPerson> COMPANY_1_CONTACT_PERSONS = List.of(CONTACT_PERSON_1, CONTACT_PERSON_2, CONTACT_PERSON_3);
-    public static final List<ContactPerson> COMPANY_2_CONTACT_PERSONS = List.of(CONTACT_PERSON_4, CONTACT_PERSON_5, CONTACT_PERSON_6);
-    public static final List<ContactPerson> COMPANY_3_CONTACT_PERSONS = List.of(CONTACT_PERSON_7, CONTACT_PERSON_8);
+    public static final Set<ContactPerson> COMPANY_1_CONTACT_PERSONS = Set.of(CONTACT_PERSON_1, CONTACT_PERSON_2, CONTACT_PERSON_3);
+    public static final Set<ContactPerson> COMPANY_2_CONTACT_PERSONS = Set.of(CONTACT_PERSON_4, CONTACT_PERSON_5, CONTACT_PERSON_6);
+    public static final Set<ContactPerson> COMPANY_3_CONTACT_PERSONS = Set.of(CONTACT_PERSON_7, CONTACT_PERSON_8);
 
     public static ContactPerson getPreparedCreate() {
         var person = new ContactPerson()
