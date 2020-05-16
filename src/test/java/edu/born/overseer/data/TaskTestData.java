@@ -103,7 +103,7 @@ public class TaskTestData {
         TASK_8.emails(TASK_8_EMAILS);
     }
 
-    public static final Set<Task> ORDER_1_TASKS = Set.of(TASK_1);
+    public static final Set<Task> ORDER_1_TASKS = Set.of(TASK_1, TASK_2);
     public static final Set<Task> ORDER_2_TASKS = Set.of(TASK_3);
     public static final Set<Task> ORDER_3_TASKS = Set.of(TASK_4, TASK_5, TASK_6);
     public static final Set<Task> ORDER_4_TASKS = Set.of(TASK_7, TASK_8);

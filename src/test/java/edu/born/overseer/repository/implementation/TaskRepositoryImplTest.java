@@ -29,7 +29,6 @@ class TaskRepositoryImplTest {
     void create() {
         var prepared = getPreparedCreate();
         var savedId = taskRepository.save(prepared, ORDER_1_ID, EMPLOYEE_1_ID).getId();
-
         prepared.setId(savedId);
 
         assertEquals(taskRepository.getById(savedId), prepared);
@@ -39,7 +38,6 @@ class TaskRepositoryImplTest {
     void update() {
         var prepared = getPreparedUpdate();
         var updated = taskRepository.save(prepared, ORDER_1_ID, EMPLOYEE_1_ID);
-
         assertEquals(updated, prepared);
     }
 
@@ -57,6 +55,7 @@ class TaskRepositoryImplTest {
 
     @Test
     void getAllByOrder() {
+        assertThat(taskRepository.getAllByOrder(ORDER_1_ID), contains(TASK_1, TASK_2));
     }
 
 }
