@@ -19,6 +19,10 @@ import static edu.born.overseer.model.ResultType.NOT_COMPLETED;
 @Entity
 @Table(name = "tasks")
 @NamedQueries({
+        @NamedQuery(name = "Task:delete",
+                query = "DELETE FROM Task t WHERE t.id=:id"),
+        @NamedQuery(name = "Task:byId",
+                query = "SELECT t FROM Task t WHERE t.id=:id"),
         @NamedQuery(name = "Task:allByOrder",
                 query = "SELECT t FROM Task t WHERE t.order.id=:orderId ORDER BY t.description"),
 })
