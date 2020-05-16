@@ -112,7 +112,7 @@ class EmployeeRepositoryImplTest {
         assertEquals(received, EMPLOYEE_1);
         assertEquals(received.getEmails(), EMPLOYEE_1_EMAILS);
         assertEquals(received.getPhones(), EMPLOYEE_1_PHONES);
-        assertEquals(received.getSalary(), SalaryTestData.EMPLOYEE_1_SALARIES);
+        assertEquals(received.getSalary(), Set.of(SalaryTestData.SALARY_7));
     }
 
     @Test
