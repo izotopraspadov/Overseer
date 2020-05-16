@@ -18,8 +18,8 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "Salary:delete",
                 query = "DELETE FROM Salary s WHERE s.id=:id"),
-        @NamedQuery(name = "Salary:current",
-                query = "SELECT s FROM Salary s WHERE s.endDate IS NULL"),
+        @NamedQuery(name = "Salary:currentByEmployee",
+                query = "SELECT s FROM Salary s WHERE s.employee.id=:employeeId AND s.endDate IS NULL"),
         @NamedQuery(name = "Salary:allByEmployee",
                 query = "SELECT s FROM Salary s WHERE s.employee.id=:employeeId ORDER BY endDate DESC NULLS FIRST"),
 })
