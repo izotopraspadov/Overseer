@@ -22,7 +22,7 @@ import static javax.persistence.CascadeType.*;
                 query = "DELETE FROM Employee e WHERE e.id=:id"),
         @NamedQuery(name = "Employee:byId",
                 query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.salary s LEFT JOIN FETCH e.phones ph " +
-                        "LEFT JOIN FETCH e.emails em WHERE e.id=:id ORDER BY e.fullName"),
+                        "LEFT JOIN FETCH e.emails em WHERE e.id=:id AND s.endDate IS NULL ORDER BY e.fullName"),
         @NamedQuery(name = "Employee:byLogin",
                 query = "SELECT e FROM Employee e WHERE e.login=:login"),
         @NamedQuery(name = "Employee:all",
@@ -68,7 +68,7 @@ public class Employee extends AbstractFullNameEntity {
     private Set<EmployeePayment> payments = new HashSet<>();
 
     @OrderBy("endDate DESC NULLS FIRST")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = {PERSIST, MERGE, REMOVE})
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private Set<Salary> salary = new HashSet<>();
 
     @OrderBy("number DESC")

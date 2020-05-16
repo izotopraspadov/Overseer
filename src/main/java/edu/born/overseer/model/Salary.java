@@ -15,6 +15,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "salaries", uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "start_date"}, name = "salaries_unique_employee_start_date_idx")})
+@NamedQueries({
+        @NamedQuery(name = "Salary:delete",
+                query = "DELETE FROM Salary s WHERE s.id=:id"),
+        @NamedQuery(name = "Salary:current",
+                query = "SELECT s FROM Salary s WHERE s.endDate IS NULL"),
+        @NamedQuery(name = "Salary:allByEmployee",
+                query = "SELECT s FROM Salary s WHERE s.employee.id=:employeeId ORDER BY endDate DESC NULLS FIRST"),
+})
 public class Salary extends AbstractBaseEntity {
 
     @NotNull
