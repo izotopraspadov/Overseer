@@ -139,7 +139,8 @@ class CompanyRepositoryImplTest {
     void getAllByAddressPartialMatch() {
         assertThat(companyRepository.getAllByAddress("Н"), contains(
                 COMPANY_2,
-                COMPANY_1)
+                COMPANY_1,
+                COMPANY_3)
         );
     }
 
