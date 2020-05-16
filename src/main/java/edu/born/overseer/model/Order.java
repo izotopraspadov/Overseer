@@ -15,12 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
-import static javax.persistence.CascadeType.*;
+import java.util.*;
 
 @Entity
 @Table(name = "orders")
@@ -28,9 +23,7 @@ import static javax.persistence.CascadeType.*;
         @NamedQuery(name = "Order:delete",
                 query = "DELETE FROM Order o WHERE o.id=:id"),
         @NamedQuery(name = "Order:byId",
-                query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.tasks WHERE o.id=:id"),
-        @NamedQuery(name = "Order:byIdWithPayments",
-                query = "SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.payments WHERE o.id=:id"),
+                query = "SELECT o FROM Order o WHERE o.id=:id"),
         @NamedQuery(name = "Order:all",
                 query = "SELECT o FROM Order o ORDER BY o.title"),
         @NamedQuery(name = "Order:allByCompany",
@@ -148,18 +141,21 @@ public class Order extends AbstractBaseEntity {
     @JoinColumn(name = "order_type_id", nullable = false)
     private OrderType orderType;
 
+    @OrderBy("date DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-    private Set<ActualTime> actualTime;
+    private Set<ActualTime> actualTime = new HashSet<>();
 
+    @OrderBy("manHours DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-    private Set<PlannedTime> plannedTime;
+    private Set<PlannedTime> plannedTime = new HashSet<>();
 
     @OrderBy("date DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderPayment> payments = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = {PERSIST, MERGE, REMOVE})
-    private List<Task> tasks = new ArrayList<>();
+    @OrderBy("dateCompleted DESC")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private Set<Task> tasks = new HashSet<>();
 
     public Order() {
     }
@@ -265,7 +261,7 @@ public class Order extends AbstractBaseEntity {
         return payments;
     }
 
-    public List<Task> getTasks() {
+    public Set<Task> getTasks() {
         return tasks;
     }
 
@@ -349,7 +345,7 @@ public class Order extends AbstractBaseEntity {
         this.payments = payments;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -460,7 +456,7 @@ public class Order extends AbstractBaseEntity {
         return this;
     }
 
-    public Order tasks(List<Task> tasks) {
+    public Order tasks(Set<Task> tasks) {
         this.tasks = tasks;
         return this;
     }
