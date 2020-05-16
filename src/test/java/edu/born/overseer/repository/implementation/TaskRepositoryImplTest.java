@@ -51,6 +51,8 @@ class TaskRepositoryImplTest {
 
     @Test
     void getById() {
+        var received = taskRepository.getById(TASK_1_ID);
+        assertEquals(received, TASK_1);
     }
 
     @Test
