@@ -15,6 +15,8 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "ActualTime:delete",
                 query = "DELETE FROM ActualTime at WHERE at.id=:id"),
+        @NamedQuery(name = "ActualTime:byId",
+                query = "SELECT at FROM ActualTime at WHERE at.id=:id"),
         @NamedQuery(name = "ActualTime:allByOrder",
                 query = "SELECT at FROM ActualTime at WHERE at.order.id=:orderId")
 })
