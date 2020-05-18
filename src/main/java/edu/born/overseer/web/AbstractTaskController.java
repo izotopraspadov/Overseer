@@ -15,7 +15,29 @@ public abstract class AbstractTaskController {
     @Autowired
     private TaskRepository taskRepository;
 
-    public List<Task> getAllByOrderedObject(int orderedObjectId) {
-        return taskRepository.getAllByOrder(orderedObjectId);
+    public Task create(Task task, int orderId, int employeeId) {
+        log.info("create task {} for order {} by employee {}", task, orderId, employeeId);
+        return taskRepository.save(task, orderId, employeeId);
     }
+
+    public Task update(Task task, int id, int orderId, int employeeId) {
+        log.info("update task {} for order {} by employee {}", task, orderId, employeeId);
+        return taskRepository.save(task, orderId, employeeId);
+    }
+
+    public boolean delete(int id) {
+        log.info("delete task {}", id);
+        return taskRepository.delete(id);
+    }
+
+    public Task getById(int id) {
+        log.info("get task {}", id);
+        return taskRepository.getById(id);
+    }
+
+    public List<Task> getAllByOrder(int orderId) {
+        log.info("get all tasks by order {}", orderId);
+        return taskRepository.getAllByOrder(orderId);
+    }
+
 }
