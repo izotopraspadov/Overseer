@@ -15,8 +15,34 @@ public abstract class AbstractRegionController {
     @Autowired
     private RegionRepository regionRepository;
 
+    public Region create(Region region) {
+        log.info("create region {}", region);
+        return regionRepository.save(region);
+    }
+
+    public Region update(Region region, int id) {
+        log.info("update region {}", region);
+        return regionRepository.save(region);
+    }
+
+    public boolean delete(int id) {
+        log.info("delete region {}", id);
+        return regionRepository.delete(id);
+    }
+
+    public Region getById(int id) {
+        log.info("get region {}", id);
+        return regionRepository.getById(id);
+    }
+
     public List<Region> getAll() {
+        log.info("get all regions");
         return regionRepository.getAll();
+    }
+
+    public List<Region> getAllByTitle(String title) {
+        log.info("get all regions by title {}", title);
+        return regionRepository.getAllByTitle(title);
     }
 
 }
