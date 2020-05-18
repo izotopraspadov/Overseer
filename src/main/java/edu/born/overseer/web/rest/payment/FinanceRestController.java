@@ -1,9 +1,7 @@
-package edu.born.overseer.web.rest;
+package edu.born.overseer.web.rest.payment;
 
 import edu.born.overseer.model.EmployeePayment;
 import edu.born.overseer.model.OrderPayment;
-import edu.born.overseer.web.AbstractEmployeePaymentController;
-import edu.born.overseer.web.AbstractOrderPaymentController;
 import kotlin.Pair;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
