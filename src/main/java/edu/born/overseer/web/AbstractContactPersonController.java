@@ -15,7 +15,34 @@ public abstract class AbstractContactPersonController {
     @Autowired
     private ContactPersonRepository contactPersonRepository;
 
+    public ContactPerson create(ContactPerson person, int companyId) {
+        log.info("create person {} for company {}", person, companyId);
+        return contactPersonRepository.save(person, companyId);
+    }
+
+    public ContactPerson update(ContactPerson person, int id, int companyId) {
+        log.info("create person {} for company {}", person, companyId);
+        return contactPersonRepository.save(person, companyId);
+    }
+
+    public boolean delete(int id) {
+        log.info("delete person {}", id);
+        return contactPersonRepository.delete(id);
+    }
+
+    public ContactPerson getById(int id) {
+        log.info("get person {}", id);
+        return contactPersonRepository.getById(id);
+    }
+
     public List<ContactPerson> getAll() {
+        log.info("get all persons");
         return contactPersonRepository.getAll();
     }
+
+    public List<ContactPerson> getAllByCompany(int companyId) {
+        log.info("get all persons by company {}", companyId);
+        return contactPersonRepository.getAllByCompany(companyId);
+    }
+
 }
