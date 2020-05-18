@@ -1,9 +1,14 @@
 package edu.born.overseer.web;
 
+import edu.born.overseer.model.Company;
+import edu.born.overseer.model.CompanyType;
+import edu.born.overseer.model.ReliabilityType;
 import edu.born.overseer.repository.CompanyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public abstract class AbstractCompanyController {
 
@@ -11,15 +16,15 @@ public abstract class AbstractCompanyController {
 
     @Autowired
     private CompanyRepository companyRepository;
-/*
-    public Company create(Company company) {
+
+    public Company create(Company company, int regionId) {
         log.info("create company {}", company.getId());
-        return companyRepository.save(company);
+        return companyRepository.save(company, regionId);
     }
 
-    public Company update(Company company, int id) {
+    public Company update(Company company, int id, int regionId) {
         log.info("update company {}", id);
-        return companyRepository.save(company);
+        return companyRepository.save(company, regionId);
     }
 
     public boolean delete(int id) {
@@ -27,9 +32,14 @@ public abstract class AbstractCompanyController {
         return companyRepository.delete(id);
     }
 
-    public Optional<Company> get(int id) {
+    public Company getById(int id) {
         log.info("get company {}", id);
-        return companyRepository.get(id);
+        return companyRepository.getById(id);
+    }
+
+    public Company getByContactPersonId(int contactPersonId) {
+        log.info("get company by contact person {}", contactPersonId);
+        return companyRepository.getByContactPersonId(contactPersonId);
     }
 
     public List<Company> getAll() {
@@ -42,12 +52,12 @@ public abstract class AbstractCompanyController {
         return companyRepository.getAllByRegion(regionId);
     }
 
-    public List<Company> getAllByReliability(Reliability reliability) {
-        log.info("get all companies by reliability {}", reliability);
-        return companyRepository.getAllByReliability(reliability);
+    public List<Company> getAllByReliability(ReliabilityType reliabilityType) {
+        log.info("get all companies by reliability {}", reliabilityType);
+        return companyRepository.getAllByReliability(reliabilityType);
     }
 
-    public List<Company> getAllByType(TypeCompany type) {
+    public List<Company> getAllByType(CompanyType type) {
         log.info("get all companies by type company {}", type);
         return companyRepository.getAllByType(type);
     }
@@ -57,19 +67,14 @@ public abstract class AbstractCompanyController {
         return companyRepository.getAllByTitle(title);
     }
 
-    public List<Company> getAllAddress(String address) {
+    public List<Company> getAllByAddress(String address) {
         log.info("get all companies by address {}", address);
         return companyRepository.getAllByAddress(address);
     }
 
-    public Optional<Company> findByContactPerson(int contactPersonId) {
-        log.info("get all companies by contact person {}", contactPersonId);
-        return companyRepository.getByContactPerson(contactPersonId);
+    public List<Company> getAllByItb(String itn) {
+        log.info("get company by itn {}", itn);
+        return companyRepository.getAllByItb(itn);
     }
-
-    public Optional<Company> findByItb(String itn) {
-        log.info("find company by itn {}", itn);
-        return companyRepository.getByItb(itn);
-    }*/
 
 }
