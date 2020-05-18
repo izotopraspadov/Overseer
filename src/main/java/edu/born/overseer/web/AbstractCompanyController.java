@@ -18,12 +18,12 @@ public abstract class AbstractCompanyController {
     private CompanyRepository companyRepository;
 
     public Company create(Company company, int regionId) {
-        log.info("create company {}", company.getId());
+        log.info("create company {} by region {}", company, regionId);
         return companyRepository.save(company, regionId);
     }
 
     public Company update(Company company, int id, int regionId) {
-        log.info("update company {}", id);
+        log.info("create company {} by region {}", company, regionId);
         return companyRepository.save(company, regionId);
     }
 
