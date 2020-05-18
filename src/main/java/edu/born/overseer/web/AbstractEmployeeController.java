@@ -17,12 +17,12 @@ public abstract class AbstractEmployeeController {
     private EmployeeRepository employeeRepository;
 
     public Employee create(Employee employee, int regionId) {
-        log.info("create employee {}", employee.getId());
+        log.info("create employee {} by region {}", employee, regionId);
         return employeeRepository.save(employee, regionId);
     }
 
     public Employee update(Employee employee, int id, int regionId) {
-        log.info("update employee {}", id);
+        log.info("update employee {} by region {}", employee, regionId);
         return employeeRepository.save(employee, regionId);
     }
 
@@ -31,19 +31,14 @@ public abstract class AbstractEmployeeController {
         return employeeRepository.delete(id);
     }
 
-    public Optional<Employee> get(int id) {
+    public Employee getById(int id) {
         log.info("get employee {}", id);
-        return employeeRepository.get(id);
+        return employeeRepository.getById(id);
     }
 
-    public Optional<Employee> getWithPayments(int id) {
-        log.info("get employee {} with payments", id);
-        return employeeRepository.getWithPayments(id);
-    }
-
-    public Optional<Employee> getWithSalaryAndPhonesAndEmails(int id) {
-        log.info("get employee {} with salary, phones, emails", id);
-        return employeeRepository.getWithSalaryAndPhonesAndEmails(id);
+    public Employee getByLogin(String login) {
+        log.info("get all employees by login {}", login);
+        return employeeRepository.getByLogin(login);
     }
 
     public List<Employee> getAll() {
@@ -61,24 +56,9 @@ public abstract class AbstractEmployeeController {
         return employeeRepository.getAllByAddress(address);
     }
 
-    public Optional<Employee> findByLogin(String login) {
-        log.info("find employee by login {}", login);
-        return employeeRepository.findByLogin(login);
-    }
-
-    public Optional<Employee> getWithSalary(int id) {
-        return employeeRepository.getWithSalary(id);
-    }
-
-    public Optional<Employee> getWithEmails(int id) {
-        return employeeRepository.getWithEmails(id);
-    }
-
-    public Optional<Employee> getWithPhones(int id) {
-        return employeeRepository.getWithPhones(id);
-    }
-
     public List<Employee> getAllByFullName(String fullName) {
+        log.info("get all employees by fullName {}", fullName);
         return employeeRepository.getAllByFullName(fullName);
     }
+
 }
