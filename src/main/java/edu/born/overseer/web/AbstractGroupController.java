@@ -15,7 +15,29 @@ public abstract class AbstractGroupController {
     @Autowired
     private GroupRepository groupRepository;
 
+    public Group create(Group group) {
+        log.info("create company {}", group);
+        return groupRepository.save(group);
+    }
+
+    public Group update(Group group, int id) {
+        log.info("update company {}", group);
+        return groupRepository.save(group);
+    }
+
+    public boolean delete(int id) {
+        log.info("delete group {}", id);
+        return groupRepository.delete(id);
+    }
+
+    public Group getById(int id) {
+        log.info("get group {}", id);
+        return groupRepository.getById(id);
+    }
+
     public List<Group> getAll() {
+        log.info("get all groups");
         return groupRepository.getAll();
     }
+
 }
