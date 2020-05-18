@@ -54,7 +54,7 @@ public class ActualTimeRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ActualTime> getAllByOrder(int orderId) {
+    public List<ActualTime> getAllByOrder(@PathVariable int orderId) {
         log.info("get all actualTime by order {}", orderId);
         return actualTimeRepository.getAllByOrder(orderId);
     }
