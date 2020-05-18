@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface EmployeePaymentRepository {
 
+    EmployeePayment save(EmployeePayment payment, int employeeId, int companyCounterpartyId, int employeeCounterpartyId);
+
     List<EmployeePayment> getAll();
 
     List<EmployeePayment> getAllByDate(LocalDate date);

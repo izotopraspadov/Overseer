@@ -1,5 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
+import edu.born.overseer.model.Company;
+import edu.born.overseer.model.Order;
 import edu.born.overseer.model.OrderPayment;
 import edu.born.overseer.repository.OrderPaymentRepository;
 import org.springframework.stereotype.Repository;
@@ -16,6 +18,22 @@ public class OrderPaymentRepositoryImpl implements OrderPaymentRepository {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Override
+    @Transactional
+    public OrderPayment save(OrderPayment payment, int orderId, int companyId, int ourCompanyId) {
+
+        payment.setOrder(em.getReference(Order.class, orderId));
+        payment.setCompany(em.getReference(Company.class, companyId));
+        payment.setOurCompany(em.getReference(Company.class, ourCompanyId));
+
+        if (payment.isNew()) {
+            em.persist(payment);
+            return payment;
+        } else {
+            return em.merge(payment);
+        }
+    }
 
     @Override
     public List<OrderPayment> getAll() {
