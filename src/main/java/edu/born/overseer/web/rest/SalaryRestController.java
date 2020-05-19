@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(value = SalaryRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class SalaryRestController {
 
-    public static final String REST_URL = "/rest/employees/{employeeId}";
+    public static final String REST_URL = "/rest/employees/{employeeId}/salaries";
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -43,12 +43,6 @@ public class SalaryRestController {
     public boolean delete(@PathVariable int id) {
         log.info("delete salary {}", id);
         return salaryRepository.delete(id);
-    }
-
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Salary getCurrentByEmployee(@PathVariable int employeeId) {
-        log.info("get current salary by employee {}", employeeId);
-        return salaryRepository.getCurrentByEmployee(employeeId);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
