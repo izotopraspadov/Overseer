@@ -1,4 +1,4 @@
-package edu.born.overseer.web.rest.group;
+package edu.born.overseer.web.rest;
 
 import edu.born.overseer.model.Group;
 import edu.born.overseer.repository.GroupRepository;

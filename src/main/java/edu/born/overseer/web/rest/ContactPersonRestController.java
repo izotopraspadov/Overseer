@@ -1,4 +1,4 @@
-package edu.born.overseer.web.rest.contactperson;
+package edu.born.overseer.web.rest;
 
 import edu.born.overseer.model.ContactPerson;
 import edu.born.overseer.repository.ContactPersonRepository;

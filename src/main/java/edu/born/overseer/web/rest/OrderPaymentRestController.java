@@ -1,6 +1,7 @@
-package edu.born.overseer.web.rest.payment;
+package edu.born.overseer.web.rest;
 
 import edu.born.overseer.model.OrderPayment;
+import edu.born.overseer.web.AbstractOrderPaymentController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

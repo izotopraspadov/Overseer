@@ -1,4 +1,4 @@
-package edu.born.overseer.web.rest.task;
+package edu.born.overseer.web.rest;
 
 import edu.born.overseer.model.Task;
 import edu.born.overseer.repository.TaskRepository;

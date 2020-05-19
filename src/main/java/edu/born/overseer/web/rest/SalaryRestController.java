@@ -1,4 +1,4 @@
-package edu.born.overseer.web.rest.salary;
+package edu.born.overseer.web.rest;
 
 import edu.born.overseer.model.Salary;
 import edu.born.overseer.repository.SalaryRepository;

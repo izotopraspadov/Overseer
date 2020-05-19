@@ -1,4 +1,4 @@
-package edu.born.overseer.web.rest.region;
+package edu.born.overseer.web.rest;
 
 import edu.born.overseer.model.Region;
 import edu.born.overseer.repository.RegionRepository;
@@ -58,7 +58,7 @@ public class RegionRestController {
     }
 
     @GetMapping(params = {"title"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Region> getAllByTitle(@RequestParam String title) {
+    public List<Region> getAllByTitle(@RequestParam("title") String title) {
         log.info("get all regions by title {}", title);
         return regionRepository.getAllByTitle(title);
     }

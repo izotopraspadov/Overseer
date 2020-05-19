@@ -1,4 +1,4 @@
-package edu.born.overseer.web.rest.company;
+package edu.born.overseer.web.rest;
 
 import edu.born.overseer.model.Company;
 import edu.born.overseer.model.CompanyType;
@@ -55,8 +55,8 @@ public class CompanyRestController {
         return companyRepository.getById(id);
     }
 
-    @GetMapping(params = {"contactPersonId"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Company getByContactPersonId(@RequestParam int contactPersonId) {
+    @GetMapping(params = {"contact_person_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Company getByContactPersonId(@RequestParam("contact_person_id") int contactPersonId) {
         log.info("get company by contact person {}", contactPersonId);
         return companyRepository.getByContactPersonId(contactPersonId);
     }
@@ -67,38 +67,38 @@ public class CompanyRestController {
         return companyRepository.getAll();
     }
 
-    @GetMapping(params = {"regionId"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByRegion(@RequestParam int regionId) {
+    @GetMapping(params = {"region_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Company> getAllByRegion(@RequestParam("region_id") int regionId) {
         log.info("get all companies by region {}", regionId);
         return companyRepository.getAllByRegion(regionId);
     }
 
     @GetMapping(params = {"reliability"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByReliability(@RequestParam ReliabilityType reliabilityType) {
+    public List<Company> getAllByReliability(@RequestParam("reliability") ReliabilityType reliabilityType) {
         log.info("get all companies by reliability {}", reliabilityType);
         return companyRepository.getAllByReliability(reliabilityType);
     }
 
     @GetMapping(params = {"type"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByType(@RequestParam CompanyType type) {
+    public List<Company> getAllByType(@RequestParam("type") CompanyType type) {
         log.info("get all companies by type company {}", type);
         return companyRepository.getAllByType(type);
     }
 
     @GetMapping(params = {"title"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByTitle(@RequestParam String title) {
+    public List<Company> getAllByTitle(@RequestParam("title") String title) {
         log.info("get all companies by title {}", title);
         return companyRepository.getAllByTitle(title);
     }
 
     @GetMapping(params = {"address"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByAddress(@RequestParam String address) {
+    public List<Company> getAllByAddress(@RequestParam("address") String address) {
         log.info("get all companies by address {}", address);
         return companyRepository.getAllByAddress(address);
     }
 
     @GetMapping(params = {"itn"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByItb(@RequestParam String itn) {
+    public List<Company> getAllByItb(@RequestParam("itn") String itn) {
         log.info("get company by itn {}", itn);
         return companyRepository.getAllByItb(itn);
     }

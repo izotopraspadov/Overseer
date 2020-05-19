@@ -1,4 +1,4 @@
-package edu.born.overseer.web.rest.payment;
+package edu.born.overseer.web;
 
 import edu.born.overseer.model.EmployeePayment;
 import edu.born.overseer.repository.EmployeePaymentRepository;

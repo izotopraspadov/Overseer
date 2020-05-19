@@ -1,4 +1,4 @@
-package edu.born.overseer.web.rest.employee;
+package edu.born.overseer.web.rest;
 
 import edu.born.overseer.model.Employee;
 import edu.born.overseer.repository.EmployeeRepository;
@@ -54,7 +54,7 @@ public class EmployeeRestController {
     }
 
     @GetMapping(params = {"login"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Employee getByLogin(@RequestParam String login) {
+    public Employee getByLogin(@RequestParam("login") String login) {
         log.info("get all employees by login {}", login);
         return employeeRepository.getByLogin(login);
     }
@@ -65,20 +65,20 @@ public class EmployeeRestController {
         return employeeRepository.getAll();
     }
 
-    @GetMapping(params = {"regionId"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAllByRegion(@RequestParam int regionId) {
+    @GetMapping(params = {"region_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Employee> getAllByRegion(@RequestParam("region_id") int regionId) {
         log.info("get all employees by region {}", regionId);
         return employeeRepository.getAllByRegion(regionId);
     }
 
     @GetMapping(params = {"address"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAllByAddress(@RequestParam String address) {
+    public List<Employee> getAllByAddress(@RequestParam("address") String address) {
         log.info("get all employees by address {}", address);
         return employeeRepository.getAllByAddress(address);
     }
 
-    @GetMapping(params = {"fullName"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAllByFullName(@RequestParam String fullName) {
+    @GetMapping(params = {"full_name"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Employee> getAllByFullName(@RequestParam("full_name") String fullName) {
         log.info("get all employees by fullName {}", fullName);
         return employeeRepository.getAllByFullName(fullName);
     }

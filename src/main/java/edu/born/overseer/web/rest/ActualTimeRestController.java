@@ -1,4 +1,4 @@
-package edu.born.overseer.web.rest.time;
+package edu.born.overseer.web.rest;
 
 import edu.born.overseer.model.ActualTime;
 import edu.born.overseer.repository.ActualTimeRepository;
