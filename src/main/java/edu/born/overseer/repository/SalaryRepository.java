@@ -13,6 +13,6 @@ public interface SalaryRepository {
 
     Salary getCurrentByEmployee(int employeeId);
 
-    List<Salary> getAllByEmployee(int employeeId);
+    List<Salary> getAllByEmployee(int employeeId, int first);
 
 }

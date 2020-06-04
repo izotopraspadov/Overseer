@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getPageLength;
+
 @Repository
 @Transactional(readOnly = true)
 public class GroupRepositoryImpl implements GroupRepository {
@@ -37,14 +39,14 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public Group getById(int id) {
-        return em.createNamedQuery("Group:byId", Group.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return em.find(Group.class, id);
     }
 
     @Override
-    public List<Group> getAll() {
+    public List<Group> getAll(int first) {
         return em.createNamedQuery("Group:all", Group.class)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 

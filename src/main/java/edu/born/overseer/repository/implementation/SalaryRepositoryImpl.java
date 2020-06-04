@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getPageLength;
+
 @Repository
 @Transactional(readOnly = true)
 public class SalaryRepositoryImpl implements SalaryRepository {
@@ -47,9 +49,11 @@ public class SalaryRepositoryImpl implements SalaryRepository {
     }
 
     @Override
-    public List<Salary> getAllByEmployee(int employeeId) {
+    public List<Salary> getAllByEmployee(int employeeId, int first) {
         return em.createNamedQuery("Salary:allByEmployee", Salary.class)
                 .setParameter("employeeId", employeeId)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 

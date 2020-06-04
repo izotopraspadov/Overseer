@@ -16,43 +16,43 @@ public interface OrderRepository {
     // null if not found
     Order getById(int id);
 
-    List<Order> getAll();
+    List<Order> getAll(int first);
 
-    List<Order> getAllByCompany(int companyId);
+    List<Order> getAllByCompany(int companyId, int first);
 
-    List<Order> getAllByCashless(boolean cashless);
+    List<Order> getAllByCashless(boolean cashless, int first);
 
-    List<Order> getAllByGroup(int groupId);
+    List<Order> getAllByGroup(int groupId, int first);
 
-    List<Order> getAllByContractIsNeed(boolean contractIsNeed);
+    List<Order> getAllByContractIsNeed(boolean contractIsNeed, int first);
 
-    List<Order> getAllByContractExists(boolean contractExists);
+    List<Order> getAllByContractExists(boolean contractExists, int first);
 
-    List<Order> getAllByPlannedStartDate(LocalDate date);
+    List<Order> getAllByPlannedStartDate(LocalDate date, int first);
 
-    List<Order> getAllByActualStartDate(LocalDate date);
+    List<Order> getAllByActualStartDate(LocalDate date, int first);
 
-    List<Order> getAllByPlannedEndDate(LocalDate date);
+    List<Order> getAllByPlannedEndDate(LocalDate date, int first);
 
-    List<Order> getAllByActualEndDate(LocalDate date);
+    List<Order> getAllByActualEndDate(LocalDate date, int first);
 
-    List<Order> getAllBySum(BigDecimal currentSum);
+    List<Order> getAllBySum(BigDecimal currentSum, int first);
 
-    List<Order> getAllByManager(int managerId);
+    List<Order> getAllByManager(int managerId, int first);
 
-    List<Order> getAllByUnderway(boolean underway);
+    List<Order> getAllByUnderway(boolean underway, int first);
 
-    List<Order> getAllByExpectedPayment(BigDecimal expectedPayment);
+    List<Order> getAllByExpectedPayment(BigDecimal expectedPayment, int first);
 
-    List<Order> getAllByNumberOfLines(int numberOfLines);
-
-    // partial match using 'like'
-    List<Order> getAllByPaymentFormat(String format);
+    List<Order> getAllByNumberOfLines(int numberOfLines, int first);
 
     // partial match using 'like'
-    List<Order> getAllByTitle(String title);
+    List<Order> getAllByPaymentFormat(String format, int first);
 
     // partial match using 'like'
-    List<Order> getAllByOrderType(String orderType);
+    List<Order> getAllByTitle(String title, int first);
+
+    // partial match using 'like'
+    List<Order> getAllByOrderType(String orderType, int first);
 
 }

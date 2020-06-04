@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getPageLength;
+
 @Repository
 @Transactional(readOnly = true)
 public class EmployeeRepositoryImpl implements EmployeeRepository {
@@ -41,9 +43,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Employee getById(int id) {
-        return em.createNamedQuery("Employee:byId", Employee.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return em.find(Employee.class, id);
     }
 
     @Override
@@ -54,29 +54,37 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> getAll() {
+    public List<Employee> getAll(int first) {
         return em.createNamedQuery("Employee:all", Employee.class)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    public List<Employee> getAllByRegion(int regionId) {
+    public List<Employee> getAllByRegion(int regionId, int first) {
         return em.createNamedQuery("Employee:allByRegion", Employee.class)
                 .setParameter("regionId", regionId)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    public List<Employee> getAllByAddress(String address) {
+    public List<Employee> getAllByAddress(String address, int first) {
         return em.createNamedQuery("Employee:allByAddress", Employee.class)
                 .setParameter("address", address)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    public List<Employee> getAllByFullName(String fullName) {
+    public List<Employee> getAllByFullName(String fullName, int first) {
         return em.createNamedQuery("Employee:allByFullName", Employee.class)
                 .setParameter("fullName", fullName)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 

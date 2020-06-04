@@ -9,10 +9,10 @@ public interface OrderPaymentRepository {
 
     OrderPayment save(OrderPayment payment, int orderId, int companyId, int ourCompanyId);
 
-    List<OrderPayment> getAll();
+    List<OrderPayment> getAll(int first);
 
-    List<OrderPayment> getAllByDate(LocalDate date);
+    List<OrderPayment> getAllByDate(LocalDate date, int first);
 
-    List<OrderPayment> getAllByOrder(int orderId);
+    List<OrderPayment> getAllByOrder(int orderId, int first);
 
 }

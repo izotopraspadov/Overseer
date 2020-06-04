@@ -9,10 +9,10 @@ public interface EmployeePaymentRepository {
 
     EmployeePayment save(EmployeePayment payment, int employeeId, int companyCounterpartyId, int employeeCounterpartyId);
 
-    List<EmployeePayment> getAll();
+    List<EmployeePayment> getAll(int first);
 
-    List<EmployeePayment> getAllByDate(LocalDate date);
+    List<EmployeePayment> getAllByDate(LocalDate date, int first);
 
-    List<EmployeePayment> getAllByEmployee(int employeeId);
+    List<EmployeePayment> getAllByEmployee(int employeeId, int first);
 
 }

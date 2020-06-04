@@ -12,6 +12,8 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getPageLength;
+
 @Repository
 @Transactional(readOnly = true)
 public class OrderPaymentRepositoryImpl implements OrderPaymentRepository {
@@ -36,22 +38,28 @@ public class OrderPaymentRepositoryImpl implements OrderPaymentRepository {
     }
 
     @Override
-    public List<OrderPayment> getAll() {
+    public List<OrderPayment> getAll(int first) {
         return em.createNamedQuery("OrderPayment:all", OrderPayment.class)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    public List<OrderPayment> getAllByDate(LocalDate date) {
+    public List<OrderPayment> getAllByDate(LocalDate date, int first) {
         return em.createNamedQuery("OrderPayment:allByDate", OrderPayment.class)
                 .setParameter("date", date)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    public List<OrderPayment> getAllByOrder(int orderId) {
+    public List<OrderPayment> getAllByOrder(int orderId, int first) {
         return em.createNamedQuery("OrderPayment:allByOrder", OrderPayment.class)
                 .setParameter("orderId", orderId)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 

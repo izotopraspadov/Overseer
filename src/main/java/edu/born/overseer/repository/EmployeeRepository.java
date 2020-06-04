@@ -17,14 +17,14 @@ public interface EmployeeRepository {
     // null if not found
     Employee getByLogin(String login);
 
-    List<Employee> getAll();
+    List<Employee> getAll(int first);
 
-    List<Employee> getAllByRegion(int regionId);
-
-    // partial match using 'like'
-    List<Employee> getAllByAddress(String address);
+    List<Employee> getAllByRegion(int regionId, int first);
 
     // partial match using 'like'
-    List<Employee> getAllByFullName(String fullName);
+    List<Employee> getAllByAddress(String address, int first);
+
+    // partial match using 'like'
+    List<Employee> getAllByFullName(String fullName, int first);
 
 }

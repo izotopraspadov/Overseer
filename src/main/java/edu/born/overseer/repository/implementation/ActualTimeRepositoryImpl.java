@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getPageLength;
+
 @Repository
 @Transactional(readOnly = true)
 public class ActualTimeRepositoryImpl implements ActualTimeRepository {
@@ -43,15 +45,15 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
 
     @Override
     public ActualTime getById(int id) {
-        return em.createNamedQuery("ActualTime:byId", ActualTime.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return em.find(ActualTime.class, id);
     }
 
     @Override
-    public List<ActualTime> getAllByOrder(int orderId) {
+    public List<ActualTime> getAllByOrder(int orderId, int first) {
         return em.createNamedQuery("ActualTime:allByOrder", ActualTime.class)
                 .setParameter("orderId", orderId)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 

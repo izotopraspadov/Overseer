@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getPageLength;
+
 @Repository
 @Transactional(readOnly = true)
 public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
@@ -43,15 +45,15 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
 
     @Override
     public PlannedTime getById(int id) {
-        return em.createNamedQuery("PlannedTimed:byId", PlannedTime.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return em.find(PlannedTime.class, id);
     }
 
     @Override
-    public List<PlannedTime> getAllByOrder(int orderId) {
+    public List<PlannedTime> getAllByOrder(int orderId, int first) {
         return em.createNamedQuery("PlannedTime:allByOrder", PlannedTime.class)
                 .setParameter("orderId", orderId)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 

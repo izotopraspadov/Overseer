@@ -14,9 +14,9 @@ public interface RegionRepository {
     // null if not found
     Region getById(int id);
 
-    List<Region> getAll();
+    List<Region> getAll(int first);
 
     // partial match using 'like'
-    List<Region> getAllByTitle(String title);
+    List<Region> getAllByTitle(String title, int first);
 
 }

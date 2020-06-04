@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getPageLength;
+
 @Repository
 @Transactional(readOnly = true)
 public class ContactPersonRepositoryImpl implements ContactPersonRepository {
@@ -41,9 +43,7 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
 
     @Override
     public ContactPerson getById(int id) {
-        return em.createNamedQuery("ContactPerson:byId", ContactPerson.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return em.find(ContactPerson.class, id);
     }
 
     @Override
@@ -54,15 +54,19 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
     }
 
     @Override
-    public List<ContactPerson> getAll() {
+    public List<ContactPerson> getAll(int first) {
         return em.createNamedQuery("ContactPerson:all", ContactPerson.class)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    public List<ContactPerson> getAllByCompany(int companyId) {
+    public List<ContactPerson> getAllByCompany(int companyId, int first) {
         return em.createNamedQuery("ContactPerson:allByCompany", ContactPerson.class)
                 .setParameter("companyId", companyId)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 

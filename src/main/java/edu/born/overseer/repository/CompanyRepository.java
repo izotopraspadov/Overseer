@@ -19,21 +19,21 @@ public interface CompanyRepository {
     // null if not found
     Company getByContactPersonId(int contactPersonId);
 
-    List<Company> getAll();
+    List<Company> getAll(int first);
 
-    List<Company> getAllByRegion(int regionId);
+    List<Company> getAllByRegion(int regionId, int first);
 
-    List<Company> getAllByReliability(ReliabilityType reliabilityType);
+    List<Company> getAllByReliability(ReliabilityType reliabilityType, int first);
 
-    List<Company> getAllByType(CompanyType type);
-
-    // partial match using 'like'
-    List<Company> getAllByTitle(String title);
+    List<Company> getAllByType(CompanyType type, int first);
 
     // partial match using 'like'
-    List<Company> getAllByAddress(String address);
+    List<Company> getAllByTitle(String title, int first);
 
     // partial match using 'like'
-    List<Company> getAllByItb(String itn);
+    List<Company> getAllByAddress(String address, int first);
+
+    // partial match using 'like'
+    List<Company> getAllByItb(String itn, int first);
 
 }

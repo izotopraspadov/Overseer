@@ -14,6 +14,6 @@ public interface GroupRepository {
     // null if not found
     Group getById(int id);
 
-    List<Group> getAll();
+    List<Group> getAll(int first);
 
 }

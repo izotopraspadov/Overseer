@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getPageLength;
+
 @Repository
 @Transactional(readOnly = true)
 public class RegionRepositoryImpl implements RegionRepository {
@@ -37,22 +39,24 @@ public class RegionRepositoryImpl implements RegionRepository {
 
     @Override
     public Region getById(int id) {
-        return em.createNamedQuery("Region:byId", Region.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return em.find(Region.class, id);
     }
 
 
     @Override
-    public List<Region> getAll() {
+    public List<Region> getAll(int first) {
         return em.createNamedQuery("Region:all", Region.class)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    public List<Region> getAllByTitle(String title) {
+    public List<Region> getAllByTitle(String title, int first) {
         return em.createNamedQuery("Region:allByTitle", Region.class)
                 .setParameter("title", title)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 

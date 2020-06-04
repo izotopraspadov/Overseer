@@ -14,6 +14,6 @@ public interface PlannedTimeRepository {
     // null if not found
     PlannedTime getById(int id);
 
-    List<PlannedTime> getAllByOrder(int orderId);
+    List<PlannedTime> getAllByOrder(int orderId, int first);
 
 }

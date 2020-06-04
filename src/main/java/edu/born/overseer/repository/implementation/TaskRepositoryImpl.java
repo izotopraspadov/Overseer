@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getPageLength;
+
 @Repository
 @Transactional(readOnly = true)
 public class TaskRepositoryImpl implements TaskRepository {
@@ -43,15 +45,15 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public Task getById(int id) {
-        return em.createNamedQuery("Task:byId", Task.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return em.find(Task.class, id);
     }
 
     @Override
-    public List<Task> getAllByOrder(int orderId) {
+    public List<Task> getAllByOrder(int orderId, int first) {
         return em.createNamedQuery("Task:allByOrder", Task.class)
                 .setParameter("orderId", orderId)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 

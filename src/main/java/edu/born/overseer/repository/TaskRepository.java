@@ -13,6 +13,6 @@ public interface TaskRepository {
 
     Task getById(int id);
 
-    List<Task> getAllByOrder(int orderId);
+    List<Task> getAllByOrder(int orderId, int first);
 
 }

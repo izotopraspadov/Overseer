@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static edu.born.overseer.model.CounterpartyType.EMPLOYEE;
+import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
 @Transactional(readOnly = true)
@@ -41,22 +42,28 @@ public class EmployeePaymentRepositoryImpl implements EmployeePaymentRepository 
     }
 
     @Override
-    public List<EmployeePayment> getAll() {
+    public List<EmployeePayment> getAll(int first) {
         return em.createNamedQuery("EmployeePayment:all", EmployeePayment.class)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    public List<EmployeePayment> getAllByDate(LocalDate date) {
+    public List<EmployeePayment> getAllByDate(LocalDate date, int first) {
         return em.createNamedQuery("EmployeePayment:allByDate", EmployeePayment.class)
                 .setParameter("date", date)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    public List<EmployeePayment> getAllByEmployee(int employeeId) {
+    public List<EmployeePayment> getAllByEmployee(int employeeId, int first) {
         return em.createNamedQuery("EmployeePayment:allByEmployee", EmployeePayment.class)
                 .setParameter("employeeId", employeeId)
+                .setFirstResult(first)
+                .setMaxResults(getPageLength())
                 .getResultList();
     }
 
