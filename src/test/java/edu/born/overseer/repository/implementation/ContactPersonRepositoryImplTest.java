@@ -3,32 +3,22 @@ package edu.born.overseer.repository.implementation;
 import edu.born.overseer.data.PhoneTestData;
 import edu.born.overseer.repository.ContactPersonRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.TransactionSystemException;
 
-import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Set;
 
+import static edu.born.overseer.TestUtil.unlimitedPageLength;
 import static edu.born.overseer.data.CompanyTestData.COMPANY_1;
 import static edu.born.overseer.data.CompanyTestData.COMPANY_1_ID;
 import static edu.born.overseer.data.ContactPersonTestData.*;
 import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
-@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
-class ContactPersonRepositoryImplTest {
+class ContactPersonRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private ContactPersonRepository contactPersonRepository;
@@ -73,8 +63,8 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void delete() {
-        assertEquals(contactPersonRepository.delete(CONTACT_PERSON_1_ID), Boolean.TRUE);
-        assertThat(contactPersonRepository.getAll(), not(contains(CONTACT_PERSON_1)));
+        contactPersonRepository.delete(CONTACT_PERSON_1_ID);
+        assertNull(contactPersonRepository.getById(CONTACT_PERSON_1_ID));
     }
 
     @Test
@@ -88,11 +78,6 @@ class ContactPersonRepositoryImplTest {
     }
 
     @Test
-    void getByIdNotFound() {
-        assertThrows(NoResultException.class, () -> contactPersonRepository.getById(INVALID_ID));
-    }
-
-    @Test
     void getByIdWithCompany() {
         var received = contactPersonRepository.getByIdWithCompany(CONTACT_PERSON_1_ID);
         var company = received.getCompany();
@@ -103,7 +88,7 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void getAll() {
-        assertThat(contactPersonRepository.getAll(), contains(CONTACT_PERSON_8,
+        assertThat(contactPersonRepository.getAll(unlimitedPageLength()), contains(CONTACT_PERSON_8,
                 CONTACT_PERSON_6,
                 CONTACT_PERSON_4,
                 CONTACT_PERSON_1,
@@ -116,10 +101,7 @@ class ContactPersonRepositoryImplTest {
 
     @Test
     void getAllByCompany() {
-        assertThat(contactPersonRepository.getAllByCompany(COMPANY_1_ID), contains(CONTACT_PERSON_1,
-                CONTACT_PERSON_3,
-                CONTACT_PERSON_2)
-        );
+        assertThat(contactPersonRepository.getAllByCompany(COMPANY_1_ID, unlimitedPageLength()), contains(CONTACT_PERSON_1, CONTACT_PERSON_3));
     }
 
 }

@@ -2,28 +2,17 @@ package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.repository.RegionRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.persistence.NoResultException;
-
+import static edu.born.overseer.TestUtil.unlimitedPageLength;
 import static edu.born.overseer.data.RegionTestData.*;
 import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
-@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
-class RegionRepositoryImplTest {
+class RegionRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private RegionRepository regionRepository;
@@ -52,8 +41,8 @@ class RegionRepositoryImplTest {
 
     @Test
     void delete() {
-        assertEquals(regionRepository.delete(REGION_1_ID), Boolean.TRUE);
-        assertThat(regionRepository.getAll(), not(contains(REGION_1)));
+        regionRepository.delete(REGION_1_ID);
+        assertNull(regionRepository.getById(REGION_1_ID));
     }
 
     @Test
@@ -66,14 +55,9 @@ class RegionRepositoryImplTest {
         assertEquals(regionRepository.getById(REGION_1_ID), REGION_1);
     }
 
-    @Test()
-    void getByIdNotFound() {
-        assertThrows(NoResultException.class, () -> regionRepository.getById(INVALID_ID));
-    }
-
     @Test
     void getAll() {
-        assertThat(regionRepository.getAll(), contains(REGION_1,
+        assertThat(regionRepository.getAll(unlimitedPageLength()), contains(REGION_1,
                 REGION_2,
                 REGION_3,
                 REGION_4,
@@ -85,8 +69,7 @@ class RegionRepositoryImplTest {
                 REGION_10,
                 REGION_11,
                 REGION_12,
-                REGION_13)
-        );
+                REGION_13));
     }
 
 }

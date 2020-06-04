@@ -10,7 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.TransactionSystemException;
 
-import static edu.born.overseer.OrderTestData.getPreparedCreate;
+import static edu.born.overseer.data.OrderTestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -35,9 +35,9 @@ class OrderRepositoryImplTest {
                 .save(prepared, companyId, groupId, managerId, orderTypeId)
                 .getId();
 
-        prepared.setId(savedId);
+        var received = orderRepository.getById(savedId);
 
-        assertEquals(orderRepository.getById(savedId), prepared);
+        assertEquals(received, prepared);
     }
 
     @Test
@@ -56,10 +56,21 @@ class OrderRepositoryImplTest {
 
     @Test
     void update() {
+        var prepared = getPreparedUpdate();
+
+        var companyId = prepared.getCompany().getId();
+        var groupId = prepared.getGroup().getId();
+        var managerId = prepared.getManager().getId();
+        var orderTypeId = prepared.getOrderType().getId();
+
+        var updated = orderRepository.save(prepared, companyId, groupId, managerId, orderTypeId);
+
+        assertEquals(updated, prepared);
     }
 
     @Test
     void delete() {
+        ORDER_1.getTasks().forEach(e -> e.getEmails().forEach(System.out::println));
     }
 
     @Test
@@ -70,9 +81,6 @@ class OrderRepositoryImplTest {
     void getById() {
     }
 
-    @Test
-    void getByIdNotFound() {
-    }
 
     @Test
     void getByIdWithPayments() {

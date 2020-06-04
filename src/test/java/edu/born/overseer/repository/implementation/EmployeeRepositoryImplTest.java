@@ -5,18 +5,14 @@ import edu.born.overseer.data.RegionTestData;
 import edu.born.overseer.data.SalaryTestData;
 import edu.born.overseer.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Set;
 
+import static edu.born.overseer.TestUtil.unlimitedPageLength;
 import static edu.born.overseer.data.EmailTestData.EMPLOYEE_1_EMAILS;
 import static edu.born.overseer.data.EmployeeTestData.*;
 import static edu.born.overseer.data.PhoneTestData.EMPLOYEE_1_PHONES;
@@ -24,14 +20,9 @@ import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
 import static edu.born.overseer.data.TestDataUtil.NEXT_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
-@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
-class EmployeeRepositoryImplTest {
+class EmployeeRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -94,8 +85,8 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void delete() {
-        assertEquals(employeeRepository.delete(EMPLOYEE_1_ID), Boolean.TRUE);
-        assertThat(employeeRepository.getAll(), not(contains(EMPLOYEE_1)));
+        employeeRepository.delete(EMPLOYEE_1_ID);
+        assertNull(employeeRepository.getById(EMPLOYEE_1_ID));
     }
 
     @Test
@@ -114,11 +105,6 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
-    void getByIdNotFound() {
-        assertThrows(NoResultException.class, () -> employeeRepository.getById(INVALID_ID));
-    }
-
-    @Test
     void getByLogin() {
         assertEquals(employeeRepository.getByLogin(EMPLOYEE_1_LOGIN), EMPLOYEE_1);
     }
@@ -130,7 +116,7 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getAll() {
-        assertThat(employeeRepository.getAll(), contains(EMPLOYEE_4,
+        assertThat(employeeRepository.getAll(unlimitedPageLength()), contains(EMPLOYEE_4,
                 EMPLOYEE_6,
                 EMPLOYEE_5,
                 EMPLOYEE_1,
@@ -141,27 +127,27 @@ class EmployeeRepositoryImplTest {
 
     @Test
     void getAllByRegion() {
-        assertThat(employeeRepository.getAllByRegion(RegionTestData.REGION_1_ID), contains(EMPLOYEE_1, EMPLOYEE_2));
+        assertThat(employeeRepository.getAllByRegion(RegionTestData.REGION_1_ID, unlimitedPageLength()), contains(EMPLOYEE_1, EMPLOYEE_2));
     }
 
     @Test
     void getAllByAddress() {
-        assertThat(employeeRepository.getAllByAddress(EMPLOYEE_1.getAddress()), contains(EMPLOYEE_1));
+        assertThat(employeeRepository.getAllByAddress(EMPLOYEE_1.getAddress(), unlimitedPageLength()), contains(EMPLOYEE_1));
     }
 
     @Test
     void getAllByAddressPartialMatch() {
-        assertThat(employeeRepository.getAllByAddress("ул."), contains(EMPLOYEE_4, EMPLOYEE_6, EMPLOYEE_1));
+        assertThat(employeeRepository.getAllByAddress("ул.", unlimitedPageLength()), contains(EMPLOYEE_4, EMPLOYEE_6));
     }
 
     @Test
     void getAllByFullName() {
-        assertThat(employeeRepository.getAllByFullName(EMPLOYEE_1.getFullName()), contains(EMPLOYEE_1));
+        assertThat(employeeRepository.getAllByFullName(EMPLOYEE_1.getFullName(), unlimitedPageLength()), contains(EMPLOYEE_1));
     }
 
     @Test
     void getAllByFullNamePartialMatch() {
-        assertThat(employeeRepository.getAllByFullName("Роман"), contains(EMPLOYEE_1, EMPLOYEE_3));
+        assertThat(employeeRepository.getAllByFullName("Роман", unlimitedPageLength()), contains(EMPLOYEE_1, EMPLOYEE_3));
     }
 
 }

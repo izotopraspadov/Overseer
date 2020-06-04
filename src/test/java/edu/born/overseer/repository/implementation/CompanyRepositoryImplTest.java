@@ -2,18 +2,12 @@ package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.acls.model.NotFoundException;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.TransactionSystemException;
 
-import javax.persistence.NoResultException;
-
+import static edu.born.overseer.TestUtil.unlimitedPageLength;
 import static edu.born.overseer.data.CompanyTestData.*;
 import static edu.born.overseer.data.ContactPersonTestData.CONTACT_PERSON_1_ID;
 import static edu.born.overseer.data.RegionTestData.REGION_1_ID;
@@ -22,14 +16,9 @@ import static edu.born.overseer.model.CompanyType.OUR;
 import static edu.born.overseer.model.ReliabilityType.LOW;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
-@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
-class CompanyRepositoryImplTest {
+class CompanyRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -67,8 +56,8 @@ class CompanyRepositoryImplTest {
 
     @Test
     void delete() {
-        assertEquals(companyRepository.delete(COMPANY_1_ID), Boolean.TRUE);
-        assertThat(companyRepository.getAll(), not(contains(COMPANY_1)));
+        companyRepository.delete(COMPANY_1_ID);
+        assertNull(companyRepository.getById(COMPANY_1_ID));
     }
 
     @Test
@@ -79,11 +68,6 @@ class CompanyRepositoryImplTest {
     @Test
     void getById() {
         assertEquals(companyRepository.getById(COMPANY_1_ID), COMPANY_1);
-    }
-
-    @Test
-    void getByIdNotFound() {
-        assertThrows(NoResultException.class, () -> companyRepository.getById(INVALID_ID));
     }
 
     @Test
@@ -98,7 +82,7 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getAll() {
-        assertThat(companyRepository.getAll(), contains(
+        assertThat(companyRepository.getAll(unlimitedPageLength()), contains(
                 COMPANY_2,
                 COMPANY_1,
                 COMPANY_3)
@@ -107,37 +91,37 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getAllByRegion() {
-        assertThat(companyRepository.getAllByRegion(REGION_1_ID), contains(COMPANY_1));
+        assertThat(companyRepository.getAllByRegion(REGION_1_ID, unlimitedPageLength()), contains(COMPANY_1));
     }
 
     @Test
     void getAllByReliability() {
-        assertThat(companyRepository.getAllByReliability(LOW), contains(COMPANY_1));
+        assertThat(companyRepository.getAllByReliability(LOW, unlimitedPageLength()), contains(COMPANY_1));
     }
 
     @Test
     void getAllByType() {
-        assertThat(companyRepository.getAllByType(OUR), contains(COMPANY_1));
+        assertThat(companyRepository.getAllByType(OUR, unlimitedPageLength()), contains(COMPANY_1));
     }
 
     @Test
     void getAllByTitle() {
-        assertThat(companyRepository.getAllByTitle(COMPANY_1.getTitle()), contains(COMPANY_1));
+        assertThat(companyRepository.getAllByTitle(COMPANY_1.getTitle(), unlimitedPageLength()), contains(COMPANY_1));
     }
 
     @Test
     void getAllByTitlePartialMatch() {
-        assertThat(companyRepository.getAllByTitle("Пер"), contains(COMPANY_1));
+        assertThat(companyRepository.getAllByTitle("Пер", unlimitedPageLength()), contains(COMPANY_1));
     }
 
     @Test
     void getAllByAddress() {
-        assertThat(companyRepository.getAllByAddress(COMPANY_1.getAddress()), contains(COMPANY_1));
+        assertThat(companyRepository.getAllByAddress(COMPANY_1.getAddress(), unlimitedPageLength()), contains(COMPANY_1));
     }
 
     @Test
     void getAllByAddressPartialMatch() {
-        assertThat(companyRepository.getAllByAddress("Н"), contains(
+        assertThat(companyRepository.getAllByAddress("Н", unlimitedPageLength()), contains(
                 COMPANY_2,
                 COMPANY_1,
                 COMPANY_3)
@@ -146,12 +130,12 @@ class CompanyRepositoryImplTest {
 
     @Test
     void getByItb() {
-        assertThat(companyRepository.getAllByItb(COMPANY_1.getItn()), contains(COMPANY_1));
+        assertThat(companyRepository.getAllByItb(COMPANY_1.getItn(), unlimitedPageLength()), contains(COMPANY_1));
     }
 
     @Test
     void getByItbPartialMatch() {
-        assertThat(companyRepository.getAllByItb("00000000"), contains(
+        assertThat(companyRepository.getAllByItb("00000000", unlimitedPageLength()), contains(
                 COMPANY_2,
                 COMPANY_1,
                 COMPANY_3)

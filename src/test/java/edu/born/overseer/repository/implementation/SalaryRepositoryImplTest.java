@@ -2,27 +2,19 @@ package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.repository.SalaryRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 
+import static edu.born.overseer.TestUtil.unlimitedPageLength;
 import static edu.born.overseer.data.EmployeeTestData.EMPLOYEE_1_ID;
 import static edu.born.overseer.data.SalaryTestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
-class SalaryRepositoryImplTest {
+class SalaryRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private SalaryRepository salaryRepository;
@@ -41,13 +33,13 @@ class SalaryRepositoryImplTest {
 
         prepared.setId(savedId);
 
-        assertThat(salaryRepository.getAllByEmployee(EMPLOYEE_1_ID), contains(prepared, current, SALARY_1));
+        assertThat(salaryRepository.getAllByEmployee(EMPLOYEE_1_ID, unlimitedPageLength()), contains(prepared, current, SALARY_1));
     }
 
     @Test
     void delete() {
-        assertEquals(salaryRepository.delete(SALARY_1_ID), Boolean.TRUE);
-        assertThat(salaryRepository.getAllByEmployee(EMPLOYEE_1_ID), not(contains(SALARY_1)));
+        salaryRepository.delete(SALARY_1_ID);
+        assertThat(salaryRepository.getAllByEmployee(EMPLOYEE_1_ID, unlimitedPageLength()), not(contains(SALARY_1)));
     }
 
     @Test
@@ -58,7 +50,7 @@ class SalaryRepositoryImplTest {
 
     @Test
     void getAllByEmployee() {
-        assertThat(salaryRepository.getAllByEmployee(EMPLOYEE_1_ID), contains(SALARY_7, SALARY_1));
+        assertThat(salaryRepository.getAllByEmployee(EMPLOYEE_1_ID, unlimitedPageLength()), contains(SALARY_7, SALARY_1));
     }
 
 }
