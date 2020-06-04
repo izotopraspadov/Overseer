@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
+import static edu.born.overseer.util.ValidationUtil.checkNew;
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
+
 @RestController
 @RequestMapping(value = EmployeeRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmployeeRestController {
@@ -27,6 +31,7 @@ public class EmployeeRestController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Employee create(@RequestBody Employee employee) {
+        checkNew(employee);
         int regionId = employee.getRegion().getId();
         log.info("create employee {} by region {}", employee, regionId);
         return employeeRepository.save(employee, regionId);
@@ -34,7 +39,9 @@ public class EmployeeRestController {
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Employee employee, @PathVariable int id) {
+    public void update(@RequestBody Employee employee,
+                       @PathVariable int id) {
+        assureIdConsistent(employee, id);
         int regionId = employee.getRegion().getId();
         log.info("update employee {} by region {}", employee, regionId);
         employeeRepository.save(employee, regionId);
@@ -59,28 +66,31 @@ public class EmployeeRestController {
         return employeeRepository.getByLogin(login);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAll() {
+    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Employee> getAll(@RequestParam(value = "page", required = false) Integer page) {
         log.info("get all employees");
-        return employeeRepository.getAll();
+        return employeeRepository.getAll(getFirstByPage(page));
     }
 
-    @GetMapping(params = {"region_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAllByRegion(@RequestParam("region_id") int regionId) {
+    @GetMapping(params = {"region_id", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Employee> getAllByRegion(@RequestParam("region_id") int regionId,
+                                         @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all employees by region {}", regionId);
-        return employeeRepository.getAllByRegion(regionId);
+        return employeeRepository.getAllByRegion(regionId, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"address"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAllByAddress(@RequestParam("address") String address) {
+    @GetMapping(params = {"address", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Employee> getAllByAddress(@RequestParam("address") String address,
+                                          @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all employees by address {}", address);
-        return employeeRepository.getAllByAddress(address);
+        return employeeRepository.getAllByAddress(address, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"full_name"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAllByFullName(@RequestParam("full_name") String fullName) {
+    @GetMapping(params = {"full_name", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Employee> getAllByFullName(@RequestParam("full_name") String fullName,
+                                           @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all employees by fullName {}", fullName);
-        return employeeRepository.getAllByFullName(fullName);
+        return employeeRepository.getAllByFullName(fullName, getFirstByPage(page));
     }
 
 }

@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
+import static edu.born.overseer.util.ValidationUtil.checkNew;
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
+
 @RestController
 @RequestMapping(value = PlannedTimeRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class PlannedTimeRestController {
@@ -26,7 +30,9 @@ public class PlannedTimeRestController {
 
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PlannedTime create(@RequestBody PlannedTime plannedTime, @PathVariable int orderId) {
+    public PlannedTime create(@RequestBody PlannedTime plannedTime,
+                              @PathVariable int orderId) {
+        checkNew(plannedTime);
         int employeeId = plannedTime.getEmployee().getId();
         log.info("create plannedTime {} for order {} by employee {}", plannedTime, orderId, employeeId);
         return plannedTimeRepository.save(plannedTime, orderId, employeeId);
@@ -34,7 +40,10 @@ public class PlannedTimeRestController {
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody PlannedTime plannedTime, @PathVariable int id, @PathVariable int orderId) {
+    public void update(@RequestBody PlannedTime plannedTime,
+                       @PathVariable int id,
+                       @PathVariable int orderId) {
+        assureIdConsistent(plannedTime, id);
         int employeeId = plannedTime.getEmployee().getId();
         log.info("update plannedTime {} for order {} by employee {}", plannedTime, orderId, employeeId);
         plannedTimeRepository.save(plannedTime, orderId, employeeId);
@@ -53,10 +62,11 @@ public class PlannedTimeRestController {
         return plannedTimeRepository.getById(id);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PlannedTime> getAllByOrder(@PathVariable int orderId) {
+    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<PlannedTime> getAllByOrder(@PathVariable int orderId,
+                                           @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all plannedTime by order {}", orderId);
-        return plannedTimeRepository.getAllByOrder(orderId);
+        return plannedTimeRepository.getAllByOrder(orderId, getFirstByPage(page));
     }
 
 }

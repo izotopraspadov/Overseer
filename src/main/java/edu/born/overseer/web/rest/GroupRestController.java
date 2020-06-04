@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
+import static edu.born.overseer.util.ValidationUtil.checkNew;
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
+
 @RestController
 @RequestMapping(value = GroupRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class GroupRestController {
@@ -27,13 +31,16 @@ public class GroupRestController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Group create(@RequestBody Group group) {
+        checkNew(group);
         log.info("create company {}", group);
         return groupRepository.save(group);
     }
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(Group group, @PathVariable int id) {
+    public void update(@RequestBody Group group,
+                       @PathVariable int id) {
+        assureIdConsistent(group, id);
         log.info("update company {}", group);
         groupRepository.save(group);
     }
@@ -51,10 +58,10 @@ public class GroupRestController {
         return groupRepository.getById(id);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Group> getAll() {
+    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Group> getAll(@RequestParam(value = "page", required = false) Integer page) {
         log.info("get all groups");
-        return groupRepository.getAll();
+        return groupRepository.getAll(getFirstByPage(page));
     }
 
 }

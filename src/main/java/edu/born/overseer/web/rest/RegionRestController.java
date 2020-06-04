@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
+import static edu.born.overseer.util.ValidationUtil.checkNew;
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
+
 @RestController
 @RequestMapping(value = RegionRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegionRestController {
@@ -27,13 +31,16 @@ public class RegionRestController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Region create(@RequestBody Region region) {
+        checkNew(region);
         log.info("create region {}", region);
         return regionRepository.save(region);
     }
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(Region region, @PathVariable int id) {
+    public void update(@RequestBody Region region,
+                       @PathVariable int id) {
+        assureIdConsistent(region, id);
         log.info("update region {}", region);
         regionRepository.save(region);
     }
@@ -51,16 +58,17 @@ public class RegionRestController {
         return regionRepository.getById(id);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Region> getAll() {
+    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Region> getAll(@RequestParam(value = "page", required = false) Integer page) {
         log.info("get all regions");
-        return regionRepository.getAll();
+        return regionRepository.getAll(getFirstByPage(page));
     }
 
-    @GetMapping(params = {"title"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Region> getAllByTitle(@RequestParam("title") String title) {
+    @GetMapping(params = {"title", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Region> getAllByTitle(@RequestParam("title") String title,
+                                      @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all regions by title {}", title);
-        return regionRepository.getAllByTitle(title);
+        return regionRepository.getAllByTitle(title, getFirstByPage(page));
     }
 
 }

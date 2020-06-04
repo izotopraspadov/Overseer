@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static edu.born.overseer.model.CounterpartyType.EMPLOYEE;
+import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
+import static edu.born.overseer.util.ValidationUtil.checkNew;
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 
 @RestController
 @RequestMapping(value = EmployeePaymentRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,7 +31,9 @@ public class EmployeePaymentRestController {
 
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public EmployeePayment create(@RequestBody EmployeePayment payment, @PathVariable int employeeId) {
+    public EmployeePayment create(@RequestBody EmployeePayment payment,
+                                  @PathVariable int employeeId) {
+        checkNew(payment);
         if (payment.getCounterpartyType() == EMPLOYEE) {
             int employeeCounterpartyId = payment.getEmployeeCounterparty().getId();
             log.info("create employee payment {} for employee {} by employeeCounterparty {}", payment, employeeId, employeeCounterpartyId);
@@ -48,7 +53,10 @@ public class EmployeePaymentRestController {
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody EmployeePayment payment, @PathVariable int id, @PathVariable int employeeId) {
+    public void update(@RequestBody EmployeePayment payment,
+                       @PathVariable int id,
+                       @PathVariable int employeeId) {
+        assureIdConsistent(payment, id);
         if (payment.getCounterpartyType() == EMPLOYEE) {
             int employeeCounterpartyId = payment.getEmployeeCounterparty().getId();
             log.info("update employee payment {} for employee {} by employeeCounterparty {}", payment, employeeId, employeeCounterpartyId);
@@ -66,10 +74,11 @@ public class EmployeePaymentRestController {
         }
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<EmployeePayment> getAllByEmployee(@PathVariable int employeeId) {
+    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<EmployeePayment> getAllByEmployee(@PathVariable int employeeId,
+                                                  @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all employee payments by employee {}", employeeId);
-        return employeePaymentRepository.getAllByEmployee(employeeId);
+        return employeePaymentRepository.getAllByEmployee(employeeId, getFirstByPage(page));
     }
 
 }

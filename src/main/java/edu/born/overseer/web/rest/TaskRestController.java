@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
+import static edu.born.overseer.util.ValidationUtil.checkNew;
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
+
 @RestController
 @RequestMapping(value = TaskRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class TaskRestController {
@@ -26,7 +30,9 @@ public class TaskRestController {
 
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Task create(@RequestBody Task task, @PathVariable int orderId) {
+    public Task create(@RequestBody Task task,
+                       @PathVariable int orderId) {
+        checkNew(task);
         int employeeId = task.getResponsible().getId();
         log.info("create task {} for order {} by employee {}", task, orderId, employeeId);
         return taskRepository.save(task, orderId, employeeId);
@@ -34,7 +40,10 @@ public class TaskRestController {
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Task task, @PathVariable int id, @PathVariable int orderId) {
+    public void update(@RequestBody Task task,
+                       @PathVariable int id,
+                       @PathVariable int orderId) {
+        assureIdConsistent(task, id);
         int employeeId = task.getResponsible().getId();
         log.info("update task {} for order {} by employee {}", task, orderId, employeeId);
         taskRepository.save(task, orderId, employeeId);
@@ -53,10 +62,11 @@ public class TaskRestController {
         return taskRepository.getById(id);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Task> getAllByOrder(@PathVariable int orderId) {
+    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Task> getAllByOrder(@PathVariable int orderId,
+                                    @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all tasks by order {}", orderId);
-        return taskRepository.getAllByOrder(orderId);
+        return taskRepository.getAllByOrder(orderId, getFirstByPage(page));
     }
 
 }
