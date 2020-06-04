@@ -21,7 +21,7 @@ import java.util.*;
         @NamedQuery(name = "Company:byContactPerson",
                 query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId"),
         @NamedQuery(name = "Company:all",
-                query = "SELECT DISTINCT c FROM Company c ORDER BY c.title"),
+                query = "SELECT c FROM Company c ORDER BY c.title"),
         @NamedQuery(name = "Company:allByRegion",
                 query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
         @NamedQuery(name = "Company:allByReliability",
