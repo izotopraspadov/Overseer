@@ -1,36 +1,22 @@
 package edu.born.overseer.util;
 
+import edu.born.overseer.model.abstraction.AbstractBaseEntity;
+
 public class ValidationUtil {
 
-    public static boolean isNumeric(final String str) {
-
-        // null or empty
-        if (str == null || str.length() == 0)
-            return false;
-
-        return str.replaceAll("\\.", "").chars().allMatch(Character::isDigit);
-
+    public static void checkNew(AbstractBaseEntity entity) {
+        if (!entity.isNew()) {
+            throw new IllegalArgumentException(entity + " must be new (id=null)");
+        }
     }
 
-    public static boolean isBigDecimal(final String str) {
-
-        if (!isNumeric(str))
-            return false;
-        if (!str.contains("."))
-            return false;
-
-        return true;
-
-    }
-
-    public static boolean isValidPhoneLength(final String str) {
-
-        // not null
-        if (str != null && str.length() == 11)
-            return true;
-
-        return false;
-
+    public static void assureIdConsistent(AbstractBaseEntity entity, int id) {
+//      http://stackoverflow.com/a/32728226/548473
+        if (entity.isNew()) {
+            entity.setId(id);
+        } else if (entity.getId() != id) {
+            throw new IllegalArgumentException(entity + " must be with id=" + id);
+        }
     }
 
 }
