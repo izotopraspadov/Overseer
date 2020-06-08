@@ -1,5 +1,7 @@
 package edu.born.overseer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.born.overseer.model.abstraction.AbstractFullNameEntity;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.OnDelete;
@@ -63,18 +65,22 @@ public class Employee extends AbstractFullNameEntity {
     @Column(name = "role")
     private Set<Role> roles = new HashSet<>();
 
+    @JsonManagedReference(value = "employee")
     @OrderBy("date DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private Set<EmployeePayment> payments = new HashSet<>();
 
+    @JsonManagedReference(value = "employee")
     @OrderBy("endDate DESC NULLS FIRST")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private Set<Salary> salary = new HashSet<>();
 
+    @JsonManagedReference(value = "employee")
     @OrderBy("number DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = {PERSIST, MERGE, REMOVE})
     private Set<Phone> phones = new HashSet<>();
 
+    @JsonManagedReference(value = "employee")
     @OrderBy("address DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = {PERSIST, MERGE, REMOVE})
     private Set<Email> emails = new HashSet<>();
@@ -237,13 +243,12 @@ public class Employee extends AbstractFullNameEntity {
         if (!super.equals(other)) return false;
         Employee otherEmployee = (Employee) other;
         return Objects.equals(login, otherEmployee.login) &&
-                Objects.equals(password, otherEmployee.password) &&
                 Objects.equals(address, otherEmployee.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), login, password, address);
+        return Objects.hash(super.hashCode(), login, address);
     }
 
     @Override
@@ -252,7 +257,6 @@ public class Employee extends AbstractFullNameEntity {
                 "id=" + id + ", " +
                 "fullName='" + fullName + ", " +
                 "login='" + login + ", " +
-                "password='" + password + ", " +
                 "address='" + address + ", " +
                 "roles=" + roles +
                 "}\n";

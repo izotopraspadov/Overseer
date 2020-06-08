@@ -47,14 +47,7 @@ public class SalaryRestController {
         salaryRepository.save(salary, employeeId);
     }
 
-    @DeleteMapping(value = "/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable int id) {
-        log.info("delete salary {}", id);
-        return salaryRepository.delete(id);
-    }
-
-    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Salary> getAllByEmployee(@PathVariable int employeeId,
                                          @RequestParam(value = "page", required = false) Integer page) {
         log.info("get salaries by employee {}", employeeId);

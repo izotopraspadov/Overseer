@@ -34,13 +34,13 @@ public class FinanceRestController {
         this.employeePaymentRepository = employeePaymentRepository;
     }
 
-    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Pair<List<EmployeePayment>, List<OrderPayment>> getAll(@RequestParam(value = "page", required = false) Integer page) {
         return new Pair<>(employeePaymentRepository.getAll(getFirstByPage(page)),
                 orderPaymentRepository.getAll(getFirstByPage(page)));
     }
 
-    @GetMapping(params = {"date", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"date"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public Pair<List<EmployeePayment>, List<OrderPayment>> getAllByDate(@RequestParam("date") LocalDate date,
                                                                         @RequestParam(value = "page", required = false) Integer page) {
         return new Pair<>(employeePaymentRepository.getAllByDate(date, getFirstByPage(page)),

@@ -1,5 +1,6 @@
 package edu.born.overseer;
 
+import edu.born.overseer.model.Company;
 import edu.born.overseer.model.Employee;
 import edu.born.overseer.web.AuthorizedUser;
 import edu.born.overseer.web.json.JsonUtil;
@@ -18,6 +19,7 @@ import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.setPageLength;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUtil {
 
@@ -61,6 +63,14 @@ public class TestUtil {
     @SafeVarargs
     public static <T> ResultMatcher getMatcher(Class<T> typeClass, T... expected) {
         return result -> assertThat(readListFromJsonMvcResult(result, typeClass), contains(expected));
+    }
+
+    public static <T> ResultMatcher getMatcher(Class<T> typeClass, T expected) {
+        return result -> assertEquals(readFromJsonMvcResult(result, typeClass), expected);
+    }
+
+    public static ResultMatcher getRestaurantMatcher(Company expected) {
+        return result -> assertEquals(readFromJsonMvcResult(result, Company.class), expected);
     }
 
     public static int unlimitedPageLength() {

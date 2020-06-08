@@ -2,6 +2,8 @@ package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.model.Group;
 import edu.born.overseer.repository.GroupRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "groups", allEntries = true)
     public Group save(Group group) {
         if (group.isNew()) {
             em.persist(group);
@@ -31,6 +34,7 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "groups", allEntries = true)
     public boolean delete(int id) {
         return em.createNamedQuery("Group:delete")
                 .setParameter("id", id)
@@ -43,6 +47,7 @@ public class GroupRepositoryImpl implements GroupRepository {
     }
 
     @Override
+    @Cacheable("groups")
     public List<Group> getAll(int first) {
         return em.createNamedQuery("Group:all", Group.class)
                 .setFirstResult(first)
@@ -50,4 +55,9 @@ public class GroupRepositoryImpl implements GroupRepository {
                 .getResultList();
     }
 
+    @Override
+    @CacheEvict(value = "groups", allEntries = true)
+    public void evictCache() {
+
+    }
 }

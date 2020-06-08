@@ -1,8 +1,11 @@
 package edu.born.overseer.util;
 
+import edu.born.overseer.model.Employee;
 import edu.born.overseer.web.AuthorizedUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 
 import static java.util.Objects.requireNonNull;
 
@@ -33,6 +36,13 @@ public class SecurityUtil {
 
     public static void clearContext() {
         SecurityContextHolder.clearContext();
+    }
+
+    public static Employee prepareToSave(Employee user, PasswordEncoder passwordEncoder) {
+        String password = user.getPassword();
+        user.setPassword(StringUtils.isEmpty(password) ? password : passwordEncoder.encode(password));
+        user.setLogin(user.getLogin().toLowerCase());
+        return user;
     }
 
 }

@@ -4,6 +4,8 @@ import edu.born.overseer.model.Company;
 import edu.born.overseer.model.Order;
 import edu.born.overseer.model.OrderPayment;
 import edu.born.overseer.repository.OrderPaymentRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,7 @@ public class OrderPaymentRepositoryImpl implements OrderPaymentRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "orderPayments", allEntries = true)
     public OrderPayment save(OrderPayment payment, int orderId, int companyId, int ourCompanyId) {
 
         payment.setOrder(em.getReference(Order.class, orderId));
@@ -38,6 +41,16 @@ public class OrderPaymentRepositoryImpl implements OrderPaymentRepository {
     }
 
     @Override
+    @Transactional
+    @CacheEvict(value = "orderPayments", allEntries = true)
+    public boolean delete(int id) {
+        return em.createNamedQuery("OrderPayment:delete")
+                .setParameter("id", id)
+                .executeUpdate() != 0;
+    }
+
+    @Override
+    @Cacheable("orderPayments")
     public List<OrderPayment> getAll(int first) {
         return em.createNamedQuery("OrderPayment:all", OrderPayment.class)
                 .setFirstResult(first)
@@ -46,6 +59,7 @@ public class OrderPaymentRepositoryImpl implements OrderPaymentRepository {
     }
 
     @Override
+    @Cacheable("orderPayments")
     public List<OrderPayment> getAllByDate(LocalDate date, int first) {
         return em.createNamedQuery("OrderPayment:allByDate", OrderPayment.class)
                 .setParameter("date", date)
@@ -55,6 +69,7 @@ public class OrderPaymentRepositoryImpl implements OrderPaymentRepository {
     }
 
     @Override
+    @Cacheable("orderPayments")
     public List<OrderPayment> getAllByOrder(int orderId, int first) {
         return em.createNamedQuery("OrderPayment:allByOrder", OrderPayment.class)
                 .setParameter("orderId", orderId)
@@ -63,4 +78,9 @@ public class OrderPaymentRepositoryImpl implements OrderPaymentRepository {
                 .getResultList();
     }
 
+    @Override
+    @CacheEvict(value = "orderPayments", allEntries = true)
+    public void evictCache() {
+
+    }
 }

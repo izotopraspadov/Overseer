@@ -19,4 +19,6 @@ public interface RegionRepository {
     // partial match using 'like'
     List<Region> getAllByTitle(String title, int first);
 
+    void evictCache();
+
 }

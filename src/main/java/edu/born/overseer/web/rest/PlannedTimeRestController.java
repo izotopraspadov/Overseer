@@ -51,9 +51,9 @@ public class PlannedTimeRestController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable int id) {
+    public void delete(@PathVariable int id) {
         log.info("delete plannedTime {}", id);
-        return plannedTimeRepository.delete(id);
+        plannedTimeRepository.delete(id);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,7 +62,7 @@ public class PlannedTimeRestController {
         return plannedTimeRepository.getById(id);
     }
 
-    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PlannedTime> getAllByOrder(@PathVariable int orderId,
                                            @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all plannedTime by order {}", orderId);

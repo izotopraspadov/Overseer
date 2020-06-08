@@ -1,5 +1,6 @@
 package edu.born.overseer.model.abstraction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import edu.born.overseer.model.ContactPerson;
 import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.OwnerType;
@@ -13,11 +14,13 @@ import java.util.Objects;
 @MappedSuperclass
 public abstract class AbstractContactEntity extends AbstractBaseEntity {
 
+    @JsonBackReference(value = "person")
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "contact_person_id")
     protected ContactPerson contactPerson;
 
+    @JsonBackReference(value = "employee")
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "employee_id")

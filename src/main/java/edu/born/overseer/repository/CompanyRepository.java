@@ -34,6 +34,8 @@ public interface CompanyRepository {
     List<Company> getAllByAddress(String address, int first);
 
     // partial match using 'like'
-    List<Company> getAllByItb(String itn, int first);
+    List<Company> getAllByItn(String itn, int first);
+
+    void evictCache();
 
 }

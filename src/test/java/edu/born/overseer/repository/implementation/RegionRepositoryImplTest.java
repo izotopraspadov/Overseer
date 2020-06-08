@@ -1,6 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.repository.RegionRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,6 +17,11 @@ class RegionRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private RegionRepository regionRepository;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        regionRepository.evictCache();
+    }
 
     @Test
     void create() {

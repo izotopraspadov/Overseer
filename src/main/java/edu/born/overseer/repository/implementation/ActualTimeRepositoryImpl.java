@@ -4,6 +4,8 @@ import edu.born.overseer.model.ActualTime;
 import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.Order;
 import edu.born.overseer.repository.ActualTimeRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,7 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "actualTime", allEntries = true)
     public ActualTime save(ActualTime actualTime, int orderId, int employeeId) {
 
         actualTime.setOrder(em.getReference(Order.class, orderId));
@@ -37,6 +40,7 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "actualTime", allEntries = true)
     public boolean delete(int id) {
         return em.createNamedQuery("ActualTime:delete")
                 .setParameter("id", id)
@@ -49,6 +53,7 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
     }
 
     @Override
+    @Cacheable("actualTime")
     public List<ActualTime> getAllByOrder(int orderId, int first) {
         return em.createNamedQuery("ActualTime:allByOrder", ActualTime.class)
                 .setParameter("orderId", orderId)
@@ -57,4 +62,9 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
                 .getResultList();
     }
 
+    @Override
+    @CacheEvict(value = "actualTime", allEntries = true)
+    public void evictCache() {
+
+    }
 }

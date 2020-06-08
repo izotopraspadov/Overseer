@@ -15,4 +15,6 @@ public interface TaskRepository {
 
     List<Task> getAllByOrder(int orderId, int first);
 
+    void evictCache();
+
 }

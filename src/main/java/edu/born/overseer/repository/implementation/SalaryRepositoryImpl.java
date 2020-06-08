@@ -3,6 +3,8 @@ package edu.born.overseer.repository.implementation;
 import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.Salary;
 import edu.born.overseer.repository.SalaryRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ public class SalaryRepositoryImpl implements SalaryRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "salaries", allEntries = true)
     public Salary save(Salary salary, int employeeId) {
 
         salary.setEmployee(em.getReference(Employee.class, employeeId));
@@ -35,6 +38,7 @@ public class SalaryRepositoryImpl implements SalaryRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "salaries", allEntries = true)
     public boolean delete(int id) {
         return em.createNamedQuery("Salary:delete")
                 .setParameter("id", id)
@@ -49,6 +53,7 @@ public class SalaryRepositoryImpl implements SalaryRepository {
     }
 
     @Override
+    @Cacheable("salaries")
     public List<Salary> getAllByEmployee(int employeeId, int first) {
         return em.createNamedQuery("Salary:allByEmployee", Salary.class)
                 .setParameter("employeeId", employeeId)
@@ -57,4 +62,9 @@ public class SalaryRepositoryImpl implements SalaryRepository {
                 .getResultList();
     }
 
+    @Override
+    @CacheEvict(value = "salaries", allEntries = true)
+    public void evictCache() {
+
+    }
 }

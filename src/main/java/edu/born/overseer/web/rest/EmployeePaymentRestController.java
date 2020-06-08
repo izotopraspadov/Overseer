@@ -74,7 +74,7 @@ public class EmployeePaymentRestController {
         }
     }
 
-    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<EmployeePayment> getAllByEmployee(@PathVariable int employeeId,
                                                   @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all employee payments by employee {}", employeeId);

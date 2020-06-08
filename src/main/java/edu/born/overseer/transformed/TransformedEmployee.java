@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-public class TransformedUser extends TransformedBase implements Serializable {
+public class TransformedEmployee extends TransformedBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotBlank
@@ -17,10 +17,10 @@ public class TransformedUser extends TransformedBase implements Serializable {
     @Size(min = 5, max = 32)
     private String password;
 
-    public TransformedUser() {
+    public TransformedEmployee() {
     }
 
-    public TransformedUser(Integer id, String email, String password) {
+    public TransformedEmployee(Integer id, String email, String password) {
         super(id);
         this.login = email;
         this.password = password;

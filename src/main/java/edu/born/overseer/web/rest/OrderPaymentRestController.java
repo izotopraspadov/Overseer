@@ -51,7 +51,7 @@ public class OrderPaymentRestController {
         orderPaymentRepository.save(payment, orderId, companyId, ourCompanyId);
     }
 
-    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<OrderPayment> getAllByOrder(@PathVariable int orderId,
                                             @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all order payments by employee {}", orderId);

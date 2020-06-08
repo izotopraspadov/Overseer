@@ -47,9 +47,9 @@ public class GroupRestController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable int id) {
+    public void delete(@PathVariable int id) {
         log.info("delete group {}", id);
-        return groupRepository.delete(id);
+        groupRepository.delete(id);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,7 +58,7 @@ public class GroupRestController {
         return groupRepository.getById(id);
     }
 
-    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Group> getAll(@RequestParam(value = "page", required = false) Integer page) {
         log.info("get all groups");
         return groupRepository.getAll(getFirstByPage(page));

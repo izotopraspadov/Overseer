@@ -9,8 +9,8 @@ import static edu.born.overseer.data.EmployeePaymentTestData.*;
 import static edu.born.overseer.data.PhoneTestData.*;
 import static edu.born.overseer.data.RegionTestData.*;
 import static edu.born.overseer.data.SalaryTestData.*;
-import static edu.born.overseer.model.Role.ADMIN;
-import static edu.born.overseer.model.Role.USER;
+import static edu.born.overseer.model.Role.ROLE_ADMIN;
+import static edu.born.overseer.model.Role.ROLE_USER;
 import static edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE;
 
 public class EmployeeTestData {
@@ -32,7 +32,7 @@ public class EmployeeTestData {
             .login("user")
             .password("user")
             .address("Заставская ул. 6")
-            .roles(Set.of(USER));
+            .roles(Set.of(ROLE_USER));
 
     public static final Employee EMPLOYEE_2 = new Employee()
             .id(EMPLOYEE_2_ID)
@@ -41,7 +41,7 @@ public class EmployeeTestData {
             .login("stepanov")
             .password("user2")
             .address("Четвёртый пр. 10")
-            .roles(Set.of(USER));
+            .roles(Set.of(ROLE_USER));
 
     public static final Employee EMPLOYEE_3 = new Employee()
             .id(EMPLOYEE_3_ID)
@@ -50,7 +50,7 @@ public class EmployeeTestData {
             .login("romanova")
             .password("user3")
             .address("Пр. Отчаянных, 90")
-            .roles(Set.of(USER));
+            .roles(Set.of(ROLE_USER));
 
     public static final Employee EMPLOYEE_4 = new Employee()
             .id(EMPLOYEE_4_ID)
@@ -59,7 +59,7 @@ public class EmployeeTestData {
             .login("dmitriev")
             .password("user4")
             .address("Непростая ул. 7")
-            .roles(Set.of(USER));
+            .roles(Set.of(ROLE_USER));
 
     public static final Employee EMPLOYEE_5 = new Employee()
             .id(EMPLOYEE_5_ID)
@@ -68,7 +68,7 @@ public class EmployeeTestData {
             .login("admin")
             .password("admin")
             .address("Пр. Дно. 11")
-            .roles(Set.of(USER, ADMIN));
+            .roles(Set.of(ROLE_USER, ROLE_ADMIN));
 
     public static final Employee EMPLOYEE_6 = new Employee()
             .id(EMPLOYEE_6_ID)
@@ -77,7 +77,7 @@ public class EmployeeTestData {
             .login("zaiceva")
             .password("admin2")
             .address("Малая Опечаленная ул. 14")
-            .roles(Set.of(USER, ADMIN));
+            .roles(Set.of(ROLE_USER, ROLE_ADMIN));
 
     // added relationships
     static {
@@ -119,7 +119,7 @@ public class EmployeeTestData {
                 .login("new_login")
                 .password("new_password")
                 .address("New Address")
-                .roles(Set.of(USER));
+                .roles(Set.of(ROLE_USER));
 
         employee.setPayments(EmployeePaymentTestData.getPreparedCreateSet(employee));
         employee.setSalary(SalaryTestData.getPreparedCreatedSet(employee));

@@ -57,9 +57,9 @@ public class OrderRestController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable int id) {
+    public void delete(@PathVariable int id) {
         log.info("delete order {}", id);
-        return orderRepository.delete(id);
+        orderRepository.delete(id);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -68,125 +68,125 @@ public class OrderRestController {
         return orderRepository.getById(id);
     }
 
-    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAll(@RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders");
         return orderRepository.getAll(getFirstByPage(page));
     }
 
-    @GetMapping(params = {"company_id", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"company_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByCompany(@RequestParam("company_id") int companyId,
                                        @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by company {}", companyId);
         return orderRepository.getAllByCompany(companyId, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"cashless", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"cashless"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByCashless(@RequestParam("cashless") boolean cashless,
                                         @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by cashless {}", cashless);
         return orderRepository.getAllByCashless(cashless, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"group_id", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"group_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByGroup(@RequestParam("group_id") int groupId,
                                      @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by group {}", groupId);
         return orderRepository.getAllByGroup(groupId, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"contract_is_need", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"contract_is_need"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByContractIsNeed(@RequestParam("contract_is_need") boolean contractIsNeed,
                                               @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by contractIsNeed {}", contractIsNeed);
         return orderRepository.getAllByContractIsNeed(contractIsNeed, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"contract_exists", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"contract_exists"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByContractExists(@RequestParam("contract_exists") boolean contractExists,
                                               @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by contractExists {}", contractExists);
         return orderRepository.getAllByContractExists(contractExists, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"planned_start_date", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"planned_start_date"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByPlannedStartDate(@RequestParam("planned_start_date") LocalDate plannedStartDate,
                                                 @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by plannedStartDate {}", plannedStartDate);
         return orderRepository.getAllByPlannedStartDate(plannedStartDate, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"actual_start_date", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"actual_start_date"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByActualStartDate(@RequestParam("actual_start_date") LocalDate actualStartDate,
                                                @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by actualStartDate {}", actualStartDate);
         return orderRepository.getAllByActualStartDate(actualStartDate, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"planned_endDate", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"planned_endDate"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByPlannedEndDate(@RequestParam("planned_endDate") LocalDate plannedEndDate,
                                               @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by plannedEndDate {}", plannedEndDate);
         return orderRepository.getAllByPlannedEndDate(plannedEndDate, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"actual_end_date", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"actual_end_date"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByActualEndDate(@RequestParam("actual_end_date") LocalDate actualEndDate,
                                              @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by actualEndDate {}", actualEndDate);
         return orderRepository.getAllByActualEndDate(actualEndDate, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"current_sum", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"current_sum"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllBySum(@RequestParam("current_sum") BigDecimal currentSum,
                                    @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by currentSum {}", currentSum);
         return orderRepository.getAllBySum(currentSum, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"manager_id", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"manager_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByManager(@RequestParam("manager_id") int managerId,
                                        @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by managerId {}", managerId);
         return orderRepository.getAllByManager(managerId, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"underway", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"underway"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByUnderway(@RequestParam("underway") boolean underway,
                                         @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by underway {}", underway);
         return orderRepository.getAllByUnderway(underway, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"expected_payment", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"expected_payment"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByExpectedPayment(@RequestParam("expected_payment") BigDecimal expectedPayment,
                                                @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by expectedPayment {}", expectedPayment);
         return orderRepository.getAllByExpectedPayment(expectedPayment, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"lines", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"lines"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByNumberOfLines(@RequestParam("lines") int lines,
                                              @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by numberOfLines {}", lines);
         return orderRepository.getAllByNumberOfLines(lines, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"format", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"format"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByPaymentFormat(@RequestParam("format") String format,
                                              @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by PaymentFormat {}", format);
         return orderRepository.getAllByPaymentFormat(format, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"title", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"title"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByTitle(@RequestParam("title") String title,
                                      @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by title {}", title);
         return orderRepository.getAllByTitle(title, getFirstByPage(page));
     }
 
-    @GetMapping(params = {"order_type", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"order_type"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> getAllByOrderType(@RequestParam("order_type") String orderType,
                                          @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all orders by orderType {}", orderType);

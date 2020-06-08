@@ -51,9 +51,9 @@ public class ActualTimeRestController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable int id) {
+    public void delete(@PathVariable int id) {
         log.info("delete actualTime {}", id);
-        return actualTimeRepository.delete(id);
+        actualTimeRepository.delete(id);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,7 +62,7 @@ public class ActualTimeRestController {
         return actualTimeRepository.getById(id);
     }
 
-    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ActualTime> getAllByOrder(@PathVariable int orderId,
                                           @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all actualTime by order {}", orderId);

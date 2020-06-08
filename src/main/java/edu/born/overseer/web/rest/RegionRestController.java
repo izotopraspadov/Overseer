@@ -47,9 +47,9 @@ public class RegionRestController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable int id) {
+    public void delete(@PathVariable int id) {
         log.info("delete region {}", id);
-        return regionRepository.delete(id);
+        regionRepository.delete(id);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,13 +58,13 @@ public class RegionRestController {
         return regionRepository.getById(id);
     }
 
-    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Region> getAll(@RequestParam(value = "page", required = false) Integer page) {
         log.info("get all regions");
         return regionRepository.getAll(getFirstByPage(page));
     }
 
-    @GetMapping(params = {"title", "page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"title"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Region> getAllByTitle(@RequestParam("title") String title,
                                       @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all regions by title {}", title);

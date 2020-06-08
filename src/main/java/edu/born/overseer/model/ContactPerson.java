@@ -1,5 +1,7 @@
 package edu.born.overseer.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.born.overseer.model.abstraction.AbstractFullNameEntity;
 
 import javax.persistence.*;
@@ -25,15 +27,18 @@ import static javax.persistence.CascadeType.*;
 })
 public class ContactPerson extends AbstractFullNameEntity {
 
+    @JsonBackReference(value = "company")
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
+    @JsonManagedReference(value = "person")
     @OrderBy("number DESC")
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson", cascade = {PERSIST, MERGE, REMOVE})
     private Set<Phone> phones = new HashSet<>();
 
+    @JsonManagedReference(value = "person")
     @OrderBy("address DESC")
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "contactPerson", cascade = {PERSIST, MERGE, REMOVE})
     private Set<Email> emails = new HashSet<>();

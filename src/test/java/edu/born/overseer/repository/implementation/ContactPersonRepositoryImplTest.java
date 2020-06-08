@@ -2,6 +2,7 @@ package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.data.PhoneTestData;
 import edu.born.overseer.repository.ContactPersonRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.TransactionSystemException;
@@ -22,6 +23,11 @@ class ContactPersonRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private ContactPersonRepository contactPersonRepository;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        contactPersonRepository.evictCache();
+    }
 
     @Test
     void create() {
@@ -101,7 +107,7 @@ class ContactPersonRepositoryImplTest extends AbstractRepositoryTest {
 
     @Test
     void getAllByCompany() {
-        assertThat(contactPersonRepository.getAllByCompany(COMPANY_1_ID, unlimitedPageLength()), contains(CONTACT_PERSON_1, CONTACT_PERSON_3));
+        assertThat(contactPersonRepository.getAllByCompany(COMPANY_1_ID, unlimitedPageLength()), contains(CONTACT_PERSON_1, CONTACT_PERSON_3, CONTACT_PERSON_2));
     }
 
 }

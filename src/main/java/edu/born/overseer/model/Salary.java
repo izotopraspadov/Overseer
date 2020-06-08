@@ -1,5 +1,6 @@
 package edu.born.overseer.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import edu.born.overseer.model.abstraction.AbstractBaseEntity;
 import edu.born.overseer.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
@@ -25,6 +26,7 @@ import java.util.Objects;
 })
 public class Salary extends AbstractBaseEntity {
 
+    @JsonBackReference(value = "employee")
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)

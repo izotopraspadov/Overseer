@@ -1,6 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.repository.EmployeePaymentRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ class EmployeePaymentRepositoryImplTest {
 
     @Autowired
     private EmployeePaymentRepository employeePaymentRepository;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        employeePaymentRepository.evictCache();
+    }
 
     @Test
     void getAllByDate() {

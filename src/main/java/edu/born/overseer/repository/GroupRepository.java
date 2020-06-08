@@ -16,4 +16,6 @@ public interface GroupRepository {
 
     List<Group> getAll(int first);
 
+    void evictCache();
+
 }

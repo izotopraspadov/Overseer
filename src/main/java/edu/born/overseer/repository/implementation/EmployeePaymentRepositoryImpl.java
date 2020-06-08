@@ -4,6 +4,8 @@ import edu.born.overseer.model.Company;
 import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.EmployeePayment;
 import edu.born.overseer.repository.EmployeePaymentRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,7 @@ public class EmployeePaymentRepositoryImpl implements EmployeePaymentRepository 
 
     @Override
     @Transactional
+    @CacheEvict(value = "employeePayments", allEntries = true)
     public EmployeePayment save(EmployeePayment payment, int employeeId, int companyCounterpartyId, int employeeCounterpartyId) {
 
         payment.setEmployee(em.getReference(Employee.class, employeeId));
@@ -42,6 +45,16 @@ public class EmployeePaymentRepositoryImpl implements EmployeePaymentRepository 
     }
 
     @Override
+    @Transactional
+    @CacheEvict(value = "employeePayments", allEntries = true)
+    public boolean delete(int id) {
+        return em.createNamedQuery("EmployeePayment:delete")
+                .setParameter("id", id)
+                .executeUpdate() != 0;
+    }
+
+    @Override
+    @Cacheable("employeePayments")
     public List<EmployeePayment> getAll(int first) {
         return em.createNamedQuery("EmployeePayment:all", EmployeePayment.class)
                 .setFirstResult(first)
@@ -50,6 +63,7 @@ public class EmployeePaymentRepositoryImpl implements EmployeePaymentRepository 
     }
 
     @Override
+    @Cacheable("employeePayments")
     public List<EmployeePayment> getAllByDate(LocalDate date, int first) {
         return em.createNamedQuery("EmployeePayment:allByDate", EmployeePayment.class)
                 .setParameter("date", date)
@@ -59,6 +73,7 @@ public class EmployeePaymentRepositoryImpl implements EmployeePaymentRepository 
     }
 
     @Override
+    @Cacheable("employeePayments")
     public List<EmployeePayment> getAllByEmployee(int employeeId, int first) {
         return em.createNamedQuery("EmployeePayment:allByEmployee", EmployeePayment.class)
                 .setParameter("employeeId", employeeId)
@@ -67,4 +82,9 @@ public class EmployeePaymentRepositoryImpl implements EmployeePaymentRepository 
                 .getResultList();
     }
 
+    @Override
+    @CacheEvict(value = "employeePayments", allEntries = true)
+    public void evictCache() {
+
+    }
 }

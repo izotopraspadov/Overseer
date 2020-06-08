@@ -21,4 +21,6 @@ public interface ContactPersonRepository {
 
     List<ContactPerson> getAllByCompany(int companyId, int first);
 
+    void evictCache();
+
 }

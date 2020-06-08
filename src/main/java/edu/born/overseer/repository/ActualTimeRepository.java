@@ -16,4 +16,6 @@ public interface ActualTimeRepository {
 
     List<ActualTime> getAllByOrder(int orderId, int first);
 
+    void evictCache();
+
 }

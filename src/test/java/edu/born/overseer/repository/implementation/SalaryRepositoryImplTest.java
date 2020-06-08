@@ -1,6 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.repository.SalaryRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,6 +19,11 @@ class SalaryRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private SalaryRepository salaryRepository;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        salaryRepository.evictCache();
+    }
 
     @Test
     void create() {

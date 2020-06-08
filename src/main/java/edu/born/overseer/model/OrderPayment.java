@@ -15,6 +15,8 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "OrderPayment:all",
                 query = "SELECT op FROM OrderPayment op ORDER BY op.company.title"),
+        @NamedQuery(name = "OrderPayment:delete",
+                query = "DELETE FROM OrderPayment op WHERE op.id=:id"),
         @NamedQuery(name = "OrderPayment:allByDate",
                 query = "SELECT op FROM OrderPayment op WHERE op.date=:date ORDER BY op.company.title"),
         @NamedQuery(name = "OrderPayment:allByOrder",

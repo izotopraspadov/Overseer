@@ -1,5 +1,7 @@
 package edu.born.overseer.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.born.overseer.model.abstraction.AbstractPaymentEntity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -15,6 +17,8 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "EmployeePayment:all",
                 query = "SELECT ep FROM EmployeePayment ep ORDER BY ep.employee.fullName"),
+        @NamedQuery(name = "EmployeePayment:delete",
+                query = "DELETE FROM EmployeePayment ep WHERE ep.id=:id"),
         @NamedQuery(name = "EmployeePayment:allByDate",
                 query = "SELECT ep FROM EmployeePayment ep WHERE ep.date=:date ORDER BY ep.employee.fullName"),
         @NamedQuery(name = "EmployeePayment:allByEmployee",
@@ -22,6 +26,7 @@ import java.util.Objects;
 })
 public class EmployeePayment extends AbstractPaymentEntity {
 
+    @JsonBackReference(value = "employee")
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -38,6 +43,7 @@ public class EmployeePayment extends AbstractPaymentEntity {
     @JoinColumn(name = "company_counterparty_id")
     private Company companyCounterparty;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "employee_counterparty_id")

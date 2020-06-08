@@ -40,8 +40,8 @@ public class ContactPersonRestController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@RequestBody ContactPerson person,
-                       @PathVariable int id,
-                       @PathVariable int companyId) {
+                       @PathVariable("companyId") int companyId,
+                       @PathVariable int id) {
         assureIdConsistent(person, id);
         log.info("create person {} for company {}", person, companyId);
         contactPersonRepository.save(person, companyId);
@@ -49,9 +49,9 @@ public class ContactPersonRestController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable int id) {
+    public void delete(@PathVariable int id) {
         log.info("delete person {}", id);
-        return contactPersonRepository.delete(id);
+        contactPersonRepository.delete(id);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,7 +60,7 @@ public class ContactPersonRestController {
         return contactPersonRepository.getById(id);
     }
 
-    @GetMapping(params = {"page"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ContactPerson> getAllByCompany(@PathVariable int companyId,
                                                @RequestParam(value = "page", required = false) Integer page) {
         log.info("get all persons by company {}", companyId);

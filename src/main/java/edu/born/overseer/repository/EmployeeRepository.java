@@ -27,4 +27,6 @@ public interface EmployeeRepository {
     // partial match using 'like'
     List<Employee> getAllByFullName(String fullName, int first);
 
+    void evictCache();
+
 }

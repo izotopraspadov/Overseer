@@ -16,4 +16,6 @@ public interface PlannedTimeRepository {
 
     List<PlannedTime> getAllByOrder(int orderId, int first);
 
+    void evictCache();
+
 }

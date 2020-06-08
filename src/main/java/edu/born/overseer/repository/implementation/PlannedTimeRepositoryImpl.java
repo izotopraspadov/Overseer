@@ -4,6 +4,8 @@ import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.Order;
 import edu.born.overseer.model.PlannedTime;
 import edu.born.overseer.repository.PlannedTimeRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,7 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "plannedTime", allEntries = true)
     public PlannedTime save(PlannedTime plannedTime, int orderId, int employeeId) {
 
         plannedTime.setOrder(em.getReference(Order.class, orderId));
@@ -37,6 +40,7 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "plannedTime", allEntries = true)
     public boolean delete(int id) {
         return em.createNamedQuery("PlannedTimed:delete")
                 .setParameter("id", id)
@@ -49,6 +53,7 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
     }
 
     @Override
+    @Cacheable("plannedTime")
     public List<PlannedTime> getAllByOrder(int orderId, int first) {
         return em.createNamedQuery("PlannedTime:allByOrder", PlannedTime.class)
                 .setParameter("orderId", orderId)
@@ -57,4 +62,9 @@ public class PlannedTimeRepositoryImpl implements PlannedTimeRepository {
                 .getResultList();
     }
 
+    @Override
+    @CacheEvict(value = "plannedTime", allEntries = true)
+    public void evictCache() {
+
+    }
 }

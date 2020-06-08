@@ -1,6 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.repository.TaskRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +18,11 @@ class TaskRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        taskRepository.evictCache();
+    }
 
     @Test
     void create() {

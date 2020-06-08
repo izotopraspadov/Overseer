@@ -4,6 +4,8 @@ import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.Order;
 import edu.born.overseer.model.Task;
 import edu.born.overseer.repository.TaskRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,7 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "tasks", allEntries = true)
     public Task save(Task task, int orderId, int employeeId) {
 
         task.setOrder(em.getReference(Order.class, orderId));
@@ -37,6 +40,7 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "tasks", allEntries = true)
     public boolean delete(int id) {
         return em.createNamedQuery("Task:delete")
                 .setParameter("id", id)
@@ -49,6 +53,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     }
 
     @Override
+    @Cacheable("tasks")
     public List<Task> getAllByOrder(int orderId, int first) {
         return em.createNamedQuery("Task:allByOrder", Task.class)
                 .setParameter("orderId", orderId)
@@ -57,4 +62,9 @@ public class TaskRepositoryImpl implements TaskRepository {
                 .getResultList();
     }
 
+    @Override
+    @CacheEvict(value = "tasks", allEntries = true)
+    public void evictCache() {
+
+    }
 }

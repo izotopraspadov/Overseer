@@ -124,7 +124,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @Override
     @Cacheable("companies")
-    public List<Company> getAllByItb(String itn, int first) {
+    public List<Company> getAllByItn(String itn, int first) {
         return em.createNamedQuery("Company:allByItn", Company.class)
                 .setParameter("itn", itn)
                 .setFirstResult(first)
@@ -132,4 +132,9 @@ public class CompanyRepositoryImpl implements CompanyRepository {
                 .getResultList();
     }
 
+    @Override
+    @CacheEvict(value = "companies", allEntries = true)
+    public void evictCache() {
+
+    }
 }

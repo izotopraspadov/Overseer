@@ -3,6 +3,8 @@ package edu.born.overseer.repository.implementation;
 import edu.born.overseer.model.Company;
 import edu.born.overseer.model.ContactPerson;
 import edu.born.overseer.repository.ContactPersonRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "persons", allEntries = true)
     public ContactPerson save(ContactPerson person, int companyId) {
 
         person.setCompany(em.getReference(Company.class, companyId));
@@ -35,6 +38,7 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "persons", allEntries = true)
     public boolean delete(int id) {
         return em.createNamedQuery("ContactPerson:delete")
                 .setParameter("id", id)
@@ -54,6 +58,7 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
     }
 
     @Override
+    @Cacheable("persons")
     public List<ContactPerson> getAll(int first) {
         return em.createNamedQuery("ContactPerson:all", ContactPerson.class)
                 .setFirstResult(first)
@@ -62,6 +67,7 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
     }
 
     @Override
+    @Cacheable("persons")
     public List<ContactPerson> getAllByCompany(int companyId, int first) {
         return em.createNamedQuery("ContactPerson:allByCompany", ContactPerson.class)
                 .setParameter("companyId", companyId)
@@ -70,4 +76,9 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
                 .getResultList();
     }
 
+    @Override
+    @CacheEvict(value = "persons", allEntries = true)
+    public void evictCache() {
+
+    }
 }

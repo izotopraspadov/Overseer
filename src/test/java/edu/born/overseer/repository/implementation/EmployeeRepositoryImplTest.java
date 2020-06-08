@@ -4,6 +4,7 @@ import edu.born.overseer.data.PhoneTestData;
 import edu.born.overseer.data.RegionTestData;
 import edu.born.overseer.data.SalaryTestData;
 import edu.born.overseer.repository.EmployeeRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,6 +27,11 @@ class EmployeeRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        employeeRepository.evictCache();
+    }
 
     @Test
     void create() {

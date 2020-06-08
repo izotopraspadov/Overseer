@@ -15,4 +15,6 @@ public interface SalaryRepository {
 
     List<Salary> getAllByEmployee(int employeeId, int first);
 
+    void evictCache();
+
 }

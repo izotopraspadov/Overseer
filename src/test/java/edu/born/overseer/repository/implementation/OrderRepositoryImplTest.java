@@ -1,6 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.repository.OrderRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ class OrderRepositoryImplTest {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        orderRepository.evictCache();
+    }
 
     @Test
     void create() {

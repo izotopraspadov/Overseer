@@ -3,6 +3,8 @@ package edu.born.overseer.repository.implementation;
 import edu.born.overseer.model.Employee;
 import edu.born.overseer.model.Region;
 import edu.born.overseer.repository.EmployeeRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "employees", allEntries = true)
     public Employee save(Employee employee, int regionId) {
 
         employee.setRegion(em.getReference(Region.class, regionId));
@@ -35,6 +38,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     @Transactional
+    @CacheEvict(value = "employees", allEntries = true)
     public boolean delete(int id) {
         return em.createNamedQuery("Employee:delete")
                 .setParameter("id", id)
@@ -54,6 +58,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
+    @Cacheable("employees")
     public List<Employee> getAll(int first) {
         return em.createNamedQuery("Employee:all", Employee.class)
                 .setFirstResult(first)
@@ -62,6 +67,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
+    @Cacheable("employees")
     public List<Employee> getAllByRegion(int regionId, int first) {
         return em.createNamedQuery("Employee:allByRegion", Employee.class)
                 .setParameter("regionId", regionId)
@@ -71,6 +77,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
+    @Cacheable("employees")
     public List<Employee> getAllByAddress(String address, int first) {
         return em.createNamedQuery("Employee:allByAddress", Employee.class)
                 .setParameter("address", address)
@@ -80,6 +87,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
+    @Cacheable("employees")
     public List<Employee> getAllByFullName(String fullName, int first) {
         return em.createNamedQuery("Employee:allByFullName", Employee.class)
                 .setParameter("fullName", fullName)
@@ -88,4 +96,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
                 .getResultList();
     }
 
+    @Override
+    @CacheEvict(value = "employees", allEntries = true)
+    public void evictCache() {
+
+    }
 }

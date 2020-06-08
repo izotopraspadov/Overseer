@@ -55,4 +55,6 @@ public interface OrderRepository {
     // partial match using 'like'
     List<Order> getAllByOrderType(String orderType, int first);
 
+    void evictCache();
+
 }

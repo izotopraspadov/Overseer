@@ -1,5 +1,6 @@
 package edu.born.overseer.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.born.overseer.annotation.ITN;
 import edu.born.overseer.model.abstraction.AbstractBaseEntity;
 import org.hibernate.annotations.OnDelete;
@@ -9,7 +10,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "companies", uniqueConstraints = {@UniqueConstraint(columnNames = "itn", name = "companies_unique_itn_idx")})
@@ -42,6 +45,7 @@ public class Company extends AbstractBaseEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
+//    @JsonBackReference
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -57,6 +61,7 @@ public class Company extends AbstractBaseEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @JsonManagedReference(value = "company")
     @OrderBy("fullName DESC")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
     private Set<ContactPerson> contactPersons = new HashSet<>();

@@ -1,6 +1,7 @@
 package edu.born.overseer.repository.implementation;
 
 import edu.born.overseer.repository.CompanyRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,6 +23,11 @@ class CompanyRepositoryImplTest extends AbstractRepositoryTest {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        companyRepository.evictCache();
+    }
 
     @Test
     void create() {
@@ -129,13 +135,13 @@ class CompanyRepositoryImplTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void getByItb() {
-        assertThat(companyRepository.getAllByItb(COMPANY_1.getItn(), unlimitedPageLength()), contains(COMPANY_1));
+    void getByItn() {
+        assertThat(companyRepository.getAllByItn(COMPANY_1.getItn(), unlimitedPageLength()), contains(COMPANY_1));
     }
 
     @Test
     void getByItbPartialMatch() {
-        assertThat(companyRepository.getAllByItb("00000000", unlimitedPageLength()), contains(
+        assertThat(companyRepository.getAllByItn("00000000", unlimitedPageLength()), contains(
                 COMPANY_2,
                 COMPANY_1,
                 COMPANY_3)
