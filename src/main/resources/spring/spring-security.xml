@@ -16,10 +16,10 @@
 
     <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder" factory-method="createDelegatingPasswordEncoder"/>
 
-    <authentication-manager>
+   <!-- <authentication-manager>
         <authentication-provider user-service-ref="employeeService">
             <password-encoder ref="passwordEncoder"/>
         </authentication-provider>
-    </authentication-manager>
+    </authentication-manager>-->
 
 </beans:beans>
