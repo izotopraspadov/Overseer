@@ -14,7 +14,6 @@
                http://www.springframework.org/schema/tx
                http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-
     <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
     <context:component-scan base-package="edu.born.**.repository"/>
@@ -31,9 +30,7 @@
           p:username="${database.username}"
           p:password="${database.password}"/>
 
-
     <tx:annotation-driven/>
-
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
@@ -53,12 +50,10 @@
             </bean>
         </property>
 
-
     </bean>
 
     <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
           p:entityManagerFactory-ref="entityManagerFactory"/>
-
 
 </beans>
