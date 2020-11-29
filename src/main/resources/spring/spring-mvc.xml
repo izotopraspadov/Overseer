@@ -13,7 +13,7 @@
 
     <bean class="edu.born.overseer.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
-    <import resource="spring-security.xml"/>
+<!--    <import resource="spring-security.xml"/>-->
     <import resource="spring-tools.xml"/>
 
     <mvc:annotation-driven>
@@ -30,9 +30,9 @@
                 </property>
             </bean>
         </mvc:message-converters>
-        <mvc:argument-resolvers>
+        <!--<mvc:argument-resolvers>
             <bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver "/>
-        </mvc:argument-resolvers>
+        </mvc:argument-resolvers>-->
     </mvc:annotation-driven>
 
 
