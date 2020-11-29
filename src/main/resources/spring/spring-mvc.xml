@@ -13,7 +13,7 @@
 
     <bean class="edu.born.overseer.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
-    <import resource="spring-security.xml"/>
+<!--    <import resource="spring-security.xml"/>-->
     <import resource="spring-tools.xml"/>
 
     <mvc:annotation-driven>
