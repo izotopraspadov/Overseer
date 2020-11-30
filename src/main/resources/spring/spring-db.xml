@@ -24,11 +24,21 @@
     </jdbc:initialize-database>
 
     <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-          p:driverClassName="org.postgresql.Driver"
+          class="org.apache.tomcat.jdbc.pool.DataSource"
           p:url="${database.url}"
           p:username="${database.username}"
-          p:password="${database.password}"/>
+          p:password="${database.password}"
+          p:driverClassName="org.postgresql.Driver"
+          p:validationQuery="SELECT 1"
+          p:maxActive="10"
+          p:minIdle="2"
+          p:maxWait="20000"
+          p:initialSize="2"
+          p:maxIdle="5"
+          p:testOnBorrow="true"
+          p:removeAbandoned="true"
+          p:testOnConnect="true"
+          p:testWhileIdle="true"/>
 
     <tx:annotation-driven/>
 
