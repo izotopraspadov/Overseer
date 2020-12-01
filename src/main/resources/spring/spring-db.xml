@@ -23,11 +23,16 @@
         <jdbc:script encoding="utf-8" location="classpath:db/population.sql"/>
     </jdbc:initialize-database>
 
+    <bean class="java.net.URI" id="herokuDBUrl">
+        <!-- Heroku config vars  -->
+        <constructor-arg value="${DATABASE_URL}"/>
+    </bean>
+
     <bean id="dataSource"
           class="org.apache.tomcat.jdbc.pool.DataSource"
-          p:url="${database.url}"
-          p:username="${database.username}"
-          p:password="${database.password}"
+          p:url="#{ 'jdbc:postgresql://' + @herokuDBUrl.getHost() + @herokuDBUrl.getPath() }"
+          p:username="#{ @herokuDBUrl.getUserInfo().split(':')[0] }"
+          p:password="#{ @herokuDBUrl.getUserInfo().split(':')[1] }"
           p:driverClassName="org.postgresql.Driver"
           p:validationQuery="SELECT 1"
           p:maxActive="10"

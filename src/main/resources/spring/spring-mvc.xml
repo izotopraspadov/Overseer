@@ -14,7 +14,7 @@
     <bean class="edu.born.overseer.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
 <!--    <import resource="spring-security.xml"/>-->
-<!--    <import resource="spring-tools.xml"/>-->
+    <import resource="spring-tools.xml"/>
 
     <mvc:annotation-driven>
         <mvc:message-converters>
@@ -27,8 +27,5 @@
 
     <context:component-scan base-package="edu.born.**.web"/>
     <context:component-scan base-package="edu.born.**.service"/>
-
-    <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
 </beans>
