@@ -7,7 +7,7 @@
     <http pattern="/overseer/rest/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
         <http-basic/>
         <intercept-url pattern="/overseer/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/overseer/**" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/overseer/rest/**" access="hasRole('ROLE_USER')"/>
         <csrf disabled="true"/>
     </http>
 
