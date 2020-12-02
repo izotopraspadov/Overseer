@@ -5,20 +5,23 @@ import edu.born.overseer.repository.EmployeeRepository;
 import edu.born.overseer.web.AuthorizedUser;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+import static edu.born.overseer.util.SecurityUtil.prepareToSave;
+
 @Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService, UserDetailsService {
 
     private final EmployeeRepository employeeRepository;
-  //  private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder) {
         this.employeeRepository = employeeRepository;
-      //  this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -33,8 +36,8 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService 
 
     @Override
     public Employee save(Employee employee, int regionId) {
-        return null;
-       // return employeeRepository.save(prepareToSave(employee, passwordEncoder), regionId);
+        //return null;
+        return employeeRepository.save(prepareToSave(employee, passwordEncoder), regionId);
     }
 
     @Override
