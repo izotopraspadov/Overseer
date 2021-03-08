@@ -4,7 +4,7 @@
 
 ___
 
-`Overseer` - is a Restful Service for managing company data.
+### `Overseer` - is a Restful Service for managing company data.
 
 `Specification`: [_Eng_](docs/specification_eng.md) / [_Ru_](docs/specification_ru.md)
 
