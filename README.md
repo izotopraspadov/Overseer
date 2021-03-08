@@ -23,4 +23,5 @@ ___
 
 #### *Database diagram:* 
 
-![](docs/img/vertical_diagram.png)
+![](docs/img/vertical_diagram1.png)
+![](docs/img/vertical_diagram123.png)
