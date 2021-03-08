@@ -1,6 +1,7 @@
 <p align="center">
   <img src="docs/img/logo.jpg" />
 </p>
+
 ___
 
 `Overseer` - is a Restful Service for managing company data.
@@ -21,6 +22,6 @@ ___
 8. JUnit, Hamcrest
 9. PostgreSQL
 
-#### *Database diagram:* 
+#### *Database diagram (18 entities):* 
 
-![](docs/img/db_diagram.png)
+![](docs/img/diagram.png)
