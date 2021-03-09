@@ -1,8 +1,8 @@
 package edu.born.overseer.repository;
 
 import edu.born.overseer.model.Company;
-import edu.born.overseer.model.ReliabilityType;
 import edu.born.overseer.model.CompanyType;
+import edu.born.overseer.model.ReliabilityType;
 
 import java.util.List;
 
@@ -16,26 +16,14 @@ public interface CompanyRepository {
     // null if not found
     Company getById(int id);
 
-    // null if not found
-    Company getByContactPersonId(int contactPersonId);
-
-    List<Company> getAll(int first);
-
-    List<Company> getAllByRegion(int regionId, int first);
-
-    List<Company> getAllByReliability(ReliabilityType reliabilityType, int first);
-
-    List<Company> getAllByType(CompanyType type, int first);
-
-    // partial match using 'like'
-    List<Company> getAllByTitle(String title, int first);
-
-    // partial match using 'like'
-    List<Company> getAllByAddress(String address, int first);
-
-    // partial match using 'like'
-    List<Company> getAllByItn(String itn, int first);
+    List<Company> getAll(Integer page,
+                         Integer contactPersonId,
+                         Integer regionId,
+                         ReliabilityType reliabilityType,
+                         CompanyType type,
+                         String title,
+                         String address,
+                         String itn);
 
     void evictCache();
-
 }

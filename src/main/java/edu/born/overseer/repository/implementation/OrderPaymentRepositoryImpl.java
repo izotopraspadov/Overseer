@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -44,36 +45,18 @@ public class OrderPaymentRepositoryImpl implements OrderPaymentRepository {
     @Transactional
     @CacheEvict(value = "orderPayments", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("OrderPayment:delete")
+        return em.createNamedQuery(OrderPayment.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
     @Cacheable("orderPayments")
-    public List<OrderPayment> getAll(int first) {
-        return em.createNamedQuery("OrderPayment:all", OrderPayment.class)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orderPayments")
-    public List<OrderPayment> getAllByDate(LocalDate date, int first) {
-        return em.createNamedQuery("OrderPayment:allByDate", OrderPayment.class)
+    public List<OrderPayment> getAll(Integer page, LocalDate date, Integer orderId) {
+        return em.createNamedQuery(OrderPayment.ALL, OrderPayment.class)
+                .setFirstResult(getFirstByPage(page))
                 .setParameter("date", date)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orderPayments")
-    public List<OrderPayment> getAllByOrder(int orderId, int first) {
-        return em.createNamedQuery("OrderPayment:allByOrder", OrderPayment.class)
                 .setParameter("orderId", orderId)
-                .setFirstResult(first)
                 .setMaxResults(getPageLength())
                 .getResultList();
     }

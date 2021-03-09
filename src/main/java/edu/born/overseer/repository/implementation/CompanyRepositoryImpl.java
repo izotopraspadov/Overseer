@@ -7,14 +7,15 @@ import edu.born.overseer.model.ReliabilityType;
 import edu.born.overseer.repository.CompanyRepository;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -43,7 +44,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     @Transactional
     @CacheEvict(value = "companies", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("Company:delete")
+        return em.createNamedQuery(Company.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
@@ -54,80 +55,25 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public Company getByContactPersonId(int contactPersonId) {
-        return em.createNamedQuery("Company:byContactPerson", Company.class)
+    @Cacheable("companies")
+    public List<Company> getAll(Integer page,
+                                Integer contactPersonId,
+                                Integer regionId,
+                                ReliabilityType reliabilityType,
+                                CompanyType type,
+                                String title,
+                                String address,
+                                String itn) {
+
+        return em.createNamedQuery(Company.ALL, Company.class)
+                .setFirstResult(getFirstByPage(page))
                 .setParameter("contactPersonId", contactPersonId)
-                .getResultList()
-                .stream()
-                .findFirst()
-                .orElseThrow(() -> new NotFoundException("Not found entity with contactPersonId: " + contactPersonId));
-    }
-
-    @Override
-    @Cacheable("companies")
-    public List<Company> getAll(int first) {
-        return em.createNamedQuery("Company:all", Company.class)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("companies")
-    public List<Company> getAllByRegion(int regionId, int first) {
-        return em.createNamedQuery("Company:allByRegion", Company.class)
                 .setParameter("regionId", regionId)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("companies")
-    public List<Company> getAllByReliability(ReliabilityType reliabilityType, int first) {
-        return em.createNamedQuery("Company:allByReliability", Company.class)
                 .setParameter("reliability", reliabilityType)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("companies")
-    public List<Company> getAllByType(CompanyType type, int first) {
-        return em.createNamedQuery("Company:allByType", Company.class)
                 .setParameter("typeCompany", type)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("companies")
-    public List<Company> getAllByTitle(String title, int first) {
-        return em.createNamedQuery("Company:allByTitle", Company.class)
-                .setParameter("title", title)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("companies")
-    public List<Company> getAllByAddress(String address, int first) {
-        return em.createNamedQuery("Company:allByAddress", Company.class)
-                .setParameter("address", address)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("companies")
-    public List<Company> getAllByItn(String itn, int first) {
-        return em.createNamedQuery("Company:allByItn", Company.class)
-                .setParameter("itn", itn)
-                .setFirstResult(first)
+                .setParameter("title", Objects.toString(title, ""))
+                .setParameter("address", Objects.toString(address, ""))
+                .setParameter("itn", Objects.toString(itn, ""))
                 .setMaxResults(getPageLength())
                 .getResultList();
     }

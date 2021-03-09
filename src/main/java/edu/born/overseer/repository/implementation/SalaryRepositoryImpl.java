@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -40,24 +41,24 @@ public class SalaryRepositoryImpl implements SalaryRepository {
     @Transactional
     @CacheEvict(value = "salaries", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("Salary:delete")
+        return em.createNamedQuery(Salary.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
     public Salary getCurrentByEmployee(int employeeId) {
-        return em.createNamedQuery("Salary:currentByEmployee", Salary.class)
+        return em.createNamedQuery(Salary.CURRENT_BY_EMPLYEE, Salary.class)
                 .setParameter("employeeId", employeeId)
                 .getSingleResult();
     }
 
     @Override
     @Cacheable("salaries")
-    public List<Salary> getAllByEmployee(int employeeId, int first) {
-        return em.createNamedQuery("Salary:allByEmployee", Salary.class)
+    public List<Salary> getAllByEmployee(Integer page, Integer employeeId) {
+        return em.createNamedQuery(Salary.ALL_BY_EMPLOYEE, Salary.class)
+                .setFirstResult(getFirstByPage(page))
                 .setParameter("employeeId", employeeId)
-                .setFirstResult(first)
                 .setMaxResults(getPageLength())
                 .getResultList();
     }

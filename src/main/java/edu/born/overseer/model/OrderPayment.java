@@ -10,19 +10,23 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static edu.born.overseer.model.OrderPayment.ALL;
+import static edu.born.overseer.model.OrderPayment.DELETE;
+
 @Entity
 @Table(name = "order_payments")
 @NamedQueries({
-        @NamedQuery(name = "OrderPayment:all",
-                query = "SELECT op FROM OrderPayment op ORDER BY op.company.title"),
-        @NamedQuery(name = "OrderPayment:delete",
-                query = "DELETE FROM OrderPayment op WHERE op.id=:id"),
-        @NamedQuery(name = "OrderPayment:allByDate",
-                query = "SELECT op FROM OrderPayment op WHERE op.date=:date ORDER BY op.company.title"),
-        @NamedQuery(name = "OrderPayment:allByOrder",
-                query = "SELECT op FROM OrderPayment op WHERE op.order.id=:orderId ORDER BY op.company.title"),
+        @NamedQuery(name = ALL,
+                query = "SELECT op FROM OrderPayment WHERE (op.date=:date OR :date IS NULL) " +
+                        "AND (op.order.id=:orderId OR :orderId IS NULL)" +
+                        "op ORDER BY op.company.title"),
+        @NamedQuery(name = DELETE,
+                query = "DELETE FROM OrderPayment op WHERE op.id=:id")
 })
 public class OrderPayment extends AbstractPaymentEntity {
+
+    public static final String ALL = "OrderPayment:all";
+    public static final String DELETE = "OrderPayment:delete";
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)

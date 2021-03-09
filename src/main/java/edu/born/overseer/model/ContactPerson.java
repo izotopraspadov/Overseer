@@ -9,23 +9,25 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+import static edu.born.overseer.model.ContactPerson.BY_ID_WITH_COMPANY;
+import static edu.born.overseer.model.ContactPerson.DELETE;
 import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "contact_persons", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "company_id"}, name = "contact_persons_unique_id_company_id_idx")})
 @NamedQueries({
-        @NamedQuery(name = "ContactPerson:delete",
+        @NamedQuery(name = DELETE,
                 query = "DELETE FROM ContactPerson cp WHERE cp.id=:id"),
-        @NamedQuery(name = "ContactPerson:byId",
-                query = "SELECT cp FROM ContactPerson cp WHERE cp.id=:id"),
-        @NamedQuery(name = "ContactPerson:byIdWithCompany",
+        @NamedQuery(name = BY_ID_WITH_COMPANY,
                 query = "SELECT cp FROM ContactPerson cp LEFT JOIN FETCH cp.company WHERE cp.id=:id"),
-        @NamedQuery(name = "ContactPerson:all",
-                query = "SELECT cp FROM ContactPerson cp ORDER BY cp.fullName"),
-        @NamedQuery(name = "ContactPerson:allByCompany",
-                query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId ORDER BY cp.fullName"),
+        @NamedQuery(name = ContactPerson.BY_CONTACT_PERSON,
+                query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId OR :companyId ORDER BY cp.fullName"),
 })
 public class ContactPerson extends AbstractFullNameEntity {
+
+    public static final String BY_CONTACT_PERSON = "ContactPerson:all";
+    public static final String DELETE = "ContactPerson:delete";
+    public static final String BY_ID_WITH_COMPANY = "ContactPerson:byIdWithCompany";
 
     @JsonBackReference(value = "company")
     @NotNull

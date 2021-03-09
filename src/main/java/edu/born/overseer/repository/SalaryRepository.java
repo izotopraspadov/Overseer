@@ -13,8 +13,7 @@ public interface SalaryRepository {
 
     Salary getCurrentByEmployee(int employeeId);
 
-    List<Salary> getAllByEmployee(int employeeId, int first);
+    List<Salary> getAllByEmployee(Integer page, Integer employeeId);
 
     void evictCache();
-
 }

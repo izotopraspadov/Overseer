@@ -7,17 +7,21 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+import static edu.born.overseer.model.PlannedTime.ALL;
+import static edu.born.overseer.model.PlannedTime.DELETE;
+
 @Entity
 @Table(name = "planned_time", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "order_id"}, name = "planned_time_unique_pt_object_idx")})
 @NamedQueries({
-        @NamedQuery(name = "PlannedTimed:delete",
+        @NamedQuery(name = DELETE,
                 query = "DELETE FROM PlannedTime pt WHERE pt.id=:id"),
-        @NamedQuery(name = "PlannedTimed:byId",
-                query = "SELECT pt FROM PlannedTime pt WHERE pt.id=:id"),
-        @NamedQuery(name = "PlannedTime:allByOrder",
-                query = "SELECT pt FROM PlannedTime pt WHERE pt.order.id=:orderId")
+        @NamedQuery(name = ALL,
+                query = "SELECT pt FROM PlannedTime pt WHERE (pt.order.id=:orderId OR :orderId IS NULL)")
 })
 public class PlannedTime extends AbstractTimeEntity {
+
+    public static final String ALL = "PlannedTime:all";
+    public static final String DELETE = "PlannedTimed:delete";
 
     @Column(name = "man_hours", nullable = false)
     @Range(max = 5000)

@@ -12,12 +12,7 @@ public interface OrderPaymentRepository {
     // false if not found
     boolean delete(int id);
 
-    List<OrderPayment> getAll(int first);
-
-    List<OrderPayment> getAllByDate(LocalDate date, int first);
-
-    List<OrderPayment> getAllByOrder(int orderId, int first);
+    List<OrderPayment> getAll(Integer page, LocalDate date, Integer orderId);
 
     void evictCache();
-
 }

@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static edu.born.overseer.model.CounterpartyType.EMPLOYEE;
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -48,36 +49,18 @@ public class EmployeePaymentRepositoryImpl implements EmployeePaymentRepository 
     @Transactional
     @CacheEvict(value = "employeePayments", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("EmployeePayment:delete")
+        return em.createNamedQuery(EmployeePayment.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
     @Cacheable("employeePayments")
-    public List<EmployeePayment> getAll(int first) {
-        return em.createNamedQuery("EmployeePayment:all", EmployeePayment.class)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("employeePayments")
-    public List<EmployeePayment> getAllByDate(LocalDate date, int first) {
-        return em.createNamedQuery("EmployeePayment:allByDate", EmployeePayment.class)
+    public List<EmployeePayment> getAll(Integer page, LocalDate date, Integer employeeId) {
+        return em.createNamedQuery(EmployeePayment.ALL, EmployeePayment.class)
+                .setFirstResult(getFirstByPage(page))
                 .setParameter("date", date)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("employeePayments")
-    public List<EmployeePayment> getAllByEmployee(int employeeId, int first) {
-        return em.createNamedQuery("EmployeePayment:allByEmployee", EmployeePayment.class)
                 .setParameter("employeeId", employeeId)
-                .setFirstResult(first)
                 .setMaxResults(getPageLength())
                 .getResultList();
     }

@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -42,7 +43,7 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
     @Transactional
     @CacheEvict(value = "actualTime", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("ActualTime:delete")
+        return em.createNamedQuery(ActualTime.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
@@ -54,10 +55,10 @@ public class ActualTimeRepositoryImpl implements ActualTimeRepository {
 
     @Override
     @Cacheable("actualTime")
-    public List<ActualTime> getAllByOrder(int orderId, int first) {
-        return em.createNamedQuery("ActualTime:allByOrder", ActualTime.class)
+    public List<ActualTime> getAllByOrder(Integer page, Integer orderId) {
+        return em.createNamedQuery(ActualTime.ALL_BY_ORDER, ActualTime.class)
+                .setFirstResult(getFirstByPage(page))
                 .setParameter("orderId", orderId)
-                .setFirstResult(first)
                 .setMaxResults(getPageLength())
                 .getResultList();
     }

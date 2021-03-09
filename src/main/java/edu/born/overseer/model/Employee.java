@@ -1,6 +1,5 @@
 package edu.born.overseer.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.born.overseer.model.abstraction.AbstractFullNameEntity;
 import org.hibernate.annotations.BatchSize;
@@ -15,28 +14,31 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import static edu.born.overseer.model.Employee.*;
 import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "employees", uniqueConstraints = {@UniqueConstraint(columnNames = "login", name = "employees_unique_login_idx")})
 @NamedQueries({
-        @NamedQuery(name = "Employee:delete",
+        @NamedQuery(name = DELETE,
                 query = "DELETE FROM Employee e WHERE e.id=:id"),
-        @NamedQuery(name = "Employee:byId",
+        @NamedQuery(name = BY_ID,
                 query = "SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.salary s LEFT JOIN FETCH e.phones ph " +
                         "LEFT JOIN FETCH e.emails em WHERE e.id=:id AND s.endDate IS NULL ORDER BY e.fullName"),
-        @NamedQuery(name = "Employee:byLogin",
+        @NamedQuery(name = BY_LOGIN,
                 query = "SELECT e FROM Employee e WHERE e.login=:login"),
-        @NamedQuery(name = "Employee:all",
-                query = "SELECT e FROM Employee e ORDER BY e.fullName"),
-        @NamedQuery(name = "Employee:allByRegion",
-                query = "SELECT e FROM Employee e WHERE e.region.id=:regionId ORDER BY e.fullName"),
-        @NamedQuery(name = "Employee:allByAddress",
-                query = "SELECT e FROM Employee e WHERE lower(e.address) LIKE lower(concat('%', :address, '%')) ORDER BY e.fullName"),
-        @NamedQuery(name = "Employee:allByFullName",
-                query = "SELECT e FROM Employee e WHERE lower(e.fullName) LIKE lower(concat('%', :fullName, '%')) ORDER BY e.fullName"),
+        @NamedQuery(name = Employee.ALL,
+                query = "SELECT e FROM Employee e WHERE (e.region.id=:regionId OR :regionId IS NULL) " +
+                        "AND lower(e.address) LIKE lower(concat('%', :address, '%'))" +
+                        "AND lower(e.fullName) LIKE lower(concat('%', :fullName, '%'))" +
+                        "ORDER BY e.fullName")
 })
 public class Employee extends AbstractFullNameEntity {
+
+    public static final String ALL = "Employee:all";
+    public static final String BY_ID = "Employee:byId";
+    public static final String DELETE = "Employee:delete";
+    public static final String BY_LOGIN = "Employee:byLogin";
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)

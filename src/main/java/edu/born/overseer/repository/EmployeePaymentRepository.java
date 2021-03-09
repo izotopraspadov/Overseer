@@ -12,12 +12,7 @@ public interface EmployeePaymentRepository {
     // false if not found
     boolean delete(int id);
 
-    List<EmployeePayment> getAll(int first);
-
-    List<EmployeePayment> getAllByDate(LocalDate date, int first);
-
-    List<EmployeePayment> getAllByEmployee(int employeeId, int first);
+    List<EmployeePayment> getAll(Integer page, LocalDate date, Integer employeeId);
 
     void evictCache();
-
 }

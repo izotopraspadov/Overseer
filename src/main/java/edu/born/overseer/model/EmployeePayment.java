@@ -12,19 +12,23 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static edu.born.overseer.model.EmployeePayment.ALL;
+import static edu.born.overseer.model.EmployeePayment.DELETE;
+
 @Entity
 @Table(name = "employee_payments")
 @NamedQueries({
-        @NamedQuery(name = "EmployeePayment:all",
-                query = "SELECT ep FROM EmployeePayment ep ORDER BY ep.employee.fullName"),
-        @NamedQuery(name = "EmployeePayment:delete",
+        @NamedQuery(name = DELETE,
                 query = "DELETE FROM EmployeePayment ep WHERE ep.id=:id"),
-        @NamedQuery(name = "EmployeePayment:allByDate",
-                query = "SELECT ep FROM EmployeePayment ep WHERE ep.date=:date ORDER BY ep.employee.fullName"),
-        @NamedQuery(name = "EmployeePayment:allByEmployee",
-                query = "SELECT ep FROM EmployeePayment ep WHERE ep.employee.id=:employeeId ORDER BY ep.date"),
+        @NamedQuery(name = ALL,
+                query = "SELECT ep FROM EmployeePayment ep WHERE (ep.date=:date OR :date IS NULL)" +
+                        "AND (ep.employee.id=:employeeId OR :employeeId IS NULL) " +
+                        "ORDER BY ep.employee.fullName")
 })
 public class EmployeePayment extends AbstractPaymentEntity {
+
+    public static final String ALL = "EmployeePayment:all";
+    public static final String DELETE = "EmployeePayment:delete";
 
     @JsonBackReference(value = "employee")
     @NotNull

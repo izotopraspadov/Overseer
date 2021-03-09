@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -40,60 +42,35 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Transactional
     @CacheEvict(value = "employees", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("Employee:delete")
+        return em.createNamedQuery(Employee.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
     public Employee getById(int id) {
-        return em.find(Employee.class, id);
-    }
-
-    @Override
-    public Employee getByLogin(String login) {
-        return em.createNamedQuery("Employee:byLogin", Employee.class)
-                .setParameter("login", login)
+        return em.createNamedQuery(Employee.BY_ID, Employee.class)
+                .setParameter("id", id)
                 .getSingleResult();
     }
 
     @Override
     @Cacheable("employees")
-    public List<Employee> getAll(int first) {
-        return em.createNamedQuery("Employee:all", Employee.class)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("employees")
-    public List<Employee> getAllByRegion(int regionId, int first) {
-        return em.createNamedQuery("Employee:allByRegion", Employee.class)
+    public List<Employee> getAll(Integer page, Integer regionId, String address, String fullName) {
+        return em.createNamedQuery(Employee.ALL, Employee.class)
+                .setFirstResult(getFirstByPage(page))
                 .setParameter("regionId", regionId)
-                .setFirstResult(first)
+                .setParameter("address", Objects.toString(address, ""))
+                .setParameter("fullName", Objects.toString(fullName, ""))
                 .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    @Cacheable("employees")
-    public List<Employee> getAllByAddress(String address, int first) {
-        return em.createNamedQuery("Employee:allByAddress", Employee.class)
-                .setParameter("address", address)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("employees")
-    public List<Employee> getAllByFullName(String fullName, int first) {
-        return em.createNamedQuery("Employee:allByFullName", Employee.class)
-                .setParameter("fullName", fullName)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
+    public Employee getByLogin(String login) {
+        return em.createNamedQuery(Employee.BY_LOGIN, Employee.class)
+                .setParameter("login", login)
+                .getSingleResult();
     }
 
     @Override

@@ -19,14 +19,15 @@ import static edu.born.overseer.model.ResultType.NOT_COMPLETED;
 @Entity
 @Table(name = "tasks")
 @NamedQueries({
-        @NamedQuery(name = "Task:delete",
+        @NamedQuery(name = Task.DELETE,
                 query = "DELETE FROM Task t WHERE t.id=:id"),
-        @NamedQuery(name = "Task:byId",
-                query = "SELECT t FROM Task t WHERE t.id=:id"),
-        @NamedQuery(name = "Task:allByOrder",
-                query = "SELECT t FROM Task t WHERE t.order.id=:orderId ORDER BY t.description"),
+        @NamedQuery(name = Task.ALL_BY_ORDER,
+                query = "SELECT t FROM Task t WHERE t.order.id=:orderId ORDER BY t.description")
 })
 public class Task extends AbstractBaseEntity {
+
+    public static final String ALL_BY_ORDER = "Task:allByOrder"
+    public static final String DELETE = "Task:delete"
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)

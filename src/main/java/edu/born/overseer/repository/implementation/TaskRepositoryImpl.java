@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -42,7 +43,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Transactional
     @CacheEvict(value = "tasks", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("Task:delete")
+        return em.createNamedQuery(Task.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
@@ -54,10 +55,10 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     @Cacheable("tasks")
-    public List<Task> getAllByOrder(int orderId, int first) {
-        return em.createNamedQuery("Task:allByOrder", Task.class)
+    public List<Task> getAllByOrder(Integer page, Integer orderId) {
+        return em.createNamedQuery(Task.ALL_BY_ORDER, Task.class)
+                .setFirstResult(getFirstByPage(page))
                 .setParameter("orderId", orderId)
-                .setFirstResult(first)
                 .setMaxResults(getPageLength())
                 .getResultList();
     }

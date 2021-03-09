@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -36,7 +38,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     @Transactional
     @CacheEvict(value = "regions", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("Region:delete")
+        return em.createNamedQuery(Region.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
@@ -46,22 +48,12 @@ public class RegionRepositoryImpl implements RegionRepository {
         return em.find(Region.class, id);
     }
 
-
     @Override
     @Cacheable("regions")
-    public List<Region> getAll(int first) {
-        return em.createNamedQuery("Region:all", Region.class)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("regions")
-    public List<Region> getAllByTitle(String title, int first) {
-        return em.createNamedQuery("Region:allByTitle", Region.class)
-                .setParameter("title", title)
-                .setFirstResult(first)
+    public List<Region> getAll(Integer page, String title) {
+        return em.createNamedQuery(Region.ALL, Region.class)
+                .setFirstResult(getFirstByPage(page))
+                .setParameter("title", Objects.toString(title, ""))
                 .setMaxResults(getPageLength())
                 .getResultList();
     }

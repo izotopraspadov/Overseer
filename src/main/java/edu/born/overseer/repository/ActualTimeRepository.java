@@ -14,7 +14,7 @@ public interface ActualTimeRepository {
     // null if not found
     ActualTime getById(int id);
 
-    List<ActualTime> getAllByOrder(int orderId, int first);
+    List<ActualTime> getAllByOrder(Integer page, Integer orderId);
 
     void evictCache();
 

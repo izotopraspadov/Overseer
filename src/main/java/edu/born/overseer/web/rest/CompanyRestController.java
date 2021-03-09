@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
 
@@ -62,58 +61,25 @@ public class CompanyRestController {
         return companyRepository.getById(id);
     }
 
-    @GetMapping(params = {"contact_person_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Company getByContactPersonId(@RequestParam("contact_person_id") int contactPersonId) {
-        log.info("get company by contact person {}", contactPersonId);
-        return companyRepository.getByContactPersonId(contactPersonId);
-    }
-
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAll(@RequestParam(value = "page", required = false) Integer page) {
-        log.info("get all companies");
-        return companyRepository.getAll(getFirstByPage(page));
-    }
+    public List<Company> getAll(@RequestParam(value = "page", required = false) Integer page,
+                                @RequestParam(value = "contact_person_id", required = false) Integer contactPersonId,
+                                @RequestParam(value = "region_id", required = false) Integer regionId,
+                                @RequestParam(value = "reliability", required = false) ReliabilityType reliabilityType,
+                                @RequestParam(value = "type", required = false) CompanyType type,
+                                @RequestParam(value = "title", required = false) String title,
+                                @RequestParam(value = "address", required = false) String address,
+                                @RequestParam(value = "itn", required = false) String itn) {
 
-    @GetMapping(params = {"region_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByRegion(@RequestParam("region_id") int regionId,
-                                        @RequestParam(value = "page", required = false) Integer page) {
-        log.info("get all companies by region {}", regionId);
-        return companyRepository.getAllByRegion(regionId, getFirstByPage(page));
+        return companyRepository.getAll(
+                page,
+                contactPersonId,
+                regionId,
+                reliabilityType,
+                type,
+                title,
+                address,
+                itn
+        );
     }
-
-    @GetMapping(params = {"reliability"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByReliability(@RequestParam("reliability") ReliabilityType reliabilityType,
-                                             @RequestParam(value = "page", required = false) Integer page) {
-        log.info("get all companies by reliability {}", reliabilityType);
-        return companyRepository.getAllByReliability(reliabilityType, getFirstByPage(page));
-    }
-
-    @GetMapping(params = {"type"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByType(@RequestParam("type") CompanyType type,
-                                      @RequestParam(value = "page", required = false) Integer page) {
-        log.info("get all companies by type company {}", type);
-        return companyRepository.getAllByType(type, getFirstByPage(page));
-    }
-
-    @GetMapping(params = {"title"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByTitle(@RequestParam("title") String title,
-                                       @RequestParam(value = "page", required = false) Integer page) {
-        log.info("get all companies by title {}", title);
-        return companyRepository.getAllByTitle(title, getFirstByPage(page));
-    }
-
-    @GetMapping(params = {"address"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByAddress(@RequestParam("address") String address,
-                                         @RequestParam(value = "page", required = false) Integer page) {
-        log.info("get all companies by address {}", address);
-        return companyRepository.getAllByAddress(address, getFirstByPage(page));
-    }
-
-    @GetMapping(params = {"itn"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Company> getAllByItb(@RequestParam("itn") String itn,
-                                     @RequestParam(value = "page", required = false) Integer page) {
-        log.info("get company by itn {}", itn);
-        return companyRepository.getAllByItn(itn, getFirstByPage(page));
-    }
-
 }

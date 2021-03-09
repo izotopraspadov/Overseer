@@ -87,7 +87,8 @@ public class OrderRestController {
                               @RequestParam(value = "format", required = false) String format,
                               @RequestParam(value = "title", required = false) String title) {
 
-        return orderRepository.getAll(page,
+        return orderRepository.getAll(
+                page,
                 companyId,
                 cashless,
                 groupId,
@@ -103,6 +104,7 @@ public class OrderRestController {
                 expectedPayment,
                 numberOfLines,
                 format,
-                title);
+                title
+        );
     }
 }

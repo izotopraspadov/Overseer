@@ -10,17 +10,20 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static edu.born.overseer.model.ActualTime.*;
+
 @Entity
 @Table(name = "actual_time", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "order_id"}, name = "actual_time_unique_at_object_idx")})
 @NamedQueries({
-        @NamedQuery(name = "ActualTime:delete",
+        @NamedQuery(name = DELETE,
                 query = "DELETE FROM ActualTime at WHERE at.id=:id"),
-        @NamedQuery(name = "ActualTime:byId",
-                query = "SELECT at FROM ActualTime at WHERE at.id=:id"),
-        @NamedQuery(name = "ActualTime:allByOrder",
+        @NamedQuery(name = ALL_BY_ORDER,
                 query = "SELECT at FROM ActualTime at WHERE at.order.id=:orderId")
 })
 public class ActualTime extends AbstractTimeEntity {
+
+    public static final String ALL_BY_ORDER = "ActualTime:allByOrder";
+    public static final String DELETE = "ActualTime:delete";
 
     @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)

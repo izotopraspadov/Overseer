@@ -6,19 +6,21 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
+import static edu.born.overseer.model.Group.DELETE;
 import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "groups", uniqueConstraints = {@UniqueConstraint(columnNames = "title", name = "group_unique_title_idx")})
 @NamedQueries({
-        @NamedQuery(name = "Group:delete",
+        @NamedQuery(name = DELETE,
                 query = "DELETE FROM Group  g WHERE g.id=:id"),
-        @NamedQuery(name = "Group:byId",
-                query = "SELECT g FROM Group  g WHERE g.id=:id"),
-        @NamedQuery(name = "Group:all",
+        @NamedQuery(name = Group.ALL,
                 query = "SELECT DISTINCT g FROM Group g LEFT JOIN FETCH g.types t ORDER BY g.title"),
 })
 public class Group extends AbstractTitleEntity {
+
+    public static final String ALL = "Group:all";
+    public static final String DELETE = "Group:delete";
 
     @ManyToMany(cascade = {PERSIST, MERGE, REMOVE}, fetch = FetchType.EAGER)
     @JoinTable(

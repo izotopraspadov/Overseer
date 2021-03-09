@@ -14,31 +14,27 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import static edu.born.overseer.model.Company.ALL;
+import static edu.born.overseer.model.Company.DELETE;
+
 @Entity
 @Table(name = "companies", uniqueConstraints = {@UniqueConstraint(columnNames = "itn", name = "companies_unique_itn_idx")})
 @NamedQueries({
-        @NamedQuery(name = "Company:delete",
+        @NamedQuery(name = DELETE,
                 query = "DELETE FROM Company c WHERE c.id=:id"),
-        @NamedQuery(name = "Company:byId",
-                query = "SELECT c FROM Company c WHERE c.id=:id"),
-        @NamedQuery(name = "Company:byContactPerson",
-                query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId"),
-        @NamedQuery(name = "Company:all",
-                query = "SELECT c FROM Company c ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByRegion",
-                query = "SELECT c FROM Company c WHERE c.region.id=:regionId ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByReliability",
-                query = "SELECT c FROM Company c WHERE c.reliabilityType=:reliability ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByType",
-                query = "SELECT c FROM Company c WHERE c.companyType=:typeCompany ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByTitle",
-                query = "SELECT c FROM Company c WHERE lower(c.title) LIKE lower(concat('%', :title, '%')) ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByAddress",
-                query = "SELECT c FROM Company c WHERE lower(c.address) LIKE lower(concat('%', :address, '%')) ORDER BY c.title"),
-        @NamedQuery(name = "Company:allByItn",
-                query = "SELECT c FROM Company c WHERE lower(c.itn) LIKE lower(concat('%', :itn, '%')) ORDER BY c.title"),
+        @NamedQuery(name = ALL,
+                query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId" +
+                        "AND (c.region.id=:regionId OR :regionId IS NULL)" +
+                        "AND (c.reliabilityType=:reliability OR :reliability IS NULL)" +
+                        "AND (c.companyType=:type OR :type IS NULL)" +
+                        "AND lower(c.title) LIKE lower(concat('%', :title, '%'))" +
+                        "AND lower(c.address) LIKE lower(concat('%', :address, '%'))" +
+                        "AND lower(c.itn) LIKE lower(concat('%', :itn, '%'))"),
 })
 public class Company extends AbstractBaseEntity {
+
+    public static final String ALL = "Company:all";
+    public static final String DELETE = "Company:delete";
 
     @NotBlank
     @Size(max = 255)

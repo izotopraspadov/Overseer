@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -36,7 +37,7 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Transactional
     @CacheEvict(value = "groups", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("Group:delete")
+        return em.createNamedQuery(Group.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
@@ -48,9 +49,9 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     @Cacheable("groups")
-    public List<Group> getAll(int first) {
-        return em.createNamedQuery("Group:all", Group.class)
-                .setFirstResult(first)
+    public List<Group> getAll(Integer page) {
+        return em.createNamedQuery(Group.ALL, Group.class)
+                .setFirstResult(getFirstByPage(page))
                 .setMaxResults(getPageLength())
                 .getResultList();
     }

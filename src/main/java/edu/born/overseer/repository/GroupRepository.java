@@ -14,8 +14,7 @@ public interface GroupRepository {
     // null if not found
     Group getById(int id);
 
-    List<Group> getAll(int first);
+    List<Group> getAll(Integer page);
 
     void evictCache();
-
 }

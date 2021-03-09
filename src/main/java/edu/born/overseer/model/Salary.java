@@ -14,17 +14,23 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static edu.born.overseer.model.Salary.*;
+
 @Entity
 @Table(name = "salaries", uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "start_date"}, name = "salaries_unique_employee_start_date_idx")})
 @NamedQueries({
-        @NamedQuery(name = "Salary:delete",
+        @NamedQuery(name = DELETE,
                 query = "DELETE FROM Salary s WHERE s.id=:id"),
-        @NamedQuery(name = "Salary:currentByEmployee",
+        @NamedQuery(name = CURRENT_BY_EMPLYEE,
                 query = "SELECT s FROM Salary s WHERE s.employee.id=:employeeId AND s.endDate IS NULL"),
-        @NamedQuery(name = "Salary:allByEmployee",
+        @NamedQuery(name = ALL_BY_EMPLOYEE,
                 query = "SELECT s FROM Salary s WHERE s.employee.id=:employeeId ORDER BY endDate DESC NULLS FIRST"),
 })
 public class Salary extends AbstractBaseEntity {
+
+    public static final String ALL_BY_EMPLOYEE = "Salary:all";
+    public static final String DELETE = "Salary:delete";
+    public static final String CURRENT_BY_EMPLYEE = "Salary:currentByEmployee";
 
     @JsonBackReference(value = "employee")
     @NotNull

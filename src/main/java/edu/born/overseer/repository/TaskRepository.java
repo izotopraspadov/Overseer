@@ -13,8 +13,7 @@ public interface TaskRepository {
 
     Task getById(int id);
 
-    List<Task> getAllByOrder(int orderId, int first);
+    List<Task> getAllByOrder(Integer page, Integer orderId);
 
     void evictCache();
-
 }

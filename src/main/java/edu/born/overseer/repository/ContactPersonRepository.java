@@ -17,10 +17,7 @@ public interface ContactPersonRepository {
     // null if not found
     ContactPerson getByIdWithCompany(int id);
 
-    List<ContactPerson> getAll(int first);
-
-    List<ContactPerson> getAllByCompany(int companyId, int first);
+    List<ContactPerson> getAll(Integer page, Integer companyId);
 
     void evictCache();
-
 }

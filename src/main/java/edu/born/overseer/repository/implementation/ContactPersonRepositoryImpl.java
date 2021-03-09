@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -40,7 +41,7 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
     @Transactional
     @CacheEvict(value = "persons", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("ContactPerson:delete")
+        return em.createNamedQuery(ContactPerson.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
@@ -52,26 +53,17 @@ public class ContactPersonRepositoryImpl implements ContactPersonRepository {
 
     @Override
     public ContactPerson getByIdWithCompany(int id) {
-        return em.createNamedQuery("ContactPerson:byIdWithCompany", ContactPerson.class)
+        return em.createNamedQuery(ContactPerson.BY_ID_WITH_COMPANY, ContactPerson.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
 
     @Override
     @Cacheable("persons")
-    public List<ContactPerson> getAll(int first) {
-        return em.createNamedQuery("ContactPerson:all", ContactPerson.class)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("persons")
-    public List<ContactPerson> getAllByCompany(int companyId, int first) {
-        return em.createNamedQuery("ContactPerson:allByCompany", ContactPerson.class)
+    public List<ContactPerson> getAll(Integer page, Integer companyId) {
+        return em.createNamedQuery(ContactPerson.BY_CONTACT_PERSON, ContactPerson.class)
+                .setFirstResult(getFirstByPage(page))
                 .setParameter("companyId", companyId)
-                .setFirstResult(first)
                 .setMaxResults(getPageLength())
                 .getResultList();
     }
