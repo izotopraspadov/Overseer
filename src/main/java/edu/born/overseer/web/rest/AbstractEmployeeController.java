@@ -47,24 +47,8 @@ public abstract class AbstractEmployeeController {
         return employeeService.getByLogin(login);
     }
 
-    public List<Employee> getAll(Integer first) {
+    public List<Employee> getAll(Integer page, Integer regionId, String address, String fullName) {
         log.info("get all employees");
-        return employeeService.getAll(first);
+        return employeeService.getAll(page, regionId, address, fullName);
     }
-
-    public List<Employee> getAllByRegion(int regionId, Integer first) {
-        log.info("get all employees by region {}", regionId);
-        return employeeService.getAllByRegion(regionId, first);
-    }
-
-    public List<Employee> getAllByAddress(String address, Integer first) {
-        log.info("get all employees by address {}", address);
-        return employeeService.getAllByAddress(address, first);
-    }
-
-    public List<Employee> getAllByFullName(String fullName, Integer first) {
-        log.info("get all employees by fullName {}", fullName);
-        return employeeService.getAllByFullName(fullName, first);
-    }
-
 }

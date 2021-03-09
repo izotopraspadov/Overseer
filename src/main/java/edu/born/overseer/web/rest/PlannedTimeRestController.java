@@ -12,7 +12,6 @@ import java.util.List;
 
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
 
 @RestController
 @RequestMapping(value = PlannedTimeRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,10 +62,9 @@ public class PlannedTimeRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PlannedTime> getAllByOrder(@PathVariable int orderId,
-                                           @RequestParam(value = "page", required = false) Integer page) {
+    public List<PlannedTime> getAllByOrder(@RequestParam(value = "page", required = false) Integer page,
+                                           @PathVariable int orderId) {
         log.info("get all plannedTime by order {}", orderId);
-        return plannedTimeRepository.getAllByOrder(orderId, getFirstByPage(page));
+        return plannedTimeRepository.getAll(page, orderId);
     }
-
 }

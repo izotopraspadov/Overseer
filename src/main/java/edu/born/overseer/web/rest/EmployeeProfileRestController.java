@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
-
 @RestController
 @RequestMapping(value = EmployeeProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmployeeProfileRestController extends AbstractEmployeeController {
@@ -39,26 +37,10 @@ public class EmployeeProfileRestController extends AbstractEmployeeController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAll(@RequestParam(value = "page", required = false) Integer first) {
-        return super.getAll(getFirstByPage(first));
+    public List<Employee> getAll(@RequestParam(value = "page", required = false) Integer page,
+                                 @RequestParam(value = "region_id", required = false) Integer regionId,
+                                 @RequestParam(value = "address", required = false) String address,
+                                 @RequestParam(value = "full_name", required = false) String fullName) {
+        return super.getAll(page, regionId, address, fullName);
     }
-
-    @GetMapping(params = {"region_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAllByRegion(@RequestParam("region_id") int regionId,
-                                         @RequestParam(value = "page", required = false) Integer first) {
-        return super.getAllByRegion(regionId, getFirstByPage(first));
-    }
-
-    @GetMapping(params = {"address"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAllByAddress(@RequestParam("address") String address,
-                                          @RequestParam(value = "page", required = false) Integer first) {
-        return super.getAllByAddress(address, getFirstByPage(first));
-    }
-
-    @GetMapping(params = {"full_name"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getAllByFullName(@RequestParam("full_name") String fullName,
-                                           @RequestParam(value = "page", required = false) Integer first) {
-        return super.getAllByFullName(fullName, getFirstByPage(first));
-    }
-
 }

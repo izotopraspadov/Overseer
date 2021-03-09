@@ -12,7 +12,6 @@ import java.util.List;
 
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
 
 @RestController
 @RequestMapping(value = RegionRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -59,16 +58,9 @@ public class RegionRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Region> getAll(@RequestParam(value = "page", required = false) Integer page) {
+    public List<Region> getAll(@RequestParam(value = "page", required = false) Integer page,
+                               @RequestParam(value = "title", required = false) String title) {
         log.info("get all regions");
-        return regionRepository.getAll(getFirstByPage(page));
+        return regionRepository.getAll(page, title);
     }
-
-    @GetMapping(params = {"title"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Region> getAllByTitle(@RequestParam("title") String title,
-                                      @RequestParam(value = "page", required = false) Integer page) {
-        log.info("get all regions by title {}", title);
-        return regionRepository.getAllByTitle(title, getFirstByPage(page));
-    }
-
 }

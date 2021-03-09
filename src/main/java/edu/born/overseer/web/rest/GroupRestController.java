@@ -12,7 +12,6 @@ import java.util.List;
 
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
 
 @RestController
 @RequestMapping(value = GroupRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,7 +60,6 @@ public class GroupRestController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Group> getAll(@RequestParam(value = "page", required = false) Integer page) {
         log.info("get all groups");
-        return groupRepository.getAll(getFirstByPage(page));
+        return groupRepository.getAll(page);
     }
-
 }

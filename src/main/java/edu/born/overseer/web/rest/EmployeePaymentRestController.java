@@ -8,12 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static edu.born.overseer.model.CounterpartyType.EMPLOYEE;
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
 
 @RestController
 @RequestMapping(value = EmployeePaymentRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,10 +75,10 @@ public class EmployeePaymentRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<EmployeePayment> getAllByEmployee(@PathVariable int employeeId,
-                                                  @RequestParam(value = "page", required = false) Integer page) {
+    public List<EmployeePayment> getAllByEmployee(@RequestParam(value = "page", required = false) Integer page,
+                                                  @RequestParam(value = "date", required = false) LocalDate date,
+                                                  @RequestParam(value = "employee_id", required = false) @PathVariable Integer employeeId) {
         log.info("get all employee payments by employee {}", employeeId);
-        return employeePaymentRepository.getAllByEmployee(employeeId, getFirstByPage(page));
+        return employeePaymentRepository.getAll(page, date, employeeId);
     }
-
 }

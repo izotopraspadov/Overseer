@@ -12,7 +12,6 @@ import java.util.List;
 
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
 
 @RestController
 @RequestMapping(value = SalaryRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,10 +47,9 @@ public class SalaryRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Salary> getAllByEmployee(@PathVariable int employeeId,
-                                         @RequestParam(value = "page", required = false) Integer page) {
+    public List<Salary> getAllByEmployee(@RequestParam(value = "page", required = false) Integer page,
+                                         @PathVariable Integer employeeId) {
         log.info("get salaries by employee {}", employeeId);
-        return salaryRepository.getAllByEmployee(employeeId, getFirstByPage(page));
+        return salaryRepository.getAllByEmployee(page, employeeId);
     }
-
 }

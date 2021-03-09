@@ -8,15 +8,10 @@ import kotlin.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
 
 @RestController
 @RequestMapping(value = FinanceRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,16 +30,10 @@ public class FinanceRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Pair<List<EmployeePayment>, List<OrderPayment>> getAll(@RequestParam(value = "page", required = false) Integer page) {
-        return new Pair<>(employeePaymentRepository.getAll(getFirstByPage(page)),
-                orderPaymentRepository.getAll(getFirstByPage(page)));
+    public Pair<List<EmployeePayment>, List<OrderPayment>> getAll(@RequestParam(value = "page", required = false) Integer page,
+                                                                  @RequestParam(value = "date", required = false) LocalDate date,
+                                                                  @RequestParam(value = "employee_id", required = false) @PathVariable Integer employeeId) {
+        return new Pair<>(employeePaymentRepository.getAll(page, date, employeeId),
+                orderPaymentRepository.getAll(page, date, employeeId));
     }
-
-    @GetMapping(params = {"date"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Pair<List<EmployeePayment>, List<OrderPayment>> getAllByDate(@RequestParam("date") LocalDate date,
-                                                                        @RequestParam(value = "page", required = false) Integer page) {
-        return new Pair<>(employeePaymentRepository.getAllByDate(date, getFirstByPage(page)),
-                orderPaymentRepository.getAllByDate(date, getFirstByPage(page)));
-    }
-
 }

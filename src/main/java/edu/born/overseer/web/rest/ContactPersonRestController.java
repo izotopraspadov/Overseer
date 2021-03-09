@@ -12,7 +12,6 @@ import java.util.List;
 
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
 
 @RestController
 @RequestMapping(value = ContactPersonRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,10 +60,9 @@ public class ContactPersonRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ContactPerson> getAllByCompany(@PathVariable int companyId,
-                                               @RequestParam(value = "page", required = false) Integer page) {
+    public List<ContactPerson> getAllByCompany(@RequestParam(value = "page", required = false) Integer page,
+                                               @PathVariable Integer companyId) {
         log.info("get all persons by company {}", companyId);
-        return contactPersonRepository.getAllByCompany(companyId, getFirstByPage(page));
+        return contactPersonRepository.getAll(page, companyId);
     }
-
 }

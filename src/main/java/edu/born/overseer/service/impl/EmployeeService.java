@@ -17,14 +17,5 @@ public interface EmployeeService {
     // null if not found
     Employee getByLogin(String login);
 
-    List<Employee> getAll(int first);
-
-    List<Employee> getAllByRegion(int regionId, int first);
-
-    // partial match using 'like'
-    List<Employee> getAllByAddress(String address, int first);
-
-    // partial match using 'like'
-    List<Employee> getAllByFullName(String fullName, int first);
-
+    List<Employee> getAll(Integer page, Integer regionId, String address, String fullName);
 }

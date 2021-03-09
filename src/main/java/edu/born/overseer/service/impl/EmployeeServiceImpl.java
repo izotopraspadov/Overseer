@@ -55,23 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService 
     }
 
     @Override
-    public List<Employee> getAll(int first) {
-        return employeeRepository.getAll(first);
+    public List<Employee> getAll(Integer page, Integer regionId, String address, String fullName) {
+        return employeeRepository.getAll(page, regionId, address, fullName);
     }
-
-    @Override
-    public List<Employee> getAllByRegion(int regionId, int first) {
-        return employeeRepository.getAllByRegion(regionId, first);
-    }
-
-    @Override
-    public List<Employee> getAllByAddress(String address, int first) {
-        return employeeRepository.getAllByAddress(address, first);
-    }
-
-    @Override
-    public List<Employee> getAllByFullName(String fullName, int first) {
-        return employeeRepository.getAllByFullName(fullName, first);
-    }
-
 }

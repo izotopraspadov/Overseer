@@ -29,5 +29,4 @@ public class EmployeeAdminRestController extends AbstractEmployeeController {
     public void delete(@PathVariable int id) {
         super.delete(id);
     }
-
 }

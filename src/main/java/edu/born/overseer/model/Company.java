@@ -41,7 +41,6 @@ public class Company extends AbstractBaseEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-//    @JsonBackReference
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)

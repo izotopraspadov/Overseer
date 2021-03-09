@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
 
 @RestController
 @RequestMapping(value = OrderPaymentRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,10 +52,10 @@ public class OrderPaymentRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrderPayment> getAllByOrder(@PathVariable int orderId,
-                                            @RequestParam(value = "page", required = false) Integer page) {
+    public List<OrderPayment> getAllByOrder(@RequestParam(value = "page", required = false) Integer page,
+                                            @RequestParam(value = "date", required = false) LocalDate date,
+                                            @RequestParam(value = "order_id", required = false) Integer orderId) {
         log.info("get all order payments by employee {}", orderId);
-        return orderPaymentRepository.getAllByOrder(orderId, getFirstByPage(page));
+        return orderPaymentRepository.getAll(page, date, orderId);
     }
-
 }
