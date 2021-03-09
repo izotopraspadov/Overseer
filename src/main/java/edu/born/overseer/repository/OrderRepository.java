@@ -16,44 +16,23 @@ public interface OrderRepository {
     // null if not found
     Order getById(int id);
 
-    List<Order> getAll(int first);
-
-    List<Order> getAllByCompany(int companyId, int first);
-
-    List<Order> getAllByCashless(boolean cashless, int first);
-
-    List<Order> getAllByGroup(int groupId, int first);
-
-    List<Order> getAllByContractIsNeed(boolean contractIsNeed, int first);
-
-    List<Order> getAllByContractExists(boolean contractExists, int first);
-
-    List<Order> getAllByPlannedStartDate(LocalDate date, int first);
-
-    List<Order> getAllByActualStartDate(LocalDate date, int first);
-
-    List<Order> getAllByPlannedEndDate(LocalDate date, int first);
-
-    List<Order> getAllByActualEndDate(LocalDate date, int first);
-
-    List<Order> getAllBySum(BigDecimal currentSum, int first);
-
-    List<Order> getAllByManager(int managerId, int first);
-
-    List<Order> getAllByUnderway(boolean underway, int first);
-
-    List<Order> getAllByExpectedPayment(BigDecimal expectedPayment, int first);
-
-    List<Order> getAllByNumberOfLines(int numberOfLines, int first);
-
-    // partial match using 'like'
-    List<Order> getAllByPaymentFormat(String format, int first);
-
-    // partial match using 'like'
-    List<Order> getAllByTitle(String title, int first);
-
-    // partial match using 'like'
-    List<Order> getAllByOrderType(String orderType, int first);
+    List<Order> getAll(Integer page,
+                       Integer companyId,
+                       Boolean cashless,
+                       Integer groupId,
+                       Boolean contractIsNeed,
+                       Boolean contractExists,
+                       LocalDate plannedStartDate,
+                       LocalDate actualStartDate,
+                       LocalDate plannedEndDate,
+                       LocalDate actualEndDate,
+                       BigDecimal currentSum,
+                       Integer managerId,
+                       Boolean underway,
+                       BigDecimal expectedPayment,
+                       Integer numberOfLines,
+                       String format,
+                       String title);
 
     void evictCache();
 

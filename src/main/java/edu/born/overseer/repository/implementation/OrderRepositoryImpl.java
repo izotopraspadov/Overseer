@@ -3,7 +3,6 @@ package edu.born.overseer.repository.implementation;
 import edu.born.overseer.model.*;
 import edu.born.overseer.repository.OrderRepository;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +11,9 @@ import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
+import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
@@ -44,7 +45,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Transactional
     @CacheEvict(value = "orders", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery("Order:delete")
+        return em.createNamedQuery(Order.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
@@ -55,180 +56,42 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    @Cacheable("orders")
-    public List<Order> getAll(int first) {
-        return em.createNamedQuery("Order:all", Order.class)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
+    public List<Order> getAll(Integer page,
+                              Integer companyId,
+                              Boolean cashless,
+                              Integer groupId,
+                              Boolean contractIsNeed,
+                              Boolean contractExists,
+                              LocalDate plannedStartDate,
+                              LocalDate actualStartDate,
+                              LocalDate plannedEndDate,
+                              LocalDate actualEndDate,
+                              BigDecimal currentSum,
+                              Integer managerId,
+                              Boolean underway,
+                              BigDecimal expectedPayment,
+                              Integer numberOfLines,
+                              String format,
+                              String title) {
 
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByCompany(int companyId, int first) {
-        return em.createNamedQuery("Order:allByCompany", Order.class)
+        return em.createNamedQuery(Order.ALL, Order.class)
+                .setFirstResult(getFirstByPage(page))
                 .setParameter("companyId", companyId)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByCashless(boolean cashless, int first) {
-        return em.createNamedQuery("Order:allByCashless", Order.class)
                 .setParameter("cashless", cashless)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByGroup(int groupId, int first) {
-        return em.createNamedQuery("Order:allByGroup", Order.class)
                 .setParameter("groupId", groupId)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByContractIsNeed(boolean contractIsNeed, int first) {
-        return em.createNamedQuery("Order:allByContractIsNeed", Order.class)
                 .setParameter("contractIsNeed", contractIsNeed)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByContractExists(boolean contractExists, int first) {
-        return em.createNamedQuery("Order:allByContractExists", Order.class)
                 .setParameter("contractExists", contractExists)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByPlannedStartDate(LocalDate date, int first) {
-        return em.createNamedQuery("Order:allByPlannedStartDate", Order.class)
-                .setParameter("date", date)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByActualStartDate(LocalDate date, int first) {
-        return em.createNamedQuery("Order:allByActualStartDate", Order.class)
-                .setParameter("date", date)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByPlannedEndDate(LocalDate date, int first) {
-        return em.createNamedQuery("Order:allByPlannedEndDate", Order.class)
-                .setParameter("date", date)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByActualEndDate(LocalDate date, int first) {
-        return em.createNamedQuery("Order:allByActualEndDate", Order.class)
-                .setParameter("date", date)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllBySum(BigDecimal currentSum, int first) {
-        return em.createNamedQuery("Order:allBySum", Order.class)
+                .setParameter("plannedStartDate", plannedStartDate)
+                .setParameter("actualStartDate", actualStartDate)
+                .setParameter("plannedEndDate", plannedEndDate)
+                .setParameter("actualEndDate", actualEndDate)
                 .setParameter("currentSum", currentSum)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByManager(int managerId, int first) {
-        return em.createNamedQuery("Order:allByManager", Order.class)
                 .setParameter("managerId", managerId)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByUnderway(boolean underway, int first) {
-        return em.createNamedQuery("Order:allByUnderway", Order.class)
                 .setParameter("underway", underway)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByExpectedPayment(BigDecimal expectedPayment, int first) {
-        return em.createNamedQuery("Order:allByExpectedPayment", Order.class)
                 .setParameter("expectedPayment", expectedPayment)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByNumberOfLines(int numberOfLines, int first) {
-        return em.createNamedQuery("Order:allByNumberOfLines", Order.class)
                 .setParameter("numberOfLines", numberOfLines)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByPaymentFormat(String format, int first) {
-        return em.createNamedQuery("Order:allByPaymentFormat", Order.class)
-                .setParameter("paymentFormat", format)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByTitle(String title, int first) {
-        return em.createNamedQuery("Order:allByTitle", Order.class)
-                .setParameter("title", title)
-                .setFirstResult(first)
-                .setMaxResults(getPageLength())
-                .getResultList();
-    }
-
-    @Override
-    @Cacheable("orders")
-    public List<Order> getAllByOrderType(String orderType, int first) {
-        return em.createNamedQuery("Order:allByOrderType", Order.class)
-                .setParameter("orderType", orderType)
-                .setFirstResult(first)
+                .setParameter("paymentFormat", Objects.toString(format, "")) // for like %%
+                .setParameter("title", Objects.toString(title, "")) // for like %%
                 .setMaxResults(getPageLength())
                 .getResultList();
     }

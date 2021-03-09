@@ -17,52 +17,40 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
+import static edu.born.overseer.model.Order.*;
+
 @Entity
 @Table(name = "orders")
 @NamedQueries({
-        @NamedQuery(name = "Order:delete",
+        @NamedQuery(name = DELETE,
                 query = "DELETE FROM Order o WHERE o.id=:id"),
-        @NamedQuery(name = "Order:byId",
-                query = "SELECT o FROM Order o WHERE o.id=:id"),
-        @NamedQuery(name = "Order:all",
-                query = "SELECT o FROM Order o ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByCompany",
-                query = "SELECT o FROM Order o WHERE o.company.id=:companyId ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByCashless",
-                query = "SELECT o FROM Order o WHERE o.cashless=:cashless ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByGroup",
-                query = "SELECT o FROM Order o WHERE o.group.id=:groupId ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByContractIsNeed",
-                query = "SELECT o FROM Order o WHERE o.contractIsNeed=:contractIsNeed ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByContractExists",
-                query = "SELECT o FROM Order o WHERE o.contractExists=:contractExists ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByPlannedStartDate",
-                query = "SELECT o FROM Order o WHERE o.plannedStartDate=:date ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByActualStartDate",
-                query = "SELECT o FROM Order o WHERE o.actualStartDate=:date ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByPlannedEndDate",
-                query = "SELECT o FROM Order o WHERE o.plannedEndDate=:date ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByActualEndDate",
-                query = "SELECT o FROM Order o WHERE o.actualEndDate=:date ORDER BY o.title"),
-        @NamedQuery(name = "Order:allBySum",
-                query = "SELECT o FROM Order o WHERE o.sum=:currentSum ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByManager",
-                query = "SELECT o FROM Order o WHERE o.manager.id=:managerId ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByUnderway",
-                query = "SELECT o FROM Order o WHERE o.underway=:underway ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByExpectedPayment",
-                query = "SELECT o FROM Order o WHERE o.expectedPayment=:expectedPayment ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByNumberOfLines",
-                query = "SELECT o FROM Order o WHERE o.numberOfLines=:numberOfLines ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByPaymentFormat",
-                query = "SELECT o FROM Order o WHERE lower(o.paymentFormat) LIKE lower(concat('%', :paymentFormat, '%')) ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByTitle",
-                query = "SELECT o FROM Order o WHERE lower(o.title) LIKE lower(concat('%', :title, '%')) ORDER BY o.title"),
-        @NamedQuery(name = "Order:allByOrderType",
-                query = "SELECT o FROM Order o LEFT JOIN FETCH o.orderType ot WHERE lower(ot.title) LIKE lower(concat('%', :orderType, '%')) ORDER BY o.title"),
+        @NamedQuery(name = ALL,
+                query = "SELECT o FROM Order o WHERE " +
+                        "(o.company.id=:companyId OR :companyId IS NULL)" +
+                        "AND (o.cashless=:cashless OR :cashless IS NULL) " +
+                        "AND (o.group.id=:groupId OR :groupId IS NULL) " +
+                        "AND (o.group.id=:groupId OR :groupId IS NULL) " +
+                        "AND (o.contractIsNeed=:contractIsNeed OR :contractIsNeed IS NULL) " +
+                        "AND (o.contractExists=:contractExists OR :contractExists IS NULL) " +
+                        "AND (o.plannedStartDate=:plannedStartDate OR :plannedStartDate IS NULL) " +
+                        "AND (o.actualStartDate=:actualStartDate OR :actualStartDate IS NULL) " +
+                        "AND (o.plannedEndDate=:plannedEndDate OR :plannedEndDate IS NULL) " +
+                        "AND (o.actualEndDate=:actualEndDate OR :actualEndDate IS NULL) " +
+                        "AND (o.sum=:currentSum OR :currentSum IS NULL) " +
+                        "AND (o.manager.id=:managerId OR :managerId IS NULL) " +
+                        "AND (o.underway=:underway OR :underway IS NULL) " +
+                        "AND (o.expectedPayment=:expectedPayment OR :expectedPayment IS NULL) " +
+                        "AND (o.numberOfLines=:numberOfLines OR :numberOfLines IS NULL) " +
+                        "AND (lower(o.paymentFormat) LIKE lower(concat('%', :paymentFormat, '%'))) " +
+                        "AND (lower(o.title) LIKE lower(concat('%', :title, '%'))) " +
+                        "ORDER BY o.title")
 })
 public class Order extends AbstractBaseEntity {
     // not inherited from AbstractTitleEntity, due to differences in the uniqueness of the title field
+
+    public static final String ALL = "Order:all";
+    public static final String BY_ID = "Order:byId";
+    public static final String DELETE = "Order:delete";
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
