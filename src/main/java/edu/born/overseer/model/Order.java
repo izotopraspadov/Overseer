@@ -49,7 +49,6 @@ public class Order extends AbstractBaseEntity {
     // not inherited from AbstractTitleEntity, due to differences in the uniqueness of the title field
 
     public static final String ALL = "Order:all";
-    public static final String BY_ID = "Order:byId";
     public static final String DELETE = "Order:delete";
 
     @NotNull

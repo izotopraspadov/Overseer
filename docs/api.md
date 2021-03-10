@@ -1,1 +1,1 @@
-1. [Orders](docs/api/order.md)
+1. [Orders](api/order.md)

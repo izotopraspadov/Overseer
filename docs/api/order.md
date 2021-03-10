@@ -8,9 +8,9 @@ Retrieve a single order.
     
 **Parameters**
 
-|param | Description
-| ---  | -----------
-|`id`    | The order’s ID. Required.
+| Param | type    | Description
+| :---  | :---    | :-----------
+|`id`   | Integer | The order’s ID. Required.
  
 **Response**
 
@@ -194,9 +194,9 @@ Update the order by adding a new version to the body
     
 **Parameters**
 
-|param | Description
-| ---  | -----------
-|`id`    | The order’s ID. Required.
+| Param | type    | Description
+| :---  | :---    | :-----------
+|`id`   | Integer | The order’s ID. Required.
 
 **Body**
 ```
@@ -412,9 +412,9 @@ Create the order by adding order to the body
     
 **Parameters**
 
-|param | Description
-| ---  | -----------
-|`id`    | The order’s ID. Required.
+| Param | type    | Description
+| :---  | :---    | :-----------
+|`id`   | Integer | The order’s ID. Required.
 
 **Response**
 
