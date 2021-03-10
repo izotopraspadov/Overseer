@@ -23,13 +23,13 @@ import static edu.born.overseer.model.Company.DELETE;
         @NamedQuery(name = DELETE,
                 query = "DELETE FROM Company c WHERE c.id=:id"),
         @NamedQuery(name = ALL,
-                query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId" +
-                        "AND (c.region.id=:regionId OR :regionId IS NULL)" +
-                        "AND (c.reliabilityType=:reliability OR :reliability IS NULL)" +
-                        "AND (c.companyType=:type OR :type IS NULL)" +
-                        "AND lower(c.title) LIKE lower(concat('%', :title, '%'))" +
-                        "AND lower(c.address) LIKE lower(concat('%', :address, '%'))" +
-                        "AND lower(c.itn) LIKE lower(concat('%', :itn, '%'))"),
+                query = "SELECT c FROM Company c LEFT JOIN FETCH c.contactPersons cp WHERE cp.id=:contactPersonId " +
+                        "AND (c.region.id=:regionId OR :regionId IS NULL) " +
+                        "AND (c.reliabilityType=:reliability OR :reliability IS NULL) " +
+                        "AND (c.companyType=:type OR :type IS NULL) " +
+                        "AND (lower(c.title) LIKE lower(concat('%', :title, '%'))) " +
+                        "AND (lower(c.address) LIKE lower(concat('%', :address, '%'))) " +
+                        "AND (lower(c.itn) LIKE lower(concat('%', :itn, '%')))")
 })
 public class Company extends AbstractBaseEntity {
 

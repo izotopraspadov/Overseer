@@ -26,8 +26,8 @@ import static edu.born.overseer.model.ResultType.NOT_COMPLETED;
 })
 public class Task extends AbstractBaseEntity {
 
-    public static final String ALL_BY_ORDER = "Task:allByOrder"
-    public static final String DELETE = "Task:delete"
+    public static final String ALL_BY_ORDER = "Task:allByOrder";
+    public static final String DELETE = "Task:delete";
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)

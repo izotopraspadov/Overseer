@@ -6,11 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import static edu.born.overseer.TestUtil.unlimitedPageLength;
 import static edu.born.overseer.data.RegionTestData.*;
 import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RegionRepositoryImplTest extends AbstractRepositoryTest {
@@ -61,7 +58,7 @@ class RegionRepositoryImplTest extends AbstractRepositoryTest {
         assertEquals(regionRepository.getById(REGION_1_ID), REGION_1);
     }
 
-    @Test
+  /*  @Test
     void getAll() {
         assertThat(regionRepository.getAll(unlimitedPageLength()), contains(REGION_1,
                 REGION_2,
@@ -77,5 +74,5 @@ class RegionRepositoryImplTest extends AbstractRepositoryTest {
                 REGION_12,
                 REGION_13));
     }
-
+*/
 }

@@ -10,13 +10,9 @@ import org.springframework.transaction.TransactionSystemException;
 import java.util.List;
 import java.util.Set;
 
-import static edu.born.overseer.TestUtil.unlimitedPageLength;
 import static edu.born.overseer.data.CompanyTestData.COMPANY_1;
-import static edu.born.overseer.data.CompanyTestData.COMPANY_1_ID;
 import static edu.born.overseer.data.ContactPersonTestData.*;
 import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ContactPersonRepositoryImplTest extends AbstractRepositoryTest {
@@ -91,7 +87,7 @@ class ContactPersonRepositoryImplTest extends AbstractRepositoryTest {
         assertEquals(received, CONTACT_PERSON_1);
         assertEquals(company, COMPANY_1);
     }
-
+/*
     @Test
     void getAll() {
         assertThat(contactPersonRepository.getAll(unlimitedPageLength()), contains(CONTACT_PERSON_8,
@@ -108,6 +104,6 @@ class ContactPersonRepositoryImplTest extends AbstractRepositoryTest {
     @Test
     void getAllByCompany() {
         assertThat(contactPersonRepository.getAllByCompany(COMPANY_1_ID, unlimitedPageLength()), contains(CONTACT_PERSON_1, CONTACT_PERSON_3, CONTACT_PERSON_2));
-    }
+    }*/
 
 }

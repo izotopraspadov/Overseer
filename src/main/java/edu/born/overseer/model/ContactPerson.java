@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+import static edu.born.overseer.model.ContactPerson.*;
 import static edu.born.overseer.model.ContactPerson.BY_ID_WITH_COMPANY;
 import static edu.born.overseer.model.ContactPerson.DELETE;
 import static javax.persistence.CascadeType.*;
@@ -20,8 +21,8 @@ import static javax.persistence.CascadeType.*;
                 query = "DELETE FROM ContactPerson cp WHERE cp.id=:id"),
         @NamedQuery(name = BY_ID_WITH_COMPANY,
                 query = "SELECT cp FROM ContactPerson cp LEFT JOIN FETCH cp.company WHERE cp.id=:id"),
-        @NamedQuery(name = ContactPerson.BY_CONTACT_PERSON,
-                query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId OR :companyId ORDER BY cp.fullName"),
+        @NamedQuery(name = BY_CONTACT_PERSON,
+                query = "SELECT cp FROM ContactPerson cp WHERE cp.company.id=:companyId ORDER BY cp.fullName"),
 })
 public class ContactPerson extends AbstractFullNameEntity {
 

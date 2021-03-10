@@ -13,8 +13,8 @@ import static edu.born.overseer.model.Region.DELETE;
         @NamedQuery(name = DELETE,
                 query = "DELETE FROM Region r WHERE r.id=:id"),
         @NamedQuery(name = ALL,
-                query = "SELECT r FROM Region r" +
-                        "WHERE lower(r.title) LIKE lower(concat('%', :title, '%'))" +
+                query = "SELECT r FROM Region r " +
+                        "WHERE (lower(r.title) LIKE lower(concat('%', :title, '%'))) " +
                         "ORDER BY r.title")
 })
 public class Region extends AbstractTitleEntity {

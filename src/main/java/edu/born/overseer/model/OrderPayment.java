@@ -17,9 +17,9 @@ import static edu.born.overseer.model.OrderPayment.DELETE;
 @Table(name = "order_payments")
 @NamedQueries({
         @NamedQuery(name = ALL,
-                query = "SELECT op FROM OrderPayment WHERE (op.date=:date OR :date IS NULL) " +
-                        "AND (op.order.id=:orderId OR :orderId IS NULL)" +
-                        "op ORDER BY op.company.title"),
+                query = "SELECT op FROM OrderPayment op WHERE (op.date=:date OR :date IS NULL) " +
+                        "AND (op.order.id=:orderId OR :orderId IS NULL) " +
+                        "ORDER BY op.company.title"),
         @NamedQuery(name = DELETE,
                 query = "DELETE FROM OrderPayment op WHERE op.id=:id")
 })

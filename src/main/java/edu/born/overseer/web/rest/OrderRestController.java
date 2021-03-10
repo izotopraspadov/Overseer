@@ -4,6 +4,7 @@ import edu.born.overseer.model.Order;
 import edu.born.overseer.repository.OrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -12,32 +13,29 @@ import java.util.List;
 
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static edu.born.overseer.web.rest.OrderRestController.*;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = OrderRestController.REST_URL, produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = REST_URL, produces = APPLICATION_JSON_VALUE)
 public class OrderRestController {
 
     public static final String REST_URL = "/rest/orders";
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final OrderRepository orderRepository;
-
-    public OrderRestController(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
+    @Autowired
+    private OrderRepository orderRepository;
 
     @ResponseStatus(value = CREATED)
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public Order create(@RequestBody Order order) {
         checkNew(order);
         int companyId = order.getCompany().getId();
-        int groupId = order.getCompany().getId();
-        int managerId = order.getCompany().getId();
-        int orderTypeId = order.getCompany().getId();
+        int groupId = order.getGroup().getId();
+        int managerId = order.getManager().getId();
+        int orderTypeId = order.getOrderType().getId();
         log.info("create order {} by company {} by group {} by manager {} by orderType {}", order, companyId, groupId, managerId, orderTypeId);
         return orderRepository.save(order, companyId, groupId, managerId, orderTypeId);
     }
@@ -48,9 +46,9 @@ public class OrderRestController {
                        @PathVariable int id) {
         assureIdConsistent(order, id);
         int companyId = order.getCompany().getId();
-        int groupId = order.getCompany().getId();
-        int managerId = order.getCompany().getId();
-        int orderTypeId = order.getCompany().getId();
+        int groupId = order.getGroup().getId();
+        int managerId = order.getManager().getId();
+        int orderTypeId = order.getOrderType().getId();
         log.info("update order {} by company {} by group {} by manager {} by orderType {}", order, companyId, groupId, managerId, orderTypeId);
         orderRepository.save(order, companyId, groupId, managerId, orderTypeId);
     }
@@ -63,12 +61,14 @@ public class OrderRestController {
     }
 
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = OK)
     public Order getById(@PathVariable int id) {
         log.info("get order {}", id);
         return orderRepository.getById(id);
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = OK)
     public List<Order> getAll(@RequestParam(value = "page", required = false) Integer page,
                               @RequestParam(value = "company_id", required = false) Integer companyId,
                               @RequestParam(value = "cashless", required = false) Boolean cashless,
@@ -77,7 +77,7 @@ public class OrderRestController {
                               @RequestParam(value = "contract_exists", required = false) Boolean contractExists,
                               @RequestParam(value = "planned_start_date", required = false) LocalDate plannedStartDate,
                               @RequestParam(value = "actual_start_date", required = false) LocalDate actualStartDate,
-                              @RequestParam(value = "planned_endDate", required = false) LocalDate plannedEndDate,
+                              @RequestParam(value = "planned_end_date", required = false) LocalDate plannedEndDate,
                               @RequestParam(value = "actual_end_date", required = false) LocalDate actualEndDate,
                               @RequestParam(value = "current_sum", required = false) BigDecimal currentSum,
                               @RequestParam(value = "manager_id", required = false) Integer managerId,

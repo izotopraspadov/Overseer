@@ -5,18 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.transaction.TransactionSystemException;
 
-import static edu.born.overseer.TestUtil.unlimitedPageLength;
 import static edu.born.overseer.data.CompanyTestData.*;
-import static edu.born.overseer.data.ContactPersonTestData.CONTACT_PERSON_1_ID;
-import static edu.born.overseer.data.RegionTestData.REGION_1_ID;
 import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
-import static edu.born.overseer.model.CompanyType.OUR;
-import static edu.born.overseer.model.ReliabilityType.LOW;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CompanyRepositoryImplTest extends AbstractRepositoryTest {
@@ -76,7 +68,7 @@ class CompanyRepositoryImplTest extends AbstractRepositoryTest {
         assertEquals(companyRepository.getById(COMPANY_1_ID), COMPANY_1);
     }
 
-    @Test
+ /*   @Test
     void getByContactPersonId() {
         assertEquals(companyRepository.getByContactPersonId(CONTACT_PERSON_1_ID), COMPANY_1);
     }
@@ -146,6 +138,6 @@ class CompanyRepositoryImplTest extends AbstractRepositoryTest {
                 COMPANY_1,
                 COMPANY_3)
         );
-    }
+    }*/
 
 }
