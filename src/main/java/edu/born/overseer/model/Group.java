@@ -36,9 +36,15 @@ public class Group extends AbstractTitleEntity {
     public Group() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public Group(String title, Set<OrderType> types, String comment) {
+        this(null, title, types, comment);
+    }
+
+    public Group(Integer id, String title, Set<OrderType> types, String comment) {
+        super(id, title);
+        this.types = types;
+        this.comment = comment;
+    }
 
     public Group(Group other) {
         super(other.getId(), other.getTitle());
@@ -60,30 +66,6 @@ public class Group extends AbstractTitleEntity {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    /**
-     * Fluent API
-     **/
-
-    public Group id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Group title(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public Group types(Set<OrderType> types) {
-        this.types = types;
-        return this;
-    }
-
-    public Group comment(String comment) {
-        this.comment = comment;
-        return this;
     }
 
     @Override
@@ -108,5 +90,4 @@ public class Group extends AbstractTitleEntity {
                 "comment='" + comment + ", " +
                 "}\n";
     }
-
 }

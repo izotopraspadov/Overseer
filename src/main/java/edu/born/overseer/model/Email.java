@@ -26,15 +26,26 @@ public class Email extends AbstractContactEntity {
     public Email() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public Email(ContactPerson contactPerson,
+                 Employee employee,
+                 OwnerType ownerType,
+                 String address) {
+        this(null, contactPerson, employee, ownerType, address);
+    }
+
+    public Email(Integer id,
+                 ContactPerson contactPerson,
+                 Employee employee,
+                 OwnerType ownerType,
+                 String address) {
+        super(id, contactPerson, employee, ownerType);
+        this.address = address;
+    }
 
     public Email(Email other) {
         super(other.getId(), other.getContactPerson(), other.getEmployee(), other.getOwnerType());
         this.address = other.getAddress();
     }
-
 
     public String getAddress() {
         return address;
@@ -42,35 +53,6 @@ public class Email extends AbstractContactEntity {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    /**
-     * Fluent API
-     **/
-
-    public Email id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Email contactPerson(ContactPerson contactPerson) {
-        this.contactPerson = contactPerson;
-        return this;
-    }
-
-    public Email employee(Employee employee) {
-        this.employee = employee;
-        return this;
-    }
-
-    public Email ownerType(OwnerType ownerType) {
-        this.ownerType = ownerType;
-        return this;
-    }
-
-    public Email address(String address) {
-        this.address = address;
-        return this;
     }
 
     @Override
@@ -95,5 +77,4 @@ public class Email extends AbstractContactEntity {
                 "ownerType=" + ownerType +
                 "}\n";
     }
-
 }

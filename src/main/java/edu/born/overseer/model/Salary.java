@@ -56,9 +56,24 @@ public class Salary extends AbstractBaseEntity {
     public Salary() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public Salary(Employee employee,
+                  LocalDate startDate,
+                  LocalDate endDate,
+                  BigDecimal amount) {
+        this(null, employee, startDate, endDate, amount);
+    }
+
+    public Salary(Integer id,
+                  Employee employee,
+                  LocalDate startDate,
+                  LocalDate endDate,
+                  BigDecimal amount) {
+        super(id);
+        this.employee = employee;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.amount = amount;
+    }
 
     public Salary(Salary other) {
         super(other.getId());
@@ -100,35 +115,6 @@ public class Salary extends AbstractBaseEntity {
         this.amount = amount;
     }
 
-    /**
-     * Fluent API
-     **/
-
-    public Salary id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Salary employee(Employee employee) {
-        this.employee = employee;
-        return this;
-    }
-
-    public Salary startDate(LocalDate startDate) {
-        this.startDate = startDate;
-        return this;
-    }
-
-    public Salary endDate(LocalDate endDate) {
-        this.endDate = endDate;
-        return this;
-    }
-
-    public Salary amount(BigDecimal amount) {
-        this.amount = amount;
-        return this;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -154,5 +140,4 @@ public class Salary extends AbstractBaseEntity {
                 "amount=" + amount +
                 "}\n";
     }
-
 }

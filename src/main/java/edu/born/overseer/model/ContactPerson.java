@@ -10,8 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static edu.born.overseer.model.ContactPerson.*;
-import static edu.born.overseer.model.ContactPerson.BY_ID_WITH_COMPANY;
-import static edu.born.overseer.model.ContactPerson.DELETE;
 import static javax.persistence.CascadeType.*;
 
 @Entity
@@ -49,9 +47,14 @@ public class ContactPerson extends AbstractFullNameEntity {
     public ContactPerson() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public ContactPerson(String fullName, Company company) {
+        this(null, fullName, company);
+    }
+
+    public ContactPerson(Integer id, String fullName, Company company) {
+        super(id, fullName);
+        this.company = company;
+    }
 
     public ContactPerson(ContactPerson other) {
         super(other.getId(), other.getFullName());
@@ -84,35 +87,6 @@ public class ContactPerson extends AbstractFullNameEntity {
         this.emails = emails;
     }
 
-    /**
-     * Fluent API
-     **/
-
-    public ContactPerson id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public ContactPerson fullName(String fullName) {
-        this.fullName = fullName;
-        return this;
-    }
-
-    public ContactPerson company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public ContactPerson phones(Set<Phone> phones) {
-        this.phones = phones;
-        return this;
-    }
-
-    public ContactPerson emails(Set<Email> emails) {
-        this.emails = emails;
-        return this;
-    }
-
     // equals & hashCode only from parent class
 
     @Override
@@ -122,5 +96,4 @@ public class ContactPerson extends AbstractFullNameEntity {
                 "fullName=" + fullName +
                 "}\n";
     }
-
 }

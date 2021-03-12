@@ -31,9 +31,19 @@ public class PlannedTime extends AbstractTimeEntity {
     public PlannedTime() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public PlannedTime(Order order,
+                       Employee employee,
+                       Integer manHours) {
+        this(null, order, employee, manHours);
+    }
+
+    public PlannedTime(Integer id,
+                       Order order,
+                       Employee employee,
+                       Integer manHours) {
+        super(id, order, employee);
+        this.manHours = manHours;
+    }
 
     public PlannedTime(PlannedTime other) {
         super(other.getId(), other.getOrder(), other.getEmployee());
@@ -46,30 +56,6 @@ public class PlannedTime extends AbstractTimeEntity {
 
     public void setManHours(Integer manHours) {
         this.manHours = manHours;
-    }
-
-    /**
-     * Fluent API
-     **/
-
-    public PlannedTime id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public PlannedTime order(Order order) {
-        this.order = order;
-        return this;
-    }
-
-    public PlannedTime employee(Employee employee) {
-        this.employee = employee;
-        return this;
-    }
-
-    public PlannedTime manHours(Integer manHours) {
-        this.manHours = manHours;
-        return this;
     }
 
     @Override
@@ -93,5 +79,4 @@ public class PlannedTime extends AbstractTimeEntity {
                 "manHours=" + manHours +
                 "}\n";
     }
-
 }

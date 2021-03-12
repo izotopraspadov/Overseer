@@ -52,6 +52,31 @@ public class OrderPayment extends AbstractPaymentEntity {
     public OrderPayment() {
     }
 
+    public OrderPayment(LocalDate date,
+                        BigDecimal transaction,
+                        boolean cashless,
+                        Company company,
+                        Order order,
+                        Company ourCompany,
+                        String comment) {
+        this(null, date, transaction, cashless, company, order, ourCompany, comment);
+    }
+
+    public OrderPayment(Integer id,
+                        LocalDate date,
+                        BigDecimal transaction,
+                        boolean cashless,
+                        Company company,
+                        Order order,
+                        Company ourCompany,
+                        String comment) {
+        super(id, date, transaction, cashless);
+        this.company = company;
+        this.order = order;
+        this.ourCompany = ourCompany;
+        this.comment = comment;
+    }
+
     public Company getCompany() {
         return company;
     }
@@ -84,50 +109,6 @@ public class OrderPayment extends AbstractPaymentEntity {
         this.comment = comment;
     }
 
-    /**
-     * Fluent API
-     **/
-
-    public OrderPayment id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public OrderPayment date(LocalDate date) {
-        this.date = date;
-        return this;
-    }
-
-    public OrderPayment transaction(BigDecimal transaction) {
-        this.transaction = transaction;
-        return this;
-    }
-
-    public OrderPayment cashless(boolean cashless) {
-        this.cashless = cashless;
-        return this;
-    }
-
-    public OrderPayment company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public OrderPayment order(Order order) {
-        this.order = order;
-        return this;
-    }
-
-    public OrderPayment ourCompany(Company ourCompany) {
-        this.ourCompany = ourCompany;
-        return this;
-    }
-
-    public OrderPayment comment(String comment) {
-        this.comment = comment;
-        return this;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -155,5 +136,4 @@ public class OrderPayment extends AbstractPaymentEntity {
                 "comment='" + comment + ", " +
                 "}\n";
     }
-
 }

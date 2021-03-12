@@ -1,90 +1,82 @@
-package edu.born.overseer.repository.implementation;
+package edu.born.overseer.repository.implementation
 
-import edu.born.overseer.repository.OrderRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.TransactionSystemException;
+import edu.born.overseer.data.INVALID_PAYMENT_FORMAT
+import edu.born.overseer.data.OrderData.ORDER_1
+import edu.born.overseer.data.getPreparedOrderCreate
+import edu.born.overseer.model.Order
+import edu.born.overseer.repository.OrderRepository
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.runner.RunWith
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.test.context.jdbc.Sql
+import org.springframework.test.context.jdbc.SqlConfig
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.transaction.TransactionSystemException
+import java.math.BigDecimal.valueOf
+import java.math.RoundingMode
 
-import static edu.born.overseer.data.OrderTestData.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-@SpringJUnitConfig(locations = {"classpath:spring/spring-db.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/population.sql", config = @SqlConfig(encoding = "UTF-8"))
-class OrderRepositoryImplTest {
+internal class OrderRepositoryImplTest: AbstractRepositoryTest() {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private lateinit var orderRepository: OrderRepository
 
     @BeforeEach
-    public void setUp() throws Exception {
-        orderRepository.evictCache();
+    fun setUp() {
+        orderRepository.evictCache()
     }
 
     @Test
-    void create() {
-        var prepared = getPreparedCreate();
+    fun create() {
+        val prepared = getPreparedOrderCreate()
 
-        var companyId = prepared.getCompany().getId();
-        var groupId = prepared.getGroup().getId();
-        var managerId = prepared.getManager().getId();
-        var orderTypeId = prepared.getOrderType().getId();
+        val companyId = prepared.company.id
+        val groupId = prepared.group.id
+        val managerId = prepared.manager.id
+        val orderTypeId = prepared.orderType.id
 
-        var savedId = orderRepository
-                .save(prepared, companyId, groupId, managerId, orderTypeId)
-                .getId();
+        val savedId = orderRepository.save(prepared, companyId, groupId, managerId, orderTypeId).id
+        val received = orderRepository.getById(savedId)
 
-        var received = orderRepository.getById(savedId);
-
-        assertEquals(received, prepared);
+        Assertions.assertEquals(received, prepared)
     }
 
     @Test
-    void createWithInvalidPaymentFormat() {
-        var prepared = getPreparedCreate();
+    fun createWithInvalidPaymentFormat() {
+        val prepared = getPreparedOrderCreate().apply {
+            paymentFormat = INVALID_PAYMENT_FORMAT
+        }
 
-        prepared.setPaymentFormat("100-100");
+        val companyId = prepared.company.id
+        val groupId = prepared.group.id
+        val managerId = prepared.manager.id
+        val orderTypeId = prepared.orderType.id
 
-        var companyId = prepared.getCompany().getId();
-        var groupId = prepared.getGroup().getId();
-        var managerId = prepared.getManager().getId();
-        var orderTypeId = prepared.getOrderType().getId();
-
-        assertThrows(TransactionSystemException.class, () -> orderRepository.save(prepared, companyId, groupId, managerId, orderTypeId));
+        Assertions.assertThrows(TransactionSystemException::class.java) {
+            orderRepository.save(prepared, companyId, groupId, managerId, orderTypeId)
+        }
     }
 
     @Test
-    void update() {
-        var prepared = getPreparedUpdate();
+    fun update() {
+        val prepared = Order(ORDER_1).apply {
+            title = "Updated Project"
+            sum = valueOf(1000000.00).setScale(2, RoundingMode.DOWN)
+            expectedPayment = valueOf(250000.00).setScale(2, RoundingMode.DOWN)
+        }
 
-        var companyId = prepared.getCompany().getId();
-        var groupId = prepared.getGroup().getId();
-        var managerId = prepared.getManager().getId();
-        var orderTypeId = prepared.getOrderType().getId();
+        val companyId = prepared.company.id
+        val groupId = prepared.group.id
+        val managerId = prepared.manager.id
+        val orderTypeId = prepared.orderType.id
 
-        var updated = orderRepository.save(prepared, companyId, groupId, managerId, orderTypeId);
-
-        assertEquals(updated, prepared);
+        val updated = orderRepository.save(prepared, companyId, groupId, managerId, orderTypeId)
+        Assertions.assertEquals(updated, prepared)
     }
 
     @Test
-    void delete() {
-        ORDER_1.getTasks().forEach(e -> e.getEmails().forEach(System.out::println));
+    fun delete() {
     }
-
-    @Test
-    void deleteNotExecute() {
-    }
-
-    @Test
-    void getById() {
-    }
-
 }

@@ -90,9 +90,29 @@ public class Employee extends AbstractFullNameEntity {
     public Employee() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public Employee(String fullName,
+                    Region region,
+                    String login,
+                    String password,
+                    String address,
+                    Set<Role> roles) {
+        this(null, fullName, region, login, password, address, roles);
+    }
+
+    public Employee(Integer id,
+                    String fullName,
+                    Region region,
+                    String login,
+                    String password,
+                    String address,
+                    Set<Role> roles) {
+        super(id, fullName);
+        this.region = region;
+        this.login = login;
+        this.password = password;
+        this.address = address;
+        this.roles = roles;
+    }
 
     public Employee(Employee other) {
         super(other.getId(), other.getFullName());
@@ -179,65 +199,6 @@ public class Employee extends AbstractFullNameEntity {
         this.emails = emails;
     }
 
-    /**
-     * Fluent API
-     **/
-
-    public Employee id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Employee fullName(String fullName) {
-        this.fullName = fullName;
-        return this;
-    }
-
-    public Employee region(Region region) {
-        this.region = region;
-        return this;
-    }
-
-    public Employee login(String login) {
-        this.login = login;
-        return this;
-    }
-
-    public Employee password(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public Employee address(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public Employee roles(Set<Role> roles) {
-        this.roles = roles;
-        return this;
-    }
-
-    public Employee payments(Set<EmployeePayment> payments) {
-        this.payments = payments;
-        return this;
-    }
-
-    public Employee salary(Set<Salary> salary) {
-        this.salary = salary;
-        return this;
-    }
-
-    public Employee phones(Set<Phone> phones) {
-        this.phones = phones;
-        return this;
-    }
-
-    public Employee emails(Set<Email> emails) {
-        this.emails = emails;
-        return this;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -263,5 +224,4 @@ public class Employee extends AbstractFullNameEntity {
                 "roles=" + roles +
                 "}\n";
     }
-
 }

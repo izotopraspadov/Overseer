@@ -1,60 +1,71 @@
-package edu.born.overseer.repository.implementation;
+package edu.born.overseer.repository.implementation
 
-import edu.born.overseer.repository.TaskRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import edu.born.overseer.data.EMPLOYEE_1_ID
+import edu.born.overseer.data.ORDER_1_ID
+import edu.born.overseer.data.OrderData.ORDER_1
+import edu.born.overseer.data.TASK_1_ID
+import edu.born.overseer.data.TaskData.TASK_1
+import edu.born.overseer.data.TaskData.TASK_2
+import edu.born.overseer.data.getPreparedTaskCreateSet
+import edu.born.overseer.model.ResultType.COMPLETED
+import edu.born.overseer.model.Task
+import edu.born.overseer.repository.TaskRepository
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.contains
+import org.hamcrest.core.IsNot.not
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
 
-import static edu.born.overseer.TestUtil.unlimitedPageLength;
-import static edu.born.overseer.data.EmployeeTestData.EMPLOYEE_1_ID;
-import static edu.born.overseer.data.OrderTestData.ORDER_1_ID;
-import static edu.born.overseer.data.TaskTestData.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-class TaskRepositoryImplTest extends AbstractRepositoryTest {
+internal class TaskRepositoryImplTest : AbstractRepositoryTest() {
 
     @Autowired
-    private TaskRepository taskRepository;
+    private lateinit var taskRepository: TaskRepository
 
     @BeforeEach
-    public void setUp() throws Exception {
-        taskRepository.evictCache();
+    fun setUp() {
+        taskRepository.evictCache()
     }
 
     @Test
-    void create() {
-        var prepared = getPreparedCreate();
-        var savedId = taskRepository.save(prepared, ORDER_1_ID, EMPLOYEE_1_ID).getId();
-        prepared.setId(savedId);
+    fun create() {
+        val prepared = getPreparedTaskCreateSet(ORDER_1).first()
+        val savedId = taskRepository.save(prepared, ORDER_1_ID, EMPLOYEE_1_ID).id
+        prepared.id = savedId
 
-        assertEquals(taskRepository.getById(savedId), prepared);
+        assertEquals(taskRepository.getById(savedId), prepared)
     }
 
     @Test
-    void update() {
-        var prepared = getPreparedUpdate();
-        var updated = taskRepository.save(prepared, ORDER_1_ID, EMPLOYEE_1_ID);
-        assertEquals(updated, prepared);
+    fun update() {
+        val prepared = Task(TASK_1).apply {
+            resultType = COMPLETED
+        }
+        val updated = taskRepository.save(prepared, ORDER_1_ID, EMPLOYEE_1_ID)
+
+        assertEquals(updated, prepared)
     }
 
     @Test
-    void delete() {
-        taskRepository.delete(TASK_1_ID);
-        assertThat(taskRepository.getAllByOrder(ORDER_1_ID, unlimitedPageLength()), not(contains(TASK_1)));
+    fun delete() {
+        taskRepository.delete(TASK_1_ID)
+        val tasks = taskRepository.getAllByOrder(1, ORDER_1_ID)
+
+        assertThat(tasks, not(contains(TASK_1)))
     }
 
     @Test
-    void getById() {
-        var received = taskRepository.getById(TASK_1_ID);
-        assertEquals(received, TASK_1);
+    fun getById() {
+        val received = taskRepository.getById(TASK_1_ID)
+
+        assertEquals(received, TASK_1)
     }
 
     @Test
-    void getAllByOrder() {
-        assertThat(taskRepository.getAllByOrder(ORDER_1_ID, unlimitedPageLength()), contains(TASK_1, TASK_2));
-    }
+    fun getAllByOrder() {
+        val tasks = taskRepository.getAllByOrder(1, ORDER_1_ID)
 
+        assertThat(tasks, contains(TASK_1, TASK_2))
+    }
 }

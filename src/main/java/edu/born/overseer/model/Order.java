@@ -15,9 +15,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-import static edu.born.overseer.model.Order.*;
+import static edu.born.overseer.model.Order.ALL;
+import static edu.born.overseer.model.Order.DELETE;
 
 @Entity
 @Table(name = "orders")
@@ -147,9 +150,65 @@ public class Order extends AbstractBaseEntity {
     public Order() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public Order(Company company,
+                 String title,
+                 boolean cashless,
+                 boolean contractIsNeed,
+                 boolean contractExists,
+                 LocalDate plannedStartDate,
+                 LocalDate actualStartDate,
+                 LocalDate plannedEndDate,
+                 LocalDate actualEndDate,
+                 BigDecimal sum,
+                 BigDecimal expectedPayment,
+                 String paymentFormat,
+                 Integer numberOfLines,
+                 Group group,
+                 Employee manager,
+                 boolean underway,
+                 OrderType orderType) {
+        this(null, company, title, cashless, contractIsNeed, contractExists, plannedStartDate, actualStartDate,
+                plannedEndDate, actualEndDate, sum, expectedPayment, paymentFormat, numberOfLines, group,
+                manager, underway, orderType);
+    }
+
+    public Order(Integer id,
+                 Company company,
+                 String title,
+                 boolean cashless,
+                 boolean contractIsNeed,
+                 boolean contractExists,
+                 LocalDate plannedStartDate,
+                 LocalDate actualStartDate,
+                 LocalDate plannedEndDate,
+                 LocalDate actualEndDate,
+                 BigDecimal sum,
+                 BigDecimal expectedPayment,
+                 String paymentFormat,
+                 Integer numberOfLines,
+                 Group group,
+                 Employee manager,
+                 boolean underway,
+                 OrderType orderType) {
+        super(id);
+        this.company = company;
+        this.title = title;
+        this.cashless = cashless;
+        this.contractIsNeed = contractIsNeed;
+        this.contractExists = contractExists;
+        this.plannedStartDate = plannedStartDate;
+        this.actualStartDate = actualStartDate;
+        this.plannedEndDate = plannedEndDate;
+        this.actualEndDate = actualEndDate;
+        this.sum = sum;
+        this.expectedPayment = expectedPayment;
+        this.paymentFormat = paymentFormat;
+        this.numberOfLines = numberOfLines;
+        this.group = group;
+        this.manager = manager;
+        this.underway = underway;
+        this.orderType = orderType;
+    }
 
     public Order(Order other) {
         super(other.getId());
@@ -344,120 +403,6 @@ public class Order extends AbstractBaseEntity {
         this.plannedTime = plannedTime;
     }
 
-    /**
-     * Fluent API
-     **/
-
-    public Order id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Order company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public Order title(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public Order cashless(boolean cashless) {
-        this.cashless = cashless;
-        return this;
-    }
-
-    public Order contractIsNeed(boolean contractIsNeed) {
-        this.contractIsNeed = contractIsNeed;
-        return this;
-    }
-
-    public Order contractExists(boolean contractExists) {
-        this.contractExists = contractExists;
-        return this;
-    }
-
-    public Order plannedStartDate(LocalDate plannedStartDate) {
-        this.plannedStartDate = plannedStartDate;
-        return this;
-    }
-
-    public Order actualStartDate(LocalDate actualStartDate) {
-        this.actualStartDate = actualStartDate;
-        return this;
-    }
-
-    public Order plannedEndDate(LocalDate plannedEndDate) {
-        this.plannedEndDate = plannedEndDate;
-        return this;
-    }
-
-    public Order actualEndDate(LocalDate actualEndDate) {
-        this.actualEndDate = actualEndDate;
-        return this;
-    }
-
-    public Order sum(BigDecimal sum) {
-        this.sum = sum;
-        return this;
-    }
-
-    public Order expectedPayment(BigDecimal expectedPayment) {
-        this.expectedPayment = expectedPayment;
-        return this;
-    }
-
-    public Order paymentFormat(String paymentFormat) {
-        this.paymentFormat = paymentFormat;
-        return this;
-    }
-
-    public Order numberOfLines(Integer numberOfLines) {
-        this.numberOfLines = numberOfLines;
-        return this;
-    }
-
-    public Order group(Group group) {
-        this.group = group;
-        return this;
-    }
-
-    public Order manager(Employee manager) {
-        this.manager = manager;
-        return this;
-    }
-
-    public Order underway(boolean underway) {
-        this.underway = underway;
-        return this;
-    }
-
-    public Order orderType(OrderType orderType) {
-        this.orderType = orderType;
-        return this;
-    }
-
-    public Order payments(Set<OrderPayment> payments) {
-        this.payments = payments;
-        return this;
-    }
-
-    public Order tasks(Set<Task> tasks) {
-        this.tasks = tasks;
-        return this;
-    }
-
-    public Order actualTime(Set<ActualTime> actualTime) {
-        this.actualTime = actualTime;
-        return this;
-    }
-
-    public Order plannedTime(Set<PlannedTime> plannedTime) {
-        this.plannedTime = plannedTime;
-        return this;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -504,5 +449,4 @@ public class Order extends AbstractBaseEntity {
                 "underway=" + underway +
                 "}\n";
     }
-
 }

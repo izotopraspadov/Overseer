@@ -25,26 +25,16 @@ public class Region extends AbstractTitleEntity {
     public Region() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public Region(String title) {
+        super(null, title);
+    }
+
+    public Region(Integer id, String title) {
+        super(id, title);
+    }
 
     public Region(Region other) {
         super(other.getId(), other.getTitle());
-    }
-
-    /**
-     * Fluent API
-     **/
-
-    public Region id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Region title(String title) {
-        this.title = title;
-        return this;
     }
 
     @Override
@@ -54,5 +44,4 @@ public class Region extends AbstractTitleEntity {
                 "title='" + title +
                 "}\n";
     }
-
 }

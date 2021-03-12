@@ -10,3 +10,5 @@ const val REGION_3_ID = START_SEQUENCE + 2
 val REGION_1 = Region(REGION_1_ID, "Vladimirskaya oblast")
 val REGION_2 = Region(REGION_2_ID, "Moscow")
 val REGION_3 = Region(REGION_3_ID, "St. Petersburg")
+
+fun getPreparedRegionCreate() = Region("New region")

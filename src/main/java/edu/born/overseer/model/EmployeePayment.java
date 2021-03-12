@@ -62,9 +62,37 @@ public class EmployeePayment extends AbstractPaymentEntity {
     public EmployeePayment() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public EmployeePayment(LocalDate date,
+                           BigDecimal transaction,
+                           boolean cashless,
+                           Employee employee,
+                           CounterpartyType counterpartyType,
+                           Company companyCounterparty,
+                           Employee employeeCounterparty,
+                           boolean charge,
+                           String comment) {
+        this(null, date, transaction, cashless, employee, counterpartyType,
+                companyCounterparty, employeeCounterparty, charge, comment);
+    }
+
+    public EmployeePayment(Integer id,
+                           LocalDate date,
+                           BigDecimal transaction,
+                           boolean cashless,
+                           Employee employee,
+                           CounterpartyType counterpartyType,
+                           Company companyCounterparty,
+                           Employee employeeCounterparty,
+                           boolean charge,
+                           String comment) {
+        super(id, date, transaction, cashless);
+        this.employee = employee;
+        this.counterpartyType = counterpartyType;
+        this.companyCounterparty = companyCounterparty;
+        this.employeeCounterparty = employeeCounterparty;
+        this.charge = charge;
+        this.comment = comment;
+    }
 
     public EmployeePayment(EmployeePayment other) {
         super(other.getId(), other.getDate(), other.getTransaction(), other.isCashless());
@@ -124,60 +152,6 @@ public class EmployeePayment extends AbstractPaymentEntity {
         this.comment = comment;
     }
 
-    /**
-     * Fluent API
-     **/
-
-    public EmployeePayment id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public EmployeePayment date(LocalDate date) {
-        this.date = date;
-        return this;
-    }
-
-    public EmployeePayment transaction(BigDecimal transaction) {
-        this.transaction = transaction;
-        return this;
-    }
-
-    public EmployeePayment cashless(boolean cashless) {
-        this.cashless = cashless;
-        return this;
-    }
-
-    public EmployeePayment employee(Employee employee) {
-        this.employee = employee;
-        return this;
-    }
-
-    public EmployeePayment counterpartyType(CounterpartyType counterpartyType) {
-        this.counterpartyType = counterpartyType;
-        return this;
-    }
-
-    public EmployeePayment companyCounterparty(Company companyCounterparty) {
-        this.companyCounterparty = companyCounterparty;
-        return this;
-    }
-
-    public EmployeePayment employeeCounterparty(Employee employeeCounterparty) {
-        this.employeeCounterparty = employeeCounterparty;
-        return this;
-    }
-
-    public EmployeePayment charge(boolean charge) {
-        this.charge = charge;
-        return this;
-    }
-
-    public EmployeePayment comment(String comment) {
-        this.comment = comment;
-        return this;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -206,5 +180,4 @@ public class EmployeePayment extends AbstractPaymentEntity {
                 "comment=" + comment +
                 '}';
     }
-
 }

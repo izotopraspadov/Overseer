@@ -1,78 +1,74 @@
-package edu.born.overseer.repository.implementation;
+package edu.born.overseer.repository.implementation
 
-import edu.born.overseer.repository.RegionRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import edu.born.overseer.data.*
+import edu.born.overseer.model.Region
+import edu.born.overseer.repository.RegionRepository
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.DataIntegrityViolationException
+import java.lang.Boolean.FALSE
 
-import static edu.born.overseer.data.RegionTestData.*;
-import static edu.born.overseer.data.TestDataUtil.INVALID_ID;
-import static org.junit.jupiter.api.Assertions.*;
-
-class RegionRepositoryImplTest extends AbstractRepositoryTest {
+internal class RegionRepositoryImplTest : AbstractRepositoryTest() {
 
     @Autowired
-    private RegionRepository regionRepository;
+    private lateinit var regionRepository: RegionRepository
 
     @BeforeEach
-    public void setUp() throws Exception {
-        regionRepository.evictCache();
+    fun setUp() {
+        regionRepository.evictCache()
     }
 
     @Test
-    void create() {
-        var prepared = getPreparedCreate();
-        var savedId = regionRepository.save(prepared).getId();
-        prepared.setId(savedId);
+    fun create() {
+        val prepared = getPreparedRegionCreate()
+        val savedId = regionRepository.save(prepared).id
+        prepared.id = savedId
 
-        assertEquals(regionRepository.getById(savedId), prepared);
+        assertEquals(regionRepository.getById(savedId), prepared)
     }
 
     @Test
-    void createDuplicate() {
-        assertThrows(DataIntegrityViolationException.class, () -> regionRepository.save(getPreparedDuplicate()));
+    fun createDuplicate() {
+        val duplicate = getPreparedRegionCreate().apply {
+            title = "Moscow"
+        }
+
+        assertThrows(DataIntegrityViolationException::class.java) {
+            regionRepository.save(duplicate)
+        }
     }
 
     @Test
-    void update() {
-        var prepared = getPreparedUpdate();
-        var updated = regionRepository.save(prepared);
+    fun update() {
+        val prepared = Region(REGION_1).apply {
+            title = "Updated title"
+        }
+        val updated = regionRepository.save(prepared)
 
-        assertEquals(updated, prepared);
+        assertEquals(updated, prepared)
     }
 
     @Test
-    void delete() {
-        regionRepository.delete(REGION_1_ID);
-        assertNull(regionRepository.getById(REGION_1_ID));
+    fun delete() {
+        regionRepository.delete(REGION_1_ID)
+
+        assertNull(regionRepository.getById(REGION_1_ID))
     }
 
     @Test
-    void deleteNotExecute() {
-        assertEquals(regionRepository.delete(INVALID_ID), Boolean.FALSE);
+    fun deleteNotExecute() {
+        assertEquals(regionRepository.delete(INVALID_ID), FALSE)
     }
 
     @Test
-    void getById() {
-        assertEquals(regionRepository.getById(REGION_1_ID), REGION_1);
+    fun getById() {
+        assertEquals(regionRepository.getById(REGION_1_ID), REGION_1)
     }
 
-  /*  @Test
-    void getAll() {
-        assertThat(regionRepository.getAll(unlimitedPageLength()), contains(REGION_1,
-                REGION_2,
-                REGION_3,
-                REGION_4,
-                REGION_5,
-                REGION_6,
-                REGION_7,
-                REGION_8,
-                REGION_9,
-                REGION_10,
-                REGION_11,
-                REGION_12,
-                REGION_13));
+    @Test
+    fun getAll() {
+        assertEquals(regionRepository.getAll(1, "Mo"), REGION_2)
     }
-*/
 }

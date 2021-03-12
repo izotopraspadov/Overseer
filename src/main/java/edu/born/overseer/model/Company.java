@@ -79,9 +79,32 @@ public class Company extends AbstractBaseEntity {
     public Company() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public Company(String title,
+                   Region region, String itn,
+                   String address,
+                   ReliabilityType reliabilityType,
+                   String chatGroupName,
+                   CompanyType companyType) {
+        this(null, title, region, itn, address, reliabilityType, chatGroupName, companyType);
+    }
+
+    public Company(Integer id,
+                   String title,
+                   Region region,
+                   String itn,
+                   String address,
+                   ReliabilityType reliabilityType,
+                   String chatGroupName,
+                   CompanyType companyType) {
+        super(id);
+        this.title = title;
+        this.region = region;
+        this.itn = itn;
+        this.address = address;
+        this.reliabilityType = reliabilityType;
+        this.chatGroupName = chatGroupName;
+        this.companyType = companyType;
+    }
 
     public Company(Company other) {
         super(other.getId());
@@ -159,55 +182,6 @@ public class Company extends AbstractBaseEntity {
         this.companyType = companyType;
     }
 
-    /**
-     * Fluent API
-     **/
-
-    public Company id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Company title(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public Company region(Region region) {
-        this.region = region;
-        return this;
-    }
-
-    public Company itn(String itn) {
-        this.itn = itn;
-        return this;
-    }
-
-    public Company address(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public Company contactPersons(Set<ContactPerson> contactPersons) {
-        this.contactPersons = contactPersons;
-        return this;
-    }
-
-    public Company reliabilityType(ReliabilityType reliabilityType) {
-        this.reliabilityType = reliabilityType;
-        return this;
-    }
-
-    public Company chatGroupName(String chatGroupName) {
-        this.chatGroupName = chatGroupName;
-        return this;
-    }
-
-    public Company companyType(CompanyType companyType) {
-        this.companyType = companyType;
-        return this;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -239,5 +213,4 @@ public class Company extends AbstractBaseEntity {
                 "typeCompany=" + companyType + ", " +
                 "}\n";
     }
-
 }

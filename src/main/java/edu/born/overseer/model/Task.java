@@ -63,9 +63,30 @@ public class Task extends AbstractBaseEntity {
     public Task() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public Task(Order order,
+                String description,
+                Employee responsible,
+                LocalDate dateCompleted,
+                ResultType resultType,
+                String comment) {
+        this(null, order, description, responsible, dateCompleted, resultType, comment);
+    }
+
+    public Task(Integer id,
+                Order order,
+                String description,
+                Employee responsible,
+                LocalDate dateCompleted,
+                ResultType resultType,
+                String comment) {
+        super(id);
+        this.order = order;
+        this.description = description;
+        this.responsible = responsible;
+        this.dateCompleted = dateCompleted;
+        this.resultType = resultType;
+        this.comment = comment;
+    }
 
     public Task(Task other) {
         super(other.getId());
@@ -134,50 +155,6 @@ public class Task extends AbstractBaseEntity {
         this.emails = emails;
     }
 
-    /**
-     * Fluent API
-     **/
-
-    public Task id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Task order(Order order) {
-        this.order = order;
-        return this;
-    }
-
-    public Task description(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public Task responsible(Employee responsible) {
-        this.responsible = responsible;
-        return this;
-    }
-
-    public Task dateCompleted(LocalDate dateCompleted) {
-        this.dateCompleted = dateCompleted;
-        return this;
-    }
-
-    public Task resultType(ResultType resultType) {
-        this.resultType = resultType;
-        return this;
-    }
-
-    public Task comment(String comment) {
-        this.comment = comment;
-        return this;
-    }
-
-    public Task emails(Set<TaskEmail> emails) {
-        this.emails = emails;
-        return this;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -205,5 +182,4 @@ public class Task extends AbstractBaseEntity {
                 "comment=" + comment + ", " +
                 "}\n";
     }
-
 }

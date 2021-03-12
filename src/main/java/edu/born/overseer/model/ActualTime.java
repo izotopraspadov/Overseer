@@ -10,7 +10,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static edu.born.overseer.model.ActualTime.*;
+import static edu.born.overseer.model.ActualTime.ALL_BY_ORDER;
+import static edu.born.overseer.model.ActualTime.DELETE;
 
 @Entity
 @Table(name = "actual_time", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "order_id"}, name = "actual_time_unique_at_object_idx")})
@@ -43,9 +44,25 @@ public class ActualTime extends AbstractTimeEntity {
     public ActualTime() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public ActualTime(Order order,
+                      Employee employee,
+                      LocalDate date,
+                      Integer actualManHours,
+                      Integer accountManHours) {
+        this(null, order, employee, date, actualManHours, accountManHours);
+    }
+
+    public ActualTime(Integer id,
+                      Order order,
+                      Employee employee,
+                      LocalDate date,
+                      Integer actualManHours,
+                      Integer accountManHours) {
+        super(id, order, employee);
+        this.date = date;
+        this.actualManHours = actualManHours;
+        this.accountManHours = accountManHours;
+    }
 
     public ActualTime(ActualTime other) {
         super(other.getId(), other.getOrder(), other.getEmployee());
@@ -78,40 +95,6 @@ public class ActualTime extends AbstractTimeEntity {
         this.accountManHours = accountManHours;
     }
 
-    /**
-     * Fluent API
-     **/
-
-    public ActualTime id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public ActualTime order(Order order) {
-        this.order = order;
-        return this;
-    }
-
-    public ActualTime employee(Employee employee) {
-        this.employee = employee;
-        return this;
-    }
-
-    public ActualTime date(LocalDate date) {
-        this.date = date;
-        return this;
-    }
-
-    public ActualTime actualManHours(Integer actualManHours) {
-        this.actualManHours = actualManHours;
-        return this;
-    }
-
-    public ActualTime accountManHours(Integer accountManHours) {
-        this.accountManHours = accountManHours;
-        return this;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -137,5 +120,4 @@ public class ActualTime extends AbstractTimeEntity {
                 "accountManHours=" + accountManHours + ", " +
                 "}\n";
     }
-
 }

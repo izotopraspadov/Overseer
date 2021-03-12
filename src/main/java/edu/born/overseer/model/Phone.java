@@ -23,9 +23,14 @@ public class Phone extends AbstractContactEntity {
     public Phone() {
     }
 
-    /**
-     * Cloning constructor
-     **/
+    public Phone(ContactPerson contactPerson, Employee employee, OwnerType ownerType, String number) {
+        this(null, contactPerson, employee, ownerType, number);
+    }
+
+    public Phone(Integer id, ContactPerson contactPerson, Employee employee, OwnerType ownerType, String number) {
+        super(id, contactPerson, employee, ownerType);
+        this.number = number;
+    }
 
     public Phone(Phone other) {
         super(other.getId(), other.getContactPerson(), other.getEmployee(), other.getOwnerType());
@@ -38,35 +43,6 @@ public class Phone extends AbstractContactEntity {
 
     public void setNumber(String number) {
         this.number = number;
-    }
-
-    /**
-     * Fluent API
-     **/
-
-    public Phone id(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Phone contactPerson(ContactPerson contactPerson) {
-        this.contactPerson = contactPerson;
-        return this;
-    }
-
-    public Phone employee(Employee employee) {
-        this.employee = employee;
-        return this;
-    }
-
-    public Phone ownerType(OwnerType ownerType) {
-        this.ownerType = ownerType;
-        return this;
-    }
-
-    public Phone number(String number) {
-        this.number = number;
-        return this;
     }
 
     @Override
@@ -91,5 +67,4 @@ public class Phone extends AbstractContactEntity {
                 "ownerType=" + ownerType +
                 "}\n";
     }
-
 }

@@ -50,7 +50,6 @@ public class TaskEmail {
                     "emailId=" + emailId + ", " +
                     "}\n";
         }
-
     }
 
     @EmbeddedId
@@ -70,6 +69,14 @@ public class TaskEmail {
     private Email email;
 
     public TaskEmail() {
+    }
+
+    public TaskEmail(SendType sendType, Task task, Email email) {
+        this.id.taskId = task.getId();
+        this.id.emailId = email.getId();
+        this.sendType = sendType;
+        this.task = task;
+        this.email = email;
     }
 
     public Id getId() {
@@ -104,32 +111,6 @@ public class TaskEmail {
         this.email = email;
     }
 
-    /**
-     * Fluent API
-     **/
-
-    public TaskEmail id(Id id) {
-        this.id = id;
-        return this;
-    }
-
-    public TaskEmail sendType(SendType sendType) {
-        this.sendType = sendType;
-        return this;
-    }
-
-    public TaskEmail task(Task task) {
-        this.task = task;
-        this.id.taskId = task.getId();
-        return this;
-    }
-
-    public TaskEmail email(Email email) {
-        this.email = email;
-        this.id.emailId = email.getId();
-        return this;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -151,5 +132,4 @@ public class TaskEmail {
                 "sendType=" + sendType +
                 "}\n";
     }
-
 }
