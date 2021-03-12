@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static java.math.RoundingMode.DOWN;
+
 @MappedSuperclass
 public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
 
@@ -32,7 +34,7 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
     protected AbstractPaymentEntity(Integer id, LocalDate date, BigDecimal transaction, boolean cashless) {
         super(id);
         this.date = date;
-        this.transaction = transaction;
+        setTransaction(transaction);
         this.cashless = cashless;
     }
 
@@ -49,7 +51,7 @@ public abstract class AbstractPaymentEntity extends AbstractBaseEntity {
     }
 
     public void setTransaction(BigDecimal transaction) {
-        this.transaction = transaction;
+        this.transaction = transaction.setScale(2, DOWN);
     }
 
     public boolean isCashless() {

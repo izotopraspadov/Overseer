@@ -21,6 +21,7 @@ import java.util.Set;
 
 import static edu.born.overseer.model.Order.ALL;
 import static edu.born.overseer.model.Order.DELETE;
+import static java.math.RoundingMode.DOWN;
 
 @Entity
 @Table(name = "orders")
@@ -200,8 +201,8 @@ public class Order extends AbstractBaseEntity {
         this.actualStartDate = actualStartDate;
         this.plannedEndDate = plannedEndDate;
         this.actualEndDate = actualEndDate;
-        this.sum = sum;
-        this.expectedPayment = expectedPayment;
+        setSum(sum);
+        setExpectedPayment(expectedPayment);
         this.paymentFormat = paymentFormat;
         this.numberOfLines = numberOfLines;
         this.group = group;
@@ -356,11 +357,11 @@ public class Order extends AbstractBaseEntity {
     }
 
     public void setSum(BigDecimal sum) {
-        this.sum = sum;
+        this.sum = sum.setScale(2, DOWN);
     }
 
     public void setExpectedPayment(BigDecimal expectedPayment) {
-        this.expectedPayment = expectedPayment;
+        this.expectedPayment = expectedPayment.setScale(2, DOWN);
     }
 
     public void setPaymentFormat(String paymentFormat) {

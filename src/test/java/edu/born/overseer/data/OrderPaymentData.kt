@@ -9,7 +9,6 @@ import edu.born.overseer.model.Order
 import edu.born.overseer.model.OrderPayment
 import edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE
 import java.math.BigDecimal.valueOf
-import java.math.RoundingMode
 import java.time.LocalDate.now
 import java.time.LocalDate.of
 
@@ -20,7 +19,7 @@ const val ORDER_PAYMENT_3_ID = START_SEQUENCE + 54
 val ORDER_PAYMENT_1 = OrderPayment(
         ORDER_PAYMENT_1_ID,
         of(2019, 9, 11),
-        valueOf(100000.00).setScale(2, RoundingMode.DOWN),
+        valueOf(100000.00),
         true,
         COMPANY_1,
         ORDER_1,
@@ -31,7 +30,7 @@ val ORDER_PAYMENT_1 = OrderPayment(
 val ORDER_PAYMENT_2 = OrderPayment(
         ORDER_PAYMENT_2_ID,
         of(2019, 9, 19),
-        valueOf(100000.00).setScale(2, RoundingMode.DOWN),
+        valueOf(100000.00),
         true,
         COMPANY_2,
         ORDER_3,
@@ -42,7 +41,7 @@ val ORDER_PAYMENT_2 = OrderPayment(
 val ORDER_PAYMENT_3 = OrderPayment(
         ORDER_PAYMENT_3_ID,
         of(2019, 9, 21),
-        valueOf(30000.00).setScale(2, RoundingMode.DOWN),
+        valueOf(30000.00),
         false,
         COMPANY_3,
         ORDER_1,

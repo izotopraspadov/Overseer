@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import static edu.born.overseer.model.Salary.*;
+import static java.math.RoundingMode.DOWN;
 
 @Entity
 @Table(name = "salaries", uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "start_date"}, name = "salaries_unique_employee_start_date_idx")})
@@ -72,7 +73,7 @@ public class Salary extends AbstractBaseEntity {
         this.employee = employee;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.amount = amount;
+        setAmount(amount);
     }
 
     public Salary(Salary other) {
@@ -112,7 +113,7 @@ public class Salary extends AbstractBaseEntity {
     }
 
     public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+        this.amount = amount.setScale(2, DOWN);
     }
 
     @Override

@@ -12,7 +12,6 @@ import edu.born.overseer.data.TaskData.ORDER_3_TASKS
 import edu.born.overseer.model.Order
 import edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE
 import java.math.BigDecimal.valueOf
-import java.math.RoundingMode.DOWN
 import java.time.LocalDate.of
 
 const val ORDER_1_ID = START_SEQUENCE + 49
@@ -31,8 +30,8 @@ object OrderData {
             of(2019, 9, 10),
             of(2019, 10, 1),
             null,
-            valueOf(100000.00).setScale(2, DOWN),
-            valueOf(17000.00).setScale(2, DOWN),
+            valueOf(100000.00),
+            valueOf(17000.00),
             "100",
             null,
             GROUP_1,
@@ -49,8 +48,8 @@ object OrderData {
             of(2019, 9, 10),
             of(2019, 10, 1),
             of(2019, 10, 1),
-            valueOf(200000.00).setScale(2, DOWN),
-            valueOf(0.00).setScale(2, DOWN),
+            valueOf(200000.00),
+            valueOf(0.00),
             "50-50",
             null,
             GROUP_2,
@@ -67,8 +66,8 @@ object OrderData {
             of(2019, 9, 7),
             of(2019, 10, 7),
             null,
-            valueOf(50000.00).setScale(2, DOWN),
-            valueOf(10000.00).setScale(2, DOWN),
+            valueOf(50000.00),
+            valueOf(10000.00),
             "20-20-60",
             null,
             GROUP_3,
@@ -110,8 +109,8 @@ fun getPreparedOrderCreate() = Order(
         of(2019, 9, 10),
         of(2019, 10, 1),
         of(2019, 10, 1),
-        valueOf(100000.00).setScale(2, DOWN),
-        valueOf(17000.00).setScale(2, DOWN),
+        valueOf(100000.00),
+        valueOf(17000.00),
         "50-50",
         null,
         GROUP_1,

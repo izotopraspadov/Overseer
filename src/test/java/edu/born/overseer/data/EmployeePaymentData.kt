@@ -11,8 +11,6 @@ import edu.born.overseer.model.Employee
 import edu.born.overseer.model.EmployeePayment
 import edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE
 import java.math.BigDecimal.valueOf
-import java.math.RoundingMode
-import java.math.RoundingMode.*
 import java.time.LocalDate.now
 import java.time.LocalDate.of
 
@@ -22,19 +20,19 @@ const val EMPLOYEE_PAYMENT_3_ID = START_SEQUENCE + 36
 const val EMPLOYEE_PAYMENT_4_ID = START_SEQUENCE + 37
 
 val EMPLOYEE_PAYMENT_1 = EmployeePayment(EMPLOYEE_PAYMENT_1_ID, of(2019, 10, 1),
-        valueOf(10000.00).setScale(2, DOWN), true, EMPLOYEE_1, COMPANY, COMPANY_1, null,
+        valueOf(10000.00), true, EMPLOYEE_1, COMPANY, COMPANY_1, null,
         true, "$$$")
 
 val EMPLOYEE_PAYMENT_2 = EmployeePayment(EMPLOYEE_PAYMENT_2_ID, of(2019, 10, 1),
-        valueOf(20000.00).setScale(2, DOWN), false, EMPLOYEE_1, EMPLOYEE, null, EMPLOYEE_2,
+        valueOf(20000.00), false, EMPLOYEE_1, EMPLOYEE, null, EMPLOYEE_2,
         false, "Give me %")
 
 val EMPLOYEE_PAYMENT_3 = EmployeePayment(EMPLOYEE_PAYMENT_3_ID, of(2019, 10, 2),
-        valueOf(2000.00).setScale(2, DOWN), false, EMPLOYEE_2, EMPLOYEE, null, EMPLOYEE_3,
+        valueOf(2000.00), false, EMPLOYEE_2, EMPLOYEE, null, EMPLOYEE_3,
         false, null)
 
 val EMPLOYEE_PAYMENT_4 = EmployeePayment(EMPLOYEE_PAYMENT_4_ID, of(2019, 10, 2),
-        valueOf(30000.00).setScale(2, DOWN), true, EMPLOYEE_3, COMPANY, COMPANY_2, null,
+        valueOf(30000.00), true, EMPLOYEE_3, COMPANY, COMPANY_2, null,
         false, null)
 
 val EMPLOYEE_1_PAYMENTS = setOf(EMPLOYEE_PAYMENT_1, EMPLOYEE_PAYMENT_2)
