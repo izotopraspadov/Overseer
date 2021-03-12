@@ -1,4 +1,4 @@
-package edu.born.overseer.repository.implementation
+package edu.born.overseer.repository.impl
 
 import edu.born.overseer.data.EMPLOYEE_1_ID
 import edu.born.overseer.data.ORDER_1_ID

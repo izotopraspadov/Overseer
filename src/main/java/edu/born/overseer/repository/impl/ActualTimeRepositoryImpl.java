@@ -1,4 +1,4 @@
-package edu.born.overseer.repository.implementation;
+package edu.born.overseer.repository.impl;
 
 import edu.born.overseer.model.ActualTime;
 import edu.born.overseer.model.Employee;

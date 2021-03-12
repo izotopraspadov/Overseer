@@ -1,6 +1,5 @@
-package edu.born.overseer.repository.implementation
+package edu.born.overseer.repository.impl
 
-import edu.born.overseer.model.abstraction.AbstractBaseEntity
 import org.junit.runner.RunWith
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.context.jdbc.SqlConfig

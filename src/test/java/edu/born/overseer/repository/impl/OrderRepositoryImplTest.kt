@@ -1,4 +1,4 @@
-package edu.born.overseer.repository.implementation
+package edu.born.overseer.repository.impl
 
 import edu.born.overseer.data.INVALID_PAYMENT_FORMAT
 import edu.born.overseer.data.OrderData.ORDER_1
@@ -8,12 +8,7 @@ import edu.born.overseer.repository.OrderRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.test.context.jdbc.Sql
-import org.springframework.test.context.jdbc.SqlConfig
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.transaction.TransactionSystemException
 import java.math.BigDecimal.valueOf
 import java.math.RoundingMode

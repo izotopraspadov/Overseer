@@ -1,7 +1,7 @@
-package edu.born.overseer.repository.implementation;
+package edu.born.overseer.repository.impl;
 
-import edu.born.overseer.model.Region;
-import edu.born.overseer.repository.RegionRepository;
+import edu.born.overseer.model.Group;
+import edu.born.overseer.repository.GroupRepository;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
@@ -10,56 +10,54 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Objects;
 
 import static edu.born.overseer.util.PageUtil.getFirstByPage;
 import static edu.born.overseer.util.PageUtil.getPageLength;
 
 @Repository
 @Transactional(readOnly = true)
-public class RegionRepositoryImpl implements RegionRepository {
+public class GroupRepositoryImpl implements GroupRepository {
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
     @Transactional
-    @CacheEvict(value = "regions", allEntries = true)
-    public Region save(Region region) {
-        if (region.isNew()) {
-            em.persist(region);
-            return region;
+    @CacheEvict(value = "groups", allEntries = true)
+    public Group save(Group group) {
+        if (group.isNew()) {
+            em.persist(group);
+            return group;
         } else {
-            return em.merge(region);
+            return em.merge(group);
         }
     }
 
     @Override
     @Transactional
-    @CacheEvict(value = "regions", allEntries = true)
+    @CacheEvict(value = "groups", allEntries = true)
     public boolean delete(int id) {
-        return em.createNamedQuery(Region.DELETE)
+        return em.createNamedQuery(Group.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
 
     @Override
-    public Region getById(int id) {
-        return em.find(Region.class, id);
+    public Group getById(int id) {
+        return em.find(Group.class, id);
     }
 
     @Override
-    @Cacheable("regions")
-    public List<Region> getAll(Integer page, String title) {
-        return em.createNamedQuery(Region.ALL, Region.class)
+    @Cacheable("groups")
+    public List<Group> getAll(Integer page) {
+        return em.createNamedQuery(Group.ALL, Group.class)
                 .setFirstResult(getFirstByPage(page))
-                .setParameter("title", Objects.toString(title, ""))
                 .setMaxResults(getPageLength())
                 .getResultList();
     }
 
     @Override
-    @CacheEvict(value = "regions", allEntries = true)
+    @CacheEvict(value = "groups", allEntries = true)
     public void evictCache() {
 
     }
