@@ -4,8 +4,7 @@ import edu.born.overseer.model.OrderPayment;
 import edu.born.overseer.repository.OrderPaymentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -13,23 +12,24 @@ import java.util.List;
 
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
+import static edu.born.overseer.web.rest.OrderPaymentRestController.REST_URL;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = OrderPaymentRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = REST_URL, produces = APPLICATION_JSON_VALUE)
 public class OrderPaymentRestController {
 
     public static final String REST_URL = "/rest/orders/{orderId}/payments";
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final OrderPaymentRepository orderPaymentRepository;
+    @Autowired
+    private OrderPaymentRepository orderPaymentRepository;
 
-    public OrderPaymentRestController(OrderPaymentRepository orderPaymentRepository) {
-        this.orderPaymentRepository = orderPaymentRepository;
-    }
-
-    @ResponseStatus(value = HttpStatus.CREATED)
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = CREATED)
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public OrderPayment create(@RequestBody OrderPayment payment,
                                @PathVariable int orderId) {
         checkNew(payment);
@@ -39,8 +39,8 @@ public class OrderPaymentRestController {
         return orderPaymentRepository.save(payment, orderId, companyId, ourCompanyId);
     }
 
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = NO_CONTENT)
+    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE)
     public void update(@RequestBody OrderPayment payment,
                        @PathVariable int id,
                        @PathVariable int orderId) {
@@ -51,7 +51,7 @@ public class OrderPaymentRestController {
         orderPaymentRepository.save(payment, orderId, companyId, ourCompanyId);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public List<OrderPayment> getAllByOrder(@RequestParam(value = "page", required = false) Integer page,
                                             @RequestParam(value = "date", required = false) LocalDate date,
                                             @RequestParam(value = "order_id", required = false) Integer orderId) {

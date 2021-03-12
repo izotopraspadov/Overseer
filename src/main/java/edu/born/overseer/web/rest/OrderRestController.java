@@ -13,7 +13,7 @@ import java.util.List;
 
 import static edu.born.overseer.util.ValidationUtil.assureIdConsistent;
 import static edu.born.overseer.util.ValidationUtil.checkNew;
-import static edu.born.overseer.web.rest.OrderRestController.*;
+import static edu.born.overseer.web.rest.OrderRestController.REST_URL;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 

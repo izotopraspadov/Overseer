@@ -3,20 +3,22 @@ package edu.born.overseer.web.rest;
 import edu.born.overseer.exception.NoEditingRightsException;
 import edu.born.overseer.model.Employee;
 import edu.born.overseer.util.SecurityUtil;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static edu.born.overseer.web.rest.EmployeeProfileRestController.REST_URL;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
-@RequestMapping(value = EmployeeProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = REST_URL, produces = APPLICATION_JSON_VALUE)
 public class EmployeeProfileRestController extends AbstractEmployeeController {
 
     public static final String REST_URL = "/rest/employees";
 
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = NO_CONTENT)
+    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE)
     public void update(@RequestBody Employee employee,
                        @PathVariable int id) {
         var userId = SecurityUtil.authUserId();
@@ -26,17 +28,17 @@ public class EmployeeProfileRestController extends AbstractEmployeeController {
         super.update(employee, id);
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public Employee getById(@PathVariable int id) {
         return super.getById(id);
     }
 
-    @GetMapping(params = {"login"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"login"}, produces = APPLICATION_JSON_VALUE)
     public Employee getByLogin(@RequestParam("login") String login) {
         return super.getByLogin(login);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public List<Employee> getAll(@RequestParam(value = "page", required = false) Integer page,
                                  @RequestParam(value = "region_id", required = false) Integer regionId,
                                  @RequestParam(value = "address", required = false) String address,
