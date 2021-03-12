@@ -1,4 +1,4 @@
-package edu.born.overseer.data.kot
+package edu.born.overseer.data
 
 import edu.born.overseer.model.OrderType
 import edu.born.overseer.model.abstraction.AbstractBaseEntity.START_SEQUENCE

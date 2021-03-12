@@ -1,11 +1,11 @@
-package edu.born.overseer.data.kot
+package edu.born.overseer.data
 
-import edu.born.overseer.data.kot.ContactPersonData.CONTACT_PERSON_1
-import edu.born.overseer.data.kot.ContactPersonData.CONTACT_PERSON_2
-import edu.born.overseer.data.kot.ContactPersonData.CONTACT_PERSON_3
-import edu.born.overseer.data.kot.EmployeeData.EMPLOYEE_1
-import edu.born.overseer.data.kot.EmployeeData.EMPLOYEE_2
-import edu.born.overseer.data.kot.EmployeeData.EMPLOYEE_3
+import edu.born.overseer.data.ContactPersonData.CONTACT_PERSON_1
+import edu.born.overseer.data.ContactPersonData.CONTACT_PERSON_2
+import edu.born.overseer.data.ContactPersonData.CONTACT_PERSON_3
+import edu.born.overseer.data.EmployeeData.EMPLOYEE_1
+import edu.born.overseer.data.EmployeeData.EMPLOYEE_2
+import edu.born.overseer.data.EmployeeData.EMPLOYEE_3
 import edu.born.overseer.model.ContactPerson
 import edu.born.overseer.model.Email
 import edu.born.overseer.model.Employee
