@@ -5,15 +5,15 @@ import edu.born.overseer.data.OrderData.ORDER_1
 import edu.born.overseer.data.getPreparedOrderCreate
 import edu.born.overseer.model.Order
 import edu.born.overseer.repository.OrderRepository
-import org.junit.jupiter.api.Assertions
+import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.TransactionSystemException
 import java.math.BigDecimal.valueOf
-import java.math.RoundingMode
 
-internal class OrderRepositoryImplTest: AbstractRepositoryTest() {
+internal class OrderRepositoryImplTest : AbstractRepositoryTest() {
 
     @Autowired
     private lateinit var orderRepository: OrderRepository
@@ -35,7 +35,7 @@ internal class OrderRepositoryImplTest: AbstractRepositoryTest() {
         val savedId = orderRepository.save(prepared, companyId, groupId, managerId, orderTypeId).id
         val received = orderRepository.getById(savedId)
 
-        Assertions.assertEquals(received, prepared)
+        assertEquals(received, prepared)
     }
 
     @Test
@@ -49,7 +49,7 @@ internal class OrderRepositoryImplTest: AbstractRepositoryTest() {
         val managerId = prepared.manager.id
         val orderTypeId = prepared.orderType.id
 
-        Assertions.assertThrows(TransactionSystemException::class.java) {
+        assertThrows(TransactionSystemException::class.java) {
             orderRepository.save(prepared, companyId, groupId, managerId, orderTypeId)
         }
     }
@@ -58,8 +58,8 @@ internal class OrderRepositoryImplTest: AbstractRepositoryTest() {
     fun update() {
         val prepared = Order(ORDER_1).apply {
             title = "Updated Project"
-            sum = valueOf(1000000.00).setScale(2, RoundingMode.DOWN)
-            expectedPayment = valueOf(250000.00).setScale(2, RoundingMode.DOWN)
+            sum = valueOf(1000000.00)
+            expectedPayment = valueOf(250000.00)
         }
 
         val companyId = prepared.company.id
@@ -68,10 +68,7 @@ internal class OrderRepositoryImplTest: AbstractRepositoryTest() {
         val orderTypeId = prepared.orderType.id
 
         val updated = orderRepository.save(prepared, companyId, groupId, managerId, orderTypeId)
-        Assertions.assertEquals(updated, prepared)
-    }
 
-    @Test
-    fun delete() {
+        assertEquals(updated, prepared)
     }
 }

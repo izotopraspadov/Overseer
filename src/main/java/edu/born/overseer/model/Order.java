@@ -418,7 +418,7 @@ public class Order extends AbstractBaseEntity {
                 plannedStartDate.equals(otherOrder.plannedStartDate) &&
                 actualStartDate.equals(otherOrder.actualStartDate) &&
                 plannedEndDate.equals(otherOrder.plannedEndDate) &&
-                actualEndDate.equals(otherOrder.actualEndDate) &&
+                Objects.equals(actualEndDate, otherOrder.actualEndDate) &&
                 sum.equals(otherOrder.sum) &&
                 expectedPayment.equals(otherOrder.expectedPayment) &&
                 paymentFormat.equals(otherOrder.paymentFormat);
