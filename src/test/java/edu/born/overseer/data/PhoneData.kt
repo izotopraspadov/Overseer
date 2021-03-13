@@ -55,26 +55,3 @@ fun getPreparedPhoneCreateSet(owner: AbstractFullNameEntity) = when (owner) {
 }
 
 fun getPreparedPhoneUpdateSetByPerson() = setOf(Phone(CONTACT_PERSON_PHONE_1_ID, CONTACT_PERSON_1, null, CONTACT_PERSON, "+7-000-999-99-99"))
-
-fun getPreparedPhoneUpdateSetByEmployee() = setOf(Phone(EMPLOYEE_PHONE_1_ID, null, EMPLOYEE_1, EMPLOYEE, "+7-009-999-99-99"))
-
-/*fun getPreparedCreateInvalidSet(owner: ContactPerson?): kotlin.collections.Set<Phone?>? {
-    return Set.of(Phone()
-            .contactPerson(owner)
-            .ownerType(CONTACT_PERSON)
-            .number(PhoneTestData.INVALID_PHONE_NUMBER)
-    )
-}*/
-
-/*fun getPreparedCreateInvalidSet(owner: Employee?): kotlin.collections.Set<Phone?>? {
-    return Set.of(Phone()
-            .employee(owner)
-            .ownerType(EMPLOYEE)
-            .number(PhoneTestData.INVALID_PHONE_NUMBER)
-    )
-}*/
-
-/*fun getPreparedPhoneCreate() = Phone()
-            .employee(EmployeeTestData.EMPLOYEE_1)
-            .ownerType(EMPLOYEE)
-            .number("+7-000-000-99-99")*/

@@ -12,15 +12,3 @@ val GROUP_2 = Group(GROUP_2_ID, "002", setOf(ORDER_TYPE_3), null)
 val GROUP_3 = Group(GROUP_3_ID, "003", setOf(ORDER_TYPE_4), "Good luck...")
 
 fun getPreparedGroupCreate() = Group("New group", setOf(ORDER_TYPE_1), null)
-
-/*
-fun getPreparedDuplicateCreate(): Group? {
-    return edu.born.overseer.data.kot.getPreparedCreate()
-            .title(GroupTestData.GROUP_1.title) // duplicate
-}
-
-fun edu.born.overseer.data.kot.getPreparedUpdate(): Group? {
-    return Group(GroupTestData.GROUP_1)
-            .comment("New Comment!") // update
-}
-*/

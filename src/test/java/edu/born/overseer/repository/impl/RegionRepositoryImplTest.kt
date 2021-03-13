@@ -1,7 +1,5 @@
 package edu.born.overseer.repository.impl
 
-import edu.born.overseer.TestUtil
-import edu.born.overseer.TestUtil.PAGE_1
 import edu.born.overseer.data.*
 import edu.born.overseer.model.Region
 import edu.born.overseer.repository.RegionRepository

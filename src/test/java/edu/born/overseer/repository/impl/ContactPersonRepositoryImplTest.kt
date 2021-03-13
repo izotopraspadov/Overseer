@@ -10,9 +10,9 @@ import edu.born.overseer.model.ContactPerson
 import edu.born.overseer.model.Email
 import edu.born.overseer.model.Phone
 import edu.born.overseer.repository.ContactPersonRepository
+import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
-import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.TransactionSystemException
 import java.lang.Boolean.FALSE

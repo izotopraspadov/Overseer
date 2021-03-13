@@ -26,9 +26,3 @@ val ORDER_3_ACTUAL_TIME = setOf(ACTUAL_TIME_3)
 fun getPreparedActualTimeCreateSet(order: Order) = setOf(
         ActualTime(order, EMPLOYEE_1, of(2019, 11, 1), 0, 100)
 )
-
-fun getPreparedActualTimeUpdateSet() = setOf(
-        ActualTime(ACTUAL_TIME_1).apply {
-            actualManHours = 20
-        }
-)

@@ -1,13 +1,8 @@
 package edu.born.overseer.repository.impl
 
-import edu.born.overseer.TestUtil
-import edu.born.overseer.TestUtil.PAGE_1
-import edu.born.overseer.data.EMPLOYEE_1_ID
-import edu.born.overseer.data.ORDER_1_ID
+import edu.born.overseer.data.*
 import edu.born.overseer.data.OrderData.ORDER_1
-import edu.born.overseer.data.TASK_1_ID
 import edu.born.overseer.data.TaskData.TASK_1
-import edu.born.overseer.data.getPreparedTaskCreateSet
 import edu.born.overseer.model.ResultType.COMPLETED
 import edu.born.overseer.model.Task
 import edu.born.overseer.repository.TaskRepository

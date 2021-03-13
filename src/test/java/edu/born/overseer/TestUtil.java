@@ -23,8 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUtil {
 
-    public static final int PAGE_1 = 1;
-
     public static String getContent(MvcResult result) throws UnsupportedEncodingException {
         return result.getResponse().getContentAsString();
     }

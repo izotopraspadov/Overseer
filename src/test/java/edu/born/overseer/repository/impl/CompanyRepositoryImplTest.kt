@@ -1,15 +1,14 @@
 package edu.born.overseer.repository.impl
 
-import edu.born.overseer.TestUtil.PAGE_1
 import edu.born.overseer.data.*
 import edu.born.overseer.data.CompanyData.COMPANY_1
 import edu.born.overseer.model.Company
 import edu.born.overseer.repository.CompanyRepository
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.contains
+import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
-import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.transaction.TransactionSystemException

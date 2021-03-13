@@ -50,12 +50,8 @@ val EMPLOYEE_1_EMAILS = setOf(EMPLOYEE_EMAIL_1, EMPLOYEE_EMAIL_2)
 val EMPLOYEE_2_EMAILS = setOf(EMPLOYEE_EMAIL_3)
 val EMPLOYEE_3_EMAILS = setOf(EMPLOYEE_EMAIL_4, EMPLOYEE_EMAIL_5, EMPLOYEE_EMAIL_6)
 
-fun getPreparedEmailUpdateSetByPerson() = setOf(Email(CONTACT_PERSON_EMAIL_1).apply { address = "updated@mail.com" })
-
 fun getPreparedEmailCreateSet(owner: AbstractFullNameEntity) = when (owner) {
     is Employee -> setOf(Email(null, owner, EMPLOYEE, "902@mail.com"))
     is ContactPerson -> setOf(Email(owner, null, CONTACT_PERSON, "901@mail.com"))
     else -> throw IllegalArgumentException()
 }
-
-fun getPreparedEmailUpdateSetByEmployee() = setOf(Email(EMPLOYEE_EMAIL_1).apply { address = "updated@mail.com" })

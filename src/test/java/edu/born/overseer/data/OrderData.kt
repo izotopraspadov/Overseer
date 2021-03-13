@@ -123,23 +123,3 @@ fun getPreparedOrderCreate() = Order(
     actualTime = getPreparedActualTimeCreateSet(this)
     plannedTime = getPreparedPlannedTimeCreateSet(this)
 }
-
-
-/*
-    public static Order getPreparedCreateWithInvalidPaymentFormat() {
-
-        return edu.born.overseer.data.kot.getPreparedCreate()
-                .paymentFormat(INVALID_PAYMENT_FORMAT);
-    }
-
-    public static Order edu.born.overseer.data.kot.getPreparedUpdate() {
-
-        return new Order(ORDER_1)
-                .title("Updated Project")
-                .sum(BigDecimal.valueOf(1000000.00)
-                        .setScale(2, RoundingMode.DOWN))
-                .expectedPayment(BigDecimal.valueOf(250000.00)
-                        .setScale(2, RoundingMode.DOWN));
-    }
-
-* */

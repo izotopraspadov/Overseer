@@ -40,5 +40,5 @@ val EMPLOYEE_2_PAYMENTS = setOf(EMPLOYEE_PAYMENT_3)
 val EMPLOYEE_3_PAYMENTS = setOf(EMPLOYEE_PAYMENT_4)
 
 fun getPreparedEmployeeCreateSet(employee: Employee) = setOf(
-        EmployeePayment(now(), valueOf(100000.00), true, EMPLOYEE_1, COMPANY, null, EMPLOYEE_1, false, null)
+        EmployeePayment(now(), valueOf(100000.00), true, employee, COMPANY, null, EMPLOYEE_1, false, null)
 )
