@@ -39,17 +39,6 @@ val EMPLOYEE_1_SALARIES = setOf(SALARY_1, SALARY_2)
 val EMPLOYEE_2_SALARIES = setOf(SALARY_3)
 val EMPLOYEE_3_SALARIES = setOf(SALARY_4)
 
-fun getPreparedSalaryCreate() = Salary(EMPLOYEE_1, now(), of(2019, 10, 1), valueOf(44000.00))
-
-fun getPreparedSalaryDuplicate() = Salary(EMPLOYEE_1, of(2019, 10, 1), null, valueOf(44000.00))
-
-fun getPreparedSalaryUpdate() = Salary(SALARY_1).apply { amount = valueOf(44000.00) }
+fun getPreparedSalaryCreate() = Salary(EMPLOYEE_1, now(), null, valueOf(44000.00))
 
 fun getPreparedSalaryCreatedSet(employee: Employee) = setOf(Salary(employee, of(2019, 12, 1), null, valueOf(44000.00)))
-
-fun finishCurrentSalary(set: Set<Salary>) {
-    set.stream()
-            .filter { e: Salary -> e.endDate == null }
-            .findFirst()
-            .orElseThrow { NullPointerException() }.endDate = now()
-}
