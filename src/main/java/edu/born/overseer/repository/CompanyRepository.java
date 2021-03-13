@@ -20,7 +20,7 @@ public interface CompanyRepository {
                          Integer contactPersonId,
                          Integer regionId,
                          ReliabilityType reliabilityType,
-                         CompanyType type,
+                         CompanyType companyType,
                          String title,
                          String address,
                          String itn);

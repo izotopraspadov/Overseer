@@ -60,7 +60,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
                                 Integer contactPersonId,
                                 Integer regionId,
                                 ReliabilityType reliabilityType,
-                                CompanyType type,
+                                CompanyType companyType,
                                 String title,
                                 String address,
                                 String itn) {
@@ -70,7 +70,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
                 .setParameter("contactPersonId", contactPersonId)
                 .setParameter("regionId", regionId)
                 .setParameter("reliability", reliabilityType)
-                .setParameter("typeCompany", type)
+                .setParameter("companyType", companyType)
                 .setParameter("title", Objects.toString(title, ""))
                 .setParameter("address", Objects.toString(address, ""))
                 .setParameter("itn", Objects.toString(itn, ""))

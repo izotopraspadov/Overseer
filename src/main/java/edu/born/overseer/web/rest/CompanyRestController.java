@@ -66,7 +66,7 @@ public class CompanyRestController {
                                 @RequestParam(value = "contact_person_id", required = false) Integer contactPersonId,
                                 @RequestParam(value = "region_id", required = false) Integer regionId,
                                 @RequestParam(value = "reliability", required = false) ReliabilityType reliabilityType,
-                                @RequestParam(value = "type", required = false) CompanyType type,
+                                @RequestParam(value = "type", required = false) CompanyType companyType,
                                 @RequestParam(value = "title", required = false) String title,
                                 @RequestParam(value = "address", required = false) String address,
                                 @RequestParam(value = "itn", required = false) String itn) {
@@ -76,7 +76,7 @@ public class CompanyRestController {
                 contactPersonId,
                 regionId,
                 reliabilityType,
-                type,
+                companyType,
                 title,
                 address,
                 itn
