@@ -1,5 +1,6 @@
 package edu.born.overseer.repository.impl
 
+import edu.born.overseer.TestUtil.PAGE_1
 import edu.born.overseer.data.*
 import edu.born.overseer.data.CompanyData.COMPANY_1
 import edu.born.overseer.model.Company
@@ -81,7 +82,7 @@ internal class CompanyRepositoryImplTest : AbstractRepositoryTest() {
     fun getAll() {
         // by page, contactPersonId, regionId
         val companies = companyRepository.getAll(
-                1, CONTACT_PERSON_1_ID, REGION_1_ID, null, null, null, "No st", null)
+                PAGE_1, CONTACT_PERSON_1_ID, REGION_1_ID, null, null, null, "No st", null)
 
         assertThat(companies, contains(COMPANY_1))
     }

@@ -1,11 +1,12 @@
 package edu.born.overseer.repository.impl
 
+import edu.born.overseer.TestUtil
+import edu.born.overseer.TestUtil.PAGE_1
 import edu.born.overseer.data.EMPLOYEE_1_ID
 import edu.born.overseer.data.ORDER_1_ID
 import edu.born.overseer.data.OrderData.ORDER_1
 import edu.born.overseer.data.TASK_1_ID
 import edu.born.overseer.data.TaskData.TASK_1
-import edu.born.overseer.data.TaskData.TASK_2
 import edu.born.overseer.data.getPreparedTaskCreateSet
 import edu.born.overseer.model.ResultType.COMPLETED
 import edu.born.overseer.model.Task
@@ -13,9 +14,9 @@ import edu.born.overseer.repository.TaskRepository
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.contains
 import org.hamcrest.core.IsNot.not
+import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 internal class TaskRepositoryImplTest : AbstractRepositoryTest() {
@@ -64,8 +65,8 @@ internal class TaskRepositoryImplTest : AbstractRepositoryTest() {
 
     @Test
     fun getAllByOrder() {
-        val tasks = taskRepository.getAllByOrder(1, ORDER_1_ID)
+        val tasks = taskRepository.getAllByOrder(PAGE_1, ORDER_1_ID)
 
-        assertThat(tasks, contains(TASK_1, TASK_2))
+        assertThat(tasks, contains(TASK_1))
     }
 }

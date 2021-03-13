@@ -1,5 +1,7 @@
 package edu.born.overseer.repository.impl
 
+import edu.born.overseer.TestUtil
+import edu.born.overseer.TestUtil.PAGE_1
 import edu.born.overseer.data.*
 import edu.born.overseer.data.EmployeeData.EMPLOYEE_1
 import edu.born.overseer.model.Email
@@ -89,6 +91,6 @@ internal class EmployeeRepositoryImplTest : AbstractRepositoryTest() {
     @Test
     fun getAll() {
         // by page, regionId, address, fullName
-        assertThat(employeeRepository.getAll(1, REGION_1_ID, "Zastavs", "Romano"), contains(EMPLOYEE_1))
+        assertThat(employeeRepository.getAll(PAGE_1, REGION_1_ID, "Zastavs", "Romano"), contains(EMPLOYEE_1))
     }
 }
