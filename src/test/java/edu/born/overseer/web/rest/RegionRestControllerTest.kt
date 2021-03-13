@@ -1,38 +1,39 @@
-package edu.born.overseer.web.rest;
+package edu.born.overseer.web.rest
 
-import edu.born.overseer.model.Region;
-import edu.born.overseer.repository.RegionRepository;
-import edu.born.overseer.web.json.JsonUtil;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
+import edu.born.overseer.TestUtil.readFromJsonResultActions
+import edu.born.overseer.TestUtil.userHttpBasic
+import edu.born.overseer.data.EmployeeData.EMPLOYEE_1
+import edu.born.overseer.data.getPreparedRegionCreate
+import edu.born.overseer.model.Region
+import edu.born.overseer.repository.RegionRepository
+import edu.born.overseer.web.json.JsonUtil.writeValue
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType.APPLICATION_JSON
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 
-import static edu.born.overseer.TestUtil.readFromJsonResultActions;
-import static edu.born.overseer.TestUtil.userHttpBasic;
-import static edu.born.overseer.data.EmployeeTestData.EMPLOYEE_5;
-import static edu.born.overseer.data.RegionTestData.getPreparedCreate;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+internal class RegionRestControllerTest : AbstractControllerTest() {
 
-class RegionRestControllerTest extends AbstractControllerTest {
-
-    private static String REST_URL = RegionRestController.REST_URL + '/';
+    companion object {
+        private const val REST_URL = RegionRestController.REST_URL + '/'
+    }
 
     @Autowired
-    private RegionRepository regionRepository;
+    private lateinit var regionRepository: RegionRepository
 
     @Test
-    void create() throws Exception {
-        var prepared = getPreparedCreate();
-        ResultActions action = mockMvc.perform(post(REST_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(prepared))
-                .with(userHttpBasic(EMPLOYEE_5)));
-        var received = readFromJsonResultActions(action, Region.class);
-        System.out.println(JsonUtil.writeValue(prepared));
-        prepared.setId(received.getId());
+    fun create() {
+        val prepared = getPreparedRegionCreate()
 
-        assertEquals(received, prepared);
+        val action = mockMvc.perform(post(REST_URL)
+                .contentType(APPLICATION_JSON)
+                .content(writeValue(prepared))
+                .with(userHttpBasic(EMPLOYEE_1)))
+
+        val received = readFromJsonResultActions(action, Region::class.java)
+        prepared.id = received.id
+
+        assertEquals(received, prepared)
     }
 }

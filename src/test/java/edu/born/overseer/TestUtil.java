@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestUtil {
 
     public static final int PAGE_1 = 1;
-    public static final int DEFAULT_PAGE_LENGTH = 2;
 
     public static String getContent(MvcResult result) throws UnsupportedEncodingException {
         return result.getResponse().getContentAsString();
@@ -72,10 +71,4 @@ public class TestUtil {
     public static ResultMatcher getRestaurantMatcher(Company expected) {
         return result -> assertEquals(readFromJsonMvcResult(result, Company.class), expected);
     }
-
-    public static int unlimitedPageLength() {
-        setPageLength(Integer.MAX_VALUE);
-        return getFirstByPage(PAGE_1);
-    }
-
 }

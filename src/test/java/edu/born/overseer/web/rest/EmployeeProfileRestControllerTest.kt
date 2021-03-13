@@ -1,74 +1,75 @@
-package edu.born.overseer.web.rest;
+package edu.born.overseer.web.rest
 
-import edu.born.overseer.model.Employee;
-import edu.born.overseer.repository.EmployeeRepository;
-import edu.born.overseer.web.json.JsonUtil;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import edu.born.overseer.TestUtil.*
+import edu.born.overseer.data.EMPLOYEE_1_ID
+import edu.born.overseer.data.EmployeeData.EMPLOYEE_1
+import edu.born.overseer.data.EmployeeData.EMPLOYEE_2
+import edu.born.overseer.data.REGION_1_ID
+import edu.born.overseer.model.Employee
+import edu.born.overseer.repository.EmployeeRepository
+import edu.born.overseer.web.json.JsonUtil.writeValue
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType.APPLICATION_JSON
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-import static edu.born.overseer.TestUtil.getMatcher;
-import static edu.born.overseer.TestUtil.userHttpBasic;
-import static edu.born.overseer.data.EmployeeTestData.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+internal class EmployeeProfileRestControllerTest : AbstractControllerTest() {
 
-class EmployeeProfileRestControllerTest extends AbstractControllerTest {
-
-    private static String REST_URL = EmployeeProfileRestController.REST_URL + '/';
+    companion object {
+        private const val REST_URL = EmployeeProfileRestController.REST_URL + '/'
+    }
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private lateinit var employeeRepository: EmployeeRepository
 
     @BeforeEach
-    public void setUp() throws Exception {
-        employeeRepository.evictCache();
+    fun setUp() {
+        employeeRepository.evictCache()
     }
 
     @Test
-    void updateNotAcceptable() throws Exception {
-        var prepared = getPreparedUpdate(); // empl 1
+    fun updateNotAcceptable() {
+        val prepared = Employee(EMPLOYEE_1).apply {
+            fullName = "Updated employee"
+        }
 
         mockMvc.perform(put(REST_URL + EMPLOYEE_1_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(prepared))
-                .with(userHttpBasic(EMPLOYEE_5)))
-                .andExpect(status().isNotAcceptable());
-
+                .contentType(APPLICATION_JSON)
+                .content(writeValue(prepared))
+                .with(userHttpBasic(EMPLOYEE_2)))
+                .andExpect(status().isNotAcceptable)
     }
 
     @Test
-    void update() throws Exception {
-        var prepared = getPreparedUpdate(); // empl 1
-
+    fun update() {
+        val prepared = Employee(EMPLOYEE_1).apply {
+            fullName = "Updated employee"
+        }
         mockMvc.perform(put(REST_URL + EMPLOYEE_1_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(prepared))
+                .contentType(APPLICATION_JSON)
+                .content(writeValue(prepared))
                 .with(userHttpBasic(EMPLOYEE_1)))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isNoContent)
 
-
-        assertEquals(employeeRepository.getById(prepared.getId()), prepared);
+        assertEquals(employeeRepository.getById(prepared.id), prepared)
     }
 
     @Test
-    void all() throws Exception {
-        mockMvc.perform(get(REST_URL)
-//                .param("page", String.valueOf(PAGE_1))
-                .with(userHttpBasic(EMPLOYEE_5)))
-                .andExpect(status().isOk())
+    fun all() {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
+                .param("page", "$PAGE_1")
+                .param("region_id", "$REGION_1_ID")
+                .param("full_name", "Rom")
+                .with(userHttpBasic(EMPLOYEE_1)))
+                .andExpect(status().isOk)
                 .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(getMatcher(Employee.class, EMPLOYEE_4,
-                        EMPLOYEE_6,
-                        EMPLOYEE_5,
-                        EMPLOYEE_1,
-                        EMPLOYEE_3));
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                .andExpect(getMatcher(Employee::class.java, EMPLOYEE_1))
     }
-
 }

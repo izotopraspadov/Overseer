@@ -1,58 +1,61 @@
-package edu.born.overseer.web.rest;
+package edu.born.overseer.web.rest
 
-import edu.born.overseer.model.ContactPerson;
-import edu.born.overseer.repository.ContactPersonRepository;
-import edu.born.overseer.web.json.JsonUtil;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
+import edu.born.overseer.TestUtil.*
+import edu.born.overseer.data.COMPANY_1_ID
+import edu.born.overseer.data.ContactPersonData.CONTACT_PERSON_1
+import edu.born.overseer.data.EmployeeData.EMPLOYEE_1
+import edu.born.overseer.data.getPreparedContactPersonCreate
+import edu.born.overseer.model.ContactPerson
+import edu.born.overseer.repository.ContactPersonRepository
+import edu.born.overseer.web.json.JsonUtil.writeValue
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType.APPLICATION_JSON
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-import static edu.born.overseer.TestUtil.*;
-import static edu.born.overseer.data.CompanyTestData.COMPANY_1_ID;
-import static edu.born.overseer.data.ContactPersonTestData.*;
-import static edu.born.overseer.data.EmployeeTestData.EMPLOYEE_5;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+internal class ContactPersonRestControllerTest : AbstractControllerTest() {
 
-class ContactPersonRestControllerTest extends AbstractControllerTest {
-
-    private static String REST_URL = ContactPersonRestController.REST_URL + '/';
+    companion object {
+        private const val REST_URL = ContactPersonRestController.REST_URL + '/'
+    }
 
     @Autowired
-    private ContactPersonRepository contactPersonRepository;
+    private lateinit var contactPersonRepository: ContactPersonRepository
 
     @BeforeEach
-    public void setUp() throws Exception {
-        contactPersonRepository.evictCache();
+    fun setUp() {
+        contactPersonRepository.evictCache()
     }
 
     @Test
-    void create() throws Exception {
-        var prepared = getPreparedCreate();
-        ResultActions action = mockMvc.perform(post(REST_URL, COMPANY_1_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(prepared))
-                .with(userHttpBasic(EMPLOYEE_5)));
-        var received = readFromJsonResultActions(action, ContactPerson.class);
-        prepared.setId(received.getId());
+    fun create() {
+        val prepared = getPreparedContactPersonCreate()
 
-        assertEquals(received, prepared);
+        val action = mockMvc.perform(post(REST_URL, COMPANY_1_ID)
+                .contentType(APPLICATION_JSON)
+                .content(writeValue(prepared))
+                .with(userHttpBasic(EMPLOYEE_1)))
+
+        val received = readFromJsonResultActions(action, ContactPerson::class.java)
+        prepared.id = received.id
+
+        assertEquals(received, prepared)
     }
 
     @Test
-    void getAllByCompany() throws Exception  {
+    fun getAllByCompany() {
         mockMvc.perform(get(REST_URL, COMPANY_1_ID)
-                .param("page", String.valueOf(PAGE_1))
-                .with(userHttpBasic(EMPLOYEE_5)))
-                .andExpect(status().isOk())
+                .param("page", "$PAGE_1")
+                .with(userHttpBasic(EMPLOYEE_1)))
+                .andExpect(status().isOk)
                 .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(getMatcher(ContactPerson.class, CONTACT_PERSON_1, CONTACT_PERSON_3, CONTACT_PERSON_2));
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                .andExpect(getMatcher(ContactPerson::class.java, CONTACT_PERSON_1))
     }
 }
