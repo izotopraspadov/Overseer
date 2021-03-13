@@ -40,5 +40,3 @@ fun getPreparedContactPersonCreate() = ContactPerson("New Person", COMPANY_1).ap
     emails = getPreparedEmailCreateSet(this)
     phones = getPreparedPhoneCreateSet(this)
 }
-
-fun getPreparedUpdate() = ContactPerson(CONTACT_PERSON_1).apply { fullName = "Updated person" }

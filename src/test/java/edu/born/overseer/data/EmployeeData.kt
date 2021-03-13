@@ -10,9 +10,6 @@ const val EMPLOYEE_1_ID = START_SEQUENCE + 9
 const val EMPLOYEE_2_ID = START_SEQUENCE + 10
 const val EMPLOYEE_3_ID = START_SEQUENCE + 11
 
-const val EMPLOYEE_1_LOGIN = "user"
-const val INVALID_LOGIN = "unknown"
-
 object EmployeeData {
     val EMPLOYEE_1 = Employee(EMPLOYEE_1_ID, "Romanov Roman Romanovich",
             REGION_1, "admin", "admin", "Zastavskaya st. 6", setOf(ROLE_USER, ROLE_ADMIN))
@@ -49,7 +46,3 @@ fun getPreparedEmployeeCreate() = Employee("New Employee", REGION_1, "new_login"
     emails = getPreparedEmailCreateSet(this)
     phones = getPreparedPhoneCreateSet(this)
 }
-
-fun getPreparedEmployeeDuplicate() = getPreparedEmployeeCreate().apply { login = EMPLOYEE_1.login }
-
-fun getPreparedEmployeeUpdate() = Employee(EMPLOYEE_1).apply { fullName = "Updated employee" }

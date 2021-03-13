@@ -8,13 +8,13 @@ import edu.born.overseer.model.Phone
 import edu.born.overseer.repository.EmployeeRepository
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.contains
+import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.security.acls.model.NotFoundException
 import java.lang.Boolean.FALSE
 
 internal class EmployeeRepositoryImplTest : AbstractRepositoryTest() {
@@ -60,11 +60,10 @@ internal class EmployeeRepositoryImplTest : AbstractRepositoryTest() {
         assertEquals(received, prepared)
     }
 
-    @Test
+    @Test(expected = NotFoundException::class)
     fun delete() {
         employeeRepository.delete(EMPLOYEE_1_ID)
-
-        assertNull(employeeRepository.getById(EMPLOYEE_1_ID))
+        employeeRepository.getById(EMPLOYEE_1_ID)
     }
 
     @Test
@@ -79,12 +78,12 @@ internal class EmployeeRepositoryImplTest : AbstractRepositoryTest() {
         assertEquals(received, EMPLOYEE_1)
         assertEquals(received.emails, EMPLOYEE_1_EMAILS)
         assertEquals(received.phones, EMPLOYEE_1_PHONES)
-        assertEquals(received.salary, EMPLOYEE_1_SALARIES)
+        assertEquals(received.salary, EMPLOYEE_1_SALARIES.filter { it.endDate == null }.toSet())
     }
 
     @Test
     fun getByLogin() {
-        assertEquals(employeeRepository.getByLogin(EMPLOYEE_1_LOGIN), EMPLOYEE_1)
+        assertEquals(employeeRepository.getByLogin(EMPLOYEE_1.login), EMPLOYEE_1)
     }
 
     @Test

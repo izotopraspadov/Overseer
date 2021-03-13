@@ -5,6 +5,7 @@ import edu.born.overseer.model.Region;
 import edu.born.overseer.repository.EmployeeRepository;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +52,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     public Employee getById(int id) {
         return em.createNamedQuery(Employee.BY_ID, Employee.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultStream()
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("Not found entity with id = " + id));
     }
 
     @Override
