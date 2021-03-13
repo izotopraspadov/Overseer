@@ -3,9 +3,11 @@ package edu.born.overseer.repository.impl
 import edu.born.overseer.data.*
 import edu.born.overseer.model.Region
 import edu.born.overseer.repository.RegionRepository
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.contains
+import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
 import java.lang.Boolean.FALSE
@@ -69,6 +71,6 @@ internal class RegionRepositoryImplTest : AbstractRepositoryTest() {
 
     @Test
     fun getAll() {
-        assertEquals(regionRepository.getAll(1, "Mo"), REGION_2)
+        assertThat(regionRepository.getAll(1, "Mo"), contains(REGION_2))
     }
 }
