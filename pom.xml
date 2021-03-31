@@ -79,7 +79,7 @@
         <jackson-json.version>2.11.0</jackson-json.version>
         <tomcat.version>9.0.14</tomcat.version>
         <!-- Guava -->
-        <guava.version>28.2-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <!--Tools-->
         <ehcache.version>3.6.1</ehcache.version>
         <!-- Logging -->
