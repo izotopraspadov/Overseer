@@ -7,8 +7,8 @@ import edu.born.overseer.data.getPreparedRegionCreate
 import edu.born.overseer.model.Region
 import edu.born.overseer.repository.RegionRepository
 import edu.born.overseer.web.json.JsonUtil.writeValue
+import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post

@@ -4,13 +4,14 @@ import edu.born.overseer.TestUtil.*
 import edu.born.overseer.data.COMPANY_1_ID
 import edu.born.overseer.data.ContactPersonData.CONTACT_PERSON_1
 import edu.born.overseer.data.EmployeeData.EMPLOYEE_1
+import edu.born.overseer.data.PAGE_1
 import edu.born.overseer.data.getPreparedContactPersonCreate
 import edu.born.overseer.model.ContactPerson
 import edu.born.overseer.repository.ContactPersonRepository
 import edu.born.overseer.web.json.JsonUtil.writeValue
+import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -56,6 +57,6 @@ internal class ContactPersonRestControllerTest : AbstractControllerTest() {
                 .andExpect(status().isOk)
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-                .andExpect(getMatcher(ContactPerson::class.java, CONTACT_PERSON_1))
+                .andExpect(getMatcher(ContactPerson::class.java, *listOf(CONTACT_PERSON_1).toTypedArray()))
     }
 }

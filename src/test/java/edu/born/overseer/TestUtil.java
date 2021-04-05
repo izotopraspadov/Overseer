@@ -15,8 +15,6 @@ import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import static edu.born.overseer.util.PageUtil.getFirstByPage;
-import static edu.born.overseer.util.PageUtil.setPageLength;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,7 +61,7 @@ public class TestUtil {
     }
 
     public static <T> ResultMatcher getMatcher(Class<T> typeClass, T expected) {
-        return result -> assertEquals(readFromJsonMvcResult(result, typeClass), expected);
+        return result -> assertEquals(readFromJsonMvcResult(result, typeClass), contains(expected));
     }
 
     public static ResultMatcher getRestaurantMatcher(Company expected) {

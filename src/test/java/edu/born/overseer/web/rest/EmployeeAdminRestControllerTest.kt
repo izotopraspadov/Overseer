@@ -8,12 +8,13 @@ import edu.born.overseer.data.getPreparedEmployeeCreate
 import edu.born.overseer.model.Employee
 import edu.born.overseer.repository.EmployeeRepository
 import edu.born.overseer.web.json.JsonUtil.writeValue
+import org.junit.Test
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType.APPLICATION_JSON
+import org.springframework.security.acls.model.NotFoundException
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
@@ -66,13 +67,8 @@ internal class EmployeeAdminRestControllerTest : AbstractControllerTest() {
                 .with(userHttpBasic(EMPLOYEE_1)))
                 .andExpect(status().isNoContent)
 
-        assertNull(employeeRepository.getById(EMPLOYEE_1_ID))
-    }
-
-    @Test
-    fun deleteNoRights() {
-        mockMvc.perform(delete(REST_URL + EMPLOYEE_1_ID)
-                .with(userHttpBasic(EMPLOYEE_1)))
-                .andExpect(status().isForbidden)
+        Assertions.assertThrows(NotFoundException::class.java) {
+            employeeRepository.getById(EMPLOYEE_1_ID)
+        }
     }
 }
