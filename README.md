@@ -8,8 +8,6 @@ ___
 
 `Specification`: [_Eng_](docs/specification_eng.md) / [_Ru_](docs/specification_ru.md)
 
-[_API Documentation_](docs/api.md) & [_curls_](docs/curls.md)
-
 #### *Using stack:* 
 
 1. Java
